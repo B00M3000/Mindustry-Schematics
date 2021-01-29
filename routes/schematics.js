@@ -17,3 +17,19 @@ router.get('/:id', (req, res) => {
 })
 
 module.exports = router
+
+let generateColoredHTML = Input => {
+  let HTML = '', OPEN;
+  while (Input) {
+    if (Input.charAt(0) == '[') {
+      HTML += `${OPEN ?'</span>':''}<span style="color:${Input.slice(1, Input.indexOf(']'))}">`;
+      OPEN = true;
+      Input = Input.slice(Input.indexOf(']')+1);
+      continue;
+    }
+    HTML += Input.charAt(0);
+    Input = Input.slice(1);
+  }
+  if (OPEN) HTML += '</span>';
+  return HTML;
+}
