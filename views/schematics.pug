@@ -1,0 +1,18 @@
+doctype html
+head
+  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+  link(rel='stylesheet' href='/css/schematics.css' type='text/css')
+body
+  div#head
+    h1 Schematics
+    hr
+    input#schematics_search(type="text" onkeyup="keyUp()" placeholder="Search for schematics...")
+  div#schematics_result
+    each schematic in schematics
+      - const onclick = `window.location.href="/schematics/${schematic.id}"`
+      div.schematic(onclick=onclick)
+        h2 #{schematic.name}
+          
+  script(src="js/schematics.js")
+
+
