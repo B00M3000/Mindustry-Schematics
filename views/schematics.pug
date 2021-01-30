@@ -13,8 +13,10 @@ body
       div.schematic(onclick=onclick)
         h2 #{schematic.name}
 
-  div#buttons
+  div#bottom
+    button.small(onclick='window.location.href="/"') Back to Home
     button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
+
           
   script(src="js/schematics.js")
 
