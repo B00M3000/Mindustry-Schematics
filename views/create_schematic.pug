@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/create_schematic.css' type='text/css')
+  body
+    h1 Create a Schematic
+    hr
+    form(action="/schematics/create" method="POST")
+      label(for="name") Name:
+      input(type="text" name="name" id="name" required)
+      br
+      label(for="author") Creator:
+      input(type="text" name="author" id="author" required)
+      br
+      label(for="text") Copy Text:
+      input(type="text" name="text" id="text" required)
+      br
+      input(type="submit" name="submit" value="Submit")
+

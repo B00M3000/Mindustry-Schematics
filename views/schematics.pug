@@ -12,6 +12,9 @@ body
       - const onclick = `window.location.href="/schematics/${schematic.id}"`
       div.schematic(onclick=onclick)
         h2 #{schematic.name}
+
+  div#buttons
+    button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
           
   script(src="js/schematics.js")
 

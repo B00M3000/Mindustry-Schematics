@@ -1,4 +1,11 @@
 #head {
-  text-align: center;
   margin-bottom: 5px;
+  text-align: center;
+}
+
+#buttons {
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }

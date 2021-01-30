@@ -1,15 +1,49 @@
 const { Router } = require('express')
 var router = Router()
 
-router.get('/', (req, res) => {
-  res.render('schematics', {        schematics: require('../schematics.json')
+const fs = require('fs')
+
+const schematicSchema = require('../schemas/schematic.js')
+
+router.get('/', async (req, res) => {
+  const schematics = await schematicSchema.find({})
+  res.render('schematics', {
+    schematics
   })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/create', (req, res) => {
+  res.render('create_schematic')
+})
+
+router.post('/create', async (req, res) => {
+  const schematics = await schematicSchema.find({})
+  const { name, author, text } = req.body
+
+  const newSchematic = {
+    name,
+    author,
+    text,
+  }
+
+  do {
+    newSchematic.id = uuid()
+  } while(schematics.find(s => s.id == newSchematic.id))
+
+  console.log(newSchematic)
+
+  await new schematicSchema(newSchematic).save()
+
+  res.redirect("/schematics")
+})
+
+router.get('/:id', async (req, res) => {
   const id = req.params.id;
-  const schematics = require('../schematics.json')
-  const schematic = schematics.find(s => s.id == id)
+  const schematic = await schematicSchema.findOne({
+    id
+  })
+
+  if(!schematic) return res.redirect('/schematics')
 
   res.render('schematic', {
     schematic
@@ -18,18 +52,12 @@ router.get('/:id', (req, res) => {
 
 module.exports = router
 
-let generateColoredHTML = Input => {
-  let HTML = '', OPEN;
-  while (Input) {
-    if (Input.charAt(0) == '[') {
-      HTML += `${OPEN ?'</span>':''}<span style="color:${Input.slice(1, Input.indexOf(']'))}">`;
-      OPEN = true;
-      Input = Input.slice(Input.indexOf(']')+1);
-      continue;
+let uuid = () => {
+    let s4 = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
     }
-    HTML += Input.charAt(0);
-    Input = Input.slice(1);
-  }
-  if (OPEN) HTML += '</span>';
-  return HTML;
+    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
