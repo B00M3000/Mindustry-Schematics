@@ -111,10 +111,18 @@ button:focus {
 }
 
 .schematic img{
-  
+  width: 166px;
+  height: 166px;
+}
+
+.schematic img:after {
+  position: relative;
+  top: 0px;
 }
 
 .schematic .name{
+  position: relative;
+  top: 0px;
   width: 166px;
   white-space: nowrap;
   overflow: hidden;

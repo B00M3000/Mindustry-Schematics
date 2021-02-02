@@ -1,8 +1,6 @@
 const { Router } = require('express')
 var router = Router()
 
-const fs = require('fs')
-
 const schematicSchema = require('../schemas/Schematic.js')
 
 router.get('/', async (req, res) => {
@@ -19,11 +17,16 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
   const { name, author, text } = req.body
+  const { data, mimetype } = req.files.image
 
   const newSchematic = {
     name,
     author,
     text,
+    image: {
+      Data: data,
+      ContentType: mimetype
+    }
   }
 
   do {
@@ -33,6 +36,18 @@ router.post('/create', async (req, res) => {
   await new schematicSchema(newSchematic).save()
 
   res.redirect("/schematics")
+})
+
+router.get('/:id/image', async (req, res) => {
+  const id = req.params.id;
+  const schematic = await schematicSchema.findOne({
+    id
+  })
+
+  if(!schematic) res.sendStatus(404)
+
+  res.type('Content-Type', schematic.image.ContentType)
+  res.send(schematic.image.Data)
 })
 
 router.get('/:id', async (req, res) => {

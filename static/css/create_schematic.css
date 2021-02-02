@@ -1,3 +1,26 @@
 body {
   text-align: center;
 }
+
+#image_preview {
+  margin: auto;
+  margin-top: 10px;
+  width: 166px;
+  height: 166px;
+  border: #888888 solid 2px;
+  text-align: center;
+}
+
+#image_preview img{
+  width: 166px;
+  height: 166px;
+}
+
+.rounded-input {
+  padding:10px;
+  border-radius:10px;
+}
+
+label {
+  margin-right: 5px;
+}

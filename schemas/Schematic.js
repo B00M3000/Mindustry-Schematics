@@ -13,6 +13,10 @@ const schematicSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    Data: Buffer,
+    ContentType: String,
+  },
   id: {
     type: String,
     required: true,

@@ -24,6 +24,8 @@ body
         div
           div.name
             h2 #{schematic.name}
+          - const src = `/schematics/${schematic.id}/image`
+          img(src=src)
 
   div#bottom
     button.small(onclick='window.location.href="/"') Back to Home

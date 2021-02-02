@@ -4,6 +4,7 @@ require('pug')
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
+const fileuploader = require('express-fileupload')
 
 const mongo = require('./mongo.js')
 
@@ -16,6 +17,7 @@ app.set('views','./views');
 app.use(express.static(__dirname + '/static'));
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
+app.use(fileuploader())
 
 app.get('/', (req, res) => {
   res.render('index')
