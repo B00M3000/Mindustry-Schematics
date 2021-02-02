@@ -23,7 +23,7 @@ body
           button.icon(onclick=_delete): img(src="/assets/trash.png") 
         div
           div.name
-            h2 #{schematic.name}
+            h2= schematic.name
           - const src = `/schematics/${schematic.id}/image`
           img(src=src)
 

@@ -4,12 +4,13 @@ head
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
 body
   div#head
-    h1 [Schematic]#{schematic.name}
+    h1= '[Schematic]' + schematic.name
     hr
-    p image and resouce amount goes here
-    h3 by #{schematic.author}
+    - const src = `/schematics/${schematic.id}/image`
+    img(src=src)
+    h3= 'by ' + schematic.author
     h4 Copy the text below to import: 
-    p #{schematic.text}
+    p= schematic.text
 
   div#bottom
     button.small(onclick='window.location.href="/schematics"') Back to Schematics
