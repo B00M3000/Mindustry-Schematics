@@ -40,23 +40,19 @@ async function copy(text) {
   }
 }
 
-  // div#copy_popup
-  //   img(src="assets/paste.png")
-  //   p Copied to Clipboard!
-
 function keyUp() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('schematics_search');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("schematics_result");
-  divs = ul.getElementsByTagName('div');
+  var input = document.getElementById('schematics_search');
+  var results = document.getElementById("schematics_result");
+  var divs = results.getElementsByClassName("schematic")
+  var names = results.getElementsByClassName("name")
 
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < divs.length; i++) {
-    a = divs[i].getElementsByTagName("h2")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  var query = input.value.toUpperCase()
+
+  for (var i = 0; i < names.length; i++) {
+    console.log(i, names)
+    var nameElement = names[i].getElementsByTagName('h2')[0];
+    var name = nameElement.innerText.toUpperCase();
+    if (name.includes(query)) {
       divs[i].style.display = "block";
     } else {
       divs[i].style.display = "none";
