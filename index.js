@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/schematics', require('./routes/schematics'))
+app.use('/tutorials', require('./routes/tutorials'))
 
 // Handle 404
 app.use((req, res) => {

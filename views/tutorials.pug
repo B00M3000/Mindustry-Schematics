@@ -1,0 +1,18 @@
+doctype html
+head
+  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+body(style="text-align: center;")
+  h1 Tutorials 
+  h3 Click the text to open the tutorial.
+  hr
+  each tutorial in tutorials
+    - const onclick = `window.location.href="/tutorials/${tutorial.name}"`
+
+    div.tutorial(onclick=onclick)
+      h2 #{tutorial.title}
+
+    br
+        
+
+  div#bottom
+    button.small(onclick='window.location.href="/"') Back to Home

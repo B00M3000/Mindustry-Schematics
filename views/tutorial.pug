@@ -1,0 +1,19 @@
+doctype html
+head
+  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+body
+  h1 #{title}
+  
+  - var step_number = 1
+  
+  each step of steps
+    h2 Step #{step_number}: #{step.name}
+    img(src=step.image)
+    p #{step.text}
+    
+    - step_number++
+
+  div#bottom
+    button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
+
+
