@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+app.get('/credits', (req, res) => {
+  res.render('credits')
+})
+
 app.use('/schematics', require('./routes/schematics'))
 app.use('/tutorials', require('./routes/tutorials'))
 
