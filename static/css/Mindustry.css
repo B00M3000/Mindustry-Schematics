@@ -5,6 +5,25 @@
     font-style: normal;
 }
 
+@keyframes fly-in-out {
+  0% {
+    top: 0px;
+    opacity: 0;
+  }
+  50% {
+    top: 30px;
+    opacity: 1;
+  }
+  70% {
+    top: 30px;
+    opacity: 1;
+  }
+  100% {
+    top: 30px;
+    opacity: 0;
+  }
+}
+
 body {
   background-color: #222222;
   color: white;
@@ -24,22 +43,38 @@ h2 {
   color: white;
 }
 
+button.icon {
+  padding: 4px;
+  text-decoration: none;
+  background-color: #222222;
+  border: #222222 solid 4px;
+}
+
+button.icon img{
+  width: 24px;
+  height: 24px;
+}
+
 button.small {
-  margin: 10px;
   padding: 5px;
   border-radius: 5px;
   text-decoration: none;
+  border: #888888 solid 4px;
+  background-color: black;
 }
 
 button {
-  border: #888888 solid 5px;
+  font-family: 'Mindustry';
   color: white;
-  background-color: black;
   transition: border 0.2s;
 }
 
 button:hover {
   border-color: #FFD37F;
+}
+
+button:focus {
+  outline: none;
 }
 
 #schematics_search {
@@ -75,6 +110,23 @@ button:hover {
   transition: border 0.2s;
 }
 
+.schematic img{
+  
+}
+
+.schematic .name{
+  width: 166px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: rgba(40, 40, 40, 100)
+}
+
+.schematic h2{
+  font-size: 10px;
+  font-style: thin;
+}
+
 .schematic:hover {
   border-color: #FFD37F;
 }
@@ -91,4 +143,23 @@ hr {
   width: 100%;
   position: fixed;
   bottom: 0;
+}
+
+#copied_popup {
+  padding: 5px;
+  display: flex;
+  position: fixed;
+  right: 20px;
+  align-items: center;
+  background-color: lightgreen;
+  border-radius: 5px;
+
+  animation-name: fly-in-out;
+  animation-duration: 5s;
+}
+
+#copied_popup img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }

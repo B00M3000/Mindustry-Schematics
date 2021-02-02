@@ -1,14 +1,18 @@
 const mongoose = require('mongoose')
 
-const reqString = {
-  type: String,
-  required: true,
-}
-
 const schematicSchema = mongoose.Schema({
-  name: reqString,
-  author: reqString,
-  text: reqString,
+  name: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: String,
+    required: true,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
   id: {
     type: String,
     required: true,

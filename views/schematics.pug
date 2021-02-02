@@ -7,17 +7,28 @@ body
     h1 Schematics
     hr
     input#schematics_search(type="text" onkeyup="keyUp()" placeholder="Search for schematics...")
+
   div#schematics_result
     each schematic in schematics
-      - const onclick = `window.location.href="/schematics/${schematic.id}"`
-      div.schematic(onclick=onclick)
-        h2 #{schematic.name}
+      - const info = `window.location.href="/schematics/${schematic.id}/info"`
+      - const copy = `copy("${schematic.text}")`
+      - const edit = `window.location.href="/schematics/${schematic.id}/edit"`
+      - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+
+      div.schematic
+        div.tools
+          button.icon(onclick=info): img(src="/assets/info.png")
+          button.icon(onclick=copy): img(src="/assets/copy.png")
+          button.icon(onclick=edit): img(src="/assets/pencil.png")
+          button.icon(onclick=_delete): img(src="/assets/trash.png") 
+        div
+          div.name
+            h2 #{schematic.name}
 
   div#bottom
     button.small(onclick='window.location.href="/"') Back to Home
     button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
-
           
-  script(src="js/schematics.js")
+  script(src="/js/schematics.js")
 
 

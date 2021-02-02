@@ -3,7 +3,7 @@ var router = Router()
 
 const fs = require('fs')
 
-const schematicSchema = require('../schemas/schematic.js')
+const schematicSchema = require('../schemas/Schematic.js')
 
 router.get('/', async (req, res) => {
   const schematics = await schematicSchema.find({})
@@ -30,8 +30,6 @@ router.post('/create', async (req, res) => {
     newSchematic.id = uuid()
   } while(schematics.find(s => s.id == newSchematic.id))
 
-  console.log(newSchematic)
-
   await new schematicSchema(newSchematic).save()
 
   res.redirect("/schematics")
@@ -39,15 +37,28 @@ router.post('/create', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const id = req.params.id;
+  res.redirect(`/schematics/${id}/info`)
+})
+
+router.use('/:id/info', async (req, res) => {
+  const id = req.params.id;
   const schematic = await schematicSchema.findOne({
     id
   })
 
   if(!schematic) return res.redirect('/schematics')
 
-  res.render('schematic', {
+  res.render('schematic_info', {
     schematic
   })
+})
+
+router.get('/:id/edit', async (req, res) => {
+  res.send('Work in Progress...')
+})
+
+router.get('/:id/delete', async (req, res) => {
+  res.send('Work in Progress...')
 })
 
 module.exports = router
