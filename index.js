@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const fileuploader = require('express-fileupload')
+const path = require('path')
 
 const mongo = require('./mongo.js')
 
@@ -27,8 +28,17 @@ app.get('/credits', (req, res) => {
   res.render('credits')
 })
 
+app.get('/images/:name', (req, res) => {
+  const { name } = req.params
+  
+  const fullpath = path.join(__dirname, "/static/assets", name)
+  
+  res.sendFile(fullpath)
+})
+
 app.use('/schematics', require('./routes/schematics'))
 app.use('/tutorials', require('./routes/tutorials'))
+app.use('/admin', require('./routes/admin'))
 
 // Handle 404
 app.use((req, res) => {

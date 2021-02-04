@@ -2,6 +2,7 @@ const { Router } = require('express')
 var router = Router()
 
 const schematicSchema = require('../schemas/Schematic.js')
+const schematicChangeSchema = require('../schemas/SchematicChange.js')
 
 router.get('/', async (req, res) => {
   const schematics = await schematicSchema.find({})
@@ -38,11 +39,18 @@ router.post('/create', async (req, res) => {
   res.redirect("/schematics")
 })
 
+router.param('id', async (req, res, next, id) => {
+  const schematic = await schematicSchema.findOne({ id })
+  
+  if(!schematic) return res.redirect('/schematics')
+  
+  req.schematic = schematic
+  
+  next()
+})
+
 router.get('/:id/image', async (req, res) => {
-  const id = req.params.id;
-  const schematic = await schematicSchema.findOne({
-    id
-  })
+  const { schematic } = req
 
   if(!schematic) res.sendStatus(404)
 
@@ -51,17 +59,12 @@ router.get('/:id/image', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const id = req.params.id;
-  res.redirect(`/schematics/${id}/info`)
+  const { schematic } = req
+  res.redirect(`/schematics/${schematic.id}/info`)
 })
 
 router.use('/:id/info', async (req, res) => {
-  const id = req.params.id;
-  const schematic = await schematicSchema.findOne({
-    id
-  })
-
-  if(!schematic) return res.redirect('/schematics')
+  const { schematic } = req
 
   res.render('schematic_info', {
     schematic
@@ -69,11 +72,63 @@ router.use('/:id/info', async (req, res) => {
 })
 
 router.get('/:id/edit', async (req, res) => {
-  res.send('Work in Progress...')
+  const { schematic } = req
+  
+  res.render('edit_schematic', {
+    schematic
+  })
+})
+
+router.post('/:id/edit', async (req, res) => {
+  const { schematic } = req
+  const { id } = schematic
+  schematic.id = undefined;
+  
+  const { name, author, text } = req.body
+  const { data, mimetype } = req.files.image
+  
+  const schematicChange = {
+    Original: schematic,
+    Changed: {
+      name,
+      author,
+      text,
+      image: {
+        Data: data,
+        ContentType: mimetype
+      }
+    },
+    id
+  }
+
+  await new schematicChangeSchema(schematicChange).save()
+
+  res.redirect("/schematics")
 })
 
 router.get('/:id/delete', async (req, res) => {
-  res.send('Work in Progress...')
+  const { schematic } = req
+  
+  res.render('delete_schematic', {
+    schematic
+  })
+})
+
+router.post('/:id/delete', async (req, res) => {
+  const { schematic } = req
+  const { reason } = req.body
+  const { id } = schematic
+  schematic.id = undefined;
+  
+  const schematicChange = {
+    Original: schematic,
+    Delete: reason,
+    id
+  }
+  
+  await new schematicChangeSchema(schematicChange).save()
+  
+  res.redirect('/schematics')
 })
 
 module.exports = router

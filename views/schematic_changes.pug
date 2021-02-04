@@ -1,0 +1,33 @@
+doctype html
+head
+  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+body
+  h1 Schematic Changes
+  hr
+  each change in changes
+    - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
+
+    div.change(onclick=onclick)
+      if change.Delete
+        div.schematic
+          div.name
+            h2
+              span(style="color: red") DELETE
+              = " " + change.Original.name
+            - const src = `/schematics/${change.Original.id}/image`
+            img(src=src)
+      else
+        div.schematic
+          div.name
+            h2
+              span(style="color: green") MODIFY
+              = " " + change.Original.name
+            - const src = `/schematics/${change.Original.id}/image`
+            img(src=src)
+
+  div#bottom
+    button.small(onclick='window.location.href="/admin"') Back to Admin Panel
+          
+  script(src="/js/schematics.js")
+
+

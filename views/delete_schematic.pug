@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+  body
+    h1 Delete a Schematic
+    hr
+    - const action = `/schematics/${schematic.id}/delete`
+    form(action=action method="POST" encType="multipart/form-data")
+      textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why do you think this schematic should be removed?" required)
+      br
+      input.rounded-input(type="submit" name="submit" value="Submit Deletion Request")
+    div#bottom
+      button.small(onclick='window.location.href="/schematics"') Back Schematics
+
+    script(src="/js/edit_schematic.js")

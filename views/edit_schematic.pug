@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+  body
+    h1 Edit a Schematic
+    hr
+    - const action = `/schematics/${schematic.id}/edit`
+    form(action=action method="POST" encType="multipart/form-data")
+      input.rounded-input(type="text" name="name" id="name" placeholder="Name" value=schematic.name required)
+      br
+      input.rounded-input(type="text" name="author" id="author" placeholder="Creator" value=schematic.author required)
+      br
+      label(for="image") For now you will have to retake a screenshot: 
+      input.rounded-input(type="file" name="image" id="image" accept="image/*" required)
+      div#image_preview
+      
+      br
+      textarea.rounded-input(type="text" name="text" id="text" placeholder="Copy Paste Text" required)= schematic.text
+      br
+      input.rounded-input(type="submit" name="submit" value="Submit Edit Request")
+    div#bottom
+      button.small(onclick='window.location.href="/schematics"') Back Schematics
+
+    script(src="/js/edit_schematic.js")
