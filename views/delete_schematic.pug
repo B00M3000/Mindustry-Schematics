@@ -6,7 +6,14 @@ html
   body
     h1 Delete a Schematic
     hr
-    - const action = `/schematics/${schematic.id}/delete`
+
+    h1= '[Schematic]' + schematic.name
+    hr
+    - const src = `/schematics/${schematic.id}/image`
+    img(src=src width="166px" height="166px")
+    h3= 'by ' + schematic.author
+    h4= 'Description: ' + schematic.description
+
     form(action=action method="POST" encType="multipart/form-data")
       textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why do you think this schematic should be removed?" required)
       br

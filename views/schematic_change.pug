@@ -15,9 +15,10 @@ body
     
     h1= "Name: " + change.Original.name
     
-    - const src = `/schematics/${change.Original.id}/image`
+    - const src = `/schematics/${change.id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + change.Original.author
+    h4= 'Description: ' + change.Original.description
     h4 Copy the text below to import: 
     p= change.Original.text
   else
@@ -33,6 +34,7 @@ body
         - const srcO = `/schematics/${change.id}/image`
         img(src=srcO width="166px" height="166px")
         h3= 'by ' + change.Original.author
+        h4= 'Description: ' + change.Original.description
         h4 Original schematic Text: 
         p= change.Original.text
         
@@ -41,11 +43,14 @@ body
       div.right
         h2= "Name: " + change.Changed.name
       
-        - const srcC = `/schematics/${change.id}/image`
+        - const srcC = `/admin/schematic_changes/${change._id}/image/Changed`
         img(src=srcC width="166px" height="166px")
         h3= 'by ' + change.Changed.author
+        h4= 'Description: ' + change.Changed.description
         h4 New Schematic Text: 
         p= change.Changed.text
+        
+      h4= "What and Why: " + change.Description
       
       
 

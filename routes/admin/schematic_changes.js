@@ -59,4 +59,11 @@ router.get('/:_id/decline', async (req, res) => {
   res.redirect('/admin/schematic_changes')
 })
 
+router.get('/:_id/image/Changed', async (req, res) => {
+  const { change } = req
+  
+  res.type('Content-Type', change.Changed.image.ContentType)
+  res.send(change.Changed.image.Data)
+})
+
 module.exports = router

@@ -19,7 +19,14 @@ html
       br
       textarea.rounded-input(type="text" name="text" id="text" placeholder="Copy Paste Text" required)= schematic.text
       br
+      textarea.rounded-input(type="text" name="description" id="description" placeholder="Description" required)= schematic.description
+      br
+      textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what was changed and why?" required)
+      br
       input.rounded-input(type="submit" name="submit" value="Submit Edit Request")
+      br
+      br
+      br
     div#bottom
       button.small(onclick='window.location.href="/schematics"') Back Schematics
 

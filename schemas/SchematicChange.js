@@ -5,6 +5,7 @@ const schematicChangeSchema = mongoose.Schema({
     name: String,
     author: String,
     text: String,
+    description: String,
     image: {
       Data: Buffer,
       ContentType: String,
@@ -14,11 +15,14 @@ const schematicChangeSchema = mongoose.Schema({
     name: String,
     author: String,
     text: String,
+    description: String,
     image: {
       Data: Buffer,
       ContentType: String,
     }
   },
+  
+  Description: String,
   
   Delete: String,
   

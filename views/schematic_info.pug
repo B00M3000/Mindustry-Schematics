@@ -9,10 +9,12 @@ body
     - const src = `/schematics/${schematic.id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + schematic.author
+    h4= 'Description: ' + schematic.description
     h4 Copy the text below to import: 
     p= schematic.text
 
   div#bottom
     button.small(onclick='window.location.href="/schematics"') Back to Schematics
-
+    button.small(onclick='window.location.href="/schematics"') Request a Change
+    button.small(onclick='window.location.href="/schematics"') Request Deletion
 

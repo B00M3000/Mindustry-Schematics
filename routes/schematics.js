@@ -17,13 +17,14 @@ router.get('/create', (req, res) => {
 
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
-  const { name, author, text } = req.body
+  const { name, author, text, description } = req.body
   const { data, mimetype } = req.files.image
 
   const newSchematic = {
     name,
     author,
     text,
+    description,
     image: {
       Data: data,
       ContentType: mimetype
@@ -51,8 +52,6 @@ router.param('id', async (req, res, next, id) => {
 
 router.get('/:id/image', async (req, res) => {
   const { schematic } = req
-
-  if(!schematic) res.sendStatus(404)
 
   res.type('Content-Type', schematic.image.ContentType)
   res.send(schematic.image.Data)
@@ -84,7 +83,7 @@ router.post('/:id/edit', async (req, res) => {
   const { id } = schematic
   schematic.id = undefined;
   
-  const { name, author, text } = req.body
+  const { name, author, text, description, cDescription } = req.body
   const { data, mimetype } = req.files.image
   
   const schematicChange = {
@@ -93,11 +92,13 @@ router.post('/:id/edit', async (req, res) => {
       name,
       author,
       text,
+      description,
       image: {
         Data: data,
         ContentType: mimetype
       }
     },
+    Description: cDescription,
     id
   }
 

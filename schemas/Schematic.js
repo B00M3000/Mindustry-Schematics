@@ -17,6 +17,10 @@ const schematicSchema = mongoose.Schema({
     Data: Buffer,
     ContentType: String,
   },
+  description: {
+    type: String,
+    required: true
+  },
   id: {
     type: String,
     required: true,
