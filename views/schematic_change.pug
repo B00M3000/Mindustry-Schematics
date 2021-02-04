@@ -47,8 +47,17 @@ body
         h4 New Schematic Text: 
         p= change.Changed.text
       
+      
 
   div#bottom
+    - const view = `window.location.href="/schematics/${change.id}/info"`
+    - const accept = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
+    - const decline = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
+    
     button.small(onclick='window.location.href="/admin/schematic_changes"') Back to Schematic Changes
+    button.small(onclick=view) View
+    button.small(onclick=accept) Accept
+    button.small(onclick=decline) Decline
+    
 
 
