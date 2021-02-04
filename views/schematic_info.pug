@@ -14,7 +14,10 @@ body
     p= schematic.text
 
   div#bottom
+    - const change = `window.location.href="/schematics/${schematic.id}/edit"
+    - const delete = `window.location.href="/schematics/${schematic.id}/delete"
+
     button.small(onclick='window.location.href="/schematics"') Back to Schematics
-    button.small(onclick='window.location.href="/schematics"') Request a Change
-    button.small(onclick='window.location.href="/schematics"') Request Deletion
+    button.small(onclick=change) Request a Change
+    button.small(onclick=delete) Request Deletion
 
