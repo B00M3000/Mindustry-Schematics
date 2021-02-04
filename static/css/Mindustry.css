@@ -65,6 +65,7 @@ button.small {
 
 button {
   font-family: 'Mindustry';
+  font-size: 16px;
   color: white;
   transition: border 0.2s;
 }
