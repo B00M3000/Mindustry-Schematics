@@ -51,9 +51,11 @@ body
         p= change.Changed.text
         
       h4= "What and Why: " + change.Description
+    
+    br
+    br
+    br
       
-      
-
   div#bottom
     - const view = `window.location.href="/schematics/${change.id}/info"`
     - const accept = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
