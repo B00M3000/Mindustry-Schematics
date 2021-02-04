@@ -14,7 +14,7 @@ body
             h2
               span(style="color: red") DELETE
               = " " + change.Original.name
-            - const src = `/schematics/${change.Original.id}/image`
+            - const src = `/schematics/${change.id}/image`
             img(src=src)
       else
         div.schematic
@@ -22,7 +22,7 @@ body
             h2
               span(style="color: green") MODIFY
               = " " + change.Original.name
-            - const src = `/schematics/${change.Original.id}/image`
+            - const src = `/schematics/${change.id}/image`
             img(src=src)
 
   div#bottom
