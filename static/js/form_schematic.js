@@ -21,12 +21,9 @@ if(upload && preview){
   upload.addEventListener('change', update_preview);
 
   window.addEventListener('paste', e => {
-    const target = e.target
-    const tagName = target.tagName
-    const idValue = (target.attributes.id) ? target.attributes.id.value : undefined
-
-    if(target.tagName == "TEXTAREA" || tagName == "INPUT" && idValue != "image") return
-    upload.files = e.clipboardData.files;
-    update_preview()
+    if(e.clipboardData.files.length > 0 ) {
+      upload.files = e.clipboardData.files;
+      update_preview()
+    }
   });
 }
