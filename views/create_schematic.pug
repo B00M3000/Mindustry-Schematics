@@ -11,8 +11,8 @@ html
       br
       input.rounded-input(type="text" name="author" id="author" placeholder="Creator" required)
       br
-      label(for="image") Upload a Image
-      input.rounded-input(type="file" name="image" id="image" accept="image/*" required)
+      label(for="image_upload") Upload a Image
+      input#image.rounded-input(type="file" name="image" accept="image/*" required)
       div#image_preview
       
       br
@@ -27,4 +27,4 @@ html
     div#bottom
       button.small(onclick='window.location.href="/schematics"') Back Schematics
 
-    script(src="/js/create_scheamatic.js")
+    script(src="/js/form_schematic.js")
