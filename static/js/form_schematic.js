@@ -21,7 +21,9 @@ if(upload && preview){
   upload.addEventListener('change', update_preview);
 
   window.addEventListener('paste', e => {
-    console.log(e.clipboardData.files)
+    const target = e.target
+    console.log(target.tagName)
+    if(target.tagName == "TEXTAREA" || target.tagName == "INPUT" && target.attributes.id == "image") return
     upload.files = e.clipboardData.files;
     update_preview()
   });
