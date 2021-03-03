@@ -58,11 +58,6 @@ router.get('/:id/image', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-  const { schematic } = req
-  res.redirect(`/schematics/${schematic.id}/info`)
-})
-
-router.use('/:id/info', async (req, res) => {
   var { schematic } = req
   
   schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
@@ -72,8 +67,6 @@ router.use('/:id/info', async (req, res) => {
   }, {
     new: true
   })
-  
-  console.log(schematic)
 
   res.render('schematic_info', {
     schematic

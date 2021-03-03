@@ -12,7 +12,7 @@ body
 
   div#schematics_result
     each schematic in schematics
-      - const info = `window.location.href="/schematics/${schematic.id}/info"`
+      - const info = `window.location.href="/schematics/${schematic.id}"`
       - const copy = `copy("${schematic.text}")`
       - const edit = `window.location.href="/schematics/${schematic.id}/edit"`
       - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
