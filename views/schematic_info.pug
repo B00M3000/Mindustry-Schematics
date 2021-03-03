@@ -2,13 +2,22 @@ doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
+
+  - const imageSrc = `/schematics/${schematic.id}/image`
+
+  meta(property="og:title" content=schematic.name)
+  meta(property="og:description" content=schematic.description)
+
+  meta(property="og:image" content=imageSrc)
+  meta(property="og:type" content="website")
+  meta(property="og:url" content=schematic.url)
+  meta(property="og:site_name" content="Mindustry Schematics Database")
 body
   div#head
     h1= '[Schematic]' + schematic.name
     h5= 'Views: ' + schematic.views
     hr
-    - const src = `/schematics/${schematic.id}/image`
-    img(src=src width="166px" height="166px")
+    img(src=imageSrc)
     h3= 'by ' + schematic.author
     h4= 'Description: ' + schematic.description
     h4 Copy the text below to import or click the copy button below: 

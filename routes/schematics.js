@@ -59,6 +59,8 @@ router.get('/:id/image', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   var { schematic } = req
+
+  console.log(schematic.url)
   
   schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
     $inc: {
