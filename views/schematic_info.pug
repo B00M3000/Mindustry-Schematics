@@ -5,6 +5,7 @@ head
 body
   div#head
     h1= '[Schematic]' + schematic.name
+    h5= 'Views: ' + schematic.views
     hr
     - const src = `/schematics/${schematic.id}/image`
     img(src=src width="166px" height="166px")

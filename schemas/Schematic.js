@@ -25,6 +25,11 @@ const schematicSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  views: {
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 

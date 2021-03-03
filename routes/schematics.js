@@ -63,7 +63,17 @@ router.get('/:id', async (req, res) => {
 })
 
 router.use('/:id/info', async (req, res) => {
-  const { schematic } = req
+  var { schematic } = req
+  
+  schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
+    $inc: {
+      views: 1
+    }
+  }, {
+    new: true
+  })
+  
+  console.log(schematic)
 
   res.render('schematic_info', {
     schematic
