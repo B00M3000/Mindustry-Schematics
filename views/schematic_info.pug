@@ -11,14 +11,20 @@ body
     img(src=src width="166px" height="166px")
     h3= 'by ' + schematic.author
     h4= 'Description: ' + schematic.description
-    h4 Copy the text below to import: 
+    h4 Copy the text below to import or click the copy button below: 
+    - const copy = `copy("${schematic.text}")`
+    button.icon(onclick=copy): img(src="/assets/copy.png")
     p= schematic.text
 
   div#bottom
     - const change = `window.location.href="/schematics/${schematic.id}/edit"`
     - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+    - const copyLink = `copy(window.location.href)`
 
     button.small(onclick='window.location.href="/schematics"') Back to Schematics
+    button.small(onclick=copyLink) Copy Page Link
     button.small(onclick=change) Request a Change
     button.small(onclick=_delete) Request Deletion
+
+  script(src="/js/copy.js")
 
