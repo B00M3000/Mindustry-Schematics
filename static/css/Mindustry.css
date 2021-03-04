@@ -111,11 +111,6 @@ button:focus {
   transition: border 0.2s;
 }
 
-.schematic img{
-  width: 166px;
-  height: 166px;
-}
-
 .schematic img:after {
   position: relative;
   top: 0px;
@@ -171,4 +166,12 @@ hr {
   width: 16px;
   height: 16px;
   margin-right: 5px;
+}
+
+.schematic_image {
+  height: 166px;
+  width: 166px;
+
+  object-fit: contain;
+  object-position: 50% 50%;
 }

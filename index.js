@@ -20,6 +20,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(fileuploader())
 
+app.use((req, res, next) => {
+  req.url = req.originalUrl
+  next()
+})
+
 app.get('/', (req, res) => {
   res.render('index')
 })

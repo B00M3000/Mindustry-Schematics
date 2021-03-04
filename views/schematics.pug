@@ -2,12 +2,24 @@ doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematics.css' type='text/css')
+  
+  meta(property="og:title" content="Schematics ")
+  meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
+  meta(property="og:image" content="/assets/mindustry_banner.png")
+  meta(property="og:type" content="website")
+  meta(property="og:url" content=url)
+  meta(property="og:site_name" content="Mindustry Schematics Database")
 body
   div#head
     h1 Schematics
+    h3= `Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     h2 The icon buttons that are on each schematic box are clickable.
     hr
-    input#schematics_search(type="text" onkeyup="keyUp()" placeholder="Search for schematics...")
+    form(action="/schematics" method="GET")
+      input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
+      input(type="submit" value="Search")
+    form(action="/schematics" method="GET")
+      input(type="submit" value="Reset Query")
 
 
   div#schematics_result
@@ -26,10 +38,20 @@ body
         div
           div.name
             h2= schematic.name
-          - const src = `/schematics/${schematic.id}/image`
-          img(src=src)
+          div.schematic_image_container
+            - const src = `/schematics/${schematic.id}/image`
+            img.schematic_image(src=src)
 
   div#bottom
+
+    - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
+    - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
+    - const nextPage = `window.location.href="/schematics?page=${page+1}&query=${query}"`
+    
+    button.small(onclick=firstPage) First Page 
+    button.small(onclick=previousPage) Previous Page
+    button.small(onclick=nextPage) Next Page
+    br
     button.small(onclick='window.location.href="/"') Back to Home
     button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
     button.small(onclick='window.location.href="/schematics/create"') Create a Schematic

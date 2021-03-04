@@ -4,15 +4,52 @@ var router = Router()
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
 
+const limitPerPage = 20
+
 router.get('/', async (req, res) => {
-  const schematics = await schematicSchema.find({})
+  var { query, page } = req.query
+  
+  var schematics;
+  var documents;
+  
+  if(!page || isNaN(page) || page < 1 || page % 1 != 0) page = 1
+  else page = parseInt(page)
+  
+  const skip = limitPerPage * (page - 1);
+  
+  if(query){
+    const regex = new RegExp(query, "i")
+    const _query = { name: regex }
+    schematics = await schematicSchema.find(_query, null, { skip, limit: limitPerPage })
+    documents = await schematicSchema.countDocuments(_query)
+  } else {
+    query = ""
+    schematics = await schematicSchema.find(null, null, { skip, limit: limitPerPage })
+    documents = await schematicSchema.countDocuments()
+  }
+  
+  var pages;
+  
+  if(documents % limitPerPage == 0) pages = documents/limitPerPage
+  else pages = Math.floor(documents/limitPerPage)+1
+  
+  if(pages == 0) pages = 1
+  
   res.render('schematics', {
+    skip,
+    query,
+    page,
+    length: schematics.length,
+    pages,
+    documents,
     schematics
   })
 })
 
 router.get('/create', (req, res) => {
-  res.render('create_schematic')
+  res.render('create_schematic', {
+    url: req.url
+  })
 })
 
 router.post('/create', async (req, res) => {
@@ -59,8 +96,6 @@ router.get('/:id/image', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   var { schematic } = req
-
-  console.log(schematic.url)
   
   schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
     $inc: {
@@ -71,6 +106,7 @@ router.get('/:id', async (req, res) => {
   })
 
   res.render('schematic_info', {
+    url: req.url,
     schematic
   })
 })

@@ -2,6 +2,7 @@
   {
     "name": "import-schematic-from-clipboard",
     "title": "How to Import a Schematic from Copy Paste Clipboard.",
+    "description": "This tutorial will teach you all about how to import a schematic from your clipboard",
     "steps": [
       {
         "name": "Open Schematics Menu",

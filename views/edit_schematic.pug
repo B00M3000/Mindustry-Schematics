@@ -3,6 +3,15 @@ html
   head
     link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
     link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+    
+    - const imageSrc = `/schematics/${schematic.id}/image`
+    
+    meta(property="og:title" content="Request a Change on a Existing Schematic. ")
+    meta(property="og:description" content="Submit a request to modify a schematic.")
+    meta(property="og:image" content=imageSrc)
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
+    meta(property="og:site_name" content="Mindustry Schematics Database")
   body
     h1 Edit a Schematic
     hr
