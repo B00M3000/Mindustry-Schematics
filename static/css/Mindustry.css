@@ -27,6 +27,7 @@
 body {
   background-color: #222222;
   color: white;
+  padding-bottom: 5em;
 }
 
 h1, h2 {
@@ -200,6 +201,7 @@ div.notched{
   background-color: #FFD37F;
 }
 .notched > *:first-child{
+  background-color: black;
   --internalNotch: calc(var(--notchSize) / 1.5);
   clip-path: 
     polygon(
