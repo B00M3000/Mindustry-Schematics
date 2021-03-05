@@ -25,13 +25,9 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.get('/', (req, res) => res.render('index'))
 
-app.get('/credits', (req, res) => {
-  res.render('credits')
-})
+app.get('/credits', (req, res) => res.render('credits'))
 
 app.get('/images/:name', (req, res) => {
   const { name } = req.params
@@ -40,6 +36,8 @@ app.get('/images/:name', (req, res) => {
   
   res.sendFile(fullpath)
 })
+
+
 
 app.use('/schematics', require('./routes/schematics'))
 app.use('/tutorials', require('./routes/tutorials'))

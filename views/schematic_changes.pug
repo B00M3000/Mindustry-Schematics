@@ -6,24 +6,23 @@ body
   hr
   each change in changes
     - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
+    - const src = `/schematics/${change.id}/image`
 
-    div.change(onclick=onclick)
-      if change.Delete
+    div#schematics_result
+      div.change(onclick=onclick)
         div.schematic
-          div.name
-            h2
-              span(style="color: red") DELETE
-              = " " + change.Original.name
-            - const src = `/schematics/${change.id}/image`
-            img(src=src)
-      else
-        div.schematic
-          div.name
-            h2
-              span(style="color: green") MODIFY
-              = " " + change.Original.name
-            - const src = `/schematics/${change.id}/image`
-            img(src=src)
+          if change.Delete
+            div.name
+              h2
+                span(style="color: red") DELETE
+                = " " + change.Original.name
+          else
+            div.name
+              h2
+                span(style="color: green") MODIFY
+                = " " + change.Original.name
+          img.schematic_image(src=src)
+          
 
   div#bottom
     button.small(onclick='window.location.href="/admin"') Back to Admin Panel
