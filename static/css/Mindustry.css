@@ -44,6 +44,7 @@ h2 {
 }
 
 button.icon {
+  cursor: pointer;
   padding: 4px;
   text-decoration: none;
   background-color: #222222;
@@ -61,6 +62,7 @@ button.small {
   text-decoration: none;
   border: #888888 solid 4px;
   background-color: black;
+  cursor: pointer;
 }
 
 button {
@@ -174,4 +176,8 @@ hr {
 
   object-fit: contain;
   object-position: 50% 50%;
+}
+
+div.tutorial{
+  cursor: pointer;
 }
