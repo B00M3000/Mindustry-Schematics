@@ -26,7 +26,9 @@ body
             img(src=src)
 
   div#bottom
-    button.small(onclick='window.location.href="/admin"') Back to Admin Panel
-    button.small(onclick='window.location.href="/schematics"') Schematics
+    div.notched.btn
+      button.small(onclick='window.location.href="/admin"') Back to Admin Panel
+    div.notched.btn
+      button.small(onclick='window.location.href="/schematics"') Schematics
           
   script(src="/js/schematics.js")

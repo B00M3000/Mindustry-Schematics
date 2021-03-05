@@ -177,6 +177,45 @@ hr {
   object-fit: contain;
   object-position: 50% 50%;
 }
+.notched {
+  --notchSize: 0.5em;
+  background-color: #888888;
+  padding: calc(var(--notchSize) / 2);
+  clip-path: 
+    polygon(
+      0% var(--notchSize), 
+      var(--notchSize) 0%, 
+      calc(100% - var(--notchSize)) 0%, 
+      100% var(--notchSize), 
+      100% calc(100% - var(--notchSize)), 
+      calc(100% - var(--notchSize)) 100%, 
+      var(--notchSize) 100%, 
+      0% calc(100% - var(--notchSize))
+    );
+}
+div.notched{
+  display: inline-block;
+}
+.notched.btn:hover{
+  background-color: #FFD37F;
+}
+.notched > *:first-child{
+  --internalNotch: calc(var(--notchSize) / 1.5);
+  clip-path: 
+    polygon(
+      0% var(--internalNotch), 
+      var(--internalNotch) 0%, 
+      calc(100% - var(--internalNotch)) 0%, 
+      100% var(--internalNotch), 
+      100% calc(100% - var(--internalNotch)), 
+      calc(100% - var(--internalNotch)) 100%, 
+      var(--internalNotch) 100%, 
+      0% calc(100% - var(--internalNotch))
+    );
+}
+.notched > button.small{
+  border: none;
+}
 
 div.tutorial{
   cursor: pointer;
