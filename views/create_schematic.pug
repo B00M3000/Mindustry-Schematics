@@ -14,23 +14,29 @@ html
     h1 Create a Schematic
     hr
     form(action="/schematics/create" method="POST" encType="multipart/form-data")
-      input.rounded-input(type="text" name="name" id="name" placeholder="Name" required)
-      br
-      input.rounded-input(type="text" name="author" id="author" placeholder="Creator" required)
-      br
-      label(for="image_upload") Upload/Paste a Image
+      div.inputs
+        label(for="name") Name: 
+        input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
+
+        label(for="author") Author: 
+        input(type="text" name="author" id="author" placeholder="Author of the schematic" required)
+        
+        label(for="description") Description:
+        textarea#description(name="description" placeholder="Description of the schematic" required)
+        
+        label(for="text") Schematic:
+        input#text(type="text" name="text" placeholder="Paste the schematic here" required)
+      
+      div.notched.btn
+        button.small(type="button") 
+          label(for="image") Upload/Paste a Image
+      
       input#image.rounded-input(type="file" name="image" accept="image/*" required)
       div#image_preview
       
-      br
-      textarea.rounded-input(type="text" name="text" id="text" placeholder="Copy Paste Text" required)
-      br
-      textarea.rounded-input(type="text" name="description" id="description" placeholder="Description" required)
-      br
-      input.rounded-input(type="submit" name="submit" value="Submit")
-      br
-      br
-      br
+      div.notched.btn
+        button(type="submit" name="submit" value="Submit") Submit
+
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back Schematics
