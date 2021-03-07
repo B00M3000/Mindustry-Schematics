@@ -13,7 +13,7 @@ html
   body
     h1 Create a Schematic
     hr
-    form(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen(action="/schematics/create" method="POST" encType="multipart/form-data")
       input.rounded-input(type="text" name="name" id="name" placeholder="Name" required)
       br
       input.rounded-input(type="text" name="author" id="author" placeholder="Creator" required)
@@ -34,4 +34,7 @@ html
     div#bottom
       button.small(onclick='window.location.href="/schematics"') Back Schematics
 
+    include includes/loadingScreen.pug
+
+    script(src="/js/onSubmitLoadingScreen.js")
     script(src="/js/form_schematic.js")

@@ -42,6 +42,7 @@ app.get('/images/:name', (req, res) => {
 app.use('/schematics', require('./routes/schematics'))
 app.use('/tutorials', require('./routes/tutorials'))
 app.use('/admin', require('./routes/admin'))
+app.use('/api', require('./routes/api'))
 //app.use('/shorturl', require('./routes/shorturl'))
 
 // Handle 404

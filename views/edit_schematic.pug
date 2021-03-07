@@ -16,7 +16,7 @@ html
     h1 Edit a Schematic
     hr
     - const action = `/schematics/${schematic.id}/edit`
-    form(action=action method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       input.rounded-input(type="text" name="name" id="name" placeholder="Name" value=schematic.name required)
       br
       input.rounded-input(type="text" name="author" id="author" placeholder="Creator" value=schematic.author required)
@@ -40,6 +40,9 @@ html
       button.small(onclick='window.location.href="/schematics"') Back to Schematics
       
     a#oldImageSrc(style="display: none;") imageSrc
+    
+    include includes/loadingScreen.pug
 
     script(src="/js/form_schematic.js")
+    script(src="/js/onSubmitLoadingScreen.js")
     // script(src="/js/load_old_schematic_image.js")

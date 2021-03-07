@@ -23,11 +23,14 @@ html
     h3= 'by ' + schematic.author
     h4= 'Description: ' + schematic.description
 
-    form(action=action method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why do you think this schematic should be removed?" required)
       br
       input.rounded-input(type="submit" name="submit" value="Submit Deletion Request")
     div#bottom
       button.small(onclick='window.location.href="/schematics"') Back to Schematics
 
+    include includes/loadingScreen.pug
+
+    script(src="/js/onSubmitLoadingScreen.js")
     script(src="/js/form_schematic.js")
