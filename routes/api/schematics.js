@@ -1,7 +1,7 @@
 const { Router } = require('express')
 var router = Router()
 
-const schematicSchema = require('../schemas/Schematic.js')
+const schematicSchema = require('../../schemas/Schematic.js')
 
 const limitPerPage = 20
 
