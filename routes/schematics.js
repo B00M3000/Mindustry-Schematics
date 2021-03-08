@@ -1,5 +1,9 @@
+require('tslib')
+
 const { Router } = require('express')
 var router = Router()
+
+const { SchematicCode } = require('mindustry-schematic-parser')
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -89,6 +93,8 @@ router.param('id', async (req, res, next, id) => {
 
 router.get('/:id/image', async (req, res) => {
   const { schematic } = req
+
+  const code = new SchematicCode(schematic.text)
 
   res.type('Content-Type', schematic.image.ContentType)
   res.send(schematic.image.Data)
