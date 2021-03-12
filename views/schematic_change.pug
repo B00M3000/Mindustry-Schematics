@@ -15,7 +15,7 @@ body
     
     h1= "Name: " + change.Original.name
     
-    - const src = `/schematics/${change.id}/image`
+    - const src = `/raw/schematics/${change.id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + change.Original.author
     h4= 'Description: ' + change.Original.description
@@ -31,7 +31,7 @@ body
       div.left
         h2= "Name: " + change.Original.name
       
-        - const srcO = `/schematics/${change.id}/image`
+        - const srcO = `/raw/schematics/${change.id}/image`
         img(src=srcO width="166px" height="166px")
         h3= 'by ' + change.Original.author
         h4= 'Description: ' + change.Original.description

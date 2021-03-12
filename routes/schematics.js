@@ -56,31 +56,6 @@ router.get('/create', (req, res) => {
   })
 })
 
-router.post('/create', async (req, res) => {
-  const schematics = await schematicSchema.find({})
-  const { name, author, text, description } = req.body
-  const { data, mimetype } = req.files.image
-
-  const newSchematic = {
-    name,
-    author,
-    text,
-    description,
-    image: {
-      Data: data,
-      ContentType: mimetype
-    }
-  }
-
-  do {
-    newSchematic.id = uuid()
-  } while(schematics.find(s => s.id == newSchematic.id))
-
-  await new schematicSchema(newSchematic).save()
-
-  res.redirect(`/schematics/${newSchematic.id}`)
-})
-
 router.param('id', async (req, res, next, id) => {
   const schematic = await schematicSchema.findOne({ id })
   
@@ -89,13 +64,6 @@ router.param('id', async (req, res, next, id) => {
   req.schematic = schematic
   
   next()
-})
-
-router.get('/:id/image', async (req, res) => {
-  const { schematic } = req
-
-  res.type('Content-Type', schematic.image.ContentType)
-  res.send(schematic.image.Data)
 })
 
 router.get('/:id/text', async (req, res) => {
