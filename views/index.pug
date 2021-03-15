@@ -10,14 +10,21 @@ head
   meta(property="og:url" content=url)
   meta(property="og:site_name" content="Mindustry Schematics Database")
 
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
   title Mindustry Schematics and Tutorials
 body(style="text-align: center")
-  h1 Mindustry Schmeatics and Tutorials
+  h1 Mindustry Schematics and Tutorials
   hr
-  button.small(onclick='window.location.href="/schematics"') Schematics
-  button.small(onclick='window.location.href="/tutorials"') Tutorials
-  button.small(onclick='window.location.href="/credits"') Credits
-  button.small(onclick='window.location.href="https://discord.gg/PnHG9xSMVP"') Discord Server
+  div.notched.btn
+    button.small(onclick='window.location.href="/schematics"') Schematics
+  div.notched.btn
+    button.small(onclick='window.location.href="/tutorials"') Tutorials
+  div.notched.btn
+    button.small(onclick='window.location.href="/credits"') Credits
+  div.notched.btn
+    button.small(onclick='window.location.href="https://discord.gg/PnHG9xSMVP"') Discord Server
   br
-  button.small(onclick='window.location.href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar"') Download Foo's AG Client
-  button.small(onclick='window.location.href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar"') Download Official Mindustry Client
+  div.notched.btn
+    button.small(onclick='window.location.href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar"')  Download Foo's AG Client
+  div.notched.btn
+    button.small(onclick='window.location.href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar"') Download Official Mindustry Client

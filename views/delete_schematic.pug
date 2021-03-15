@@ -12,6 +12,8 @@ html
     meta(property="og:type" content="website")
     meta(property="og:url" content=url)
     meta(property="og:site_name" content="Mindustry Schematics Database")
+
+    meta(name="viewport" content="width=device-width" intialscale="1.0")
   body
     h1 Delete a Schematic
     hr
@@ -24,11 +26,19 @@ html
     h4= 'Description: ' + schematic.description
 
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
+      div.inputs
+        label(for="reason") Reason: 
+        textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?" required)
+      div.notched.btn
+        button(type="submit" name="submit") Submit Deletion Request
+
+    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why do you think this schematic should be removed?" required)
       br
       input.rounded-input(type="submit" name="submit" value="Submit Deletion Request")
     div#bottom
-      button.small(onclick='window.location.href="/schematics"') Back to Schematics
+      div.notched.btn
+        button.small(onclick='window.location.href="/schematics"') Back to Schematics
 
     include includes/loadingScreen.pug
 

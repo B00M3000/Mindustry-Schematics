@@ -1,6 +1,8 @@
 doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   h1 Schematic Changes
   hr
@@ -25,7 +27,9 @@ body
           
 
   div#bottom
-    button.small(onclick='window.location.href="/admin"') Back to Admin Panel
-    button.small(onclick='window.location.href="/schematics"') Schematics
+    div.notched.btn
+      button.small(onclick='window.location.href="/admin"') Back to Admin Panel
+    div.notched.btn
+      button.small(onclick='window.location.href="/schematics"') Schematics
           
   script(src="/js/schematics.js")

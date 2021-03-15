@@ -1,13 +1,26 @@
 body {
   text-align: center;
+  padding-bottom: 5em;
+}
+
+body * {
+  font-family: 'Mindustry';
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+form > *{
+  margin-bottom: 1em;
 }
 
 #image_preview {
-  margin: auto;
-  margin-top: 10px;
   width: 166px;
   height: 166px;
-  border: #888888 solid 2px;
+  border: #888888 solid 3px;
   text-align: center;
 }
 
@@ -16,11 +29,70 @@ body {
   height: 166px;
 }
 
-.rounded-input {
-  padding:10px;
-  border-radius:10px;
+.inputs{
+  --bottomPadding: 3px;
+  align-items: center;
+  display: grid;
+  gap: 1em;
+  grid-auto-flow: row;
+  grid-template-columns: auto max-content;
 }
 
-label {
+.inputs > label{
+  grid-column: 1;
+  justify-self: right;
   margin-right: 5px;
+  padding-bottom: var(--bottomPadding);
+}
+
+.inputs > *:is(input, textarea){
+  background-color: transparent;
+  border: none;
+  border-bottom: var(--bottomPadding) solid #888888;
+  color: white;
+  display: block;
+  grid-column: 2;
+  max-height: 4em;
+  outline: none;
+  padding: 0.5em;
+  position: relative;
+  resize: none;
+}
+
+.inputs > *:is(input, textarea):focus{
+  border-color: #FFD37F;
+}
+
+label[for=image]{ 
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+input#image{
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+*[type=submit]{
+  color: white;
+  border: none;
+  outline: none;
+}
+
+@media screen and (max-width: 500px){
+  .inputs{
+    --bottomPadding: 3px;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .inputs > label{
+    margin: 2em 0 0.5em 0;
+    grid-column: 1;
+    justify-self: left;
+    padding-bottom: var(--bottomPadding);
+  }
 }
