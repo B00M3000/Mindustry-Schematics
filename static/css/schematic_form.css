@@ -79,3 +79,18 @@ input#image{
   border: none;
   outline: none;
 }
+
+@media screen and (max-width: 500px){
+  .inputs{
+    --bottomPadding: 3px;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+  }
+  
+  .inputs > label{
+    grid-column: 1;
+    justify-self: left;
+    padding-bottom: var(--bottomPadding);
+  }
+}
