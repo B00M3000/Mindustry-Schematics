@@ -5,7 +5,6 @@ const schematicInput = document.getElementById("text");
 function isValidSchematic(base64Code) {
   try {
     const decoded = atob(base64Code);
-    console.log(decoded)
     const header = "msch";
     // the startsWith method doesn't work
     for (let i = 0; i < header.length; i++){
