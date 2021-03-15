@@ -86,9 +86,11 @@ input#image{
     display: flex;
     align-items: left;
     flex-direction: column;
+    gap: 0;
   }
   
   .inputs > label{
+    margin: 2em 0 0.5em 0;
     grid-column: 1;
     justify-self: left;
     padding-bottom: var(--bottomPadding);
