@@ -36,3 +36,11 @@
 //   image.width *= scale
 //   image.height *= scale
 // }
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyloadImages = document.querySelectorAll("img.lazy");    
+
+  lazyloadImages.forEach(function(img) {
+    img.src = img.dataset.src;
+  })
+});

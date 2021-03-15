@@ -1,5 +1,9 @@
+require('tslib')
+
 const { Router } = require('express')
 var router = Router()
+
+const { SchematicCode } = require('mindustry-schematic-parser')
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -20,11 +24,11 @@ router.get('/', async (req, res) => {
   if(query){
     const regex = new RegExp(query, "i")
     const _query = { name: regex }
-    schematics = await schematicSchema.find(_query, null, { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(_query, "id name text", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments(_query)
   } else {
     query = ""
-    schematics = await schematicSchema.find(null, null, { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(null, "id name text", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments()
   }
   
@@ -74,7 +78,7 @@ router.post('/create', async (req, res) => {
 
   await new schematicSchema(newSchematic).save()
 
-  res.redirect("/schematics")
+  res.redirect(`/schematics/${newSchematic.id}`)
 })
 
 router.param('id', async (req, res, next, id) => {
@@ -89,6 +93,8 @@ router.param('id', async (req, res, next, id) => {
 
 router.get('/:id/image', async (req, res) => {
   const { schematic } = req
+
+  const code = new SchematicCode(schematic.text)
 
   res.type('Content-Type', schematic.image.ContentType)
   res.send(schematic.image.Data)

@@ -17,21 +17,21 @@ function isValidSchematic(base64Code) {
 }
 
 function update_preview() {
-    while(preview.firstChild) {
-      preview.removeChild(preview.firstChild);
-    }
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
 
-    const file = (upload.files) ? upload.files[0] : undefined;
+  const file = (upload.files) ? upload.files[0] : undefined;
 
-    if(file){
-      const image = document.createElement('img');
-      image.src = URL.createObjectURL(file);
+  if(file){
+    const image = document.createElement('img');
+    image.src = URL.createObjectURL(file);
 
-      preview.appendChild(image);
-    }
+    preview.appendChild(image);
+  }
 }
 
-schematicInput?.addEventListener("input", () => {
+schematicInput && schematicInput.addEventListener("input", () => {
   const { value } = schematicInput;
   const isValid = isValidSchematic(value);
   if (!isValid) {

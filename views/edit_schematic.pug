@@ -18,7 +18,7 @@ html
     h1 Edit a Schematic
     hr
     - const action = `/schematics/${schematic.id}/edit`
-    form(action=action method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" value=schematic.name   required)
@@ -37,6 +37,7 @@ html
       div.notched.btn
         button.small(type="button") 
           label(for="image") Upload/Paste a Image
+
       input#image.rounded-input(type="file" name="image" accept="image/*" required)
       div#image_preview
       div.notched.btn
@@ -44,5 +45,12 @@ html
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back to Schematics
+      
+    a#oldImageSrc(style="display: none;") imageSrc
+    
+    include includes/loadingScreen.pug
+
 
     script(src="/js/form_schematic.js")
+    script(src="/js/onSubmitLoadingScreen.js")
+    // script(src="/js/load_old_schematic_image.js")
