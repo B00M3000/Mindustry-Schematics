@@ -16,7 +16,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.1",
     "form-data": "^3.0.1",
-    "mindustry-schematic-parser": "^1.2.1",
+    "mindustry-schematic-parser": "^1.2.2",
     "mongoose": "^5.12.0",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
