@@ -21,10 +21,14 @@ text && text.addEventListener('change', async () => {
   const value = text.value
   const form = document.querySelector('form')
   form.classList.add('locked')
-  if (!isValidSchematic(value)) return
+  if (!isValidSchematic(value)) {
+    text.classList.add('invalid')
+    return
+  }
   const response = await fetch(`/api/schematics/parse?text=${encodeURIComponent(value.trim())}`)
   switch (response.status) {
     case 200: {
+      text.classList.remove('invalid')
       const json = await response.json()
       const imageData = json.image
       name.value = json.name
@@ -37,6 +41,9 @@ text && text.addEventListener('change', async () => {
       image.src = `data:image/png;base64,${imageData}`
       form.classList.remove('locked')
       }
+      break
+    case 400:
+      text.classList.add('invalid')
       break
   }
 })

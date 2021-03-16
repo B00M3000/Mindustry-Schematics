@@ -42,7 +42,7 @@ form.locked > *:not(div.inputs, div.schematic-text){
   opacity: 0;
   pointer-events: none;
 }
-form.locked > div.inputs >*:not(input#text, label[for=text], div.schematic-text){
+form.locked > div.inputs >*:not(input#text, label[for=text], span.error){
   opacity: 0;
   pointer-events: none;
 }
@@ -98,6 +98,19 @@ input#image{
   color: white;
   border: none;
   outline: none;
+}
+
+input.invalid{
+  border-bottom-color: rgb(255, 101, 101);
+}
+span.error{
+  visibility: hidden;
+  grid-column: 2;
+  transform: translateY(-0.5em);
+}
+input.invalid + span.error {
+  visibility: visible;
+  color: rgb(255, 101, 101);
 }
 
 @media screen and (max-width: 500px){
