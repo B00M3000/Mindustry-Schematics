@@ -53,21 +53,21 @@ router.get('/parse', async (req, res) => {
 
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
-  const { name, author, text, description } = req.body
-  const { data, mimetype } = req.files.image
+  const { name, creator, text, description } = req.body
 
-  var schematic = new schematicSchema({
-    
+  const schematic = Schematic.decode(text)
+  schematic.name = name
+  schematic.description = description
+
+  var _schematic = new schematicSchema({
+    name: schematic.name,
+
   })
 
-  schematic = await new schematicSchema(schematic).save()
+  _schematic = await new schematicSchema(_schematic).save()
 
-  if(!schematic) return res.redirect(`/schematics/create?success=false`)
-  else res.redirect(`/schematics/create?success=true&id=${schematic._id}`)
-})
-
-router.get('/image', async (req, res) => {
-
+  if(!_schematic) return res.redirect(`/schematics/create?success=false`)
+  else res.redirect(`/schematics/create?success=true&id=${_schematic._id}`)
 })
 
 module.exports = router

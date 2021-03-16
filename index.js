@@ -51,7 +51,7 @@ app.use((req, res) => {
   res.render('errors/404')
 })
 
-// // Handle 500
+// Handle 500
 app.use((error, req, res, next) => {
   res.status(505)
   res.render('errors/500')
