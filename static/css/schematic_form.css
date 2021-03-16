@@ -63,7 +63,6 @@ form.locked > div.inputs {
   justify-self: right;
   margin-right: 5px;
   padding-bottom: var(--bottomPadding);
-  height: 100%;
   align-items: center;
 }
 
