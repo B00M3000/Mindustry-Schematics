@@ -36,6 +36,8 @@ schematicInput && schematicInput.addEventListener("input", () => {
   const isValid = isValidSchematic(value);
   if (!isValid) {
     schematicInput.setCustomValidity("This isn't a valid schematic")
+  } else {
+    schematicInput.setCustomValidity('')
   }
 })
 
