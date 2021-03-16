@@ -15,7 +15,7 @@ html
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen.locked(action="/schematics/create" method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
@@ -25,7 +25,7 @@ html
         
         label(for="description") Description:
         textarea#description(name="description" placeholder="Description of the schematic" required)
-        
+
         label(for="text") Schematic:
         input#text(type="text" name="text" placeholder="Paste the schematic here" required)
       

@@ -12,16 +12,25 @@ form{
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
+
 form > *{
   margin-bottom: 1em;
+}
+
+form * {
+  transition: opacity ease 0.5s, transform ease 0.5s;
 }
 
 #image_preview {
   width: 166px;
   height: 166px;
   border: #888888 solid 3px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
 #image_preview img{
@@ -29,6 +38,17 @@ form > *{
   height: 166px;
 }
 
+form.locked > *:not(div.inputs, div.schematic-text){
+  opacity: 0;
+  pointer-events: none;
+}
+form.locked > div.inputs >*:not(input#text, label[for=text], div.schematic-text){
+  opacity: 0;
+  pointer-events: none;
+}
+form.locked > div.inputs {
+  transform: translateY(-50%);
+}
 .inputs{
   --bottomPadding: 3px;
   align-items: center;
@@ -38,25 +58,26 @@ form > *{
   grid-template-columns: auto max-content;
 }
 
-.inputs > label{
+.inputs label{
   grid-column: 1;
   justify-self: right;
   margin-right: 5px;
   padding-bottom: var(--bottomPadding);
+  height: 100%;
+  align-items: center;
 }
 
-.inputs > *:is(input, textarea){
+.inputs *:is(input, textarea){
   background-color: transparent;
   border: none;
   border-bottom: var(--bottomPadding) solid #888888;
   color: white;
   display: block;
   grid-column: 2;
-  max-height: 4em;
   outline: none;
   padding: 0.5em;
   position: relative;
-  resize: none;
+  resize: vertical;
 }
 
 .inputs > *:is(input, textarea):focus{
