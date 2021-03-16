@@ -1,6 +1,8 @@
 const { Router } = require('express')
 var router = Router()
 
+const { Schematic } = require('mindustry-schematic-parser')
+
 const schematicSchema = require('../../schemas/Schematic.js')
 
 const limitPerPage = 20
@@ -31,7 +33,15 @@ router.get('/image', async (req, res) => {
 })
 
 router.get('/parse', async (req, res) => {
-  
+  const { text } = req.query
+  const schematic = Schematic.decode(text)
+
+  res.send({
+    name: schematic.name,
+    description: schematic.description,
+    image: await schematic.toImageBuffer()
+  })
+
 })
 
 router.post('/create', async (req, res) => {
