@@ -3,7 +3,7 @@ require('tslib')
 const { Router } = require('express')
 var router = Router()
 
-const { SchematicCode } = require('mindustry-schematic-parser')
+const { Schematic } = require('mindustry-schematic-parser')
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -56,31 +56,6 @@ router.get('/create', (req, res) => {
   })
 })
 
-router.post('/create', async (req, res) => {
-  const schematics = await schematicSchema.find({})
-  const { name, author, text, description } = req.body
-  const { data, mimetype } = req.files.image
-
-  const newSchematic = {
-    name,
-    author,
-    text,
-    description,
-    image: {
-      Data: data,
-      ContentType: mimetype
-    }
-  }
-
-  do {
-    newSchematic.id = uuid()
-  } while(schematics.find(s => s.id == newSchematic.id))
-
-  await new schematicSchema(newSchematic).save()
-
-  res.redirect(`/schematics/${newSchematic.id}`)
-})
-
 router.param('id', async (req, res, next, id) => {
   const schematic = await schematicSchema.findOne({ id })
   
@@ -91,13 +66,19 @@ router.param('id', async (req, res, next, id) => {
   next()
 })
 
-router.get('/:id/image', async (req, res) => {
+router.get('/:id/text', async (req, res) => {
   const { schematic } = req
 
-  const code = new SchematicCode(schematic.text)
+  const _schematic = Schematic.decode(schematic.text)
 
-  res.type('Content-Type', schematic.image.ContentType)
-  res.send(schematic.image.Data)
+  _schematic.name = schematic.name
+  _schematic.description = schematic.description
+
+  const text = schematic.decode()
+
+  console.log(text)
+
+  res.send(text)
 })
 
 router.get('/:id', async (req, res) => {
