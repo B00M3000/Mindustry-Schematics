@@ -42,7 +42,9 @@ router.get('/parse', async (req, res) => {
       image: await schematic.toImageBuffer()
     })
   } catch (error) {
-    res.send(error)
+    res.send({ 
+      error
+    })
   }
 })
 
