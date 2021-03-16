@@ -29,19 +29,33 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/image', async (req, res) => {
-  
 })
 
 router.get('/parse', async (req, res) => {
   const { text } = req.query
-  const schematic = Schematic.decode(text)
-
-  res.send({
-    name: schematic.name,
-    description: schematic.description,
-    image: await schematic.toImageBuffer()
-  })
-
+  if (!text || text == '') {
+    res.status(400).send({ error: "This is not a valid schematic" })
+    return
+  }
+  try {
+    const decoded = decodeURIComponent(text)
+    const schematic = Schematic.decode(decoded)
+    res.send({
+      name: schematic.name,
+      description: schematic.description,
+      image: (await schematic.toImageBuffer()).toString('base64'),
+    })
+  } catch (e) {
+    if (e instanceof Error) {
+      let code = 500
+      if (e.message.includes('valid'))
+        code = 400
+    } else if (typeof e == "string") {
+      if (e.includes("valid"))
+        code = 400
+    }
+    res.status(code).send({error: e})
+  }
 })
 
 router.post('/create', async (req, res) => {
