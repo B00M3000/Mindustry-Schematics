@@ -28,22 +28,22 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/image', async (req, res) => {
-  
-})
-
 router.get('/parse', async (req, res) => {
   const { text } = req.query
-  const schematic = Schematic.decode(text)
+  try {
+    const schematic = Schematic.decode(text)
 
-  res.send({
-    name: schematic.name,
-    description: schematic.description,
-    powerProduction: schematic.powerProduction,
-    powerConsumption: schematic.powerConsumption,
-    requirements: schematic.requirements,
-    image: await schematic.toImageBuffer()
-  })
+    res.send({
+      name: schematic.name,
+      description: schematic.description,
+      powerProduction: schematic.powerProduction,
+      powerConsumption: schematic.powerConsumption,
+      requirements: schematic.requirements,
+      image: await schematic.toImageBuffer()
+    })
+  } catch (error) {
+    res.send(error)
+  }
 })
 
 router.post('/create', async (req, res) => {
