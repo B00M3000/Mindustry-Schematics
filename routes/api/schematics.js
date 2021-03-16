@@ -26,6 +26,9 @@ router.get('/', async (req, res) => {
     query = ""
     schematics = await schematicSchema.find(null, null, { skip, limit: limitPerPage })
   }
+  res.send({
+    schematics
+  })
 })
 
 router.get('/parse', async (req, res) => {
