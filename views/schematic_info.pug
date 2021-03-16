@@ -12,6 +12,8 @@ head
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
   meta(property="og:site_name" content="Mindustry Schematics Database")
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   div#head
     h1= '[Schematic]' + schematic.name
@@ -29,11 +31,14 @@ body
     - const change = `window.location.href="/schematics/${schematic.id}/edit"`
     - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
     - const copyLink = `copy(window.location.href)`
-
-    button.small(onclick='window.location.href="/schematics"') Back to Schematics
-    button.small(onclick=copyLink) Copy Page Link
-    button.small(onclick=change) Request a Change
-    button.small(onclick=_delete) Request Deletion
+    div.notched.btn
+      button.small(onclick='window.location.href="/schematics"') Back to Schematics
+    div.notched.btn
+      button.small(onclick=copyLink) Copy Page Link
+    div.notched.btn
+      button.small(onclick=change) Request a Change
+    div.notched.btn
+      button.small(onclick=_delete) Request Deletion
 
   script(src="/js/copy.js")
 

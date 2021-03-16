@@ -9,6 +9,8 @@ head
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
   meta(property="og:site_name" content="Mindustry Schematics Database")
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   h1 #{title}
   
@@ -22,6 +24,7 @@ body
     - step_number++
 
   div#bottom
-    button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
+    div.notched.btn
+      button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
 
 

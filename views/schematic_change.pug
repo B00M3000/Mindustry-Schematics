@@ -3,6 +3,8 @@ head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic_change' type='text/css')
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   h1= '[Schematic Change]' + change.id
   hr
@@ -60,11 +62,14 @@ body
     - const view = `window.location.href="/schematics/${change.id}"`
     - const accept = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
     - const decline = `window.location.href="/admin/schematic_changes/${change._id}/decline"`
-    
-    button.small(onclick='window.location.href="/admin/schematic_changes"') Back to Schematic Changes
-    button.small(onclick=view) View
-    button.small(onclick=accept) Accept
-    button.small(onclick=decline) Decline
+    div.notched.btn
+      button.small(onclick='window.location.href="/admin/schematic_changes"') Back to Schematic Changes
+    div.notched.btn
+      button.small(onclick=view) View
+    div.notched.btn
+      button.small(onclick=accept) Accept
+    div.notched.btn
+      button.small(onclick=decline) Decline
     
 
 
