@@ -41,7 +41,6 @@ router.get('/parse', async (req, res) => {
     description: schematic.description,
     image: await schematic.toImageBuffer()
   })
-
 })
 
 router.post('/create', async (req, res) => {
