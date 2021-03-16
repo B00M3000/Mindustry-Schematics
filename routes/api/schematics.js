@@ -39,6 +39,9 @@ router.get('/parse', async (req, res) => {
   res.send({
     name: schematic.name,
     description: schematic.description,
+    powerProduction: schematic.powerProduction,
+    powerConsumption: schematic.powerConsumption,
+    requirements: schematic.requirements,
     image: await schematic.toImageBuffer()
   })
 })
