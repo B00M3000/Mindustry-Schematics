@@ -28,12 +28,8 @@ html
 
         label(for="text") Schematic:
         input#text(type="text" name="text" placeholder="Paste the schematic here" required)
+        span.error This isn't a valid schematic
       
-      div.notched.btn
-        button.small(type="button") 
-          label(for="image") Upload/Paste a Image
-      
-      input#image.rounded-input(type="file" name="image" accept="image/*" required)
       div#image_preview
       
       div.notched.btn
