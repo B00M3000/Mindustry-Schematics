@@ -1,5 +1,20 @@
 const upload = document.getElementById('image')
 const preview = document.getElementById('image_preview')
+const schematicInput = document.getElementById("text");
+
+function isValidSchematic(base64Code) {
+  try {
+    const decoded = atob(base64Code);
+    const header = "msch";
+    // the startsWith method doesn't work
+    for (let i = 0; i < header.length; i++){
+      if (header[i] != decoded[i]) return false;
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function update_preview() {
   while(preview.firstChild) {
@@ -15,6 +30,14 @@ function update_preview() {
     preview.appendChild(image);
   }
 }
+
+schematicInput && schematicInput.addEventListener("input", () => {
+  const { value } = schematicInput;
+  const isValid = isValidSchematic(value);
+  if (!isValid) {
+    schematicInput.setCustomValidity("This isn't a valid schematic")
+  }
+})
 
 if(upload && preview){
 

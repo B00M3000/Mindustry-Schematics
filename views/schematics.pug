@@ -9,6 +9,8 @@ head
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
   meta(property="og:site_name" content="Mindustry Schematics Database")
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   div#head
     h1 Schematics
@@ -47,14 +49,19 @@ body
     - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
     - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
     - const nextPage = `window.location.href="/schematics?page=${page+1}&query=${query}"`
-    
-    button.small(onclick=firstPage) First Page 
-    button.small(onclick=previousPage) Previous Page
-    button.small(onclick=nextPage) Next Page
+    div.notched.btn
+      button.small(onclick=firstPage) First Page 
+    div.notched.btn
+      button.small(onclick=previousPage) Previous Page
+    div.notched.btn
+      button.small(onclick=nextPage) Next Page
     br
-    button.small(onclick='window.location.href="/"') Back to Home
-    button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
-    button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
+    div.notched.btn
+      button.small(onclick='window.location.href="/"') Back to Home
+    div.notched.btn
+      button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
+    div.notched.btn
+      button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
           
   script(src="/js/copy.js")
   script(src="/js/schematics.js")
