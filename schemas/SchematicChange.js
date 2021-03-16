@@ -9,7 +9,7 @@ const schematicChangeSchema = mongoose.Schema({
   
   Delete: String,
 
-  version: { type: String, required: true, default: "v2" }
+  schema_version: { type: String, required: true, default: "v2" }
 })
 
 module.exports = mongoose.model('SchematicChanges', schematicChangeSchema)
