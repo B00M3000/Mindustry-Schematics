@@ -26,6 +26,14 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/image', async (req, res) => {
+  
+})
+
+router.get('/parse', async (req, res) => {
+  
+})
+
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
   const { name, author, text, description } = req.body

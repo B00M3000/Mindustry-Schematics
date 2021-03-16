@@ -13,21 +13,18 @@ html
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen(action="/schematics/create" method="POST" encType="multipart/form-data")
-      input.rounded-input(type="text" name="name" id="name" placeholder="Name" required)
-      br
+    form#onSubmitLoadingScreen(action="/api/schematics/create" method="POST")
       input.rounded-input(type="text" name="author" id="author" placeholder="Creator" required)
       br
-      label(for="image_upload") Upload/Paste a Image
-      input#image.rounded-input(type="file" name="image" accept="image/*" required)
+      textarea.rounded-input#text(type="text" name="text" placeholder="Schematic Text" required)
+      br
       div#image_preview
-      
       br
-      textarea.rounded-input(type="text" name="text" id="text" placeholder="Copy Paste Text" required)
+      input.rounded-input.optional(type="text" name="name" id="name" placeholder="Name" required)
       br
-      textarea.rounded-input(type="text" name="description" id="description" placeholder="Description" required)
+      textarea.rounded-input.optional(type="text" name="description" id="description" placeholder="Description" required)
       br
-      input.rounded-input(type="submit" name="submit" value="Submit")
+      input.rounded-input.optional(type="submit" name="submit" value="Submit")
       br
       br
       br
@@ -38,3 +35,4 @@ html
 
     script(src="/js/onSubmitLoadingScreen.js")
     script(src="/js/form_schematic.js")
+    script(src="/js/create_schematic")
