@@ -128,4 +128,10 @@ input.invalid + span.error {
     justify-self: left;
     padding-bottom: var(--bottomPadding);
   }
+
+  span.error{
+    visibility: hidden;
+    grid-column: 2;
+    transform: translateY(0.5em);
+  }
 }
