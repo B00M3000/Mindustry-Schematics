@@ -15,7 +15,7 @@ html
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen.locked(action="/schematics/create" method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
@@ -25,15 +25,11 @@ html
         
         label(for="description") Description:
         textarea#description(name="description" placeholder="Description of the schematic" required)
-        
+
         label(for="text") Schematic:
         input#text(type="text" name="text" placeholder="Paste the schematic here" required)
+        span.error This isn't a valid schematic
       
-      div.notched.btn
-        button.small(type="button") 
-          label(for="image") Upload/Paste a Image
-      
-      input#image.rounded-input(type="file" name="image" accept="image/*" required)
       div#image_preview
       
       div.notched.btn
@@ -47,4 +43,4 @@ html
 
     script(src="/js/onSubmitLoadingScreen.js")
     script(src="/js/form_schematic.js")
-    script(src="/js/create_schematic")
+    script(src="/js/create_schematic.js")
