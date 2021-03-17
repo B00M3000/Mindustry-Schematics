@@ -20,7 +20,7 @@ body
     h5= 'Views: ' + schematic.views
     hr
     img(src=imageSrc)
-    h3= 'by ' + schematic.author
+    h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
