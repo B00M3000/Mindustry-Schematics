@@ -26,6 +26,9 @@ router.get('/', async (req, res) => {
     query = ""
     schematics = await schematicSchema.find(null, null, { skip, limit: limitPerPage })
   }
+  res.send({
+    schematics
+  })
 })
 
 router.get('/image', async (req, res) => {
@@ -40,41 +43,45 @@ router.get('/parse', async (req, res) => {
   try {
     const decoded = decodeURIComponent(text)
     const schematic = Schematic.decode(decoded)
+
     res.send({
       name: schematic.name,
       description: schematic.description,
-      image: (await schematic.toImageBuffer()).toString('base64'),
+      powerProduction: schematic.powerProduction,
+      powerConsumption: schematic.powerConsumption,
+      requirements: schematic.requirements,
+      image: (await schematic.toImageBuffer()).toString('base64')
     })
-  } catch (e) {
-    if (e instanceof Error) {
-      let code = 500
-      if (e.message.includes('valid'))
-        code = 400
-    } else if (typeof e == "string") {
-      if (e.includes("valid"))
-        code = 400
+  } catch (error) {
+    let code = 500
+    if (error instanceof Error) {
+      if (error.message.includes('valid')) code = 400
+    } else if (typeof error == "string") {
+      if (error.includes('valid')) code = 400
     }
-    res.status(code).send({error: e})
+    res.status(code).send({
+      error
+    })
   }
 })
 
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
-  const { name, author, text, description } = req.body
-  const { data, mimetype } = req.files.image
+  const { name, creator, text, description } = req.body
 
-  var schematic = new schematicSchema({
-    
+  const schematic = Schematic.decode(text)
+  schematic.name = name
+  schematic.description = description
+
+  var _schematic = new schematicSchema({
+    name: schematic.name,
+
   })
 
-  schematic = await new schematicSchema(schematic).save()
+  _schematic = await new schematicSchema(_schematic).save()
 
-  if(!schematic) return res.redirect(`/schematics/create?success=false`)
-  else res.redirect(`/schematics/create?success=true&id=${schematic._id}`)
-})
-
-router.get('/image', async (req, res) => {
-
+  if(!_schematic) return res.redirect(`/schematics/create?success=false`)
+  else res.redirect(`/schematics/create?success=true&id=${_schematic._id}`)
 })
 
 module.exports = router

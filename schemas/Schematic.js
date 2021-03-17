@@ -15,7 +15,8 @@ const schematicSchema = mongoose.Schema({
 
   views: { type: Number, required: true, default: 0 },
 
-  version: { type: String, required: true, default: "v2" }
+  encoding_version: { type: String, required: true },
+  schema_version: { type: String, required: true, default: "v2" }
 })
 
 module.exports = mongoose.model('Schematics', schematicSchema)
