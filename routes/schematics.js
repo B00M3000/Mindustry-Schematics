@@ -4,6 +4,7 @@ const { Router } = require('express')
 var router = Router()
 
 const { Schematic } = require('mindustry-schematic-parser')
+const {Types: { ObjectId } } = require('mongoose')
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -57,7 +58,7 @@ router.get('/create', (req, res) => {
 })
 
 router.param('id', async (req, res, next, id) => {
-  const schematic = await schematicSchema.findOne({ id })
+  const schematic = await schematicSchema.findById(ObjectId(id))
   
   if(!schematic) return res.redirect('/schematics')
   
@@ -76,15 +77,13 @@ router.get('/:id/text', async (req, res) => {
 
   const text = schematic.decode()
 
-  console.log(text)
-
   res.send(text)
 })
 
 router.get('/:id', async (req, res) => {
   var { schematic } = req
   
-  schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
+  schematic = await schematicSchema.findOneAndUpdate({ _id: schematic._id}, {
     $inc: {
       views: 1
     }
@@ -115,8 +114,6 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/:id/edit', async (req, res) => {
   const { schematic } = req
-  const { id } = schematic
-  schematic.id = undefined;
   
   const { name, author, text, description, cDescription } = req.body
   const { data, mimetype } = req.files.image
@@ -134,7 +131,6 @@ router.post('/:id/edit', async (req, res) => {
       }
     },
     Description: cDescription,
-    id
   }
 
   await new schematicChangeSchema(schematicChange).save()
@@ -153,13 +149,10 @@ router.get('/:id/delete', async (req, res) => {
 router.post('/:id/delete', async (req, res) => {
   const { schematic } = req
   const { reason } = req.body
-  const { id } = schematic
-  schematic.id = undefined;
   
   const schematicChange = {
     Original: schematic,
     Delete: reason,
-    id
   }
   
   await new schematicChangeSchema(schematicChange).save()
@@ -168,13 +161,3 @@ router.post('/:id/delete', async (req, res) => {
 })
 
 module.exports = router
-
-let uuid = () => {
-    let s4 = () => {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
