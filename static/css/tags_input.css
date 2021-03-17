@@ -1,0 +1,27 @@
+.tags-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.tags-input ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
+
+.tags-input img {
+  margin-left: 3px;
+}
+
+.tags-input li{
+  border-radius: 2px;
+  padding: 3px;
+  margin: 1px;
+}
+.tags-input input{
+  flex: 1 1 auto;
+  align-self: flex-start;
+}

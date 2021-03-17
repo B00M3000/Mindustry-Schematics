@@ -3,6 +3,7 @@ html
   head
     link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
     link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+    link(rel='stylesheet' href='/css/tags_input.css' type='text/css')
     
     meta(property="og:title" content="Create a Schematic")
     meta(property="og:description" content="You can add a schematic to the database by providing a name, creator, description, schematic copy text and image ")
@@ -20,6 +21,17 @@ html
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
 
+        div.tags-input
+          ul
+          input(type="text" list="tags-list")
+          datalist(id="tags-list")
+            each tag of tags
+              option(value=tag.name)
+              
+          script.
+            const tags = !{_tags}
+          script(src="/js/tags_input.js")
+
         label(for="author") Author: 
         input(type="text" name="author" id="author" placeholder="Author of the schematic" required)
         
@@ -27,7 +39,7 @@ html
         textarea#description(name="description" placeholder="Description of the schematic" required)
 
         label(for="text") Schematic:
-        input#text(type="text" name="text" placeholder="Paste the schematic here" required)
+        input#text(type="text" name="text" placeholder="Paste the schematic here" required autofocus)
         span.error This isn't a valid schematic
       
       div#image_preview
