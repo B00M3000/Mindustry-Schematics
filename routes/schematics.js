@@ -98,6 +98,13 @@ router.get('/:id', async (req, res) => {
   })
 })
 
+router.get('/:id/image', async (req, res) => {
+  const { schematic } = req
+
+  res.type('Content-Type', schematic.image.ContentType)
+  res.send(schematic.image.Data)
+})
+
 router.get('/:id/edit', async (req, res) => {
   const { schematic } = req
   
