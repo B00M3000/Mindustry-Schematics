@@ -26,10 +26,10 @@ body
 
   div#schematics_result
     each schematic in schematics
-      - const info = `window.location.href="/schematics/${schematic.id}"`
+      - const info = `window.location.href="/schematics/${schematic._id}"`
       - const copy = `copy("${schematic.text}")`
-      - const edit = `window.location.href="/schematics/${schematic.id}/edit"`
-      - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+      - const edit = `window.location.href="/schematics/${schematic._id}/edit"`
+      - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
 
       div.schematic
         div.tools
@@ -41,7 +41,7 @@ body
           div.name
             h2= schematic.name
           div.schematic_image_container
-            - const src = `/schematics/${schematic.id}/image`
+            - const src = `/schematics/${schematic._id}/image`
             img.schematic_image.lazy(data-src=src)
 
   div#bottom

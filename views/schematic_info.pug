@@ -3,7 +3,7 @@ head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
 
-  - const imageSrc = `/schematics/${schematic.id}/image`
+  - const imageSrc = `/schematics/${schematic._id}/image`
 
   meta(property="og:title" content=schematic.name)
   meta(property="og:description" content=schematic.description)
@@ -20,7 +20,7 @@ body
     h5= 'Views: ' + schematic.views
     hr
     img(src=imageSrc)
-    h3= 'by ' + schematic.author
+    h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
@@ -28,8 +28,8 @@ body
     p= schematic.text
 
   div#bottom
-    - const change = `window.location.href="/schematics/${schematic.id}/edit"`
-    - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+    - const change = `window.location.href="/schematics/${schematic._id}/edit"`
+    - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
     - const copyLink = `copy(window.location.href)`
     div.notched.btn
       button.small(onclick='window.location.href="/schematics"') Back to Schematics

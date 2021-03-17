@@ -17,7 +17,7 @@ html
   body
     h1 Edit a Schematic
     hr
-    - const action = `/schematics/${schematic.id}/edit`
+    - const action = `/schematics/${schematic._id}/edit`
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
