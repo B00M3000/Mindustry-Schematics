@@ -16,7 +16,7 @@ html
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen.locked(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
