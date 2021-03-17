@@ -41,7 +41,7 @@ body
           div.name
             h2= schematic.name
           div.schematic_image_container
-            - const src = `/schematics/${schematic._id}/image`
+            - const src = `/raw/schematics/${schematic._id}/image`
             img.schematic_image.lazy(data-src=src)
 
   div#bottom

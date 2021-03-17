@@ -31,9 +31,6 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.get('/image', async (req, res) => {
-})
-
 router.get('/parse', async (req, res) => {
   const { text } = req.query
   if (!text || text == '') {
