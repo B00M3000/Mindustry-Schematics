@@ -6,3 +6,15 @@ body {
 p {
   word-break: break-all;
 }
+
+div.requirements{
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fill, max-content);
+}
+div.requirements > span{
+  margin-left: 5px;
+}
+div.requirements > span > img{
+  margin-right: 3px;
+}
