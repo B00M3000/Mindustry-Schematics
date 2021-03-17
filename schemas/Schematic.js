@@ -17,8 +17,6 @@ const schematicSchema = mongoose.Schema({
 
   encoding_version: { type: String, required: true },
   schema_version: { type: String, required: true, default: "v2" },
-
-  id: { type: String, required: true }
 })
 
 module.exports = mongoose.model('Schematics', schematicSchema)
