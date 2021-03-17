@@ -18,7 +18,7 @@ if(tagsInputDiv){
         var x_mark = document.createElement('img');
         x_mark.src = "/assets/x_mark.png"
         x_mark.style.height = "10px"
-        x_mark.style.width = "12px"
+        x_mark.style.width = "13px"
         li.appendChild(x_mark)
         c._list.appendChild(li);
         c._input.value = '';
