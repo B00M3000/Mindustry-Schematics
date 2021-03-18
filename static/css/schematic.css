@@ -2,7 +2,34 @@ body {
   text-align: center;
   margin: 30px;
 }
-
+img#preview {
+  max-width: 80%;
+}
 p {
   word-break: break-all;
+}
+div.requirements{
+  font-family: 'Mindustry';
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+div.requirements > span{
+  margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+div.requirements > span > img{
+  margin-right: 3px;
+}
+div.power{
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Mindustry';
+}
+div.power img {
+  width: 3rem;
 }

@@ -14,14 +14,29 @@ head
   meta(property="og:site_name" content="Mindustry Schematics")
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
+  - const title = '[Schematic] ' + schematic.name
+  title= title
 body
   div#head
-    h1= '[Schematic]' + schematic.name
+    h1= title
     h5= 'Views: ' + schematic.views
     hr
-    img(src=imageSrc)
+    img#preview(src=imageSrc)
     h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
+    if schematic.requirements
+      h3 Requirements:
+      div.requirements
+        each value, item in schematic.requirements
+          span 
+            img.item(src=`/assets/items/${item}.png`)
+            span !{value}
+    if schematic.powerConsumption || schematic.powerProduction
+      - const powerBalance = schematic.powerProduction - schematic.powerConsumption
+      div.power(style=`color: ${powerBalance > 0 ? 'rgb(251, 211, 103)' : 'rgb(229, 84, 84)'};`)
+        //- img(src="/assets/power.png")
+        span Power balance: &nbsp;
+        span #{powerBalance}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
     button.icon(onclick=copy): img(src="/assets/copy.png")
