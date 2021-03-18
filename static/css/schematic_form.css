@@ -131,9 +131,13 @@ ul.tags li {
   max-width: min-content;
 }
 ul.tags li .layer{
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: rgba(0, 0, 0, 0.3);
   padding: 0.3em;
+  height: 100%;
+  width: 100%;
 }
 ul.tags li span {
   margin-left: 5px;
