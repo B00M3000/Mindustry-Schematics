@@ -63,7 +63,7 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  VRDisplay { name, author, creator, text, description, tags } = req.body
+  const { name, author, creator, text, description, tags } = req.body
   
   try {
     tags = JSON.parse(tags)
