@@ -8,7 +8,7 @@ head
   meta(property="og:image" content="/assets/mindustry_banner.png")
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics Database")
+  meta(property="og:site_name" content="Mindustry Schematics")
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
@@ -17,19 +17,20 @@ body
     h3= `Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     h2 The icon buttons that are on each schematic box are clickable.
     hr
-    form(action="/schematics" method="GET")
-      input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-      input(type="submit" value="Search")
-    form(action="/schematics" method="GET")
-      input(type="submit" value="Reset Query")
+    div.search
+      form(action="/schematics" method="GET")
+        input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
+        button.small(type="submit") &#10003;
+      form(action="/schematics" method="GET")
+        button.small(type="submit") &#10006;
 
 
   div#schematics_result
     each schematic in schematics
-      - const info = `window.location.href="/schematics/${schematic.id}"`
+      - const info = `window.location.href="/schematics/${schematic._id}"`
       - const copy = `copy("${schematic.text}")`
-      - const edit = `window.location.href="/schematics/${schematic.id}/edit"`
-      - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+      - const edit = `window.location.href="/schematics/${schematic._id}/edit"`
+      - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
 
       div.schematic
         div.tools
@@ -41,7 +42,7 @@ body
           div.name
             h2= schematic.name
           div.schematic_image_container
-            - const src = `/schematics/${schematic.id}/image`
+            - const src = `/raw/schematics/${schematic._id}/image`
             img.schematic_image.lazy(data-src=src)
 
   div#bottom

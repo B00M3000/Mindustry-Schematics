@@ -2,6 +2,9 @@ const text = document.getElementById('text')
 const name = document.getElementById('name')
 const description = document.getElementById('description')
 const image_preview = document.getElementById('image_preview')
+const tagsInput = document.getElementById('tags')
+const form = document.querySelector('form')
+const submitButton = document.querySelector('button[type=submit]')
 
 function isValidSchematic(base64Code) {
   try {
@@ -47,14 +50,25 @@ text && text.addEventListener('change', async () => {
       break
   }
 })
+form && form.addEventListener('submit', async (e) => {
+  e.preventDefault()
 
-fetch("https://ipinfo.io/json")
-  .then(function (response) {
-    return response.json();
+  const data = new URLSearchParams()
+  for (const pair of new FormData(form)) {
+    data.append(pair[0], pair[1])
+  }
+  data.append('tags', JSON.stringify(currentTags))
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
   })
-  .then(function (myJson) {
-    console.log(myJson.ip);
-  })
-  .catch(function (error) {
-    console.log("Error: " + error);
-  });
+  submitButton.innerHTML = "Please wait..."
+  
+  sleep(1300)
+  // redirect the user to the page of the new schematic
+  window.location.href = response.url
+})
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

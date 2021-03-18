@@ -3,19 +3,20 @@ html
   head
     link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
     link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+    link(rel='stylesheet' href='/css/tags_input.css' type='text/css')
     
     meta(property="og:title" content="Create a Schematic")
     meta(property="og:description" content="You can add a schematic to the database by providing a name, creator, description, schematic copy text and image ")
     meta(property="og:image" content="/assets/mindustry_banner.png")
     meta(property="og:type" content="website")
     meta(property="og:url" content=url)
-    meta(property="og:site_name" content="Mindustry Schematics Database")
+    meta(property="og:site_name" content="Mindustry Schematics")
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen.locked(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
@@ -27,20 +28,25 @@ html
         textarea#description(name="description" placeholder="Description of the schematic" required)
 
         label(for="text") Schematic:
-        input#text(type="text" name="text" placeholder="Paste the schematic here" required)
+        input#text(type="text" name="text" placeholder="Paste the schematic here" required autofocus)
         span.error This isn't a valid schematic
-      
+        label(for="tags") Tags:
+        input#tags(type="text" list="tags-list")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
+
+
       div#image_preview
       
       div.notched.btn
         button(type="submit" name="submit" value="Submit") Submit
-
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back Schematics
-
-    include includes/loadingScreen.pug
-
-    script(src="/js/onSubmitLoadingScreen.js")
+    script.
+      const tags = !{_tags}
+    script(src="/js/tags_input.js")
     script(src="/js/form_schematic.js")
     script(src="/js/create_schematic.js")

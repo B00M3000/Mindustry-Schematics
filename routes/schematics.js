@@ -4,6 +4,9 @@ const { Router } = require('express')
 var router = Router()
 
 const { Schematic } = require('mindustry-schematic-parser')
+const {Types: { ObjectId } } = require('mongoose')
+
+const tags = require('../tags.json')
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -24,11 +27,11 @@ router.get('/', async (req, res) => {
   if(query){
     const regex = new RegExp(query, "i")
     const _query = { name: regex }
-    schematics = await schematicSchema.find(_query, "id name text", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(_query, "id name image", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments(_query)
   } else {
     query = ""
-    schematics = await schematicSchema.find(null, "id name text", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(null, "id name image", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments()
   }
   
@@ -52,12 +55,45 @@ router.get('/', async (req, res) => {
 
 router.get('/create', (req, res) => {
   res.render('create_schematic', {
-    url: req.url
+    url: req.url,
+    tags,
+    _tags: JSON.stringify(tags)
   })
 })
 
+router.post('/create', async (req, res) => {
+  const schematics = await schematicSchema.find({})
+  const { name, author, creator, text, description, tags } = req.body
+
+  const schematic = Schematic.decode(text)
+  const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
+  const data = await schematic.toImageBuffer()
+  const mimetype ="image/png"
+  const newSchematic = {
+    name,
+    creator: creator == undefined ? author : creator,
+    text,
+    description,
+    encoding_version: schematic.version,
+    powerBalance,
+    powerConsumption,
+    powerProduction,
+    requirements,
+    tags: JSON.parse(tags),
+    image: {
+      Data: data,
+      ContentType: mimetype
+    }
+  }
+
+
+  const { id } = (await new schematicSchema(newSchematic).save())
+
+  res.redirect(`/schematics/${id}`)
+})
+
 router.param('id', async (req, res, next, id) => {
-  const schematic = await schematicSchema.findOne({ id })
+  const schematic = await schematicSchema.findById(ObjectId(id))
   
   if(!schematic) return res.redirect('/schematics')
   
@@ -76,15 +112,13 @@ router.get('/:id/text', async (req, res) => {
 
   const text = schematic.decode()
 
-  console.log(text)
-
   res.send(text)
 })
 
 router.get('/:id', async (req, res) => {
   var { schematic } = req
   
-  schematic = await schematicSchema.findOneAndUpdate({ id: schematic.id}, {
+  schematic = await schematicSchema.findOneAndUpdate({ _id: schematic._id}, {
     $inc: {
       views: 1
     }
@@ -98,6 +132,13 @@ router.get('/:id', async (req, res) => {
   })
 })
 
+router.get('/:id/image', async (req, res) => {
+  const { schematic } = req
+
+  res.type('Content-Type', schematic.image.ContentType)
+  res.send(schematic.image.Data)
+})
+
 router.get('/:id/edit', async (req, res) => {
   const { schematic } = req
   
@@ -108,8 +149,6 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/:id/edit', async (req, res) => {
   const { schematic } = req
-  const { id } = schematic
-  schematic.id = undefined;
   
   const { name, author, text, description, cDescription } = req.body
   const { data, mimetype } = req.files.image
@@ -127,7 +166,6 @@ router.post('/:id/edit', async (req, res) => {
       }
     },
     Description: cDescription,
-    id
   }
 
   await new schematicChangeSchema(schematicChange).save()
@@ -146,13 +184,10 @@ router.get('/:id/delete', async (req, res) => {
 router.post('/:id/delete', async (req, res) => {
   const { schematic } = req
   const { reason } = req.body
-  const { id } = schematic
-  schematic.id = undefined;
   
   const schematicChange = {
     Original: schematic,
     Delete: reason,
-    id
   }
   
   await new schematicChangeSchema(schematicChange).save()
@@ -161,13 +196,3 @@ router.post('/:id/delete', async (req, res) => {
 })
 
 module.exports = router
-
-let uuid = () => {
-    let s4 = () => {
-        return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1);
-    }
-    //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
