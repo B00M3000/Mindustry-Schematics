@@ -63,7 +63,14 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  const { name, author, creator, text, description } = req.body
+  const { name, author, creator, text, description, tags } = req.body
+  
+  var parsedTags;
+  try {
+    parsedTags = JSON.parse(tags)
+  } catch (error) {
+    parsedTags = undefined;
+  }
 
   const schematic = Schematic.decode(text)
   const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
@@ -71,7 +78,8 @@ router.post('/create', async (req, res) => {
   const mimetype ="image/png"
   const newSchematic = {
     name,
-    creator: creator == undefined ? author : creator,
+    creator: creator ? creator : author,
+    tags: parsedTags,
     text,
     description,
     encoding_version: schematic.version,
@@ -87,7 +95,9 @@ router.post('/create', async (req, res) => {
 
   const { id } = (await new schematicSchema(newSchematic).save())
 
-  res.redirect(`/schematics/${id}`)
+  res.send({
+    url: `/schematics/${id}`
+  })
 })
 
 module.exports = router

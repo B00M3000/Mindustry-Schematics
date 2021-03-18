@@ -63,6 +63,12 @@ form && form.addEventListener('submit', async (e) => {
     body: data,
   })
   submitButton.innerHTML = "Please wait..."
+  
+  sleep(1300)
   // redirect the user to the page of the new schematic
   window.location.href = response.url
 })
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
