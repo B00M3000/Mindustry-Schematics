@@ -8,12 +8,9 @@ if (input && ul) {
   input.addEventListener('keydown', (e) => {
     if (e.key == "Enter") {
       e.preventDefault()
-      console.log("tag")
       const { value } = input
       const tag = tags.find(t => t.name.toLowerCase() == value.toLowerCase())
-      console.log(tag)
       if (tag && !currentTags.includes(tag)) {
-        console.log('work')
         const li = document.createElement('li')
         li.style = `--color: ${tag.color};`
         const layer = document.createElement('div')
@@ -28,7 +25,7 @@ if (input && ul) {
         layer.appendChild(xMark)
         li.appendChild(layer)
         ul.appendChild(li)
-        currentTags.push(tag.name)
+        currentTags.push(tag)
       } 
       input.value = ''
     }

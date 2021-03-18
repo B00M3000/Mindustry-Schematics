@@ -115,16 +115,20 @@ input.invalid + span.error {
 ul.tags{
   grid-column: 1 / 3;
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: center;
   list-style-type: none;
   gap: 0.5em;
+  padding: 0 20%;
 }
 ul.tags li {
-  position: relative;
+  display: inline-block;
   --color: #888888;
   border: none;
   background-color: var(--color);
   border-radius: 5px;
+  max-width: min-content;
 }
 ul.tags li .layer{
   display: inline-block;
