@@ -8,7 +8,8 @@ if (input && ul) {
     const { value } = input
     e.preventDefault()
     const tag = tags.find(t => t.name.toLowerCase() == value.toLowerCase())
-    if (tag && !currentTags.includes(tag)) {
+    const isUsed = currentTags.includes(tag) 
+    if (tag && !isUsed) {
       const li = document.createElement('li')
       li.style = `--color: ${tag.color};`
       const layer = document.createElement('div')
@@ -25,6 +26,8 @@ if (input && ul) {
       ul.appendChild(li)
       currentTags.push(tag)
       input.value = ''
-    } 
+    } else if (isUsed) {
+      input.value = ''
+    }
   })
 }
