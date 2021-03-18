@@ -8,12 +8,14 @@ if(tagsInputDiv){
   tagsInputDiv.onkeydown = function(e){
     var e = event || e;
     if(e.keyCode == 13) {
+      e.preventDefault();
+      
       var c = e.target._icategories;
       var value = c._input.value;
       var tag = tags.find(t => t.name.toUpperCase() == value.toUpperCase())
       if(tag && currentTags.indexOf(tag.name) === -1){
         var li = document.createElement('li');
-        li.innerHTML = c._input.value;
+        li.innerHTML = tag.name;
         li.style.background = tag.color;
         var x_mark = document.createElement('img');
         x_mark.src = "/assets/x_mark.png"
@@ -22,7 +24,6 @@ if(tagsInputDiv){
         li.appendChild(x_mark)
         c._list.appendChild(li);
         c._input.value = '';
-        e.preventDefault();
 
         currentTags.push(tag.name)
 
