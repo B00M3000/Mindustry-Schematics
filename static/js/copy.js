@@ -23,15 +23,16 @@ async function copy(text) {
   if(successful) {
     var div = document.createElement('div')
     div.id = "copied_popup"
-
+    const content = document.createElement('div')
     var icon = document.createElement('img')
     icon.src = "/assets/paste.png"
 
     var text = document.createElement('p')
     text.innerText = "Copied to Clipboard!"
 
-    div.appendChild(icon)
-    div.appendChild(text)
+    content.appendChild(icon)
+    content.appendChild(text)
+    div.appendChild(content)
     document.body.appendChild(div)
 
     await sleep(5000)
