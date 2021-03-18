@@ -87,7 +87,9 @@ form && form.addEventListener('submit', async (e) => {
   for (const pair of new FormData(form)) {
     data.append(pair[0], pair[1])
   }
-  data.append('tags', JSON.stringify(currentTags))
+  if (!location.href.endsWith('/delete')) {
+    data.append('tags', JSON.stringify(currentTags))
+  }
   const response = await fetch(form.action, {
     method: 'POST',
     body: data,
