@@ -22,7 +22,7 @@ html
     hr
     - const src = `/schematics/${schematic._id}/image`
     img(src=src width="166px" height="166px")
-    h3= 'by ' + schematic.author
+    h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
 
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
@@ -32,15 +32,10 @@ html
       div.notched.btn
         button(type="submit" name="submit") Submit Deletion Request
 
-    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
-      textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why do you think this schematic should be removed?" required)
-      br
-      input.rounded-input(type="submit" name="submit" value="Submit Deletion Request")
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back to Schematics
 
     include includes/loadingScreen.pug
 
-    script(src="/js/onSubmitLoadingScreen.js")
     script(src="/js/form_schematic.js")
