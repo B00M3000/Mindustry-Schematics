@@ -19,9 +19,16 @@ body
     h1= '[Schematic]' + schematic.name
     h5= 'Views: ' + schematic.views
     hr
-    img(src=imageSrc)
+    img#preview(src=imageSrc)
     h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
+    if schematic.requirements
+      h3 Requirements:
+      div.requirements
+        each value, item in schematic.requirements
+          span 
+            img.item(src=`/assets/items/${item}.png`)
+            span !{value}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
     button.icon(onclick=copy): img(src="/assets/copy.png")

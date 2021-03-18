@@ -2,18 +2,23 @@ body {
   text-align: center;
   margin: 30px;
 }
-
+img#preview {
+  max-width: 80%;
+}
 p {
   word-break: break-all;
 }
-
 div.requirements{
-  display: grid;
+  font-family: 'Mindustry';
+  display: flex;
   gap: 5px;
-  grid-template-columns: repeat(auto-fill, max-content);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 div.requirements > span{
   margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
 }
 div.requirements > span > img{
   margin-right: 3px;
