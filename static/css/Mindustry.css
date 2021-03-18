@@ -25,6 +25,7 @@
 }
 *{
   box-sizing: border-box;
+  font-family: 'Mindustry';
 }
 body {
   background-color: #222222;
