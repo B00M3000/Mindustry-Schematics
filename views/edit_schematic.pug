@@ -24,7 +24,7 @@ html
         input(type="text" name="name" id="name" placeholder="Name of the schematic" value=schematic.name   required)
         
         label(for="author") Author: 
-        input(type="text" name="author" id="author" placeholder="Author of the schematic" value=schematic.creator required)
+        input(type="text" name="author" id="author" placeholder="Author of the schematic" value=(schematic.creator || schematic.author) required)
         
         label(for="description") Description: 
         textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description

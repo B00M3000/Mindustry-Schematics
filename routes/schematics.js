@@ -143,7 +143,9 @@ router.get('/:id/edit', async (req, res) => {
   const { schematic } = req
   
   res.render('edit_schematic', {
-    schematic
+    schematic,
+    tags,
+    _tags: JSON.stringify(tags)
   })
 })
 
@@ -151,7 +153,9 @@ router.post('/:id/edit', async (req, res) => {
   const { schematic } = req
   
   const { name, author, text, description, cDescription } = req.body
-  const { data, mimetype } = req.files.image
+  const s = Schematic.decode(text)
+  const data = await s.toImageBuffer()
+  const mimetype = 'image/png'
   
   const schematicChange = {
     Original: schematic,
