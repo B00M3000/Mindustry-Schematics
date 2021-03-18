@@ -4,7 +4,6 @@ const ul = document.querySelector('ul.tags')
 const input = document.querySelector('input#tags')
 
 if (input && ul) {
-
   input.addEventListener('keydown', (e) => {
     if (e.key == "Enter") {
       e.preventDefault()

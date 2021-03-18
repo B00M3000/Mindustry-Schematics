@@ -10,13 +10,13 @@ html
     meta(property="og:image" content="/assets/mindustry_banner.png")
     meta(property="og:type" content="website")
     meta(property="og:url" content=url)
-    meta(property="og:site_name" content="Mindustry Schematics Database")
+    meta(property="og:site_name" content="Mindustry Schematics")
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
   body
     h1 Create a Schematic
     hr
-    form#onSubmitLoadingScreen.locked(action="/schematics/create" method="POST" encType="multipart/form-data")
+    form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)

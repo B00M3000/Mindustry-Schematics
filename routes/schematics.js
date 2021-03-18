@@ -6,10 +6,10 @@ var router = Router()
 const { Schematic } = require('mindustry-schematic-parser')
 const {Types: { ObjectId } } = require('mongoose')
 
-const tags = require('../tags.json')
+const tags = require('./tags.json')
 
-const schematicSchema = require('../schemas/Schematic.js')
-const schematicChangeSchema = require('../schemas/SchematicChange.js')
+const schematicSchema = require('./schemas/Schematic.js')
+const schematicChangeSchema = require('./schemas/SchematicChange.js')
 
 const limitPerPage = 20
 
@@ -27,11 +27,11 @@ router.get('/', async (req, res) => {
   if(query){
     const regex = new RegExp(query, "i")
     const _query = { name: regex }
-    schematics = await schematicSchema.find(_query, "id name text", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(_query, "id name image", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments(_query)
   } else {
     query = ""
-    schematics = await schematicSchema.find(null, "id name text", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(null, "id name image", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments()
   }
   
