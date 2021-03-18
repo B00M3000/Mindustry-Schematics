@@ -95,9 +95,7 @@ router.post('/create', async (req, res) => {
 
   const { id } = (await new schematicSchema(newSchematic).save())
 
-  res.send({
-    url: `/schematics/${id}`
-  })
+  res.redirect( `/schematics/${id}`)
 })
 
 module.exports = router
