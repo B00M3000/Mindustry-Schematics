@@ -17,11 +17,12 @@ body
     h3= `Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     h2 The icon buttons that are on each schematic box are clickable.
     hr
-    form(action="/schematics" method="GET")
-      input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-      input(type="submit" value="Search")
-    form(action="/schematics" method="GET")
-      input(type="submit" value="Reset Query")
+    div.search
+      form(action="/schematics" method="GET")
+        input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
+        button.small(type="submit") &#10003;
+      form(action="/schematics" method="GET")
+        button.small(type="submit") &#10006;
 
 
   div#schematics_result
