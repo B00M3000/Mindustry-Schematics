@@ -95,7 +95,7 @@ router.post('/create', async (req, res) => {
 
   const { id } = (await new schematicSchema(newSchematic).save())
 
-  res.send({
+  res.redirect({
     url: `/schematics/${id}`
   })
 })
