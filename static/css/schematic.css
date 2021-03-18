@@ -30,6 +30,11 @@ div.power{
   align-items: center;
   font-family: 'Mindustry';
 }
+div.power > span{
+  display: flex;
+  align-items: center;
+}
 div.power img {
-  width: 3rem;
+  height: 1.5rem;
+  margin-right: 0.5em;
 }
