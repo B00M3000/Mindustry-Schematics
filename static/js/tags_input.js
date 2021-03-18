@@ -13,7 +13,7 @@ if (input && ul) {
       li.style = `--color: ${tag.color};`
       const layer = document.createElement('div')
       layer.classList.add('layer')
-      layer.innerText = input.value
+      layer.innerText = tag.name
       const xMark = document.createElement('span')
       xMark.innerText = '\u2716'
       xMark.addEventListener('click', () => {
