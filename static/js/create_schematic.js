@@ -4,6 +4,7 @@ const description = document.getElementById('description')
 const image_preview = document.getElementById('image_preview')
 const tagsInput = document.getElementById('tags')
 const form = document.querySelector('form')
+const submitButton = document.querySelector('button[type=submit]')
 
 function isValidSchematic(base64Code) {
   try {
@@ -61,6 +62,7 @@ form && form.addEventListener('submit', async (e) => {
     method: 'POST',
     body: data,
   })
+  submitButton.innerHTML = "Please wait..."
   // redirect the user to the page of the new schematic
   window.location.href = response.url
 })
