@@ -24,7 +24,7 @@ html
         input(type="text" name="name" id="name" placeholder="Name of the schematic" value=schematic.name   required)
         
         label(for="author") Author: 
-        input(type="text" name="author" id="author" placeholder="Author of the schematic" value=schematic.  author required)
+        input(type="text" name="author" id="author" placeholder="Author of the schematic" value=schematic.creator required)
         
         label(for="description") Description: 
         textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description
@@ -34,12 +34,14 @@ html
 
         label(for="description") Changes: 
         textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what   was changed and why?" required)
-      div.notched.btn
-        button.small(type="button") 
-          label(for="image") Upload/Paste a Image
-
-      input#image.rounded-input(type="file" name="image" accept="image/*" required)
+        label(for="tags") Tags:
+        input#tags(type="text" list="tags-list")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
       div#image_preview
+        img(src=`/schematics/${schematic._id}/image`)
       div.notched.btn
         button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
     div#bottom
@@ -50,7 +52,8 @@ html
     
     include includes/loadingScreen.pug
 
-
+    script.
+      const tags = !{_tags}
     script(src="/js/form_schematic.js")
-    script(src="/js/onSubmitLoadingScreen.js")
+    script(src="/js/tags_input.js")
     // script(src="/js/load_old_schematic_image.js")
