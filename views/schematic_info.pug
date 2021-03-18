@@ -14,9 +14,11 @@ head
   meta(property="og:site_name" content="Mindustry Schematics")
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
+  - const title = '[Schematic] ' + schematic.name
+  title= title
 body
   div#head
-    h1= '[Schematic]' + schematic.name
+    h1= title
     h5= 'Views: ' + schematic.views
     hr
     img#preview(src=imageSrc)
