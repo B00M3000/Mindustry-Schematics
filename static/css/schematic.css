@@ -29,6 +29,7 @@ div.power{
   justify-content: center;
   align-items: center;
   font-family: 'Mindustry';
+  gap: 2em;
 }
 div.power > span{
   display: flex;
