@@ -30,13 +30,17 @@ body
         each value, item in schematic.requirements
           span 
             img.item(src=`/assets/items/${item}.png`)
-            span !{value}
+            span !{value}      
     if schematic.powerConsumption || schematic.powerProduction
-      - const powerBalance = schematic.powerProduction - schematic.powerConsumption
       div.power(style=`color: ${powerBalance > 0 ? 'rgb(251, 211, 103)' : 'rgb(229, 84, 84)'};`)
-        //- img(src="/assets/power.png")
-        span Power balance: &nbsp;
-        span #{powerBalance}
+        if schematic.powerProduction
+          span
+            img(src="/assets/power-icon-yellow.svg")
+            span +#{schematic.powerProduction}
+        if schematic.powerConsumption
+          span
+            img(src="/assets/power-icon-red.svg")
+            span -#{schematic.powerConsumption}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
     button.icon(onclick=copy): img(src="/assets/copy.png")
