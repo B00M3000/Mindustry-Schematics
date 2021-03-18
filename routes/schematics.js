@@ -6,10 +6,10 @@ var router = Router()
 const { Schematic } = require('mindustry-schematic-parser')
 const {Types: { ObjectId } } = require('mongoose')
 
-const tags = require('./tags.json')
+const tags = require('../tags.json')
 
-const schematicSchema = require('./schemas/Schematic.js')
-const schematicChangeSchema = require('./schemas/SchematicChange.js')
+const schematicSchema = require('../schemas/Schematic.js')
+const schematicChangeSchema = require('../schemas/SchematicChange.js')
 
 const limitPerPage = 20
 
