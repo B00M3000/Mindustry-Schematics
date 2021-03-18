@@ -32,13 +32,13 @@ body
             img.item(src=`/assets/items/${item}.png`)
             span !{value}      
     if schematic.powerConsumption || schematic.powerProduction
-      div.power(style=`color: ${powerBalance > 0 ? 'rgb(251, 211, 103)' : 'rgb(229, 84, 84)'};`)
+      div.power
         if schematic.powerProduction
-          span
+          span(style="color: rgb(251, 211, 103);")
             img(src="/assets/power-icon-yellow.svg")
             span +#{schematic.powerProduction}
         if schematic.powerConsumption
-          span
+          span(style="color: rgb(229, 84, 84);")
             img(src="/assets/power-icon-red.svg")
             span -#{schematic.powerConsumption}
     h4 Copy the text below to import or click the copy button below: 
