@@ -12,7 +12,6 @@ form{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
 form > *{
@@ -111,6 +110,34 @@ span.error{
 input.invalid + span.error {
   visibility: visible;
   color: rgb(255, 101, 101);
+}
+
+ul.tags{
+  grid-column: 1 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: center;
+  list-style-type: none;
+  gap: 0.5em;
+  padding: 0 20%;
+}
+ul.tags li {
+  display: inline-block;
+  --color: #888888;
+  border: none;
+  background-color: var(--color);
+  border-radius: 5px;
+  max-width: min-content;
+}
+ul.tags li .layer{
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3em;
+}
+ul.tags li span {
+  margin-left: 5px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 500px){

@@ -21,17 +21,6 @@ html
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
 
-        div.tags-input
-          ul
-          input(type="text" list="tags-list")
-          datalist(id="tags-list")
-            each tag of tags
-              option(value=tag.name)
-              
-          script.
-            const tags = !{_tags}
-          script(src="/js/tags_input.js")
-
         label(for="author") Author: 
         input(type="text" name="author" id="author" placeholder="Author of the schematic" required)
         
@@ -41,18 +30,23 @@ html
         label(for="text") Schematic:
         input#text(type="text" name="text" placeholder="Paste the schematic here" required autofocus)
         span.error This isn't a valid schematic
-      
+        label(for="tags") Tags:
+        input#tags(type="text" list="tags-list")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
+
+
       div#image_preview
       
       div.notched.btn
         button(type="submit" name="submit" value="Submit") Submit
-
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back Schematics
-
-    include includes/loadingScreen.pug
-
-    script(src="/js/onSubmitLoadingScreen.js")
+    script.
+      const tags = !{_tags}
+    script(src="/js/tags_input.js")
     script(src="/js/form_schematic.js")
     script(src="/js/create_schematic.js")

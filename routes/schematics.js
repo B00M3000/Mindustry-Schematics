@@ -6,10 +6,10 @@ var router = Router()
 const { Schematic } = require('mindustry-schematic-parser')
 const {Types: { ObjectId } } = require('mongoose')
 
-const tags = require('../tags.json')
+const tags = require('./tags.json')
 
-const schematicSchema = require('../schemas/Schematic.js')
-const schematicChangeSchema = require('../schemas/SchematicChange.js')
+const schematicSchema = require('./schemas/Schematic.js')
+const schematicChangeSchema = require('./schemas/SchematicChange.js')
 
 const limitPerPage = 20
 
@@ -59,6 +59,37 @@ router.get('/create', (req, res) => {
     tags,
     _tags: JSON.stringify(tags)
   })
+})
+
+router.post('/create', async (req, res) => {
+  const schematics = await schematicSchema.find({})
+  const { name, author, creator, text, description, tags } = req.body
+
+  const schematic = Schematic.decode(text)
+  const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
+  const data = await schematic.toImageBuffer()
+  const mimetype ="image/png"
+  const newSchematic = {
+    name,
+    creator: creator == undefined ? author : creator,
+    text,
+    description,
+    encoding_version: schematic.version,
+    powerBalance,
+    powerConsumption,
+    powerProduction,
+    requirements,
+    tags: JSON.parse(tags),
+    image: {
+      Data: data,
+      ContentType: mimetype
+    }
+  }
+
+
+  const { id } = (await new schematicSchema(newSchematic).save())
+
+  res.redirect(`/schematics/${id}`)
 })
 
 router.param('id', async (req, res, next, id) => {

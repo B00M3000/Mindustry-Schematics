@@ -2,6 +2,9 @@ const text = document.getElementById('text')
 const name = document.getElementById('name')
 const description = document.getElementById('description')
 const image_preview = document.getElementById('image_preview')
+const tagsInput = document.getElementById('tags')
+const form = document.querySelector('form')
+const submitButton = document.querySelector('button[type=submit]')
 
 function isValidSchematic(base64Code) {
   try {
@@ -46,4 +49,20 @@ text && text.addEventListener('change', async () => {
       text.classList.add('invalid')
       break
   }
+})
+form && form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const data = new URLSearchParams()
+  for (const pair of new FormData(form)) {
+    data.append(pair[0], pair[1])
+  }
+  data.append('tags', JSON.stringify(currentTags))
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+  })
+  submitButton.innerHTML = "Please wait..."
+  // redirect the user to the page of the new schematic
+  window.location.href = response.url
 })
