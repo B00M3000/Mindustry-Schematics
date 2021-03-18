@@ -1,38 +1,37 @@
-var tagsInputDiv = document.querySelector('.tags-input');
-var currentTags = []
+const currentTags = []
+const ul = document.querySelector('ul.tags')
+/**@type {HTMLInputElement} */
+const input = document.querySelector('input#tags')
 
-if(tagsInputDiv){
-  tagsInputDiv._list = tagsInputDiv.querySelector('ul');
-  tagsInputDiv._input = tagsInputDiv.querySelector('input');
-  tagsInputDiv._input._icategories = tagsInputDiv;
-  tagsInputDiv.onkeydown = function(e){
-    var e = event || e;
-    if(e.keyCode == 13) {
-      var c = e.target._icategories;
-      var value = c._input.value;
-      var tag = tags.find(t => t.name.toUpperCase() == value.toUpperCase())
-      if(tag && currentTags.indexOf(tag.name) === -1){
-        var li = document.createElement('li');
-        li.innerHTML = c._input.value;
-        li.style.background = tag.color;
-        var x_mark = document.createElement('img');
-        x_mark.src = "/assets/x_mark.png"
-        x_mark.style.height = "10px"
-        x_mark.style.width = "13px"
-        li.appendChild(x_mark)
-        c._list.appendChild(li);
-        c._input.value = '';
-        e.preventDefault();
+if (input && ul) {
 
-        currentTags.push(tag.name)
-
-        x_mark.onclick = (e) => {
-          tagsInputDiv._list.removeChild(li)
+  input.addEventListener('keydown', (e) => {
+    if (e.key == "Enter") {
+      e.preventDefault()
+      console.log("tag")
+      const { value } = input
+      const tag = tags.find(t => t.name.toLowerCase() == value.toLowerCase())
+      console.log(tag)
+      if (tag && !currentTags.includes(tag)) {
+        console.log('work')
+        const li = document.createElement('li')
+        li.style = `--color: ${tag.color};`
+        const layer = document.createElement('div')
+        layer.classList.add('layer')
+        layer.innerText = input.value
+        const xMark = document.createElement('span')
+        xMark.innerText = '\u2716'
+        xMark.addEventListener('click', () => {
+          ul.removeChild(li)
           currentTags.pop(currentTags.indexOf(tag.name))
-        }
-      } else {
-        c._input.value = '';
-      }
+        })
+        layer.appendChild(xMark)
+        li.appendChild(layer)
+        ul.appendChild(li)
+        currentTags.push(tag.name)
+      } 
+      input.value = ''
     }
-  }
+  })
+
 }

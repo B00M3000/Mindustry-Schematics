@@ -63,7 +63,7 @@ router.get('/create', (req, res) => {
 
 router.post('/create', async (req, res) => {
   const schematics = await schematicSchema.find({})
-  const { name, author, creator, text, description } = req.body
+  const { name, author, creator, text, description, tags } = req.body
 
   const schematic = Schematic.decode(text)
   const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
@@ -79,6 +79,7 @@ router.post('/create', async (req, res) => {
     powerConsumption,
     powerProduction,
     requirements,
+    tags: JSON.parse(tags),
     image: {
       Data: data,
       ContentType: mimetype
