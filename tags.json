@@ -2,5 +2,146 @@
   {
     "name": "Power",
     "color": "#f6d147"
+  },
+  {
+    "name": "Units",
+    "color": "#4cb066"
+  },
+  {
+    "name": "Logic",
+    "color": "#8a28ad"
+  },
+  ,
+  {
+    "name": "Art",
+    "color": "#a854c7"
+  },
+  ,
+  {
+    "name": "Defense",
+    "color": "#ba7956"
+  },
+  ,
+  {
+    "name": "Copper",
+    "color": "#d99d73"
+  },
+  ,
+  {
+    "name": "Lead",
+    "color": "#8c7fa9"
+  },
+  ,
+  {
+    "name": "Metaglass",
+    "color": "#ebeef5"
+  },
+  {
+    "name": "Graphite",
+    "color": "#b2c6d2"
+  },
+  {
+    "name": "Sand",
+    "color": "#f7cba4"
+  },
+  {
+    "name": "Coal",
+    "color": "#272727"
+  },
+  {
+    "name": "Titanium",
+    "color": "#8da1e3"
+  },
+  {
+    "name": "Thorium",
+    "color": "#f7cba4"
+  },
+  {
+    "name": "Scrap",
+    "color": "#777777"
+  },
+  {
+    "name": "Silicon",
+    "color": "#53565c"
+  },
+  {
+    "name": "Plastanium",
+    "color": "#cbd97f"
+  },
+  {
+    "name": "Phase Fabric",
+    "color": "#f4ba6e"
+  },
+  {
+    "name": "Surge Alloy",
+    "color": "#f3e979"
+  },
+  {
+    "name": "Spore Pod",
+    "color": "#7457ce"
+  },
+  {
+    "name": "Blast Compound",
+    "color": "#ff795e"
+  },
+  {
+    "name": "Pyratite",
+    "color": "#ffaa5f"
+  },
+  {
+    "name": "Stackable",
+    "color": "#429645"
+  },
+  {
+    "name": "From Scrap",
+    "color": "#777777"
+  },
+  {
+    "name": "On Sand",
+    "color": "#f7cba4"
+  },
+  {
+    "name": "On Dark Sand",
+    "color": "#4d3d30"
+  },
+  {
+    "name": "On Ice",
+    "color": "#7eded7"
+  },
+  {
+    "name": "Non-Stackable",
+    "color": "#6751b0"
+  },
+  {
+    "name": "Core Design",
+    "color": "#e6bc53"
+  },
+  {
+    "name": "Thorium Reactor",
+    "color": "#7d4ebf"
+  },
+  {
+    "name": "Steam Generator",
+    "color": "#8b8f83"
+  },
+  {
+    "name": "t5",
+    "color": "#545453"
+  },
+  {
+    "name": "t4",
+    "color": "#545453"
+  },
+  {
+    "name": "t3",
+    "color": "#545453"
+  },
+  {
+    "name": "t2",
+    "color": "#545453"
+  },
+  {
+    "name": "t1",
+    "color": "#545453"
   }
 ]

@@ -63,7 +63,6 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  const schematics = await schematicSchema.find({})
   const { name, author, creator, text, description } = req.body
 
   const schematic = Schematic.decode(text)
