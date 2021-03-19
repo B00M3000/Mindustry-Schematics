@@ -36,3 +36,10 @@ form:nth-child(2) button{
   border-radius: 0px 5px 5px 0px;
   border-left: none;
 }
+img.lazy{
+  opacity: 0;
+  transition: opacity ease 0.5s;
+}
+img.lazy.loaded{
+  opacity: 1;
+}
