@@ -49,7 +49,7 @@ body
 
     - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
     - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
-    - const nextPage = `window.location.href="/schematics?page=${page+1}&query=${query}"`
+    - const nextPage = `window.location.href="/schematics?page=${page+1}${query ? `&query=${query}` : "" }"`
     div.notched.btn
       button.small(onclick=firstPage) First Page 
     div.notched.btn
