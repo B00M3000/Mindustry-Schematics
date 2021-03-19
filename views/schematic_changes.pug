@@ -1,29 +1,23 @@
 doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+  link(rel='stylesheet' href='/css/schematic_changes.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
   h1 Schematic Changes
   hr
-  each change in changes
-    - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
-    - const src = `/raw/schematics/${change.id}/image`
-
-    div#schematics_result
-      div.change(onclick=onclick)
-        div.schematic
-          if change.Delete
-            div.name
-              h2
-                span(style="color: red") DELETE
-                = " " + change.Original.name
-          else
-            div.name
-              h2
-                span(style="color: green") MODIFY
-                = " " + change.Original.name
-          img.schematic_image(src=src)
+  div.changes
+    each change in changes
+      - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
+      - const src = `/raw/schematics/${change.id}/image`
+      - const color = change.Delete ? '#fd5f5f' : '#68cf68'
+      - const mode = change.Delete ? 'Delete' : 'Modify'
+      div.schematic(onclick=onclick)
+        h2
+          span(style=`color: ${color};`) #{mode}
+          span= " " + change.Original.name
+        img.schematic_image(src=src)
           
 
   div#bottom
