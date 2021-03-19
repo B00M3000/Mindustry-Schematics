@@ -7,6 +7,7 @@ const image_preview = document.getElementById('image_preview')
 const tagsInput = document.getElementById('tags')
 const form = document.querySelector('form')
 const submitButton = document.querySelector('button[type=submit]')
+let submitting = false
 
 function isValidSchematic(base64Code) {
   try {
@@ -77,11 +78,16 @@ text && text.addEventListener('change', async () => {
     case 400:
       text.classList.add('invalid')
       break
+    case 431:
+      alert('The schematic has too much data')
+      console.log(value.length)
+      break
   }
 })
 
 form && form.addEventListener('submit', async (e) => {
   e.preventDefault()
+  submitButton.disabled = true
   submitButton.innerHTML = "Please wait..."
   const data = new URLSearchParams()
   for (const pair of new FormData(form)) {
