@@ -58,7 +58,13 @@ text && text.addEventListener('change', async () => {
     text.classList.add('invalid')
     return
   }
-  const response = await fetch(`/api/schematics/parse?text=${encodeURIComponent(value.trim())}`)
+  const url = `/api/schematics/parse`
+  const data = new FormData()
+  data.append("text", value.trim())
+  const response = await fetch(url, {
+    method: 'POST',
+    body: data
+  })
   switch (response.status) {
     case 200: {
       text.classList.remove('invalid')

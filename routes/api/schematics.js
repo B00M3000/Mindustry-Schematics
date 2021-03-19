@@ -31,8 +31,8 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.get('/parse', async (req, res) => {
-  const { text } = req.query
+router.post('/parse', async (req, res) => {
+  const { text } = req.body
   if (!text || text == '') {
     res.status(400).send({ error: "This is not a valid schematic" })
     return
