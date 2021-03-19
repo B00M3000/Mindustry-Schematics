@@ -63,8 +63,8 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  const { name, author, creator, text, description, tags } = req.body
-  
+  const { name, author, creator, description } = req.body
+  let { tags, text } = req.body
   try {
     tags = JSON.parse(tags)
   } catch (error) {
@@ -75,7 +75,7 @@ router.post('/create', async (req, res) => {
   const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
   const data = await schematic.toImageBuffer()
   const mimetype ="image/png"
-
+  
   schematic.name = name
   schematic.description = description
   text = schematic.encode()
@@ -83,7 +83,7 @@ router.post('/create', async (req, res) => {
   const newSchematic = {
     name,
     creator: creator ? creator : author,
-    tags: parsedTags,
+    tags,
     text,
     description,
     encoding_version: schematic.version,
