@@ -95,10 +95,7 @@ form && form.addEventListener('submit', async (e) => {
   e.preventDefault()
   submitButton.disabled = true
   submitButton.innerHTML = "Please wait..."
-  const data = new URLSearchParams()
-  for (const pair of new FormData(form)) {
-    data.append(pair[0], pair[1])
-  }
+  const data = new FormData(form)
   if (!location.href.endsWith('/delete')) {
     data.append('tags', JSON.stringify(currentTags))
   }
