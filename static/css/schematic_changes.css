@@ -1,0 +1,5 @@
+div.changes{
+  display: flex;
+  gap: 2em;
+  justify-content: space-around;
+}

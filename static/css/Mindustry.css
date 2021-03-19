@@ -114,12 +114,14 @@ button:focus {
 
 .schematic {
   color: white;
-  margin: 5px;
-  font-style: thin;
   border-style: solid;
   border-width: 3px;
   border-color: #454545;
   transition: border 0.2s;
+  display: flex;
+  flex-direction: column;
+  width: 172px;
+  justify-content: space-between;
 }
 
 .schematic img:after {
