@@ -20,9 +20,9 @@ body
     div.search
       form(action="/schematics" method="GET")
         input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-        button.small(type="submit") &#10003;
+        button.small(type="submit"): img(src="/assets/check-mark.svg")
       form(action="/schematics" method="GET")
-        button.small(type="submit") &#10006;
+        button.small(type="submit"): img(src="/assets/cross-mark.svg")
 
 
   div#schematics_result
@@ -34,11 +34,11 @@ body
 
       div.schematic
         div.tools
-          button.icon(onclick=info): img(src="/assets/info.png")
-          button.icon(onclick=copy): img(src="/assets/copy.png")
-          button.icon(onclick=edit): img(src="/assets/pencil.png")
-          button.icon(onclick=_delete): img(src="/assets/trash.png") 
-        div
+          button.icon(onclick=info): img(src="/assets/info.svg")
+          button.icon(onclick=copy): img(src="/assets/copy.svg")
+          button.icon(onclick=edit): img(src="/assets/pencil.svg")
+          button.icon(onclick=_delete): img(src="/assets/trash.svg") 
+        div.view
           div.name
             h2= schematic.name
           div.schematic_image_container
