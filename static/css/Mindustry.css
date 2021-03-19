@@ -53,11 +53,16 @@ button.icon {
   text-decoration: none;
   background-color: #222222;
   border: #222222 solid 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 40px;
 }
 
 button.icon img{
-  width: 24px;
-  height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 }
 
 button.small {
@@ -87,7 +92,7 @@ button:focus {
 #schematics_search {
   color: white;
   background-color: #222222;
-  background-image: url('../assets/search_icon.png');
+  background-image: url('../assets/search-icon.svg');
   background-position: 5px 0px;
   background-size: 20px 20px;
   background-repeat: no-repeat;
@@ -125,7 +130,7 @@ button:focus {
 .schematic .name{
   position: relative;
   top: 0px;
-  width: 166px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

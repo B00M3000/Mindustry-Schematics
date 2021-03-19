@@ -55,7 +55,17 @@ div.schematic div.view > *{
 }
 div.schematic div.view div.name{
   z-index: 2;
+  word-wrap: normal;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 5px;
 }
 div.schematic div.view div.schematic_image_container{
   z-index: 1;
+}
+div.tools{
+  display: flex;
+}
+div.tools > *{
+  flex-grow: 1;
 }
