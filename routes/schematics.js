@@ -27,11 +27,11 @@ router.get('/', async (req, res) => {
   if(query){
     const regex = new RegExp(query, "i")
     const _query = { name: regex }
-    schematics = await schematicSchema.find(_query, "id name image", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(_query, "id name image text", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments(_query)
   } else {
     query = ""
-    schematics = await schematicSchema.find(null, "id name image", { skip, limit: limitPerPage })
+    schematics = await schematicSchema.find(null, "id name image text", { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments()
   }
   

@@ -65,43 +65,44 @@ router.get('/parse', async (req, res) => {
 
 router.post('/create', async (req, res) => {
   var { name, author, creator, text, description, tags } = req.body
-  
+
   try {
+    const schematic = Schematic.decode(text)
+  
     tags = JSON.parse(tags)
-  } catch (error) {
-    tags = undefined;
-  }
 
-  const schematic = Schematic.decode(text)
-  const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
-  const data = await schematic.toImageBuffer()
-  const mimetype ="image/png"
+    const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
+    const data = await schematic.toImageBuffer()
+    const mimetype ="image/png"
 
-  schematic.name = name
-  schematic.description = description
+    schematic.name = name
+    schematic.description = description
 
-  text = schematic.encode()
+    text = schematic.encode()
 
-  const newSchematic = {
-    name,
-    creator: creator ? creator : author,
-    tags: tags,
-    text,
-    description,
-    encoding_version: schematic.version,
-    powerBalance,
-    powerConsumption,
-    powerProduction,
-    requirements,
-    image: {
-      Data: data,
-      ContentType: mimetype
+    const newSchematic = {
+      name,
+      creator: creator ? creator : author,
+      tags: tags,
+      text,
+      description,
+      encoding_version: schematic.version,
+      powerBalance,
+      powerConsumption,
+      powerProduction,
+      requirements,
+      image: {
+        Data: data,
+        ContentType: mimetype
+      }
     }
+
+    const { id } = (await new schematicSchema(newSchematic).save())
+
+    res.status(200).redirect( `/schematics/${id}`)
+  } catch (error) {
+    res.status(422).redirect(`/schematics`)
   }
-
-  const { id } = (await new schematicSchema(newSchematic).save())
-
-  res.redirect( `/schematics/${id}`)
 })
 
 router.param('id', async (req, res, next, id) => {
