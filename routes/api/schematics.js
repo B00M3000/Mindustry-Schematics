@@ -18,8 +18,9 @@ router.get('/', async (req, res) => {
   
   const skip = limitPerPage * (page - 1);
   
-  if(query){
-    const regex = new RegExp(query, "i")
+  if (query) {
+    const safeQuery  = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    const regex = new RegExp(safeQuery, "i")
     const _query = { name: regex }
     schematics = await schematicSchema.find(_query, null, { skip, limit: limitPerPage })
     documents = await schematicSchema.countDocuments(_query)
