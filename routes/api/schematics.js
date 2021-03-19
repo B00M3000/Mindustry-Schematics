@@ -64,7 +64,7 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  var { name, creator, text, description, tags } = req.body
+  var { name, author, creator, text, description, tags } = req.body
 
   try {
     const schematic = Schematic.decode(text)
