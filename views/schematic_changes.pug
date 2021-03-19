@@ -11,7 +11,7 @@ body
     each change in changes
       - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
       - const src = `/raw/schematics/${change.id}/image`
-      - const color = change.Delete ? 'red' : 'green'
+      - const color = change.Delete ? '#fd5f5f' : '#68cf68'
       - const mode = change.Delete ? 'Delete' : 'Modify'
       div.schematic(onclick=onclick)
         h2
