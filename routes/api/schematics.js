@@ -8,8 +8,33 @@ const schematicChangeSchema = require('../../schemas/SchematicChange.js')
 
 const limitPerPage = 20
 
-router.get('/parse', async (req, res) => {
-  const { text } = req.query
+router.get('/', async (req, res) => {
+  var { query, page } = req.query
+  
+  var schematics;
+  
+  if(!page || isNaN(page) || page < 1 || page % 1 != 0) page = 1
+  else page = parseInt(page)
+  
+  const skip = limitPerPage * (page - 1);
+  
+  if (query) {
+    const safeQuery  = query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+    const regex = new RegExp(safeQuery, "i")
+    const _query = { name: regex }
+    schematics = await schematicSchema.find(_query, null, { skip, limit: limitPerPage })
+    documents = await schematicSchema.countDocuments(_query)
+  } else {
+    query = ""
+    schematics = await schematicSchema.find(null, null, { skip, limit: limitPerPage })
+  }
+  res.send({
+    schematics
+  })
+})
+
+router.post('/parse', async (req, res) => {
+  const { text } = req.body
   if (!text || text == '') {
     res.status(400).send({ error: "This is not a valid schematic" })
     return
@@ -105,7 +130,7 @@ router.post('/:id/edit', async (req, res) => {
   const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
   const data = await schematic.toImageBuffer()
   const mimetype ="image/png"
-
+  
   schematic.name = name
   schematic.description = description
 
