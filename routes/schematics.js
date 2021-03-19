@@ -23,10 +23,10 @@ router.get('/', async (req, res) => {
     const skip = limitPerPage * (page - 1);
 
     let _query = {};
-    if(query) _query = { name: new RegExp(query, "i") }
+    if(query) _query = { name: new RegExp(query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "i") }
 
     let _tags = undefined;
-    if(tags) _query.tags = { name: { $all: JSON.parse(tags) } }
+    if(tags) _query.tags = { $all: JSON.parse(tags).map(name => ({ name }) ) }
 
     console.log(_query)
     
