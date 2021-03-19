@@ -4,7 +4,7 @@ const { Router } = require('express')
 var router = Router()
 
 const { Schematic } = require('mindustry-schematic-parser')
-const {Types: { ObjectId } } = require('mongoose')
+const { Types: { ObjectId } } = require('mongoose')
 
 const tags = require('../tags.json')
 
@@ -14,45 +14,39 @@ const schematicChangeSchema = require('../schemas/SchematicChange.js')
 const limitPerPage = 20
 
 router.get('/', async (req, res) => {
-  var { query, page } = req.query
-  
-  var schematics;
-  var documents;
-  
-  if(!page || isNaN(page) || page < 1 || page % 1 != 0) page = 1
-  else page = parseInt(page)
-  
-  const skip = limitPerPage * (page - 1);
-  
-  if(query){
-    const regex = new RegExp(query, "i")
-    const _query = { name: regex }
-    schematics = await schematicSchema.find(_query, "id name image text", { skip, limit: limitPerPage })
-    documents = await schematicSchema.countDocuments(_query)
-  } else {
-    query = ""
-    schematics = await schematicSchema.find(null, "id name image text", { skip, limit: limitPerPage })
-    documents = await schematicSchema.countDocuments()
-  }
-  
-  var pages;
-  
-  if(documents % limitPerPage == 0) pages = documents/limitPerPage
-  else pages = Math.floor(documents/limitPerPage)+1
-  
-  if(pages == 0) pages = 1
+  var { query, page, tags } = req.query
 
-  if(page > pages) return res.redirect(`/schematics?page=${pages}${query ? `&query=${query}` : "" }` )
-  
-  res.render('schematics', {
-    skip,
-    query,
-    page,
-    length: schematics.length,
-    pages,
-    documents,
-    schematics
-  })
+  try {
+    if(!page || isNaN(page) || page < 1 || page % 1 != 0) page = 1
+    else page = parseInt(page)
+    
+    const skip = limitPerPage * (page - 1);
+
+    let _query = {};
+    if(query) _query = { name: new RegExp(query, "i") }
+
+    let _tags = undefined;
+    if(tags) _query.tags = { name: { $all: JSON.parse(tags) } }
+    
+    const schematics = await schematicSchema.find(_query, "id name image text", { skip, limit: limitPerPage })
+    const documents = await schematicSchema.countDocuments()
+    
+    const pages = ((documents % limitPerPage == 0) ? documents/limitPerPage : Math.floor(documents/limitPerPage)+1) || 1
+
+    if(page > pages) return res.redirect(`/schematics?page=${pages}${query ? `&query=${query}` : "" }${tags ? `&tags=${tags}` : "" }` )
+    
+    res.render('schematics', {
+      skip,
+      query,
+      page,
+      length: schematics.length,
+      pages,
+      documents,
+      schematics
+    })
+  } catch(e) {
+    res.status(422).redirect('/schematics')
+  }
 })
 
 router.get('/create', (req, res) => {
