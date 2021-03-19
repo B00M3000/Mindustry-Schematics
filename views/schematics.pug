@@ -20,9 +20,9 @@ body
     div.search
       form(action="/schematics" method="GET")
         input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-        button.small(type="submit") &#10003;
+        button.small(type="submit"): img(src="/assets/check-mark.svg")
       form(action="/schematics" method="GET")
-        button.small(type="submit") &#10006;
+        button.small(type="submit"): img(src="/assets/cross-mark.svg")
 
 
   div#schematics_result
