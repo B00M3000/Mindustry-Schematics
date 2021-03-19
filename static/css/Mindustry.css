@@ -129,7 +129,7 @@ button:focus {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: rgba(40, 40, 40, 100)
+  background-color: rgba(40, 40, 40, 0.5)
 }
 
 .schematic h2{
@@ -153,6 +153,7 @@ hr {
   width: 100%;
   position: fixed;
   bottom: 0;
+  z-index: 10;
 }
 
 #copied_popup {

@@ -43,3 +43,19 @@ img.lazy{
 img.lazy.loaded{
   opacity: 1;
 }
+div.schematic div.view{
+  position: relative;
+  height: 166px;
+  width: 166px;
+}
+div.schematic div.view > *{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div.schematic div.view div.name{
+  z-index: 2;
+}
+div.schematic div.view div.schematic_image_container{
+  z-index: 1;
+}
