@@ -27,6 +27,8 @@ router.get('/', async (req, res) => {
 
     let _tags = undefined;
     if(tags) _query.tags = { name: { $all: JSON.parse(tags) } }
+
+    console.log(_query)
     
     const schematics = await schematicSchema.find(_query, "id name image text", { skip, limit: limitPerPage })
     const documents = await schematicSchema.countDocuments()
