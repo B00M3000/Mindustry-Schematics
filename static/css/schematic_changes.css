@@ -1,6 +1,7 @@
 div.changes{
+  padding: 2em;
   display: flex;
   gap: 2em;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
 }
