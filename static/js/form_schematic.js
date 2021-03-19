@@ -94,11 +94,8 @@ form && form.addEventListener('submit', async (e) => {
     method: 'POST',
     body: data,
   })  
-  await sleep(500)
   // redirect the user to the page of the new schematic
   window.location.href = response.url
 })
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+
