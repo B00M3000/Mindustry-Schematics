@@ -41,6 +41,8 @@ router.get('/', async (req, res) => {
   else pages = Math.floor(documents/limitPerPage)+1
   
   if(pages == 0) pages = 1
+
+  if(page > pages) return res.redirect(`/schematics?page=${pages}${query ? `&query=${query}` : "" }` )
   
   res.render('schematics', {
     skip,
