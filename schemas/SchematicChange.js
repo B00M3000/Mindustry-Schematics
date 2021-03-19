@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const schematicChangeSchema = mongoose.Schema({
+  id: {
+    type: String,
+    required: true
+  },
   Changed: {
     type: Object
   },

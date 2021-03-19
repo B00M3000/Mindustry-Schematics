@@ -38,9 +38,19 @@
 // }
 
 document.addEventListener("DOMContentLoaded", function() {
-  var lazyloadImages = document.querySelectorAll("img.lazy");    
-
-  lazyloadImages.forEach(function(img) {
-    img.src = img.dataset.src;
+  const lazyloadImages = document.querySelectorAll("img.lazy");
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+      const img = entry.target
+      img.src = img.dataset.src
+      img.addEventListener('load', ()=> img.classList.add('loaded'))
+      observer.unobserve(img)
+    }
+    })
+  }, {
+  })
+  lazyloadImages.forEach(function (img) {
+    observer.observe(img)
   })
 });

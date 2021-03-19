@@ -2,14 +2,14 @@ doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
-  link(rel='stylesheet' href='/css/schematic_change' type='text/css')
+  link(rel='stylesheet' href='/css/schematic_change.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 body
-  h1= '[Schematic Change]' + change.id
+  h1= '[Schematic Change] ' + change.id
   hr
   if change.Delete
-    span(style="color: red") DELETE
+    span(style="color: #fd5f5f") Delete
     
     br
     
@@ -19,40 +19,34 @@ body
     
     - const src = `/raw/schematics/${change.id}/image`
     img(src=src width="166px" height="166px")
-    h3= 'by ' + change.Original.author
+    h3= 'by ' + change.Original.creator
     h4= 'Description: ' + change.Original.description
     h4 Copy the text below to import: 
     p= change.Original.text
   else
-    span(style="color: green") MODIFY
+    h2(style="color: green") Modify
     
-    br
-    br
-    
-    div#schematics
-      div.left
-        h2= "Name: " + change.Original.name
-      
-        - const srcO = `/raw/schematics/${change.id}/image`
-        img(src=srcO width="166px" height="166px")
-        h3= 'by ' + change.Original.author
-        h4= 'Description: ' + change.Original.description
-        h4 Original schematic Text: 
-        p= change.Original.text
-        
-      img(src="/images/green_arrow_right.png" width="128px" height="128px" style="border: none;")
-      
-      div.right
-        h2= "Name: " + change.Changed.name
-      
-        - const srcC = `/admin/schematic_changes/${change._id}/image/Changed`
-        img(src=srcC width="166px" height="166px")
-        h3= 'by ' + change.Changed.author
-        h4= 'Description: ' + change.Changed.description
-        h4 New Schematic Text: 
-        p= change.Changed.text
-        
       h4= "What and Why: " + change.Description
+    div#schematics
+      h2.left= "Name: " + change.Original.name
+      
+      - const srcO = `/raw/schematics/${change.id}/image`
+      img.left(src=srcO width="166px" height="166px")
+      h3.left= 'by ' + change.Original.creator
+      h4.left= 'Description: ' + change.Original.description
+      h4.left Original schematic Text: 
+      p.left= change.Original.text
+        
+      img.arrow(src="/images/arrow.svg" width="128px" height="128px" style="border: none;")
+      
+      h2.right= "Name: " + change.Changed.name
+    
+      - const srcC = `/raw/schematic-changes/${change._id}/image`
+      img.right(src=srcC width="166px" height="166px")
+      h3.right= 'by ' + change.Changed.creator
+      h4.right= 'Description: ' + change.Changed.description
+      h4.right New Schematic Text: 
+      p.right= change.Changed.text
     
     br
     br

@@ -27,6 +27,10 @@ form button:hover{
 form button:active{
   background-color: rgb(59, 59, 59);
 }
+form button img{
+  max-width: 90%;
+  max-height: 90%;
+}
 form:first-child button{
   margin-left: 1em;
   border-radius: 5px 0px 0px 5px;
@@ -35,4 +39,37 @@ form:first-child button{
 form:nth-child(2) button{
   border-radius: 0px 5px 5px 0px;
   border-left: none;
+}
+img.lazy{
+  opacity: 0;
+  transition: opacity ease 0.5s;
+}
+img.lazy.loaded{
+  opacity: 1;
+}
+div.schematic div.view{
+  position: relative;
+  height: 166px;
+  width: 166px;
+}
+div.schematic div.view > *{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+div.schematic div.view div.name{
+  z-index: 2;
+  word-wrap: normal;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 5px;
+}
+div.schematic div.view div.schematic_image_container{
+  z-index: 1;
+}
+div.tools{
+  display: flex;
+}
+div.tools > *{
+  flex-grow: 1;
 }

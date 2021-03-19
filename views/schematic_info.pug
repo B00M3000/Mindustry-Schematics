@@ -3,7 +3,7 @@ head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
 
-  - const imageSrc = `/schematics/${schematic._id}/image`
+  - const imageSrc = `/raw/schematics/${schematic._id}/image`
 
   meta(property="og:title" content=schematic.name)
   meta(property="og:description" content=schematic.description)
@@ -43,7 +43,7 @@ body
             span -#{schematic.powerConsumption}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
-    button.icon(onclick=copy): img(src="/assets/copy.png")
+    button.icon(onclick=copy): img(src="/assets/copy.svg")
     p= schematic.text
 
   div#bottom

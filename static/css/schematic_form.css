@@ -76,6 +76,9 @@ form.locked > div.inputs {
   padding: 0.5em;
   position: relative;
   resize: vertical;
+
+  width: 50vw;
+  max-width: 500px;
 }
 
 .inputs > *:is(input, textarea):focus{
@@ -165,4 +168,21 @@ ul.tags li span {
     grid-column: 2;
     transform: translateY(0.5em);
   }
+}
+
+textarea {
+  height: 100px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 10px;
 }
