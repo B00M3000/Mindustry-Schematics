@@ -132,49 +132,15 @@ router.get('/:id', async (req, res) => {
   })
 })
 
-router.get('/:id/image', async (req, res) => {
-  const { schematic } = req
-
-  res.type('Content-Type', schematic.image.ContentType)
-  res.send(schematic.image.Data)
-})
-
 router.get('/:id/edit', async (req, res) => {
   const { schematic } = req
   
   res.render('edit_schematic', {
     schematic,
     tags,
-    _tags: JSON.stringify(tags)
+    _tags: JSON.stringify(tags),
+    previousTags: JSON.stringify(schematic.tags)
   })
-})
-
-router.post('/:id/edit', async (req, res) => {
-  const { schematic } = req
-  
-  const { name, author, text, description, cDescription } = req.body
-  const s = Schematic.decode(text)
-  const data = await s.toImageBuffer()
-  const mimetype = 'image/png'
-  
-  const schematicChange = {
-    Original: schematic,
-    Changed: {
-      name,
-      author,
-      text,
-      description,
-      image: {
-        Data: data,
-        ContentType: mimetype
-      }
-    },
-    Description: cDescription,
-  }
-
-  await new schematicChangeSchema(schematicChange).save()
-
-  res.redirect("/schematics")
 })
 
 router.get('/:id/delete', async (req, res) => {
@@ -183,20 +149,6 @@ router.get('/:id/delete', async (req, res) => {
   res.render('delete_schematic', {
     schematic
   })
-})
-
-router.post('/:id/delete', async (req, res) => {
-  const { schematic } = req
-  const { reason } = req.body
-  
-  const schematicChange = {
-    Original: schematic,
-    Delete: reason,
-  }
-  
-  await new schematicChangeSchema(schematicChange).save()
-  
-  res.redirect('/schematics')
 })
 
 module.exports = router

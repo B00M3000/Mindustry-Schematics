@@ -8,7 +8,7 @@ body
   hr
   each change in changes
     - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
-    - const src = `/schematics/${change.id}/image`
+    - const src = `/raw/schematics/${change.id}/image`
 
     div#schematics_result
       div.change(onclick=onclick)

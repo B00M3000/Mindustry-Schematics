@@ -20,10 +20,12 @@ html
 
     h1= '[Schematic]' + schematic.name
     hr
-    - const src = `/schematics/${schematic._id}/image`
+    - const src = `/raw/schematics/${schematic._id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
+
+    - const action = `/api/schematics/${schematic._id}/delete`
 
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       div.inputs

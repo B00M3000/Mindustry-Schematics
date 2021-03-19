@@ -4,6 +4,7 @@ var router = Router()
 const { Schematic } = require('mindustry-schematic-parser')
 
 const schematicSchema = require('../../schemas/Schematic.js')
+const schematicChangeSchema = require('../../schemas/SchematicChange.js')
 
 const limitPerPage = 20
 
@@ -63,7 +64,7 @@ router.get('/parse', async (req, res) => {
 })
 
 router.post('/create', async (req, res) => {
-  VRDisplay { name, author, creator, text, description, tags } = req.body
+  var { name, author, creator, text, description, tags } = req.body
   
   try {
     tags = JSON.parse(tags)
@@ -78,12 +79,13 @@ router.post('/create', async (req, res) => {
 
   schematic.name = name
   schematic.description = description
+
   text = schematic.encode()
 
   const newSchematic = {
     name,
     creator: creator ? creator : author,
-    tags: parsedTags,
+    tags: tags,
     text,
     description,
     encoding_version: schematic.version,
@@ -100,6 +102,78 @@ router.post('/create', async (req, res) => {
   const { id } = (await new schematicSchema(newSchematic).save())
 
   res.redirect( `/schematics/${id}`)
+})
+
+router.param('id', async (req, res, next, id) => {
+  const schematic = await schematicSchema.findOne({ _id: id })
+  
+  if(!schematic) return res.redirect('/schematics')
+  
+  req.schematic = schematic
+  
+  next()
+})
+
+router.post('/:id/edit', async (req, res) => {
+  var originalSchematic = req.schematic
+  var { name, author, creator, text, description, tags, cDescription } = req.body
+  
+  try {
+    tags = JSON.parse(tags)
+  } catch (error) {
+    tags = undefined;
+  }
+
+  const schematic = Schematic.decode(text)
+  const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
+  const data = await schematic.toImageBuffer()
+  const mimetype ="image/png"
+
+  schematic.name = name
+  schematic.description = description
+
+  text = schematic.encode()
+
+  const changedSchematic = {
+    name,
+    creator: creator ? creator : author,
+    tags: tags,
+    text,
+    description,
+    encoding_version: schematic.version,
+    powerBalance,
+    powerConsumption,
+    powerProduction,
+    requirements,
+    image: {
+      Data: data,
+      ContentType: mimetype
+    }
+  }
+
+  const schematicChange = {
+    id: originalSchematic._id,
+    Changed: changedSchematic,
+    Description: cDescription,
+  }
+
+  const { id } = (await new schematicChangeSchema(schematicChange).save())
+
+  res.redirect(`/schematics`)
+})
+
+router.post('/:id/delete', async (req, res) => {
+  const { schematic } = req
+  const { reason } = req.body
+  
+  const schematicChange = {
+    id: schematic._id,
+    Delete: reason,
+  }
+  
+  await new schematicChangeSchema(schematicChange).save()
+  
+  res.redirect('/schematics')
 })
 
 module.exports = router

@@ -17,7 +17,7 @@ html
   body
     h1 Edit a Schematic
     hr
-    - const action = `/schematics/${schematic._id}/edit`
+    - const action = `/api/schematics/${schematic._id}/edit`
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
       div.inputs
         label(for="name") Name: 
@@ -30,10 +30,10 @@ html
         textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description
 
         label(for="text") Schematic: 
-        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text required)
+        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text readonly required)
 
         label(for="description") Changes: 
-        textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what   was changed and why?" required)
+        textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what was changed and why?" required)
         label(for="tags") Tags:
         input#tags(type="text" list="tags-list")
         datalist(id="tags-list")
@@ -41,19 +41,18 @@ html
             option(value=tag.name)
       ul.tags
       div#image_preview
-        img(src=`/schematics/${schematic._id}/image`)
+        - const src = `/raw/schematics/${schematic._id}/image`
+        img(src=src)
       div.notched.btn
         button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
     div#bottom
       div.notched.btn
         button.small(onclick='window.location.href="/schematics"') Back to Schematics
-      
-    a#oldImageSrc(style="display: none;") imageSrc
     
     include includes/loadingScreen.pug
 
     script.
       const tags = !{_tags}
+      const _currentTags = !{previousTags}
     script(src="/js/form_schematic.js")
     script(src="/js/tags_input.js")
-    // script(src="/js/load_old_schematic_image.js")

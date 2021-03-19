@@ -16,6 +16,9 @@ router.param('_id', async (req, res, next, _id) => {
 
 router.get('/', async (req, res) => {
   const changes = await schematicChangeSchema.find({})
+  for(change of changes){
+    change.Original = schematicSchema.findOne({ id: change.id }) // NOT WORKING
+  }
   res.render('schematic_changes', {
     changes
   })
