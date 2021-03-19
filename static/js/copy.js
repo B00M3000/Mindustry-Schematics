@@ -35,7 +35,7 @@ async function copy(text) {
     div.appendChild(content)
     document.body.appendChild(div)
 
-    await sleep(5000)
+    await sleep(3000)
 
     document.body.removeChild(div);
   }
