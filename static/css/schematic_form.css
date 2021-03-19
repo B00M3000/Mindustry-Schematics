@@ -76,6 +76,9 @@ form.locked > div.inputs {
   padding: 0.5em;
   position: relative;
   resize: vertical;
+
+  width: 50vw;
+  max-width: 500px;
 }
 
 .inputs > *:is(input, textarea):focus{
