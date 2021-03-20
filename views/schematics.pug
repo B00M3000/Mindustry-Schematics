@@ -25,14 +25,14 @@ body
         button.small(type="submit"): img(src="/assets/cross-mark.svg")
 
 
-  div#schematics_result
+  ul#schematics_result
     each schematic in schematics
       - const info = `/schematics/${schematic._id}`
       - const copy = `copy("${schematic.text}")`
       - const edit = `/schematics/${schematic._id}/edit`
       - const _delete = `/schematics/${schematic._id}/delete`
 
-      div.schematic
+      li.schematic
         div.tools
           a(href=info)
             button.icon: img(src="/assets/info.svg")
