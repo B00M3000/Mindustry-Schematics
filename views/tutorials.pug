@@ -1,6 +1,7 @@
 doctype html
 head
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+  link(rel='stylesheet' href='/css/tutorials.css' type='text/css')
   
   meta(property="og:title" content="A library of Mindustry Tutorials")
   meta(property="og:description" content="Here you will find a variety of tutorials explaining how to play and do certain things. ")
@@ -14,13 +15,12 @@ body(style="text-align: center;")
   h1 Tutorials 
   h3 Click the text to open the tutorial.
   hr
-  each tutorial in tutorials
-    - const onclick = `window.location.href="/tutorials/${tutorial.name}"`
+  ul
+    each tutorial in tutorials
+      li.tutorial(onclick=onclick)
+        a(href=`/tutorials/${tutorial.name}`)
+          h2 #{tutorial.title}
 
-    div.tutorial(onclick=onclick)
-      h2 #{tutorial.title}
-
-    br
         
 
   nav#bottom

@@ -1,0 +1,11 @@
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tutorial{
+  cursor: pointer;
+}
+.tutorial a{
+  text-decoration: none;
+}

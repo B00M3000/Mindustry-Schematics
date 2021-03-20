@@ -254,7 +254,3 @@ div.notched{
 .notched > button.small{
   border: none;
 }
-
-div.tutorial{
-  cursor: pointer;
-}
