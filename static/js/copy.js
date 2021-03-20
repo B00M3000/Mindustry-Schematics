@@ -25,7 +25,7 @@ async function copy(text) {
     div.id = "copied_popup"
     const content = document.createElement('div')
     var icon = document.createElement('img')
-    icon.src = "/assets/paste.png"
+    icon.src = "/assets/paste.svg"
 
     var text = document.createElement('p')
     text.innerText = "Copied to Clipboard!"

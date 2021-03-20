@@ -27,11 +27,14 @@ body
     h4= 'Description: ' + schematic.description
     if schematic.requirements
       h3 Requirements:
+      - const items = ["copper", "lead", "metaglass", "graphite", "sand", "coal", "titanium", "thorium", "scrap", "silicon", "plastanium", "phase-fabric", "surge-alloy", "spore-pod", "blast-compound", "pyratite"]
       div.requirements
-        each value, item in schematic.requirements
-          span 
-            img.item(src=`/assets/items/${item}.png`)
-            span !{value}      
+        each item in items
+          if schematic.requirements[item]
+            span
+              img.item(src=`/assets/items/${item}.png`)
+              span !{schematic.requirements[item]}
+
     if schematic.powerConsumption || schematic.powerProduction
       div.power
         if schematic.powerProduction

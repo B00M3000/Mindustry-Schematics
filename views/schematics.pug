@@ -53,10 +53,10 @@ html
               img.schematic_image.lazy(data-src=src)
 
     nav#bottom
-
-      - const firstPage = `/schematics?page=1&query=${query}`
-      - const previousPage = `/schematics?page=${page-1}&query=${query}`
-      - const nextPage = `/schematics?page=${page+1}${query ? `&query=${query}` : "" }`
+      - const queryParam = query ? `&query=${query}` : ""
+      - const firstPage = `/schematics?page=1${queryParam}`
+      - const previousPage = `/schematics?page=${page-1 || 1}${queryParam}`
+      - const nextPage = `/schematics?page=${page+1}${queryParam}`
       a(href=firstPage)
         div.notched.btn
           button.small First Page 

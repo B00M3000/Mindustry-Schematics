@@ -207,6 +207,7 @@ hr {
   width: 16px;
   height: 16px;
   margin-right: 5px;
+  object-fit: contain;
 }
 
 .schematic_image {
