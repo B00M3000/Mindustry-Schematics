@@ -1,31 +1,35 @@
 doctype html
-head
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-  link(rel='stylesheet' href='/css/tutorials.css' type='text/css')
-  
-  meta(property="og:title" content="A library of Mindustry Tutorials")
-  meta(property="og:description" content="Here you will find a variety of tutorials explaining how to play and do certain things. ")
-  meta(property="og:image" content="/assets/mindustry_banner.png")
-  meta(property="og:type" content="website")
-  meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics")
+html
+  head
+    include includes/head
 
-  meta(name="viewport" content="width=device-width" intialscale="1.0")
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/tutorials.css' type='text/css')
 
-  title Tutorials
-body(style="text-align: center;")
-  h1 Tutorials 
-  h3 Click the text to open the tutorial.
-  hr
-  ul
-    each tutorial in tutorials
-      li.tutorial(onclick=onclick)
-        a(href=`/tutorials/${tutorial.name}`)
-          h2 #{tutorial.title}
+    meta(property="og:title" content="A library of Mindustry Tutorials")
+    meta(property="og:description" content="Here you will find a variety of tutorials explaining how to play and do certain things. ")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
 
-        
+    meta(name="viewport" content="width=device-width" intialscale="1.0")
 
-  nav#bottom
-    a(href="/")
-      div.notched.btn
-        button.small Back to Home
+    title Tutorials
+  body(style="text-align: center;")
+    h1 Tutorials 
+    h3 Click the text to open the tutorial.
+    hr
+    ul
+      each tutorial in tutorials
+        li
+          - const onclick = `window.location.href="/tutorials/${tutorial.name}"`
+
+          div.tutorial(onclick=onclick)
+            h2 #{tutorial.title}
+
+
+
+    nav#bottom
+      a(href="/")
+        div.notched.btn
+          button.small Back to Home
