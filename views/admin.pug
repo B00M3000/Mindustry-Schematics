@@ -6,5 +6,7 @@ head
 body(style="text-align: center")
   h1 Admin Panel
   hr
-  button.small(onclick='window.location.href="/"') Back to Home
-  button.small(onclick='window.location.href="/admin/schematic_changes"') Schematic Changes
+  a(href="/")
+    button.small Back to Home 
+  a(href="/admin/schematic_changes")
+    button.small Schematic Changes

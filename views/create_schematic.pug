@@ -43,8 +43,9 @@ html
       div.notched.btn
         button(type="submit" name="submit" value="Submit") Submit
     div#bottom
-      div.notched.btn
-        button.small(onclick='window.location.href="/schematics"') Back Schematics
+      a(href="/schematics")
+        div.notched.btn
+          button.small Back Schematics
     script.
       const tags = !{_tags}
       const _currentTags = []

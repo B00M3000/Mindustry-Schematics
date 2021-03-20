@@ -53,17 +53,21 @@ body
     br
       
   div#bottom
-    - const view = `window.location.href="/schematics/${change.id}"`
-    - const accept = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
-    - const decline = `window.location.href="/admin/schematic_changes/${change._id}/decline"`
-    div.notched.btn
-      button.small(onclick='window.location.href="/admin/schematic_changes"') Back to Schematic Changes
-    div.notched.btn
-      button.small(onclick=view) View
-    div.notched.btn
-      button.small(onclick=accept) Accept
-    div.notched.btn
-      button.small(onclick=decline) Decline
+    - const view = `/schematics/${change.id}`
+    - const accept = `/admin/schematic_changes/${change._id}/accept`
+    - const decline = `/admin/schematic_changes/${change._id}/decline`
+    a(href="/admin/schematic_changes")
+      div.notched.btn
+        button.small Back to Schematic Changes
+    a(href=view)
+      div.notched.btn
+        button.small View
+    a(href=accept)
+      div.notched.btn
+        button.small Accept
+    a(href=decline)
+      div.notched.btn
+        button.small Decline
     
 
 

@@ -47,17 +47,20 @@ body
     p= schematic.text
 
   div#bottom
-    - const change = `window.location.href="/schematics/${schematic._id}/edit"`
-    - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
+    - const change = `/schematics/${schematic._id}/edit`
+    - const _delete = `/schematics/${schematic._id}/delete`
     - const copyLink = `copy(window.location.href)`
-    div.notched.btn
-      button.small(onclick='window.location.href="/schematics"') Back to Schematics
+    a(href="/schematics")
+      div.notched.btn
+        button.small Back to Schematics
     div.notched.btn
       button.small(onclick=copyLink) Copy Page Link
-    div.notched.btn
-      button.small(onclick=change) Request a Change
-    div.notched.btn
-      button.small(onclick=_delete) Request Deletion
+    a(href=change)
+      div.notched.btn
+        button.small(onclick=change) Request a Change
+    a(href=_delete)
+      div.notched.btn
+        button.small(onclick=_delete) Request Deletion
 
   script(src="/js/copy.js")
 

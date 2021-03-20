@@ -27,17 +27,20 @@ body
 
   div#schematics_result
     each schematic in schematics
-      - const info = `window.location.href="/schematics/${schematic._id}"`
+      - const info = `/schematics/${schematic._id}`
       - const copy = `copy("${schematic.text}")`
-      - const edit = `window.location.href="/schematics/${schematic._id}/edit"`
-      - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
+      - const edit = `/schematics/${schematic._id}/edit`
+      - const _delete = `/schematics/${schematic._id}/delete`
 
       div.schematic
         div.tools
-          button.icon(onclick=info): img(src="/assets/info.svg")
+          a(href=info)
+            button.icon: img(src="/assets/info.svg")
           button.icon(onclick=copy): img(src="/assets/copy.svg")
-          button.icon(onclick=edit): img(src="/assets/pencil.svg")
-          button.icon(onclick=_delete): img(src="/assets/trash.svg") 
+          a(href=edit)
+            button.icon: img(src="/assets/pencil.svg")
+          a(href=_delete)
+            button.icon: img(src="/assets/trash.svg") 
         div.view
           div.name
             h2= schematic.name
@@ -47,22 +50,28 @@ body
 
   div#bottom
 
-    - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
-    - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
-    - const nextPage = `window.location.href="/schematics?page=${page+1}${query ? `&query=${query}` : "" }"`
-    div.notched.btn
-      button.small(onclick=firstPage) First Page 
-    div.notched.btn
-      button.small(onclick=previousPage) Previous Page
-    div.notched.btn
-      button.small(onclick=nextPage) Next Page
+    - const firstPage = `/schematics?page=1&query=${query}`
+    - const previousPage = `/schematics?page=${page-1}&query=${query}`
+    - const nextPage = `/schematics?page=${page+1}${query ? `&query=${query}` : "" }`
+    a(href=firstPage)
+      div.notched.btn
+        button.small First Page 
+    a(href=previousPage)
+      div.notched.btn
+        button.small Previous Page
+    a(href=nextPage)
+      div.notched.btn
+        button.small Next Page
     br
-    div.notched.btn
-      button.small(onclick='window.location.href="/"') Back to Home
-    div.notched.btn
-      button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
-    div.notched.btn
-      button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
+    a(href="/")
+      div.notched.btn
+        button.small Back to Home
+    a(href="/tutorials/import-schematic-from-clipboard")
+      div.notched.btn
+        button.small Importing Schematic from Clipboard?
+    a(href="/schematics/create")
+      div.notched.btn
+        button.small Create a Schematic
           
   script(src="/js/copy.js")
   script(src="/js/schematics.js")

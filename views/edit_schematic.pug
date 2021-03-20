@@ -46,8 +46,9 @@ html
       div.notched.btn
         button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
     div#bottom
-      div.notched.btn
-        button.small(onclick='window.location.href="/schematics"') Back to Schematics
+      a(href="/schematics")
+        div.notched.btn
+          button.small Back to Schematics
     
     include includes/loadingScreen.pug
 
