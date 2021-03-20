@@ -1,70 +1,72 @@
 doctype html
-head
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-  link(rel='stylesheet' href='/css/schematics.css' type='text/css')
-  
-  meta(property="og:title" content="Schematics ")
-  meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
-  meta(property="og:image" content="/assets/mindustry_banner.png")
-  meta(property="og:type" content="website")
-  meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics")
+html
+  head
+    include includes/head
 
-  meta(name="viewport" content="width=device-width" intialscale="1.0")
-body
-  div#head
-    h1 Schematics
-    h3= `Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
-    h2 The icon buttons that are on each schematic box are clickable.
-    hr
-    div.search
-      form(action="/schematics" method="GET")
-        input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-        button.small(type="submit"): img(src="/assets/check-mark.svg")
-      form(action="/schematics" method="GET")
-        button.small(type="submit"): img(src="/assets/cross-mark.svg")
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/schematics.css' type='text/css')
+    
+    meta(property="og:title" content="Schematics ")
+    meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
+
+    meta(name="viewport" content="width=device-width" intialscale="1.0")
+  body
+    div#head
+      h1 Schematics
+      h3= `Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
+      h2 The icon buttons that are on each schematic box are clickable.
+      hr
+      div.search
+        form(action="/schematics" method="GET")
+          input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
+          button.small(type="submit"): img(src="/assets/check-mark.svg")
+        form(action="/schematics" method="GET")
+          button.small(type="submit"): img(src="/assets/cross-mark.svg")
 
 
-  div#schematics_result
-    each schematic in schematics
-      - const info = `window.location.href="/schematics/${schematic._id}"`
-      - const copy = `copy("${schematic.text}")`
-      - const edit = `window.location.href="/schematics/${schematic._id}/edit"`
-      - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
+    div#schematics_result
+      each schematic in schematics
+        - const info = `window.location.href="/schematics/${schematic._id}"`
+        - const copy = `copy("${schematic.text}")`
+        - const edit = `window.location.href="/schematics/${schematic._id}/edit"`
+        - const _delete = `window.location.href="/schematics/${schematic._id}/delete"`
 
-      div.schematic
-        div.tools
-          button.icon(onclick=info): img(src="/assets/info.svg")
-          button.icon(onclick=copy): img(src="/assets/copy.svg")
-          button.icon(onclick=edit): img(src="/assets/pencil.svg")
-          button.icon(onclick=_delete): img(src="/assets/trash.svg") 
-        div.view
-          div.name
-            h2= schematic.name
-          div.schematic_image_container
-            - const src = `/raw/schematics/${schematic._id}/image`
-            img.schematic_image.lazy(data-src=src)
+        div.schematic
+          div.tools
+            button.icon(onclick=info): img(src="/assets/info.svg")
+            button.icon(onclick=copy): img(src="/assets/copy.svg")
+            button.icon(onclick=edit): img(src="/assets/pencil.svg")
+            button.icon(onclick=_delete): img(src="/assets/trash.svg") 
+          div.view
+            div.name
+              h2= schematic.name
+            div.schematic_image_container
+              - const src = `/raw/schematics/${schematic._id}/image`
+              img.schematic_image.lazy(data-src=src)
 
-  div#bottom
+    div#bottom
 
-    - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
-    - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
-    - const nextPage = `window.location.href="/schematics?page=${page+1}${query ? `&query=${query}` : "" }"`
-    div.notched.btn
-      button.small(onclick=firstPage) First Page 
-    div.notched.btn
-      button.small(onclick=previousPage) Previous Page
-    div.notched.btn
-      button.small(onclick=nextPage) Next Page
-    br
-    div.notched.btn
-      button.small(onclick='window.location.href="/"') Back to Home
-    div.notched.btn
-      button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
-    div.notched.btn
-      button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
-          
-  script(src="/js/copy.js")
-  script(src="/js/schematics.js")
+      - const firstPage = `window.location.href="/schematics?page=1&query=${query}"`
+      - const previousPage = `window.location.href="/schematics?page=${page-1}&query=${query}"`
+      - const nextPage = `window.location.href="/schematics?page=${page+1}${query ? `&query=${query}` : "" }"`
+      div.notched.btn
+        button.small(onclick=firstPage) First Page 
+      div.notched.btn
+        button.small(onclick=previousPage) Previous Page
+      div.notched.btn
+        button.small(onclick=nextPage) Next Page
+      br
+      div.notched.btn
+        button.small(onclick='window.location.href="/"') Back to Home
+      div.notched.btn
+        button.small(onclick='window.location.href="/tutorials/import-schematic-from-clipboard"') Importing Schematic from Clipboard?
+      div.notched.btn
+        button.small(onclick='window.location.href="/schematics/create"') Create a Schematic
+            
+    script(src="/js/copy.js")
+    script(src="/js/schematics.js")
 
 

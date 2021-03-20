@@ -1,30 +1,32 @@
 doctype html
-head
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-  link(rel='stylesheet' href='/css/tutorial.css' type='text/css')
-  
-  meta(property="og:title" content=title)
-  meta(property="og:description" content=description)
-  meta(property="og:image" content="/assets/mindustry_banner.png")
-  meta(property="og:type" content="website")
-  meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics")
+html
+  head
+    include includes/head
 
-  meta(name="viewport" content="width=device-width" intialscale="1.0")
-body
-  h1 #{title}
-  
-  - var step_number = 1
-  
-  each step of steps
-    h2 Step #{step_number}: #{step.name}
-    img(src=step.image)
-    p #{step.text}
+    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/tutorial.css' type='text/css')
     
-    - step_number++
+    meta(property="og:title" content=title)
+    meta(property="og:description" content=description)
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
 
-  div#bottom
-    div.notched.btn
-      button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
+    meta(name="viewport" content="width=device-width" intialscale="1.0")
+  body
+    h1 #{title}
+    
+    - var step_number = 1
+    
+    each step of steps
+      h2 Step #{step_number}: #{step.name}
+      img(src=step.image)
+      p #{step.text}
+      
+      - step_number++
+
+    div#bottom
+      div.notched.btn
+        button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
 
 
