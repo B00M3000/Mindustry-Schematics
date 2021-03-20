@@ -40,7 +40,8 @@ html
           each tag of tags
             option(value=tag.name)
       ul.tags
-      div#image_preview
+      figure#image_preview
+        figcaption Schematic preview
         - const src = `/raw/schematics/${schematic._id}/image`
         img(src=src)
       div.notched.btn

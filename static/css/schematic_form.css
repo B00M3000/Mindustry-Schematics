@@ -36,6 +36,10 @@ form * {
   width: 166px;
   height: 166px;
 }
+#image_preview figcaption{
+  position: absolute;
+  visibility: hidden;
+}
 
 form.locked > *:not(div.inputs, div.schematic-text){
   opacity: 0;
