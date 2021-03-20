@@ -15,13 +15,14 @@ body
   h1 #{title}
   
   - var step_number = 1
-  
-  each step of steps
-    h2 Step #{step_number}: #{step.name}
-    img(src=step.image)
-    p #{step.text}
-    
-    - step_number++
+  ul
+    each step of steps
+      li
+        h2 Step #{step_number}: #{step.name}
+        img(src=step.image)
+        p #{step.text}
+
+        - step_number++
 
   nav#bottom
     a(href="/tutorials")
