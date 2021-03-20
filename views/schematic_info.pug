@@ -46,7 +46,7 @@ body
     button.icon(onclick=copy): img(src="/assets/copy.svg")
     p= schematic.text
 
-  div#bottom
+  nav#bottom
     - const change = `/schematics/${schematic._id}/edit`
     - const _delete = `/schematics/${schematic._id}/delete`
     - const copyLink = `copy(window.location.href)`
