@@ -14,6 +14,8 @@ html
     meta(property="og:url" content=url)
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+    title Create schematic
   body
     h1 Create a Schematic
     hr
@@ -39,13 +41,15 @@ html
       ul.tags
 
 
-      div#image_preview
+      figure#image_preview
+        figcaption Schematic preview
       
       div.notched.btn
         button(type="submit" name="submit" value="Submit") Submit
-    div#bottom
-      div.notched.btn
-        button.small(onclick='window.location.href="/schematics"') Back Schematics
+    nav#bottom
+      a(href="/schematics")
+        div.notched.btn
+          button.small Back Schematics
     script.
       const tags = !{_tags}
       const _currentTags = []

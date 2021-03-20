@@ -6,26 +6,30 @@ head
   link(rel='stylesheet' href='/css/schematic_changes.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+  title Schematic changes
 body
   h1 Schematic Changes
   hr
   div.changes
     each change in changes
-      - const onclick = `window.location.href="/admin/schematic_changes/${change._id}"`
+      - const href = `/admin/schematic_changes/${change._id}`
       - const src = `/raw/schematics/${change.id}/image`
       - const color = change.Delete ? '#fd5f5f' : '#68cf68'
       - const mode = change.Delete ? 'Delete' : 'Modify'
-      div.schematic(onclick=onclick)
+      a(href=href): div.schematic
         h2
           span(style=`color: ${color};`) #{mode}
           span= " " + change.Original.name
         img.schematic_image(src=src)
           
 
-  div#bottom
-    div.notched.btn
-      button.small(onclick='window.location.href="/admin"') Back to Admin Panel
-    div.notched.btn
-      button.small(onclick='window.location.href="/schematics"') Schematics
+  nav#bottom
+    a(href="/admin")
+      div.notched.btn
+        button.small Back to Admin Panel
+    a(href="/schematics")
+      div.notched.btn
+        button.small Schematics
           
   script(src="/js/schematics.js")

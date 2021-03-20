@@ -5,3 +5,6 @@ div.changes{
   justify-content: center;
   flex-wrap: wrap;
 }
+div.changes a {
+  text-decoration: none;
+}

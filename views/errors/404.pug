@@ -10,8 +10,11 @@ html
     meta(property="og:type" content="website")
     meta(property="og:url" content=url)
     meta(property="og:site_name" content="Mindustry Schematics Database")
+
+    title 404 - Page not found
   body
     div#message
       h1 404
       h2 page not found
-      button.small(onclick='window.location.href="/"') Back to Home
+      a(href="/")
+        button.small Back to Home

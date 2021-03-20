@@ -111,6 +111,8 @@ button:focus {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5em;
+  padding: 0;
+  list-style-type: none;
 }
 
 .schematic {
@@ -253,8 +255,4 @@ div.notched{
 }
 .notched > button.small{
   border: none;
-}
-
-div.tutorial{
-  cursor: pointer;
 }

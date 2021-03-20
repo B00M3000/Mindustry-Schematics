@@ -13,20 +13,24 @@ html
     meta(property="og:url" content=url)
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
+    
+    title= title 
   body
     h1 #{title}
     
     - var step_number = 1
-    
-    each step of steps
-      h2 Step #{step_number}: #{step.name}
-      img(src=step.image)
-      p #{step.text}
-      
-      - step_number++
+    ul
+      each step of steps
+        li
+          h2 Step #{step_number}: #{step.name}
+          img(src=step.image)
+          p #{step.text}
 
-    div#bottom
-      div.notched.btn
-        button.small(onclick='window.location.href="/tutorials"') Back to Tutorials
+          - step_number++
+
+    nav#bottom
+      a(href="/tutorials")
+        div.notched.btn
+          button.small Back to Tutorials
 
 

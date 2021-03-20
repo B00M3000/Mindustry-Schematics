@@ -15,6 +15,8 @@ html
     meta(property="og:url" content=url)
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+    title Edit a Schematic
   body
     h1 Edit a Schematic
     hr
@@ -41,14 +43,16 @@ html
           each tag of tags
             option(value=tag.name)
       ul.tags
-      div#image_preview
+      figure#image_preview
+        figcaption Schematic preview
         - const src = `/raw/schematics/${schematic._id}/image`
         img(src=src)
       div.notched.btn
         button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
-    div#bottom
-      div.notched.btn
-        button.small(onclick='window.location.href="/schematics"') Back to Schematics
+    nav#bottom
+      a(href="/schematics")
+        div.notched.btn
+          button.small Back to Schematics
     
     include includes/loadingScreen.pug
 
