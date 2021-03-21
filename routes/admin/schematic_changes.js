@@ -49,7 +49,7 @@ router.get('/:_id/accept', async (req, res) => {
     })
   } else {
     await schematicSchema.updateOne({
-      id: change.id
+      _id: change.id
     }, change.Changed)
     await schematicChangeSchema.deleteOne({
       _id: change._id
