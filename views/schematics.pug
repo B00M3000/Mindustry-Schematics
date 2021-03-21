@@ -24,10 +24,15 @@ html
       div.search
         form(action="/schematics" method="GET")
           input#schematics_search(type="text" placeholder="Search for schematics..." name="query" value=query autofocus)
-          button.small(type="submit"): img(src="/assets/check-mark.svg")
-        form(action="/schematics" method="GET")
-          button.small(type="submit"): img(src="/assets/cross-mark.svg")
-
+          div.controls
+            button(type="submit"): img(src="/assets/check-mark.svg")
+            a(href="/schematics")
+              button(type="button"): img(src="/assets/cross-mark.svg")
+          input#tags(type="text" list="tags-list" placeholder="Tags")
+          datalist(id="tags-list")
+            each tag of tags
+              option(value=tag.name)
+        ul.tags
     ul#schematics_result
       each schematic in schematics
         - const info = `/schematics/${schematic._id}`
@@ -77,7 +82,8 @@ html
         div.notched.btn
           button.small Create a Schematic
             
+    script.
+      const tags = !{_tags}
     script(src="/js/copy.js")
     script(src="/js/schematics.js")
-
-
+    script(src="/js/tags_input.js")

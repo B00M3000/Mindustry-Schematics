@@ -7,6 +7,7 @@ const { Schematic } = require('mindustry-schematic-parser')
 const { Types: { ObjectId } } = require('mongoose')
 
 const tags = require('../tags.json')
+const avaliableTags = tags
 
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
@@ -42,7 +43,9 @@ router.get('/', async (req, res) => {
       length: schematics.length,
       pages,
       documents,
-      schematics
+      schematics,
+      tags: avaliableTags,
+      _tags: JSON.stringify(avaliableTags)
     })
   } catch(e) {
     res.status(422).redirect('/schematics')
