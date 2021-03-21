@@ -65,6 +65,10 @@ form && form.addEventListener("submit", (e) => {
   if (currentTags.length > 0) {
     searchParams.set("tags", currentTags.map(t => t.name).join(' '))
   }
+  const query = searchParams.get('query')
+  if (!query) {
+    searchParams.delete("query")
+  }
   const url = `${form.action}?${searchParams}`
   window.location.href = url
 })
