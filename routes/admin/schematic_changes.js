@@ -28,8 +28,8 @@ router.get('/', async (req, res) => {
 router.get('/:_id', async (req, res) => {
   const { change } = req
   change.Original = await schematicSchema.findOne({ _id: change.id })
-  const originalTags = change.Original.tags.map(name => avaliableTags.find(t => t.name == name))
-  const changedTags = change.Changed.tags.map(name => avaliableTags.find(t => t.name == name))
+  const originalTags = change.Original?.tags.map(name => avaliableTags.find(t => t.name == name))
+  const changedTags = change.Changed?.tags.map(name => avaliableTags.find(t => t.name == name))
   res.render('schematic_change', {
     change,
     originalTags,
@@ -49,7 +49,7 @@ router.get('/:_id/accept', async (req, res) => {
     })
   } else {
     await schematicSchema.updateOne({
-      id: change.id
+      _id: change.id
     }, change.Changed)
     await schematicChangeSchema.deleteOne({
       _id: change._id
