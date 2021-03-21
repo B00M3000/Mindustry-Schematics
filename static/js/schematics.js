@@ -72,3 +72,13 @@ form && form.addEventListener("submit", (e) => {
   const url = `${form.action}?${searchParams}`
   window.location.href = url
 })
+
+window.addEventListener("load", () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const schematicTags = urlParams.get('tags')?.split("+")
+  if (schematicTags) {
+    for (const tag of schematicTags) {
+      addTag(tags.find(t => t.name == tag))
+    }
+  } 
+})
