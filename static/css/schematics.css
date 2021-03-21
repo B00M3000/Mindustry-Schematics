@@ -16,7 +16,6 @@ form{
   display: grid;
   grid-template-columns: 3fr minmax(min-content, 1fr);
   align-items: center;
-  /* justify-items: center; */
   gap: 1em;
 }
 form div.controls{
@@ -83,7 +82,7 @@ ul.tags li {
   background-color: var(--color);
   border-radius: 5px;
   max-width: min-content;
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 ul.tags li .layer{
   display: flex;
