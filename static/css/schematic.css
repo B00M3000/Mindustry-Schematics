@@ -41,6 +41,7 @@ div.power img {
 }
 .tags{
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
   padding: 0 1em;
