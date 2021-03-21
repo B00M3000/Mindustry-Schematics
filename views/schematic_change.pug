@@ -25,6 +25,12 @@ body
     img(src=src width="166px" height="166px")
     h3= 'by ' + change.Original.creator
     h4= 'Description: ' + change.Original.description
+    if tags
+      h3 Tags:
+      div.tags
+        each tag in tags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+
     h4 Copy the text below to import: 
     p= change.Original.text
   else
@@ -38,9 +44,13 @@ body
       img.left(src=srcO width="166px" height="166px")
       h3.left= 'by ' + change.Original.creator
       h4.left= 'Description: ' + change.Original.description
+      h3.left Tags:
+      div.tags.left
+        each tag in originalTags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
       h4.left Original schematic Text: 
       p.left= change.Original.text
-        
+
       img.arrow(src="/images/arrow.svg" width="128px" height="128px" style="border: none;")
       
       h2.right= "Name: " + change.Changed.name
@@ -49,6 +59,10 @@ body
       img.right(src=srcC width="166px" height="166px")
       h3.right= 'by ' + change.Changed.creator
       h4.right= 'Description: ' + change.Changed.description
+      h3.right Tags:
+      div.tags.right
+        each tag in changedTags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
       h4.right New Schematic Text: 
       p.right= change.Changed.text
     

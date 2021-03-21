@@ -3,6 +3,7 @@ var router = Router()
 
 const schematicChangeSchema = require('../../schemas/SchematicChange.js')
 const schematicSchema = require('../../schemas/Schematic.js')
+const avaliableTags = require('../../tags.json')
 
 router.param('_id', async (req, res, next, _id) => {
   const change = await schematicChangeSchema.findOne({ _id })
@@ -27,8 +28,12 @@ router.get('/', async (req, res) => {
 router.get('/:_id', async (req, res) => {
   const { change } = req
   change.Original = await schematicSchema.findOne({ _id: change.id })
+  const originalTags = change.Original.tags.map(name => avaliableTags.find(t => t.name == name))
+  const changedTags = change.Changed.tags.map(name => avaliableTags.find(t => t.name == name))
   res.render('schematic_change', {
-    change
+    change,
+    originalTags,
+    changedTags,
   })
 })
 
