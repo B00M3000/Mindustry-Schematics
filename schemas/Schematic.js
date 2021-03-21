@@ -4,7 +4,7 @@ const schematicSchema = mongoose.Schema({
   name: { type: String, required: true },
   creator: { type: String, required: true },
   description: { type: String, required: true },
-  tags: { type: Array, required: true, default: [] }, 
+  tags: { type: [String], required: true, default: [] }, 
 
   image: { Data: Buffer, ContentType: String },
   requirements: { type: Object, required: true },

@@ -6,6 +6,8 @@ const { Schematic } = require('mindustry-schematic-parser')
 const schematicSchema = require('../../schemas/Schematic.js')
 const schematicChangeSchema = require('../../schemas/SchematicChange.js')
 
+const Tags = require('../../tags.json')
+
 const limitPerPage = 20
 
 router.post('/parse', async (req, res) => {
@@ -45,7 +47,7 @@ router.post('/create', async (req, res) => {
   try {
     const schematic = Schematic.decode(text)
   
-    tags = JSON.parse(tags)
+    tags = JSON.parse(tags).map(tag => tag.name).filter(n => Tags.find(t => t.name == n))
 
     const {powerBalance, powerConsumption, powerProduction, requirements}=schematic
     const data = await schematic.toImageBuffer()
@@ -96,7 +98,7 @@ router.post('/:id/edit', async (req, res) => {
   var { name, author, creator, text, description, tags, cDescription } = req.body
   
   try {
-    tags = JSON.parse(tags)
+    tags = JSON.parse(tags).map(tag => tag.name).filter(n => Tags.find(t => t.name == n))
   } catch (error) {
     tags = undefined;
   }
