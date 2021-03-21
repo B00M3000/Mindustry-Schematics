@@ -124,10 +124,11 @@ router.get('/:id', async (req, res) => {
   }, {
     new: true
   })
-
+  const tags = schematic.tags.map(name => avaliableTags.find(t => t.name == name))
   res.render('schematic_info', {
     url: req.url,
-    schematic
+    schematic,
+    tags
   })
 })
 
