@@ -49,7 +49,7 @@ body
       h3 Tags:
       div.tags
         each tag in schematic.tags
-          div.tag: div.layer: span #{tag.name}
+          div.tag: div.layer: span #{tag}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
     button.icon(onclick=copy): img(src="/assets/copy.svg")
