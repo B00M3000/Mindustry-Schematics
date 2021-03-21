@@ -1,4 +1,8 @@
-var currentTags = _currentTags || []
+var currentTags = []
+try {
+  currentTags = _currentTags
+} catch {}
+
 const ul = document.querySelector('ul.tags')
 /**@type {HTMLInputElement} */
 const input = document.querySelector('input#tags')
