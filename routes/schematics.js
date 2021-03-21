@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
     if(query) _query = { name: new RegExp(query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "i") }
 
     let _tags = undefined;
-    if(tags) _query.tags = { $all: tags.split("+") }
+    if(tags) _query.tags = { $all: tags.split(" ") }
     
     const schematics = await schematicSchema.find(_query, "id name image text", { skip, limit: limitPerPage })
     const documents = await schematicSchema.countDocuments()
