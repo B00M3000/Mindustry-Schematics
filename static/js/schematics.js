@@ -75,10 +75,12 @@ form && form.addEventListener("submit", (e) => {
 
 window.addEventListener("load", () => {
   const urlParams = new URLSearchParams(window.location.search)
-  const schematicTags = urlParams.get('tags')?.split("+")
+  const schematicTags = urlParams.get('tags')?.split(" ")
+  console.log(schematicTags)
   if (schematicTags) {
-    for (const tag of schematicTags) {
-      addTag(tags.find(t => t.name == tag))
+    for (const name of schematicTags) {
+      const tag = tags.find(t => t?.name.toLowerCase() == name.toLowerCase())
+      if(tag) addTag(tag)
     }
   } 
 })
