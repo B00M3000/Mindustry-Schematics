@@ -2,7 +2,65 @@ body {
   text-align: center;
   margin: 30px;
 }
-
+img#preview {
+  max-width: 80%;
+}
 p {
   word-break: break-all;
+}
+div.requirements{
+  font-family: 'Mindustry';
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+div.requirements > span{
+  margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+div.requirements > span > img{
+  margin-right: 3px;
+}
+div.power{
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Mindustry';
+  gap: 2em;
+}
+div.power > span{
+  display: flex;
+  align-items: center;
+}
+div.power img {
+  height: 1.5rem;
+  margin-right: 0.5em;
+}
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  padding: 0 1em;
+}
+.tag {
+  display: inline-block;
+  --color: #888888;
+  border: none;
+  background-color: var(--color);
+  border-radius: 5px;
+  max-width: min-content;
+}
+
+.tag .layer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3em;
+  height: 100%;
+  width: 100%;
 }

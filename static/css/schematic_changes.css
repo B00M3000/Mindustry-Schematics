@@ -1,0 +1,10 @@
+div.changes{
+  padding: 2em;
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+div.changes a {
+  text-decoration: none;
+}

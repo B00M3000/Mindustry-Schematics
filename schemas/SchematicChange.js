@@ -1,35 +1,17 @@
 const mongoose = require('mongoose')
 
 const schematicChangeSchema = mongoose.Schema({
-  Original: {
-    name: String,
-    author: String,
-    text: String,
-    description: String,
-    image: {
-      Data: Buffer,
-      ContentType: String,
-    }
+  id: {
+    type: String,
+    required: true
   },
   Changed: {
-    name: String,
-    author: String,
-    text: String,
-    description: String,
-    image: {
-      Data: Buffer,
-      ContentType: String,
-    }
+    type: Object
   },
   
   Description: String,
   
   Delete: String,
-  
-  id: {
-    type: String,
-    required: true
-  }
 })
 
 module.exports = mongoose.model('SchematicChanges', schematicChangeSchema)

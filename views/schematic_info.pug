@@ -1,9 +1,11 @@
 doctype html
 head
+  include includes/head
+
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
 
-  - const imageSrc = `/schematics/${schematic.id}/image`
+  - const imageSrc = `/raw/schematics/${schematic._id}/image`
 
   meta(property="og:title" content=schematic.name)
   meta(property="og:description" content=schematic.description)
@@ -11,34 +13,63 @@ head
   meta(property="og:image" content=imageSrc)
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics Database")
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
+  - const title = '[Schematic] ' + schematic.name
+  title= title
 body
   div#head
-    h1= '[Schematic]' + schematic.name
+    h1= title
     h5= 'Views: ' + schematic.views
     hr
-    img(src=imageSrc)
-    h3= 'by ' + schematic.author
+    img#preview(src=imageSrc)
+    h3= 'by ' + schematic.creator || schematic.author
     h4= 'Description: ' + schematic.description
+    if schematic.requirements
+      h3 Requirements:
+      - const items = ["copper", "lead", "metaglass", "graphite", "sand", "coal", "titanium", "thorium", "scrap", "silicon", "plastanium", "phase-fabric", "surge-alloy", "spore-pod", "blast-compound", "pyratite"]
+      div.requirements
+        each item in items
+          if schematic.requirements[item]
+            span
+              img.item(src=`/assets/items/${item}.png`)
+              span !{schematic.requirements[item]}
+
+    if schematic.powerConsumption || schematic.powerProduction
+      div.power
+        if schematic.powerProduction
+          span(style="color: rgb(251, 211, 103);")
+            img(src="/assets/power-icon-yellow.svg")
+            span +#{schematic.powerProduction}
+        if schematic.powerConsumption
+          span(style="color: rgb(229, 84, 84);")
+            img(src="/assets/power-icon-red.svg")
+            span -#{schematic.powerConsumption}
+    if tags
+      h3 Tags:
+      div.tags
+        each tag in tags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
     h4 Copy the text below to import or click the copy button below: 
     - const copy = `copy("${schematic.text}")`
-    button.icon(onclick=copy): img(src="/assets/copy.png")
+    button.icon(onclick=copy): img(src="/assets/copy.svg")
     p= schematic.text
 
-  div#bottom
-    - const change = `window.location.href="/schematics/${schematic.id}/edit"`
-    - const _delete = `window.location.href="/schematics/${schematic.id}/delete"`
+  nav#bottom
+    - const change = `/schematics/${schematic._id}/edit`
+    - const _delete = `/schematics/${schematic._id}/delete`
     - const copyLink = `copy(window.location.href)`
-    div.notched.btn
-      button.small(onclick='window.location.href="/schematics"') Back to Schematics
+    a(href="/schematics")
+      div.notched.btn
+        button.small Back to Schematics
     div.notched.btn
       button.small(onclick=copyLink) Copy Page Link
-    div.notched.btn
-      button.small(onclick=change) Request a Change
-    div.notched.btn
-      button.small(onclick=_delete) Request Deletion
+    a(href=change)
+      div.notched.btn
+        button.small(onclick=change) Request a Change
+    a(href=_delete)
+      div.notched.btn
+        button.small(onclick=_delete) Request Deletion
 
   script(src="/js/copy.js")
 

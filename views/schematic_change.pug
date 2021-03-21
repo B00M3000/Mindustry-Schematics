@@ -1,15 +1,19 @@
 doctype html
 head
+  include includes/head
+
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic.css' type='text/css')
-  link(rel='stylesheet' href='/css/schematic_change' type='text/css')
+  link(rel='stylesheet' href='/css/schematic_change.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+  title Change a schematic
 body
-  h1= '[Schematic Change]' + change.id
+  h1= '[Schematic Change] ' + change.id
   hr
   if change.Delete
-    span(style="color: red") DELETE
+    span(style="color: #fd5f5f") Delete
     
     br
     
@@ -17,59 +21,71 @@ body
     
     h1= "Name: " + change.Original.name
     
-    - const src = `/schematics/${change.id}/image`
+    - const src = `/raw/schematics/${change.id}/image`
     img(src=src width="166px" height="166px")
-    h3= 'by ' + change.Original.author
+    h3= 'by ' + change.Original.creator
     h4= 'Description: ' + change.Original.description
+    if tags
+      h3 Tags:
+      div.tags
+        each tag in tags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+
     h4 Copy the text below to import: 
     p= change.Original.text
   else
-    span(style="color: green") MODIFY
+    h2(style="color: green") Modify
     
-    br
-    br
-    
-    div#schematics
-      div.left
-        h2= "Name: " + change.Original.name
-      
-        - const srcO = `/schematics/${change.id}/image`
-        img(src=srcO width="166px" height="166px")
-        h3= 'by ' + change.Original.author
-        h4= 'Description: ' + change.Original.description
-        h4 Original schematic Text: 
-        p= change.Original.text
-        
-      img(src="/images/green_arrow_right.png" width="128px" height="128px" style="border: none;")
-      
-      div.right
-        h2= "Name: " + change.Changed.name
-      
-        - const srcC = `/admin/schematic_changes/${change._id}/image/Changed`
-        img(src=srcC width="166px" height="166px")
-        h3= 'by ' + change.Changed.author
-        h4= 'Description: ' + change.Changed.description
-        h4 New Schematic Text: 
-        p= change.Changed.text
-        
       h4= "What and Why: " + change.Description
+    div#schematics
+      h2.left= "Name: " + change.Original.name
+      
+      - const srcO = `/raw/schematics/${change.id}/image`
+      img.left(src=srcO width="166px" height="166px")
+      h3.left= 'by ' + change.Original.creator
+      h4.left= 'Description: ' + change.Original.description
+      h3.left Tags:
+      div.tags.left
+        each tag in originalTags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+      h4.left Original schematic Text: 
+      p.left= change.Original.text
+
+      img.arrow(src="/images/arrow.svg" width="128px" height="128px" style="border: none;")
+      
+      h2.right= "Name: " + change.Changed.name
+    
+      - const srcC = `/raw/schematic-changes/${change._id}/image`
+      img.right(src=srcC width="166px" height="166px")
+      h3.right= 'by ' + change.Changed.creator
+      h4.right= 'Description: ' + change.Changed.description
+      h3.right Tags:
+      div.tags.right
+        each tag in changedTags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+      h4.right New Schematic Text: 
+      p.right= change.Changed.text
     
     br
     br
     br
       
-  div#bottom
-    - const view = `window.location.href="/schematics/${change.id}"`
-    - const accept = `window.location.href="/admin/schematic_changes/${change._id}/accept"`
-    - const decline = `window.location.href="/admin/schematic_changes/${change._id}/decline"`
-    div.notched.btn
-      button.small(onclick='window.location.href="/admin/schematic_changes"') Back to Schematic Changes
-    div.notched.btn
-      button.small(onclick=view) View
-    div.notched.btn
-      button.small(onclick=accept) Accept
-    div.notched.btn
-      button.small(onclick=decline) Decline
+  nav#bottom
+    - const view = `/schematics/${change.id}`
+    - const accept = `/admin/schematic_changes/${change._id}/accept`
+    - const decline = `/admin/schematic_changes/${change._id}/decline`
+    a(href="/admin/schematic_changes")
+      div.notched.btn
+        button.small Back to Schematic Changes
+    a(href=view)
+      div.notched.btn
+        button.small View
+    a(href=accept)
+      div.notched.btn
+        button.small Accept
+    a(href=decline)
+      div.notched.btn
+        button.small Decline
     
 
 

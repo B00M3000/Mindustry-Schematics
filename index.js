@@ -43,6 +43,7 @@ app.use('/schematics', require('./routes/schematics'))
 app.use('/tutorials', require('./routes/tutorials'))
 app.use('/admin', require('./routes/admin'))
 app.use('/api', require('./routes/api'))
+app.use('/raw', require('./routes/raw'))
 //app.use('/shorturl', require('./routes/shorturl'))
 
 // Handle 404
@@ -51,7 +52,7 @@ app.use((req, res) => {
   res.render('errors/404')
 })
 
-// // Handle 500
+// Handle 500
 app.use((error, req, res, next) => {
   res.status(505)
   res.render('errors/500')

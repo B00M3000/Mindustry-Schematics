@@ -1,17 +1,25 @@
 #schematics {
-  display: flex;                  /* establish flex container */
-  flex-direction: row;            /* default value; can be omitted */
-  flex-wrap: nowrap;              /* default value; can be omitted */
-  justify-content: space-between; /* switched from default (flex-start, see below) */
-  background-color: lightyellow;
+  display: grid;
+  grid-template-columns: 4fr 1fr 4fr;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
 }
 
-.left {
-  align-self: flex-start;
+#schematics > *.left{
+  grid-column: 1 / 2;
 }
 
-.right {
-  align-self: flex-end;
+#schematics > *.right {
+  grid-column: 3 / 4;
+}
+
+#schematics > img.arrow{
+  grid-column: 2 / 3;
+  grid-row: 2;
+  max-height: 40%;
+  max-width: 40%;
+  object-fit: contain;
 }
 
 .inputs{

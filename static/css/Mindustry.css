@@ -25,6 +25,7 @@
 }
 *{
   box-sizing: border-box;
+  font-family: 'Mindustry';
 }
 body {
   background-color: #222222;
@@ -52,11 +53,16 @@ button.icon {
   text-decoration: none;
   background-color: #222222;
   border: #222222 solid 4px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  width: 40px;
 }
 
 button.icon img{
-  width: 24px;
-  height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 }
 
 button.small {
@@ -86,7 +92,7 @@ button:focus {
 #schematics_search {
   color: white;
   background-color: #222222;
-  background-image: url('../assets/search_icon.png');
+  background-image: url('../assets/search-icon.svg');
   background-position: 5px 0px;
   background-size: 20px 20px;
   background-repeat: no-repeat;
@@ -104,16 +110,21 @@ button:focus {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 1.5em;
+  padding: 0;
+  list-style-type: none;
 }
 
 .schematic {
   color: white;
-  margin: 5px;
-  font-style: thin;
   border-style: solid;
   border-width: 3px;
   border-color: #454545;
   transition: border 0.2s;
+  display: flex;
+  flex-direction: column;
+  width: 172px;
+  justify-content: space-between;
 }
 
 .schematic img:after {
@@ -124,11 +135,11 @@ button:focus {
 .schematic .name{
   position: relative;
   top: 0px;
-  width: 166px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: rgba(40, 40, 40, 100)
+  background-color: rgba(40, 40, 40, 0.5)
 }
 
 .schematic h2{
@@ -152,25 +163,51 @@ hr {
   width: 100%;
   position: fixed;
   bottom: 0;
+  z-index: 10;
 }
 
 #copied_popup {
-  padding: 5px;
-  display: flex;
+  --notchSize: 0.5em;
+  --size: calc(var(--notchSize) / 2);
   position: fixed;
-  right: 20px;
+  right: 0;
   align-items: center;
-  background-color: lightgreen;
-  border-radius: 5px;
-
+  background-color: #888888;
   animation-name: fly-in-out;
-  animation-duration: 5s;
+  animation-duration: 3s;
+  padding: var(--size) 0 var(--size) var(--size);
+  clip-path: 
+    polygon(
+      0% var(--notchSize), 
+      var(--notchSize) 0%, 
+      100% 0%, 
+      100% 100%, 
+      var(--notchSize) 100%, 
+      0% calc(100% - var(--notchSize))
+    );
 }
 
+#copied_popup div{
+  --internalNotch: calc(var(--notchSize) / 1.5);
+  display: flex;
+  align-items: center;
+  background-color: rgb(61, 61, 61);
+  padding: 5px;
+  clip-path: 
+    polygon(
+      0% var(--internalNotch), 
+      var(--internalNotch) 0%, 
+      100% 0%,
+      100% 100%, 
+      var(--internalNotch) 100%, 
+      0% calc(100% - var(--internalNotch))
+    );
+}
 #copied_popup img {
   width: 16px;
   height: 16px;
   margin-right: 5px;
+  object-fit: contain;
 }
 
 .schematic_image {
@@ -219,8 +256,4 @@ div.notched{
 }
 .notched > button.small{
   border: none;
-}
-
-div.tutorial{
-  cursor: pointer;
 }

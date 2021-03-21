@@ -1,5 +1,7 @@
 doctype html
 head
+  include includes/head
+
   link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
   
   meta(property="og:title" content="Mindustry Tools")
@@ -8,23 +10,28 @@ head
   meta(property="og:image" content="/assets/mindustry_banner.png")
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
-  meta(property="og:site_name" content="Mindustry Schematics Database")
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
   title Mindustry Schematics and Tutorials
 body(style="text-align: center")
   h1 Mindustry Schematics and Tutorials
   hr
-  div.notched.btn
-    button.small(onclick='window.location.href="/schematics"') Schematics
-  div.notched.btn
-    button.small(onclick='window.location.href="/tutorials"') Tutorials
-  div.notched.btn
-    button.small(onclick='window.location.href="/credits"') Credits
-  div.notched.btn
-    button.small(onclick='window.location.href="https://discord.gg/PnHG9xSMVP"') Discord Server
+  a(href="/schematics") 
+    div.notched.btn
+      button.small Schematics
+  a(href="/tutorials") 
+    div.notched.btn
+      button.small Tutorials
+  a(href="/credits") 
+    div.notched.btn
+      button.small Credits
+  a(href="https://discord.gg/PnHG9xSMVP" target="_blank") 
+    div.notched.btn
+      button.small Discord Server
   br
-  div.notched.btn
-    button.small(onclick='window.location.href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar"')  Download Foo's AG Client
-  div.notched.btn
-    button.small(onclick='window.location.href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar"') Download Official Mindustry Client
+  a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar") 
+    div.notched.btn
+      button.small  Download Foo's AG Client
+  a(href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar") 
+    div.notched.btn
+      button.small Download Official Mindustry Client

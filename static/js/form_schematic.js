@@ -1,6 +1,13 @@
-const upload = document.getElementById('image')
 const preview = document.getElementById('image_preview')
 const schematicInput = document.getElementById("text");
+const text = document.getElementById('text')
+const name = document.getElementById('name')
+const description = document.getElementById('description')
+const image_preview = document.getElementById('image_preview')
+const tagsInput = document.getElementById('tags')
+const form = document.querySelector('form')
+const submitButton = document.querySelector('button[type=submit]')
+let submitting = false
 
 function isValidSchematic(base64Code) {
   try {
@@ -36,17 +43,68 @@ schematicInput && schematicInput.addEventListener("input", () => {
   const isValid = isValidSchematic(value);
   if (!isValid) {
     schematicInput.setCustomValidity("This isn't a valid schematic")
+    schematicInput.classList.add('invalid')
+  } else {
+    schematicInput.setCustomValidity('')
+    schematicInput.classList.remove('invalid')
   }
 })
 
-if(upload && preview){
+text && text.addEventListener('change', async () => {
+  const value = text.value
+  const form = document.querySelector('form')
+  form.classList.add('locked')
+  if (!isValidSchematic(value)) {
+    text.classList.add('invalid')
+    return
+  }
+  const url = `/api/schematics/parse`
+  const data = new FormData()
+  data.append("text", value.trim())
+  const response = await fetch(url, {
+    method: 'POST',
+    body: data
+  })
+  switch (response.status) {
+    case 200: {
+      text.classList.remove('invalid')
+      const json = await response.json()
+      const imageData = json.image
+      name.value = json.name
+      description.value = json.description
+      let image = image_preview.querySelector("img")
+      if (!image) {
+        image = document.createElement('img')
+        image_preview.appendChild(image)
+      }
+      image.src = `data:image/png;base64,${imageData}`
+      form.classList.remove('locked')
+      }
+      break
+    case 400:
+      text.classList.add('invalid')
+      break
+    case 431:
+      alert('The schematic has too much data')
+      console.log(value.length)
+      break
+  }
+})
 
-  upload.addEventListener('change', update_preview);
+form && form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  submitButton.disabled = true
+  submitButton.innerHTML = "Please wait..."
+  const data = new FormData(form)
+  if (!location.href.endsWith('/delete')) {
+    data.append('tags', JSON.stringify(currentTags))
+  }
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+  })  
+  // redirect the user to the page of the new schematic
+  window.location.href = response.url
+})
 
-  window.addEventListener('paste', e => {
-    if(e.clipboardData.files.length > 0 ) {
-      upload.files = e.clipboardData.files;
-      update_preview()
-    }
-  });
-}
+
