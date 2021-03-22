@@ -60,6 +60,7 @@ html
     nav#bottom
       - const queryParam = query ? `&query=${query}` : ""
       - const firstPage = `/schematics?page=1${queryParam}`
+      - const lastPage = `/schematics?page=${pages}${queryParam}`
       - const previousPage = `/schematics?page=${page-1 || 1}${queryParam}`
       - const nextPage = `/schematics?page=${page+1}${queryParam}`
       a(href=firstPage)
@@ -71,6 +72,9 @@ html
       a(href=nextPage)
         div.notched.btn
           button.small Next Page
+      a(href=lastPage)
+        div.notched.btn
+          button.small Last Page
       br
       a(href="/")
         div.notched.btn
