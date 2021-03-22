@@ -7,8 +7,9 @@ const ul = document.querySelector('ul.tags')
 /**@type {HTMLInputElement} */
 const input = document.querySelector('input#tags')
 
-for(tag of currentTags){
-  addTag(tag)
+for (tag of currentTags) {
+  const currentTag = tags.find(t => t.name.toLowerCase() == tag.toLowerCase())
+  addTag(currentTag)
 }
 
 if (input && ul) {
