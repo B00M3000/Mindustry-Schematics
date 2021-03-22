@@ -7,8 +7,15 @@ const ul = document.querySelector('ul.tags')
 /**@type {HTMLInputElement} */
 const input = document.querySelector('input#tags')
 
-for (tag of currentTags) {
-  const currentTag = tags.find(t => t.name.toLowerCase() == tag.toLowerCase())
+for (let i = 0; i < currentTags.length; i++) {
+  const tag = currentTags[i]
+  let currentTag
+  if (tag.name && tag.color) {
+    currentTag = tag
+  } else {
+    currentTag = tags.find(t => t.name.toLowerCase() == tag.toLowerCase())
+    currentTags[i] = currentTag
+  }
   addTag(currentTag)
 }
 
