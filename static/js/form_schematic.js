@@ -7,6 +7,8 @@ const image_preview = document.getElementById('image_preview')
 const tagsInput = document.getElementById('tags')
 const form = document.querySelector('form')
 const submitButton = document.querySelector('button[type=submit]')
+const mainContent = document.getElementById('main-content')
+const schematicGenerate = document.getElementById('schematic-generate')
 let submitting = false
 
 function isValidSchematic(base64Code) {
@@ -58,6 +60,10 @@ text && text.addEventListener('change', async () => {
     text.classList.add('invalid')
     return
   }
+
+  mainContent.style.display = "none"
+  schematicGenerate.style.display = ""
+
   const url = `/api/schematics/parse`
   const data = new FormData()
   data.append("text", value.trim())
@@ -65,6 +71,10 @@ text && text.addEventListener('change', async () => {
     method: 'POST',
     body: data
   })
+
+  schematicGenerate.style.display = "none"
+  mainContent.style.display = ""
+
   switch (response.status) {
     case 200: {
       text.classList.remove('invalid')
