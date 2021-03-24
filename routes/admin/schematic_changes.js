@@ -4,7 +4,7 @@ var router = Router()
 const schematicChangeSchema = require('../../schemas/SchematicChange.js')
 const schematicSchema = require('../../schemas/Schematic.js')
 const avaliableTags = require('../../tags.json')
-
+const { safeDescription } = require('../../util')
 router.param('_id', async (req, res, next, _id) => {
   const change = await schematicChangeSchema.findOne({ _id })
   
@@ -30,6 +30,16 @@ router.get('/:_id', async (req, res) => {
   change.Original = await schematicSchema.findOne({ _id: change.id })
   const originalTags = change.Original && change.Original.tags.map(name => avaliableTags.find(t => t.name == name))
   const changedTags = change.Changed && change.Changed.tags.map(name => avaliableTags.find(t => t.name == name))
+  console.log(change)
+  if (change.Original) {
+    change.Original.description = safeDescription(change.Original.description || '')
+  }
+  if (change.Changed) {
+    change.Changed.description = safeDescription(change.Changed.description || '')
+  }
+  if (change.Description) {
+    change.Description = safeDescription(change.Description)
+  }
   res.render('schematic_change', {
     change,
     originalTags,
