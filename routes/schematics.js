@@ -12,6 +12,7 @@ const avaliableTags = tags
 const schematicSchema = require('../schemas/Schematic.js')
 const schematicChangeSchema = require('../schemas/SchematicChange.js')
 
+const {safeDescription} = require("../util")
 const limitPerPage = 20
 
 router.get('/', async (req, res) => {
@@ -125,6 +126,7 @@ router.get('/:id', async (req, res) => {
     new: true
   })
   const tags = schematic.tags.map(name => avaliableTags.find(t => t.name == name))
+  schematic.description = safeDescription(schematic.description || '')
   res.render('schematic_info', {
     url: req.url,
     schematic,
@@ -145,7 +147,8 @@ router.get('/:id/edit', async (req, res) => {
 
 router.get('/:id/delete', async (req, res) => {
   const { schematic } = req
-  
+
+  schematic.description = safeDescription(schematic.description || '')
   res.render('delete_schematic', {
     schematic
   })

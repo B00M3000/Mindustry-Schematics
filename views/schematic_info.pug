@@ -24,7 +24,7 @@ body
     hr
     img#preview(src=imageSrc)
     h3= 'by ' + schematic.creator || schematic.author
-    h4= 'Description: ' + schematic.description
+    h4 Description: !{schematic.description}
     if schematic.requirements
       h3 Requirements:
       - const items = ["copper", "lead", "metaglass", "graphite", "sand", "coal", "titanium", "thorium", "scrap", "silicon", "plastanium", "phase-fabric", "surge-alloy", "spore-pod", "blast-compound", "pyratite"]

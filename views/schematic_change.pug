@@ -24,7 +24,7 @@ body
     - const src = `/raw/schematics/${change.id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + change.Original.creator
-    h4= 'Description: ' + change.Original.description
+    h4 Description: !{change.Original.description}
     if tags
       h3 Tags:
       div.tags
@@ -36,14 +36,14 @@ body
   else
     h2(style="color: green") Modify
     
-      h4= "What and Why: " + change.Description
+      h4 What and Why: !{change.Description}
     div#schematics
       h2.left= "Name: " + change.Original.name
       
       - const srcO = `/raw/schematics/${change.id}/image`
       img.left(src=srcO width="166px" height="166px")
       h3.left= 'by ' + change.Original.creator
-      h4.left= 'Description: ' + change.Original.description
+      h4.left Description: !{change.Original.description}
       h3.left Tags:
       div.tags.left
         each tag in originalTags
@@ -51,14 +51,14 @@ body
       h4.left Original schematic Text: 
       p.left= change.Original.text
 
-      img.arrow(src="/images/arrow.svg" width="128px" height="128px" style="border: none;")
+      img.arrow(src="/assets/arrow.svg" width="128px" height="128px" style="border: none;")
       
       h2.right= "Name: " + change.Changed.name
     
       - const srcC = `/raw/schematic-changes/${change._id}/image`
       img.right(src=srcC width="166px" height="166px")
       h3.right= 'by ' + change.Changed.creator
-      h4.right= 'Description: ' + change.Changed.description
+      h4.right Description: !{change.Changed.description}
       h3.right Tags:
       div.tags.right
         each tag in changedTags

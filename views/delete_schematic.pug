@@ -26,7 +26,7 @@ html
     - const src = `/raw/schematics/${schematic._id}/image`
     img(src=src width="166px" height="166px")
     h3= 'by ' + schematic.creator || schematic.author
-    h4= 'Description: ' + schematic.description
+    h4 Description: !{schematic.description}
 
     - const action = `/api/schematics/${schematic._id}/delete`
 
