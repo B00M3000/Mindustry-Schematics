@@ -6,6 +6,16 @@ html
     link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
     link(rel='stylesheet' href='/css/schematics.css' type='text/css')
     
+    - const isCustom = query && _tags
+    if isCustom
+      - let ttags = ""
+      for tag of tags
+        if ttags == ""
+          - ttags += tag.name
+        else
+      - let custom = `Schematics; " + query ? `Query "${query}"`: "" + tags ? `Tags ${ttags}` : ""
+      meta(property="og:title" content="Schematics; )
+    
     meta(property="og:title" content="Schematics ")
     meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
     meta(property="og:image" content="/assets/mindustry_banner.png")

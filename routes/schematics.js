@@ -45,7 +45,7 @@ router.get('/', async (req, res) => {
       pages,
       documents,
       schematics,
-      tags: avaliableTags,
+      tags,
       _tags: JSON.stringify(avaliableTags)
     })
   } catch(e) {
