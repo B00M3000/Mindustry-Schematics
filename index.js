@@ -34,6 +34,7 @@ app.use('/tutorials', require('./routes/tutorials'))
 app.use('/admin', require('./routes/admin'))
 app.use('/api', require('./routes/api'))
 app.use('/raw', require('./routes/raw'))
+app.use('/next', require('./routes/next'))
 //app.use('/shorturl', require('./routes/shorturl'))
 
 // Handle 404

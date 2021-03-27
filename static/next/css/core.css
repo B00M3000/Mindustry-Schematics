@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Mindustry';
+  src: url('../../fonts/Mindustry.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root{
+  --primary: #ffc72d;
+  --primary-light: #ffe54c;
+  --primary-dark: #c68400;
+  --on-primary: #000;
+  --background: #1a1a1a;
+  --on-background: #fff;
+  --surface: #323232;
+  --on-surface: #fff;
+  --error: #a00000;
+  --on-error: #fff;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Mindustry';
+}
+body{
+  background-color: var(--background);
+}
+nav {
+  padding: 1.5em;
+  position: sticky;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  box-shadow: 0px 0px 5px black;
+  top: 0;
+  left: 0;
+}
+nav ul{
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 1em;
+}
