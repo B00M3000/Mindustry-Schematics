@@ -1,3 +1,4 @@
+import './util/config_env';
 import mongoose from 'mongoose';
 const username = process.env.MONGO_USER || '';
 const password = process.env.MONGO_PASS || '';

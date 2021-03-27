@@ -1,19 +1,12 @@
-import dotenv from 'dotenv';
-dotenv.config();
-dotenv.config({
-  path: `.${__dirname}/../.env`,
-});
-import express from 'express';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import fileuploader from 'express-fileupload';
-
-import mongo from './mongo';
-
 import 'pug';
-import fs from 'fs';
-import path from 'path';
+import './util/config_env';
 import * as routes from './routes';
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import fileuploader from 'express-fileupload';
+import mongo from './mongo';
+import path from 'path';
+
 console.log(path.join(process.cwd(), '/.env'));
 const PORT = process.env.PORT || 3000;
 
@@ -21,7 +14,7 @@ const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', './views');
-app.use(express.static(__dirname + '/static'));
+app.use(express.static(path.join(__dirname, '/static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(fileuploader());
