@@ -7,7 +7,6 @@ import fileuploader from 'express-fileupload';
 import mongo from './mongo';
 import path from 'path';
 
-console.log(path.join(process.cwd(), '/.env'));
 const PORT = process.env.PORT || 3000;
 
 const app = express();
