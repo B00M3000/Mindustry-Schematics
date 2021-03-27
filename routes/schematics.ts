@@ -1,11 +1,11 @@
+import 'tslib';
+import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
-import { Types } from 'mongoose';
-import tags from '../tags.json';
-import schematicSchema, { SchematicDocument } from '../schemas/Schematic';
-import { safeDescription } from '../util';
-import 'tslib';
 import { SchematicRequest } from './types';
+import { Types } from 'mongoose';
+import { safeDescription } from '../util';
+import tags from '../tags.json';
 
 const router = Router();
 const { ObjectId } = Types;
@@ -15,10 +15,10 @@ const limitPerPage = 20;
 
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
-  let query = String(req.query.query);
-  let tags = String(req.query.tags);
+  const query = String(req.query.query);
+  const tags = String(req.query.tags);
   try {
-    if (!page || isNaN(page) || Number(page) < 1 || Number(page) % 1 != 0)
+    if (!page || isNaN(page) || Number(page) < 1 || Number(page) % 1 !== 0)
       page = 1;
 
     const skip = limitPerPage * (page - 1);
@@ -26,21 +26,23 @@ router.get('/', async (req, res) => {
     let _query: any = {};
     if (query)
       _query = {
-        name: new RegExp(query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
+        name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
 
-    let _tags = undefined;
     if (tags) _query.tags = { $all: tags.split(' ') };
 
-    const schematics = await schematicSchema.find(
+    const schematics = await SchematicSchema.find(
       _query,
       'id name image text',
-      { skip, limit: limitPerPage }
+      {
+        skip,
+        limit: limitPerPage,
+      }
     );
-    const documents = await schematicSchema.countDocuments();
+    const documents = await SchematicSchema.countDocuments();
 
     const pages =
-      (documents % limitPerPage == 0
+      (documents % limitPerPage === 0
         ? documents / limitPerPage
         : Math.floor(documents / limitPerPage) + 1) || 1;
 
@@ -76,7 +78,6 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-  const schematics = await schematicSchema.find({});
   const { name, author, creator, text, description, tags } = req.body;
 
   const schematic = Schematic.decode(text);
@@ -90,7 +91,7 @@ router.post('/create', async (req, res) => {
   const mimetype = 'image/png';
   const newSchematic = {
     name,
-    creator: creator == undefined ? author : creator,
+    creator: creator === undefined ? author : creator,
     text,
     description,
     encoding_version: schematic.version,
@@ -105,13 +106,13 @@ router.post('/create', async (req, res) => {
     },
   };
 
-  const { id } = await new schematicSchema(newSchematic).save();
+  const { id } = await new SchematicSchema(newSchematic).save();
 
   res.redirect(`/schematics/${id}`);
 });
 
 router.param('id', async (req, res, next, id) => {
-  const schematic = await schematicSchema.findById(ObjectId(id));
+  const schematic = await SchematicSchema.findById(ObjectId(id));
 
   if (!schematic) return res.redirect('/schematics');
   (req as SchematicRequest).schematic = schematic;
@@ -134,7 +135,7 @@ router.get('/:id/text', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   let { schematic } = req as SchematicRequest;
-  schematic = (await schematicSchema.findOneAndUpdate(
+  schematic = (await SchematicSchema.findOneAndUpdate(
     { _id: schematic._id },
     {
       $inc: {
@@ -146,7 +147,7 @@ router.get('/:id', async (req, res) => {
     }
   )) as SchematicDocument;
   const tags = schematic.tags.map((name) =>
-    avaliableTags.find((t) => t.name == name)
+    avaliableTags.find((t) => t.name === name)
   );
   schematic.description = safeDescription(schematic.description || '');
   res.render('schematic_info', {

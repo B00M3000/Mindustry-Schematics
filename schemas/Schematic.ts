@@ -1,7 +1,7 @@
 import { ItemCost } from 'mindustry-schematic-parser';
 import mongoose from 'mongoose';
 
-const schematicSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   name: { type: String, required: true },
   creator: { type: String, required: true },
   description: { type: String, required: true },
@@ -32,4 +32,8 @@ export interface SchematicDocument extends mongoose.Document {
   text: string;
   views: number;
 }
-export default mongoose.model<SchematicDocument>('Schematics', schematicSchema);
+const SchematicChangeSchema = mongoose.model<SchematicDocument>(
+  'Schematics',
+  schema
+);
+export default SchematicChangeSchema;

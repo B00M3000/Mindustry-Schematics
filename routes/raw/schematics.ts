@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { SchematicRequest } from '../../routes/types.js';
-import schematicSchema from '../../schemas/Schematic.js';
+import SchematicSchema from '../../schemas/Schematic.js';
 
 const router = Router();
 
 router.param('id', async (req, res, next, id) => {
-  const schematic = await schematicSchema.findOne({ _id: id });
+  const schematic = await SchematicSchema.findOne({ _id: id });
 
   if (!schematic) return res.redirect('/schematics');
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import schematicChangeSchema from '../../schemas/SchematicChange.js';
 import { Schematic } from 'mindustry-schematic-parser';
+import schematicChangeSchema from '../../schemas/SchematicChange.js';
 import schematicsRouter from './schematics';
 const router = Router();
 

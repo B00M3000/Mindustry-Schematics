@@ -1,20 +1,21 @@
-import { Router, Request } from 'express';
-import schematicChangeSchema, {
+import { Request, Router } from 'express';
+import SchematicChangeSchema, {
   SchematicChangeDocument,
 } from '../../schemas/SchematicChange.js';
-import schematicSchema, { SchematicDocument } from '../../schemas/Schematic.js';
+import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic.js';
+
 import avaliableTags from '../../tags.json';
 import { safeDescription } from '../../util';
 
-interface SchematicChangeRequest extends Request {
-  change: ModifiedSchematicChangeDocument;
-}
 interface ModifiedSchematicChangeDocument extends SchematicChangeDocument {
   Original?: SchematicDocument | null;
 }
+interface SchematicChangeRequest extends Request {
+  change: ModifiedSchematicChangeDocument;
+}
 const router = Router();
 router.param('_id', async (req, res, next, _id) => {
-  const change = await schematicChangeSchema.findOne({ _id });
+  const change = await SchematicChangeSchema.findOne({ _id });
 
   if (!change) return res.redirect('/admin/schematic_changes');
 
@@ -24,10 +25,10 @@ router.param('_id', async (req, res, next, _id) => {
 });
 
 router.get('/', async (req, res) => {
-  var changes = await schematicChangeSchema.find({});
-  for (var i = 0; i < changes.length; i++) {
+  const changes = await SchematicChangeSchema.find({});
+  for (let i = 0; i < changes.length; i++) {
     const change = changes[i] as ModifiedSchematicChangeDocument;
-    change.Original = await schematicSchema.findOne({ _id: changes[i].id });
+    change.Original = await SchematicSchema.findOne({ _id: changes[i].id });
   }
   res.render('schematic_changes', {
     changes,
@@ -36,16 +37,16 @@ router.get('/', async (req, res) => {
 
 router.get('/:_id', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
-  change.Original = await schematicSchema.findOne({ _id: change.id });
+  change.Original = await SchematicSchema.findOne({ _id: change.id });
   const originalTags =
     change.Original &&
     change.Original.tags.map((name) =>
-      avaliableTags.find((t) => t.name == name)
+      avaliableTags.find((t) => t.name === name)
     );
   const changedTags =
     change.Changed &&
     change.Changed.tags.map((name) =>
-      avaliableTags.find((t) => t.name == name)
+      avaliableTags.find((t) => t.name === name)
     );
   console.log(change);
   if (change.Original) {
@@ -72,20 +73,20 @@ router.get('/:_id/accept', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
 
   if (change.Delete) {
-    await schematicSchema.deleteOne({
+    await SchematicSchema.deleteOne({
       _id: change.id,
     });
-    await schematicChangeSchema.deleteMany({
+    await SchematicChangeSchema.deleteMany({
       id: change.id,
     });
   } else {
-    await schematicSchema.updateOne(
+    await SchematicSchema.updateOne(
       {
         _id: change.id,
       },
       change.Changed
     );
-    await schematicChangeSchema.deleteOne({
+    await SchematicChangeSchema.deleteOne({
       _id: change._id,
     });
   }
@@ -96,7 +97,7 @@ router.get('/:_id/accept', async (req, res) => {
 router.get('/:_id/decline', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
 
-  await schematicChangeSchema.deleteOne({
+  await SchematicChangeSchema.deleteOne({
     _id: change._id,
   });
 

@@ -1,17 +1,15 @@
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
+import SchematicChangeSchema from '../../schemas/SchematicChange.js';
 import { SchematicRequest } from '../../routes/types.js';
-import schematicSchema from '../../schemas/Schematic.js';
-import schematicChangeSchema from '../../schemas/SchematicChange.js';
+import SchematicSchema from '../../schemas/Schematic.js';
 import Tags from '../../tags.json';
 
 const router = Router();
 
-const limitPerPage = 20;
-
 router.post('/parse', async (req, res) => {
   const { text } = req.body;
-  if (!text || text == '') {
+  if (!text || text === '') {
     res.status(400).send({ error: 'This is not a valid schematic' });
     return;
   }
@@ -31,7 +29,7 @@ router.post('/parse', async (req, res) => {
     let code = 500;
     if (error instanceof Error) {
       if (error.message.includes('valid')) code = 400;
-    } else if (typeof error == 'string') {
+    } else if (typeof error === 'string') {
       if (error.includes('valid')) code = 400;
     }
     res.status(code).send({
@@ -50,7 +48,7 @@ router.post('/create', async (req, res) => {
 
     const tags = (JSON.parse(req.body.tags) as Tag[])
       .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name == n));
+      .filter((n) => Tags.find((t) => t.name === n));
 
     const {
       powerBalance,
@@ -68,7 +66,7 @@ router.post('/create', async (req, res) => {
 
     const newSchematic = {
       name,
-      creator: creator ? creator : author,
+      creator: creator || author,
       tags: tags,
       text,
       description,
@@ -83,7 +81,8 @@ router.post('/create', async (req, res) => {
       },
     };
 
-    const { id } = await new schematicSchema(newSchematic).save();
+    // eslint-disable-next-line new-cap
+    const { id } = await new SchematicSchema(newSchematic).save();
 
     res.status(200).redirect(`/schematics/${id}`);
   } catch (error) {
@@ -92,7 +91,7 @@ router.post('/create', async (req, res) => {
 });
 
 router.param('id', async (req, res, next, id) => {
-  const schematic = await schematicSchema.findOne({ _id: id });
+  const schematic = await SchematicSchema.findOne({ _id: id });
 
   if (!schematic) return res.redirect('/schematics');
 
@@ -116,7 +115,7 @@ router.post('/:id/edit', async (req, res) => {
   try {
     tags = (JSON.parse(tags) as Tag[])
       .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name == n));
+      .filter((n) => Tags.find((t) => t.name === n));
   } catch (error) {
     tags = undefined;
   }
@@ -138,7 +137,7 @@ router.post('/:id/edit', async (req, res) => {
 
   const changedSchematic = {
     name,
-    creator: creator ? creator : author,
+    creator: creator || author,
     tags: tags,
     text,
     description,
@@ -159,7 +158,8 @@ router.post('/:id/edit', async (req, res) => {
     Description: cDescription,
   };
 
-  await new schematicChangeSchema(schematicChange).save();
+  // eslint-disable-next-line new-cap
+  await new SchematicChangeSchema(schematicChange).save();
 
   res.redirect(`/schematics`);
 });
@@ -173,7 +173,7 @@ router.post('/:id/delete', async (req, res) => {
     Delete: reason,
   };
 
-  await new schematicChangeSchema(schematicChange).save();
+  await new SchematicChangeSchema(schematicChange).save();
 
   res.redirect('/schematics');
 });

@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
 import { SchematicDocument } from './Schematic';
+import mongoose from 'mongoose';
 
-const schematicChangeSchema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
@@ -14,14 +14,14 @@ const schematicChangeSchema = new mongoose.Schema({
 
   Delete: String,
 });
-
-export default mongoose.model<SchematicChangeDocument>(
-  'SchematicChanges',
-  schematicChangeSchema
-);
 export interface SchematicChangeDocument extends mongoose.Document {
   id: string;
   Changed: SchematicDocument;
   Description?: string;
   Delete?: string;
 }
+const SchematicChangeSchema = mongoose.model<SchematicChangeDocument>(
+  'SchematicChanges',
+  schema
+);
+export default SchematicChangeSchema;

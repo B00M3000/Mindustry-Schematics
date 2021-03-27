@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.get('/:name', (req, res) => {
   const name = req.params.name;
-  const tutorial = tutorials.find((t) => t.name == name);
+  const tutorial = tutorials.find((t) => t.name === name);
 
   if (!tutorial) res.redirect('/tutorials');
 
