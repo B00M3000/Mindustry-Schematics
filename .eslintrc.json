@@ -17,6 +17,7 @@
       {
         "useprettierrc": true
       }
-    ]
+    ],
+    "sort-imports": "error"
   }
 }
