@@ -8,9 +8,7 @@ import Tags from '../../tags.json';
 const router = Router();
 
 const limitPerPage = 20;
-interface ParseBody {
-  text: string;
-}
+
 router.post('/parse', async (req, res) => {
   const { text } = req.body;
   if (!text || text == '') {

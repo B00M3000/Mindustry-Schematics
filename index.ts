@@ -1,15 +1,20 @@
+import dotenv from 'dotenv';
+dotenv.config();
+dotenv.config({
+  path: `.${__dirname}/../.env`,
+});
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import fileuploader from 'express-fileupload';
-import path from 'path';
 
 import mongo from './mongo';
 
 import 'pug';
-import dotenv from 'dotenv';
-dotenv.config();
-
+import fs from 'fs';
+import path from 'path';
+import * as routes from './routes';
+console.log(path.join(process.cwd(), '/.env'));
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -30,12 +35,11 @@ app.get('/', (req, res) => res.render('index'));
 
 app.get('/credits', (req, res) => res.render('credits'));
 
-app.use('/schematics', require('./routes/schematics'));
-app.use('/tutorials', require('./routes/tutorials'));
-app.use('/admin', require('./routes/admin'));
-app.use('/api', require('./routes/api'));
-app.use('/raw', require('./routes/raw'));
-//app.use('/shorturl', require('./routes/shorturl'))
+app.use('/schematics', routes.schematics);
+app.use('/tutorials', routes.tutorials);
+app.use('/admin', routes.admin);
+app.use('/api', routes.api);
+app.use('/raw', routes.raw);
 
 // Handle 404
 app.use((req, res) => {
@@ -44,16 +48,23 @@ app.use((req, res) => {
 });
 
 // Handle 500
-app.use((error, req, res, next) => {
-  res.status(505);
-  res.render('errors/500');
-  console.log(error);
-});
+app.use(
+  (
+    error: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    res.status(505);
+    res.render('errors/500');
+    console.log(error);
+  }
+);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 
-mongo().then((connection) => {
+mongo().then(() => {
   console.log('MongoDB Connection Established!');
 });

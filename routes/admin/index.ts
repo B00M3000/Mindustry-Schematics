@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import changesRouter from './schematic_changes';
 const router = Router();
 
 const secret = 'tadatada';
@@ -24,6 +25,6 @@ router.get('/', (req, res) => {
   res.render('admin');
 });
 
-router.use('/schematic_changes', require('./schematic_changes'));
+router.use('/schematic_changes', changesRouter);
 
 export default router;

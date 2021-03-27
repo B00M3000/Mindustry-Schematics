@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import schematicChangeSchema from '../../schemas/SchematicChange.js';
 import { Schematic } from 'mindustry-schematic-parser';
-
+import schematicsRouter from './schematics';
 const router = Router();
 
-router.use('/schematics', require('./schematics'));
+router.use('/schematics', schematicsRouter);
 
 router.get('/schematic-changes/:_id/image', async (req, res) => {
   const change = await schematicChangeSchema.findOne({ _id: req.params._id });

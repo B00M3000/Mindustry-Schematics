@@ -20,5 +20,4 @@ router.get('/:id/image', async (req, res) => {
   res.type(schematic.image.ContentType);
   res.send(schematic.image.Data);
 });
-
-module.exports = router;
+export default router;

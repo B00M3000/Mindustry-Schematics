@@ -103,4 +103,4 @@ router.get('/:_id/decline', async (req, res) => {
   res.redirect('/admin/schematic_changes');
 });
 
-module.exports = router;
+export default router;

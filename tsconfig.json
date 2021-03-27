@@ -18,5 +18,5 @@
     "strict": true,
     "target": "ES6"
   },
-  "include": ["routes", "schema", "util"]
+  "include": ["routes", "schema", "util", "./*.ts"]
 }
