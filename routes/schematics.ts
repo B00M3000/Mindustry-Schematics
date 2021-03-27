@@ -15,8 +15,8 @@ const limitPerPage = 20;
 
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
-  const query = String(req.query.query);
-  const tags = String(req.query.tags);
+  const query = String(req.query.query || '');
+  const tags = String(req.query.tags || '');
   try {
     if (!page || isNaN(page) || Number(page) < 1 || Number(page) % 1 !== 0)
       page = 1;
