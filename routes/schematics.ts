@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
   const query = String(req.query.query || '');
   const tags = String(req.query.tags || '');
   try {
-    if (!page || isNaN(page) || Number(page) < 1 || Number(page) % 1 !== 0)
-      page = 1;
+    if (!page || isNaN(page) || page < 1 || page % 1 !== 0) page = 1;
 
     const skip = limitPerPage * (page - 1);
 
