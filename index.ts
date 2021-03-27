@@ -6,6 +6,7 @@ import express from 'express';
 import fileuploader from 'express-fileupload';
 import mongo from './mongo';
 import path from 'path';
+import { rootDir } from './util';
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,7 +14,7 @@ const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', './views');
-app.use(express.static(path.join(__dirname, '/static')));
+app.use(express.static(path.join(rootDir, '/static')));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(fileuploader());
