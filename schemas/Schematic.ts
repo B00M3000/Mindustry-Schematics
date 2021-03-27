@@ -1,4 +1,4 @@
-import { ItemCost, ItemName, Schematic } from 'mindustry-schematic-parser';
+import { ItemCost } from 'mindustry-schematic-parser';
 import mongoose from 'mongoose';
 
 const schematicSchema = new mongoose.Schema({
@@ -18,10 +18,10 @@ const schematicSchema = new mongoose.Schema({
 
   encoding_version: { type: String, required: true },
 });
-export default mongoose.model<SchematicDocument>('Schematics', schematicSchema);
 export interface SchematicDocument extends mongoose.Document {
   creator: string;
   description: string;
+  // eslint-disable-next-line camelcase
   encoding_version: string;
   image: { Data: Buffer; ContentType: string };
   name: string;
@@ -32,3 +32,4 @@ export interface SchematicDocument extends mongoose.Document {
   text: string;
   views: number;
 }
+export default mongoose.model<SchematicDocument>('Schematics', schematicSchema);
