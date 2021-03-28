@@ -32,8 +32,5 @@ export interface SchematicDocument extends mongoose.Document {
   text: string;
   views: number;
 }
-const SchematicChangeSchema = mongoose.model<SchematicDocument>(
-  'Schematics',
-  schema
-);
-export default SchematicChangeSchema;
+const SchematicSchema = mongoose.model<SchematicDocument>('Schematics', schema);
+export default SchematicSchema;
