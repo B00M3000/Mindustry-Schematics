@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", href="/next/css/core.css")
+    link(rel="stylesheet", href="/next/css/info.css")
+
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Info
+  body
+    include ../mixins/app_bar
+    include ../mixins/notched_button
+    +app_bar("info")
+    main
+      ul
+        li
+          a(href="https://discord.gg/PnHG9xSMVP" target="_blank") 
+            button Discord Server
+        li
+          a(href="/next/info/credits")
+            button Credits
+
+    script(src="/next/js/info.js") 

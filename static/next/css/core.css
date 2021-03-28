@@ -32,7 +32,7 @@ body{
   background-color: var(--background);
 }
 nav {
-  padding: 1.5em;
+  padding: 0;
   position: sticky;
   background-color: var(--surface);
   color: var(--on-surface);
@@ -44,7 +44,7 @@ nav {
 nav ul{
   display: flex;
   list-style: none;
-  padding: 0;
+  padding: 1.5em;
   gap: 1em;
 }
 nav ul li{
@@ -54,4 +54,21 @@ nav ul li{
 nav ul li.selected{
   background-color: var(--primary);
   color: var(--on-primary)
+}
+div.path{
+  display: flex;
+  justify-content: start;
+  padding: 0 0 0.5em 1.5em;
+  font-size: 0.9em;
+}
+div.path div.part span{
+  margin: 0 0.3em;
+}
+button{
+  border: 2px solid #808080;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  cursor: pointer;
 }

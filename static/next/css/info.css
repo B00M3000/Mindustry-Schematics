@@ -1,0 +1,19 @@
+main ul{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  gap: 1em;
+  padding: 1em;
+}
+main li{
+  cursor: pointer;
+  border-radius: 0.5em;
+  width: 50vw;
+  text-align: center;
+}
+main li button {
+  height: 100%;
+  width: 100%;
+  padding: 1em;
+}

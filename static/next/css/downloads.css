@@ -8,10 +8,9 @@ ul.downloads{
 }
 
 ul.downloads button.download  {
-  width: 70vw;
+  width: 50vw;
   padding: 1em;
   cursor: pointer;
-  border: none;
   border-radius: 10px;
   background-color: var(--surface);
   color: var(--on-surface);
