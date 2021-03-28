@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", href="/next/css/core.css")
+    link(rel="stylesheet", href="/next/css/downloads.css")
+    
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+  body
+    include ../mixins/app_bar
+    +app_bar("downloads")
+    main
+      ul.downloads
+        li
+          a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar") 
+              button.download Download Foo's AG Client
+        li
+          a(href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar") 
+            div.notched.btn
+              button.download Download Official Mindustry Client

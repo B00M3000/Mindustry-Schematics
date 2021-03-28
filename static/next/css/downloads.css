@@ -1,0 +1,18 @@
+ul.downloads{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  gap: 1em;
+  padding: 1em;
+}
+
+ul.downloads button.download  {
+  width: 70vw;
+  padding: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
