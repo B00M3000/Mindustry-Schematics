@@ -7,12 +7,8 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Mindustry Schematics
   body
-    nav
-      ul
-        li Schematics
-        li Downloads
-        li Help 
-        li Info
+    include ../mixins/app_bar
+    +app_bar("schematics")
     div.search
       form.search(action="/schematics" method="GET")
         input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)

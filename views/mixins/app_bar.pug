@@ -1,0 +1,11 @@
+mixin app_bar(page)
+  nav
+    ul
+      li(class=`${page=='schematics' ? 'selected': ''}`)
+        a(href="/next") Schematics
+      li(class=`${page=='downloads' ? 'selected': ''}`)
+        a(href="/next/downloads") Downloads
+      li(class=`${page=='help' ? 'selected': ''}`)
+        a(href="/next/help") Help
+      li(class=`${page=='info' ? 'selected': ''}`)
+        a(href="/next/info") Info
