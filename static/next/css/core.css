@@ -22,6 +22,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Mindustry';
+  outline: none;
+}
+a{
+  text-decoration: none;
+  color: inherit;
 }
 body{
   background-color: var(--background);
@@ -34,10 +39,19 @@ nav {
   box-shadow: 0px 0px 5px black;
   top: 0;
   left: 0;
+  margin-bottom: 3em;
 }
 nav ul{
   display: flex;
   list-style: none;
   padding: 0;
   gap: 1em;
+}
+nav ul li{
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+nav ul li.selected{
+  background-color: var(--primary);
+  color: var(--on-primary)
 }
