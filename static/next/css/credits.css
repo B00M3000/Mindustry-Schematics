@@ -5,6 +5,9 @@ article{
   flex-direction: column;
   gap: 1em;
 }
+h1{
+  margin: 1em 0;
+}
 article h3{
   font-weight: 400;
   margin-bottom: 0.5em;
