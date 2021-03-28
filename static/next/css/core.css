@@ -39,7 +39,7 @@ nav {
   box-shadow: 0px 0px 5px black;
   top: 0;
   left: 0;
-  margin-bottom: 3em;
+  margin-bottom: 0.5em;
 }
 nav ul{
   display: flex;
