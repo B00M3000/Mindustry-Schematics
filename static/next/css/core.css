@@ -175,3 +175,6 @@ button.icon_text img {
   max-height: 1.5em;
   object-fit: contain;
 }
+button.icon_text.back img {
+  transform: scaleX(-1);
+}
