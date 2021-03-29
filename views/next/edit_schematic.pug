@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    include ../includes/head
+
+    link(rel='stylesheet' href='/next/css/core.css' type='text/css')
+    link(rel='stylesheet' href='/next/css/schematic_form.css' type='text/css')
+    
+    - const imageSrc = `/schematics/${schematic.id}/image`
+    
+    meta(property="og:title" content="Request a Change on a Existing Schematic. ")
+    meta(property="og:description" content="Submit a request to modify a schematic.")
+    meta(property="og:image" content=imageSrc)
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
+
+    meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+    title Edit a Schematic
+  body
+    include ../mixins/app_bar
+    +app_bar("schematics")
+    h1 Edit a Schematic
+    - const action = `/api/schematics/${schematic._id}/edit`
+    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
+      div.inputs
+        label(for="name") Name: 
+        input(type="text" name="name" id="name" placeholder="Name of the schematic" value=schematic.name   required)
+        
+        label(for="author") Author: 
+        input(type="text" name="author" id="author" placeholder="Author of the schematic" value=(schematic.creator || schematic.author) required)
+        
+        label(for="description") Description: 
+        textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description
+
+        label(for="text") Schematic: 
+        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text readonly required)
+
+        label(for="description") Changes: 
+        textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what was changed and why?" required)
+        label(for="tags") Tags:
+        input#tags(type="text" list="tags-list")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
+      figure#image_preview
+        figcaption Schematic preview
+        - const src = `/raw/schematics/${schematic._id}/image`
+        img(src=src)
+      button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
+    
+    include ../includes/loadingScreen.pug
+
+    script.
+      const tags = !{_tags}
+      const _currentTags = !{previousTags}
+    script(src="/js/form_schematic.js")
+    script(src="/js/tags_input.js")
