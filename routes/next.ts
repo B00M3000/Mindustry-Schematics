@@ -84,7 +84,13 @@ router.get('/:id/text', async (req, res) => {
 
   res.send(text);
 });
-
+router.get('/schematics/create', (req, res) => {
+  res.render('next/create_schematic', {
+    url: req.url,
+    tags,
+    _tags: JSON.stringify(tags),
+  });
+});
 router.get('/schematics/:id', async (req, res) => {
   let { schematic } = req as SchematicRequest;
   schematic = (await SchematicSchema.findOneAndUpdate(

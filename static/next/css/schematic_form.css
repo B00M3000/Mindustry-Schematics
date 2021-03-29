@@ -134,6 +134,7 @@ ul.tags li {
   background-color: var(--color);
   border-radius: 5px;
   max-width: min-content;
+  white-space: nowrap;
 }
 ul.tags li .layer {
   display: flex;
