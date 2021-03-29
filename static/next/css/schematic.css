@@ -1,0 +1,112 @@
+main {
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: min-content min-content min-content min-content min-content min-content min-content;
+  gap: 1em 2em;
+  padding: 2em;
+  grid-template-areas:
+    'preview title'
+    'preview author'
+    'preview views'
+    'preview description'
+    'preview data'
+    'preview tags'
+    'preview actions';
+  align-items: center;
+}
+#preview {
+  grid-area: preview;
+  width: 100%;
+  border-radius: 1em;
+  align-self: baseline;
+}
+.title {
+  grid-area: title;
+}
+.views {
+  grid-area: views;
+}
+.description {
+  grid-area: description;
+}
+.author {
+  grid-area: author;
+}
+.tags {
+  grid-area: tags;
+}
+.data {
+  grid-area: data;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.actions {
+  grid-area: actions;
+  display: flex;
+  border: 2px solid #808080;
+  border-radius: 0.5em;
+  width: min-content;
+  overflow: hidden;
+}
+p.text {
+  display: none;
+  word-break: break-all;
+}
+
+div.requirements {
+  display: flex;
+  gap: 5px 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+div.requirements > span {
+  display: inline-flex;
+  align-items: center;
+}
+div.requirements > span > img {
+  margin-right: 3px;
+}
+div.power {
+  margin-top: 1em;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-family: 'Mindustry';
+  gap: 2em;
+}
+div.power > span {
+  display: flex;
+  align-items: center;
+}
+div.power img {
+  height: 1.5rem;
+  margin-right: 0.5em;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  gap: 1em;
+}
+.tag {
+  display: inline-block;
+  --color: #888888;
+  border: none;
+  background-color: var(--color);
+  border-radius: 5px;
+  max-width: min-content;
+  white-space: nowrap;
+}
+
+.tag .layer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3em;
+  height: 100%;
+  width: 100%;
+}

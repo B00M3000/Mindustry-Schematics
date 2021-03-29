@@ -1,132 +1,128 @@
-#head {
-  margin-bottom: 5px;
-  text-align: center;
+body {
+  padding-bottom: 2em;
 }
-div.search{
+div.search {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-bottom: 1em;
 }
-form{
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  height: min-content;
+form {
   display: grid;
-  grid-template-columns: 3fr minmax(min-content, 1fr);
-  align-items: center;
+  grid-template-columns: max-content min-content;
   gap: 1em;
+  padding: 1em;
 }
-form div.controls{
-  border: 4px solid #888888;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  width: min-content;
-  justify-self: flex-end;
-}
-
-form button{
-  height: 2rem;
-  width: 2rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  padding: 5px;
-  background-color: black;
-  cursor: pointer;
-}
-form button:hover{
-  border-color: #888888;
-  background-color: rgb(82, 82, 82);
-}
-form button:active{
-  background-color: rgb(59, 59, 59);
-}
-form button img{
-  max-width: 90%;
-  max-height: 90%;
-}
-
-form input#tags{
-  background-color: transparent;
-  border: none;
-  border-bottom: 4px solid #888888;
+form input {
   color: white;
-  display: block;
-  grid-column: 1 / 3 ;
-  outline: none;
+  background-color: var(--surface);
+  border: 2px solid #808080;
   padding: 0.5em;
-  position: relative;
-  resize: vertical;
-  width: 50vw;
-  max-width: 500px;
+  border-radius: 0.5rem;
 }
-ul.tags{
+input#schematics_search {
+  background-image: url('/assets/search-icon.svg');
+  background-position: 0.6em 0.4em;
+  background-size: 1.5em 1.5em;
+  background-repeat: no-repeat;
+  padding-left: 3em;
+}
+input#tags {
   grid-column: 1 / 3;
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 100%;
-  justify-content: center;
-  list-style-type: none;
-  gap: 0.5em;
-  padding: 0 20%;
 }
-ul.tags li {
-  display: inline-block;
-  --color: #888888;
+div.controls {
+  display: flex;
+  align-items: center;
+  border: 2px solid #808080;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--surface);
+}
+div.controls button {
+  border-radius: 0;
   border: none;
-  background-color: var(--color);
-  border-radius: 5px;
-  max-width: min-content;
-  white-space: nowrap;
-}
-ul.tags li .layer{
-  display: flex;
+  height: 2em;
+  width: 2em;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.3em;
+}
+div.controls button:hover {
+  background-color: #ffffff80;
+}
+div.controls img {
   height: 100%;
   width: 100%;
+  object-fit: contain;
 }
-ul.tags li span {
-  margin-left: 5px;
-  cursor: pointer;
+ul#schematics_result {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
 }
-img.lazy{
-  opacity: 0;
-  transition: opacity ease 0.5s;
+.schematic {
+  color: white;
+  border: 3px solid #808080;
+  display: flex;
+  flex-direction: column;
+  width: 172px;
+  justify-content: space-between;
+  border-radius: 0.5em;
+  overflow: hidden;
 }
-img.lazy.loaded{
-  opacity: 1;
+
+.schematic .name {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: rgba(40, 40, 40, 0.5);
 }
-li.schematic div.view{
+
+.schematic h2 {
+  font-size: 10px;
+  font-style: thin;
+}
+
+li.schematic div.view {
   position: relative;
   height: 166px;
   width: 166px;
 }
-li.schematic div.view > *{
+li.schematic div.view > * {
   position: absolute;
   top: 0;
   left: 0;
 }
-li.schematic div.view div.name{
+li.schematic div.view div.name {
   z-index: 2;
   word-wrap: normal;
   width: 100%;
   max-width: 100%;
   padding: 0 5px;
 }
-li.schematic div.view div.schematic_image_container{
+li.schematic div.view div.schematic_image_container {
   z-index: 1;
 }
-div.tools{
+div.tools {
   display: flex;
+  background-color: var(--surface);
 }
-div.tools > *{
+div.tools > * {
   flex-grow: 1;
+}
+
+.schematic_image {
+  height: 166px;
+  width: 166px;
+
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+.schematic h2 {
+  margin: 0.8em 0;
+  text-align: center;
 }
