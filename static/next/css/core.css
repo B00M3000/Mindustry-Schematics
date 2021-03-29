@@ -28,8 +28,24 @@ a{
   text-decoration: none;
   color: inherit;
 }
-body{
-  background-color: var(--background);
+
+html {
+  position: relative;
+  min-height: 100vh;
+}
+
+html::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/mindustry_banner.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  filter: brightness(0.3);
+  z-index: -1;
 }
 nav {
   padding: 0;
