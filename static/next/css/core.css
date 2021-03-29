@@ -86,7 +86,7 @@ footer {
   position: fixed;
   bottom: 0;
   display: flex;
-  background-color: var(--surface);
+  background-color: rgba(0, 0, 0, 0.3);
   color: var(--on-surface);
   width: 100%;
   padding: 0.5em;
