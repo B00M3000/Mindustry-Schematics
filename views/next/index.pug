@@ -47,6 +47,11 @@ html(lang="en")
               div.schematic_image_container
                 - const src = `/raw/schematics/${schematic._id}/image`
                 img.schematic_image.lazy(data-src=src)
+    footer
+      a(href="/next/schematics/create")
+        button.icon_text
+          img(src="/assets/add.svg")
+          span Add schematic
     script.
       const tags = !{_tags}
     script(src="/next/js/copy.js")
