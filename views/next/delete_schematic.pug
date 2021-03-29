@@ -24,7 +24,7 @@ html
     - const action = `/api/schematics/${schematic._id}/delete`
     h1 Delete a Schematic
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
-      h2.title= '[Schematic]' + schematic.name
+      h2.title= '[Schematic] ' + schematic.name
       - const src = `/raw/schematics/${schematic._id}/image`
       img(src=src)
       h3.author= 'by ' + schematic.creator || schematic.author
