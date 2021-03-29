@@ -28,7 +28,7 @@ html
       - const src = `/raw/schematics/${schematic._id}/image`
       img(src=src)
       h3.author= 'by ' + schematic.creator || schematic.author
-      h4.description Description: !{schematic.description}
+      h4.description !{schematic.description}
   
 
       div.inputs
