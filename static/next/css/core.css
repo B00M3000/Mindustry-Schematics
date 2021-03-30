@@ -144,7 +144,7 @@ button {
   box-shadow: 0px 0px 0.6em black;
   display: flex;
   align-items: center;
-  background-color: rgb(61, 61, 61);
+  z-index: 9;
 }
 
 #copied_popup img {
@@ -212,5 +212,27 @@ button.icon_text.back img {
   nav:hover ul,
   nav:focus-within ul {
     height: 15em;
+  }
+  @keyframes fly-in-out {
+    0% {
+      top: 0px;
+      opacity: 0;
+    }
+    50% {
+      top: 5em;
+      opacity: 1;
+    }
+    70% {
+      top: 5em;
+      opacity: 1;
+    }
+    100% {
+      top: 5em;
+      opacity: 0;
+    }
+  }
+  #copied_popup {
+    width: 100%;
+    border-radius: 0 0 0.5em 0.5em;
   }
 }
