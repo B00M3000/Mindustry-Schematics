@@ -1,11 +1,13 @@
-import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
+import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
-import { SchematicRequest } from './types';
+import { SchematicRequest } from '../types';
 import { Types } from 'mongoose';
-import { safeDescription } from '../util';
-import tags from '../tags.json';
-import tutorials from '../tutorials.json';
+import adminRouter from './admin/index';
+import { safeDescription } from '../../util';
+import tags from '../../tags.json';
+import tutorials from '../../tutorials.json';
+
 const { ObjectId } = Types;
 const avaliableTags = tags;
 const limitPerPage = 20;
@@ -157,4 +159,7 @@ router.get('/info', (req, res) => {
 router.get('/info/credits', (req, res) => {
   res.render('next/credits.pug');
 });
+
+router.use('/admin', adminRouter);
+
 export default router;
