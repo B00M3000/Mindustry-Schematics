@@ -50,26 +50,26 @@ html(lang="en")
                 img.schematic_image.lazy(data-src=src)
     footer
       - const queryParam = query ? `&query=${query}` : ""
-      if page > 2
-        a(href=`/next?page=1${queryParam}`)
-          button.icon_text
-            img(src="/assets/double_chevron.svg")
-      if page > 1
-        a(href=`/next?page=${page - 1 || 1}${queryParam}`)
-          button.icon_text
-            img(src="/assets/chevron.svg")
+      - const firstPage = `/next?page=1${queryParam}`
+      - const previousPage = `/next?page=${page - 1 || 1}${queryParam}`
+      - const nextPage = `/next?page=${page + 1}${queryParam}`
+      - const lastPage = `/next?page=${pages}${queryParam}`
+      a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
+        button.icon_text
+          img(src="/assets/double_chevron.svg")
+      a(href=previousPage class=`${page > 1 ? "": "hidden"}`)
+        button.icon_text
+          img(src="/assets/chevron.svg")
       a(href="/next/schematics/create")
         button.icon_text
           img(src="/assets/add.svg")
           span Add schematic
-      if page < pages
-        a(href=`/next?page=${page + 1}${queryParam}`)
-          button.icon_text.right
-            img(src="/assets/chevron.svg")
-      if page < pages - 1
-        a(href=`/next?page=${pages}${queryParam}`)
-          button.icon_text.right
-            img(src="/assets/double_chevron.svg")
+      a(href=nextPage class=`${page < pages ? "": "hidden"}`)
+        button.icon_text.right
+          img(src="/assets/chevron.svg")
+      a(href=lastPage class=`${page < pages - 1 ? "": "hidden"}`)
+        button.icon_text.right
+          img(src="/assets/double_chevron.svg")
     script.
       const tags = !{_tags}
     script(src="/next/js/copy.js")

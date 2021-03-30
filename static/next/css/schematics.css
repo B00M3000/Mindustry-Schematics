@@ -134,3 +134,7 @@ div.tools > * {
 button.icon_text.right img {
   transform: scaleX(-1);
 }
+a.hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
