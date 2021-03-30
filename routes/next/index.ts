@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
       _query = {
         name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
-    if (tags) _query.tags = { $all: tags.split(' ') };
+    if (tags)
+      _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
 
     const schematics = await SchematicSchema.find(
       _query,
