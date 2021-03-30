@@ -1,0 +1,24 @@
+[
+  {
+    "name": "import-schematic-from-clipboard",
+    "title": "How to Import a Schematic from Copy Paste Clipboard.",
+    "description": "This tutorial will teach you all about how to import a schematic from your clipboard",
+    "steps": [
+      {
+        "name": "Open Schematics Menu",
+        "image": false,
+        "text": "Go into any game, singleplayer or multiplayer. For desktop the button is in the bottom right. For mobile it is in the top left. The button looks like a clipboard."
+      },
+      {
+        "name": "Click the import schematic button.",
+        "image": false,
+        "text": "At the bottom of the menu, find a \"Import Schematics\" button and click it."
+      },
+      {
+        "name": "Click the \"Import from Clipboard\"",
+        "image": false,
+        "text": "Click the import from clipboard button, it should be the top option. Be sure that the last thing you copied was the schematic text."
+      }
+    ]
+  }
+]
