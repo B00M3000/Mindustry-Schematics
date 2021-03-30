@@ -1,10 +1,10 @@
 body {
-  text-align: center;
   padding-bottom: 5em;
   color: white;
 }
 h1 {
   margin: 1em;
+  text-align: center;
 }
 form {
   display: flex;
@@ -150,29 +150,6 @@ ul.tags li span {
   cursor: pointer;
 }
 
-@media screen and (max-width: 500px) {
-  .inputs {
-    --bottomPadding: 3px;
-    display: flex;
-    align-items: left;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .inputs > label {
-    margin: 2em 0 0.5em 0;
-    grid-column: 1;
-    justify-self: left;
-    padding-bottom: var(--bottomPadding);
-  }
-
-  span.error {
-    visibility: hidden;
-    grid-column: 2;
-    transform: translateY(0.5em);
-  }
-}
-
 textarea {
   height: 100px;
 }
@@ -196,4 +173,28 @@ textarea::-webkit-scrollbar-thumb {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 600px) {
+  .inputs {
+    --bottomPadding: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .inputs *:is(input, textarea) {
+    width: 100%;
+  }
+  .inputs > label {
+    margin: 2em 0 0.5em 0;
+    grid-column: 1;
+    justify-self: left;
+    padding-bottom: var(--bottomPadding);
+  }
+
+  span.error {
+    visibility: hidden;
+    grid-column: 2;
+    transform: translateY(0.5em);
+  }
 }

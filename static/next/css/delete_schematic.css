@@ -36,3 +36,27 @@ form img {
   gap: 0.2em;
   align-items: baseline;
 }
+@media screen and (max-width: 600px) {
+  form {
+    text-align: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
+    grid-template-areas:
+      'title'
+      'author'
+      'preview'
+      'description'
+      'input'
+      'submit';
+    justify-items: center;
+  }
+  form img {
+    width: 70vw;
+  }
+  form .title {
+    font-size: 1.2em;
+  }
+  form .author {
+    font-size: 0.9em;
+  }
+}
