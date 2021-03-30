@@ -1,27 +1,39 @@
+import { Converter } from 'showdown';
 import fs from 'fs';
 import path from 'path';
 import { rootDir } from './root_dir';
+
+const converter = new Converter();
 export class Tutorial {
-  constructor(text: string) {
-    this.text = text;
+  constructor(path: string) {
+    this.path = path;
   }
 
-  readonly text: string;
+  readonly path: string;
 
-  get title() {
-    const searchRegex = /^#[^#\n\r]*$/m;
-    return searchRegex.exec(this.text)?.[0];
+  get text(): string {
+    return fs.readFileSync(this.path, 'utf-8');
+  }
+
+  get title(): string {
+    const searchRegex = /^#[^#\n\r][^\n\r]+$/m;
+    return searchRegex.exec(this.text)?.[0].replace('#', '') ?? '';
+  }
+
+  get html(): string {
+    return converter.makeHtml(this.text);
   }
 }
 export function mapTutorials(): Map<string, Tutorial> {
   const folder = path.join(rootDir, '/tutorials');
-  const files = fs.readdirSync(folder);
   const result = new Map<string, Tutorial>();
+  if (!fs.existsSync(folder)) return result;
+
+  const files = fs.readdirSync(folder);
   for (const file of files) {
     if (!file.endsWith('.md')) continue;
     const filepath = path.join(folder, file);
-    const text = fs.readFileSync(filepath, 'utf-8');
-    result.set(file, new Tutorial(text));
+    result.set(file, new Tutorial(filepath));
   }
   return result;
 }

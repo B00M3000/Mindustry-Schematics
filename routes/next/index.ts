@@ -1,17 +1,17 @@
 import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
+import { mapTutorials, safeDescription } from '../../util';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from '../types';
 import { Types } from 'mongoose';
 import adminRouter from './admin/index';
-import { safeDescription } from '../../util';
 import tags from '../../tags.json';
-import tutorials from '../../tutorials.json';
 
 const { ObjectId } = Types;
 const avaliableTags = tags;
 const limitPerPage = 20;
 const router = Router();
+const tutorials = mapTutorials();
 
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
@@ -149,9 +149,11 @@ router.get('/help', (req, res) => {
 });
 router.get('/help/:name', (req, res) => {
   const { name } = req.params;
-  const tutorial = tutorials.find((t) => t.name === name);
-  if (!tutorial) res.redirect('/help');
-  res.render('next/tutorial.pug', tutorial);
+  const tutorial = tutorials.get(name);
+  if (!tutorial) return res.redirect('/help');
+  res.render('next/tutorial.pug', {
+    html: tutorial.html,
+  });
 });
 router.get('/info', (req, res) => {
   res.render('next/info.pug');

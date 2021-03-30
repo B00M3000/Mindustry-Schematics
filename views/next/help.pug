@@ -12,7 +12,7 @@ html(lang="en")
     +app_bar("help")
     main
       ul
-        each tutorial in tutorials 
+        each tutorial of tutorials 
           li
-            a(href=`/next/help/${tutorial.name}`)
-              button #{tutorial.title}
+            a(href=`/next/help/${tutorial[0]}`)
+              button #{tutorial[1].title}

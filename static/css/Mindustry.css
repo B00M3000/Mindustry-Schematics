@@ -1,8 +1,8 @@
 @font-face {
-    font-family: 'Mindustry';
-    src: url('../fonts/Mindustry.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Mindustry';
+  src: url('../fonts/Mindustry.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @keyframes fly-in-out {
@@ -23,7 +23,7 @@
     opacity: 0;
   }
 }
-*{
+* {
   box-sizing: border-box;
   font-family: 'Mindustry';
 }
@@ -32,14 +32,17 @@ body {
   color: white;
   padding-bottom: 5em;
 }
-
-h1, h2 {
+a {
+  text-decoration: none;
+}
+h1,
+h2 {
   text-align: center;
 }
 
 h1 {
   font-family: 'Mindustry';
-  color: #FFD37F;
+  color: #ffd37f;
 }
 
 h2 {
@@ -60,7 +63,7 @@ button.icon {
   width: 40px;
 }
 
-button.icon img{
+button.icon img {
   max-width: 24px;
   max-height: 24px;
 }
@@ -82,7 +85,7 @@ button {
 }
 
 button:hover {
-  border-color: #FFD37F;
+  border-color: #ffd37f;
 }
 
 button:focus {
@@ -99,7 +102,7 @@ button:focus {
   border: none;
   padding-left: 30px;
   padding-bottom: 5px;
-  border-bottom: 5px solid #FFD37F;
+  border-bottom: 5px solid #ffd37f;
 }
 
 #schematics_search:focus {
@@ -132,27 +135,27 @@ button:focus {
   top: 0px;
 }
 
-.schematic .name{
+.schematic .name {
   position: relative;
   top: 0px;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: rgba(40, 40, 40, 0.5)
+  background-color: rgba(40, 40, 40, 0.5);
 }
 
-.schematic h2{
+.schematic h2 {
   font-size: 10px;
   font-style: thin;
 }
 
 .schematic:hover {
-  border-color: #FFD37F;
+  border-color: #ffd37f;
 }
 
 hr {
-  background: #FFD37F;
+  background: #ffd37f;
   padding: 2px;
   border: none;
   margin: 15px;
@@ -176,32 +179,30 @@ hr {
   animation-name: fly-in-out;
   animation-duration: 3s;
   padding: var(--size) 0 var(--size) var(--size);
-  clip-path: 
-    polygon(
-      0% var(--notchSize), 
-      var(--notchSize) 0%, 
-      100% 0%, 
-      100% 100%, 
-      var(--notchSize) 100%, 
-      0% calc(100% - var(--notchSize))
-    );
+  clip-path: polygon(
+    0% var(--notchSize),
+    var(--notchSize) 0%,
+    100% 0%,
+    100% 100%,
+    var(--notchSize) 100%,
+    0% calc(100% - var(--notchSize))
+  );
 }
 
-#copied_popup div{
+#copied_popup div {
   --internalNotch: calc(var(--notchSize) / 1.5);
   display: flex;
   align-items: center;
   background-color: rgb(61, 61, 61);
   padding: 5px;
-  clip-path: 
-    polygon(
-      0% var(--internalNotch), 
-      var(--internalNotch) 0%, 
-      100% 0%,
-      100% 100%, 
-      var(--internalNotch) 100%, 
-      0% calc(100% - var(--internalNotch))
-    );
+  clip-path: polygon(
+    0% var(--internalNotch),
+    var(--internalNotch) 0%,
+    100% 0%,
+    100% 100%,
+    var(--internalNotch) 100%,
+    0% calc(100% - var(--internalNotch))
+  );
 }
 #copied_popup img {
   width: 16px;
@@ -221,39 +222,37 @@ hr {
   --notchSize: 0.5em;
   background-color: #888888;
   padding: calc(var(--notchSize) / 2);
-  clip-path: 
-    polygon(
-      0% var(--notchSize), 
-      var(--notchSize) 0%, 
-      calc(100% - var(--notchSize)) 0%, 
-      100% var(--notchSize), 
-      100% calc(100% - var(--notchSize)), 
-      calc(100% - var(--notchSize)) 100%, 
-      var(--notchSize) 100%, 
-      0% calc(100% - var(--notchSize))
-    );
+  clip-path: polygon(
+    0% var(--notchSize),
+    var(--notchSize) 0%,
+    calc(100% - var(--notchSize)) 0%,
+    100% var(--notchSize),
+    100% calc(100% - var(--notchSize)),
+    calc(100% - var(--notchSize)) 100%,
+    var(--notchSize) 100%,
+    0% calc(100% - var(--notchSize))
+  );
 }
-div.notched{
+div.notched {
   display: inline-block;
 }
-.notched.btn:hover{
-  background-color: #FFD37F;
+.notched.btn:hover {
+  background-color: #ffd37f;
 }
-.notched > *:first-child{
+.notched > *:first-child {
   background-color: black;
   --internalNotch: calc(var(--notchSize) / 1.5);
-  clip-path: 
-    polygon(
-      0% var(--internalNotch), 
-      var(--internalNotch) 0%, 
-      calc(100% - var(--internalNotch)) 0%, 
-      100% var(--internalNotch), 
-      100% calc(100% - var(--internalNotch)), 
-      calc(100% - var(--internalNotch)) 100%, 
-      var(--internalNotch) 100%, 
-      0% calc(100% - var(--internalNotch))
-    );
+  clip-path: polygon(
+    0% var(--internalNotch),
+    var(--internalNotch) 0%,
+    calc(100% - var(--internalNotch)) 0%,
+    100% var(--internalNotch),
+    100% calc(100% - var(--internalNotch)),
+    calc(100% - var(--internalNotch)) 100%,
+    var(--internalNotch) 100%,
+    0% calc(100% - var(--internalNotch))
+  );
 }
-.notched > button.small{
+.notched > button.small {
   border: none;
 }

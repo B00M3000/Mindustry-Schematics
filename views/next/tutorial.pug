@@ -11,17 +11,7 @@ html(lang="en")
     include ../mixins/app_bar
     +app_bar("help")
     main
-      article
-        h1 #{title}
-        ul 
-          - let step_number = 1
-          each step of steps
-            li
-              h3 Step #{step_number}: #{step.name}
-              img(src=step.image)
-              p #{step.text}
-
-              - step_number++
+      article !{html}
     footer
       a(href="/next/help")
         button.icon_text.back

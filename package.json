@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint *.ts",
+    "lint": "eslint **/**.ts",
+    "start": "tsc && node .",
     "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon .\""
   },
   "keywords": [],
@@ -22,6 +23,7 @@
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
     "pug-code-gen": "^3.0.2",
+    "showdown": "^1.9.1",
     "tslib": "^2.1.0"
   },
   "devDependencies": {
@@ -30,6 +32,7 @@
     "@types/express-fileupload": "^1.1.6",
     "@types/node": "^14.14.37",
     "@types/pug": "^2.0.4",
+    "@types/showdown": "^1.9.3",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "concurrently": "^6.0.0",

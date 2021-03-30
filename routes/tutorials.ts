@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import tutorials from '../tutorials.json';
+import { mapTutorials } from '../util';
+
+const tutorials = mapTutorials();
 
 const router = Router();
 
@@ -11,11 +13,14 @@ router.get('/', (req, res) => {
 
 router.get('/:name', (req, res) => {
   const name = req.params.name;
-  const tutorial = tutorials.find((t) => t.name === name);
+  const tutorial = tutorials.get(name);
 
-  if (!tutorial) res.redirect('/tutorials');
+  if (!tutorial) return res.redirect('/tutorials');
 
-  res.render('tutorial', tutorial);
+  res.render('tutorial', {
+    html: tutorial.html,
+    title: tutorial.title,
+  });
 });
 
 export default router;
