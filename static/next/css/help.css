@@ -1,0 +1,12 @@
+main ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 1em;
+}
+main ul button{
+  padding: 1em;
+  width: 50vw;
+}

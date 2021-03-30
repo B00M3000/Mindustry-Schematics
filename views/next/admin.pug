@@ -1,0 +1,17 @@
+doctype html
+head
+  include ../includes/head
+
+  link(rel='stylesheet' href='/next/css/core.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/admin.css' type='text/css')
+  
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+  title Admin panel
+body(style="text-align: center")
+  include ../mixins/app_bar
+  +app_bar("admin")
+  ul.options
+    li 
+      a(href="/next/admin/schematic_changes")
+        button.small Schematic Changes

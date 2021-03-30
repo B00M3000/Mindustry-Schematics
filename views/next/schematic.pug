@@ -1,0 +1,74 @@
+doctype html
+head
+  include ../includes/head
+
+  link(rel='stylesheet' href='/next/css/core.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/schematic.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/tags.css' type='text/css')
+
+  - const imageSrc = `/raw/schematics/${schematic._id}/image`
+
+  meta(property="og:title" content=schematic.name)
+  meta(property="og:description" content="")
+
+  meta(property="og:image" content=imageSrc)
+  meta(property="og:type" content="website")
+  meta(property="og:url" content=url)
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
+  - const title = '[Schematic] ' + schematic.name
+  title= title
+body
+  include ../mixins/app_bar
+  +app_bar("schematics")
+  main
+    h1.title= title
+    h5.views= 'Views: ' + schematic.views
+    img#preview(src=imageSrc)
+    h3.author= 'by ' + schematic.creator || schematic.author
+    h4.description !{safeDescription}
+    div.data
+      if schematic.requirements
+        - const items = ["copper", "lead", "metaglass", "graphite", "sand", "coal", "titanium",   "thorium", "scrap", "silicon", "plastanium", "phase-fabric", "surge-alloy", "spore-pod",  "blast-compound", "pyratite"]
+        div.requirements
+          each item in items
+            if schematic.requirements[item]
+              span
+                img.item(src=`/assets/items/${item}.png`)
+                span !{schematic.requirements[item]}
+
+      if schematic.powerConsumption || schematic.powerProduction
+        div.power
+          if schematic.powerProduction
+            span(style="color: rgb(251, 211, 103);")
+              img(src="/assets/power-icon-yellow.svg")
+              span +#{schematic.powerProduction}
+          if schematic.powerConsumption
+            span(style="color: rgb(229, 84, 84);")
+              img(src="/assets/power-icon-red.svg")
+              span -#{schematic.powerConsumption}
+    if tags
+      div.tags
+        each tag in tags
+          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+    div.actions
+      button.icon(onclick=`copy("${schematic.text}")`)
+        img(src="/assets/copy.svg")
+      button.icon(onclick=`share("${title.replace(/\n|\r/g, "\\n")}", "${schematic.description.replace(/\n|\r/g, "\\n")}")`)
+        img(src="/assets/share.svg")
+      a(href=`/next/schematics/${schematic._id}/edit`)
+        button.icon
+          img(src="/assets/pencil.svg")
+      a(href=`/next/schematics/${schematic._id}/delete`)
+        button.icon
+          img(src="/assets/trash.svg")
+      
+    p.text= schematic.text
+  footer
+    a(href="/next")
+      button.icon_text.back
+        img(src="/assets/arrow.svg")
+        span Back
+  script(src="/next/js/copy.js")
+  script(src="/next/js/share.js")
+

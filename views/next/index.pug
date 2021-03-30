@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", href="/next/css/core.css")
+    link(rel="stylesheet", href="/next/css/schematics.css")
+    link(rel="stylesheet", href="/next/css/input_tags.css")
+
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Schematics
+  body
+    include ../mixins/app_bar
+    +app_bar("schematics")
+    div.search
+      form.search(action="/next" method="GET")
+        input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
+        div.controls
+          button(type="submit"): img(src="/assets/check-mark.svg")
+          a(href="/next")
+            button(type="button"): img(src="/assets/cross-mark.svg")
+        input#tags(type="text" list="tags-list" placeholder="Tags")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
+    main
+      ul#schematics_result
+        each schematic in schematics
+          - const info = `/next/schematics/${schematic._id}`
+          - const copy = `copy("${schematic.text}")`
+          - const edit = `/next/schematics/${schematic._id}/edit`
+          - const _delete = `/next/schematics/${schematic._id}/delete`
+
+          li.schematic
+            div.tools
+              a(href=info)
+                button.icon: img(src="/assets/info.svg")
+              button.icon(onclick=copy): img(src="/assets/copy.svg")
+              a(href=edit)
+                button.icon: img(src="/assets/pencil.svg")
+              a(href=_delete)
+                button.icon: img(src="/assets/trash.svg") 
+
+            div.view
+              div.name
+                h2= schematic.name
+              div.schematic_image_container
+                - const src = `/raw/schematics/${schematic._id}/image`
+                img.schematic_image.lazy(data-src=src)
+    footer
+      a(href="/next/schematics/create")
+        button.icon_text
+          img(src="/assets/add.svg")
+          span Add schematic
+    script.
+      const tags = !{_tags}
+    script(src="/next/js/copy.js")
+    script(src="/next/js/schematics.js")
+    script(src="/next/js/tags_input.js")

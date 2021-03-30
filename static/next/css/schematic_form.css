@@ -1,0 +1,199 @@
+body {
+  text-align: center;
+  padding-bottom: 5em;
+  color: white;
+}
+h1 {
+  margin: 1em;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+form * {
+  transition: opacity ease 0.5s, transform ease 0.5s;
+}
+
+#image_preview {
+  width: 166px;
+  height: 166px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#image_preview img {
+  width: 166px;
+  height: 166px;
+}
+#image_preview figcaption {
+  position: absolute;
+  visibility: hidden;
+}
+
+form.locked > *:not(div.inputs, div.schematic-text) {
+  opacity: 0;
+  pointer-events: none;
+}
+form.locked > div.inputs > *:not(input#text, label[for='text'], span.error) {
+  opacity: 0;
+  pointer-events: none;
+}
+form.locked > div.inputs {
+  transform: translateY(-50%);
+}
+.inputs {
+  --bottomPadding: 3px;
+  align-items: center;
+  display: grid;
+  gap: 1em;
+  grid-auto-flow: row;
+  grid-template-columns: auto max-content;
+}
+
+.inputs label {
+  grid-column: 1;
+  justify-self: right;
+  margin-right: 5px;
+  padding-bottom: var(--bottomPadding);
+  align-items: center;
+}
+
+.inputs *:is(input, textarea) {
+  background-color: transparent;
+  border: none;
+  border-bottom: var(--bottomPadding) solid #888888;
+  color: white;
+  display: block;
+  grid-column: 2;
+  outline: none;
+  padding: 0.5em;
+  position: relative;
+  resize: vertical;
+
+  width: 50vw;
+  max-width: 500px;
+
+  color: white;
+  background-color: var(--surface);
+  border: 2px solid #808080;
+  padding: 0.5em;
+  border-radius: 0.5rem;
+}
+
+label[for='image'] {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+}
+
+input#image {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+*[type='submit'] {
+  color: white;
+  outline: none;
+}
+
+input.invalid {
+  border-bottom-color: rgb(255, 101, 101);
+}
+span.error {
+  visibility: hidden;
+  grid-column: 2;
+  transform: translateY(-0.5em);
+}
+input.invalid + span.error {
+  visibility: visible;
+  color: rgb(255, 101, 101);
+}
+
+ul.tags {
+  grid-column: 1 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: center;
+  list-style-type: none;
+  gap: 0.5em;
+  padding: 0 20%;
+}
+ul.tags li {
+  display: inline-block;
+  --color: #888888;
+  border: none;
+  background-color: var(--color);
+  border-radius: 5px;
+  max-width: min-content;
+  white-space: nowrap;
+}
+ul.tags li .layer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.3em;
+  height: 100%;
+  width: 100%;
+}
+ul.tags li span {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+  .inputs {
+    --bottomPadding: 3px;
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .inputs > label {
+    margin: 2em 0 0.5em 0;
+    grid-column: 1;
+    justify-self: left;
+    padding-bottom: var(--bottomPadding);
+  }
+
+  span.error {
+    visibility: hidden;
+    grid-column: 2;
+    transform: translateY(0.5em);
+  }
+}
+
+textarea {
+  height: 100px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 10px;
+}
+
+#schematic-generate {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
