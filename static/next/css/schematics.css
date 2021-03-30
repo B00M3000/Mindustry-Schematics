@@ -24,6 +24,7 @@ form input {
   border: 2px solid #808080;
   padding: 0.5em;
   border-radius: 0.5rem;
+  width: 100%;
 }
 input#schematics_search {
   background-image: url('/assets/search-icon.svg');
@@ -137,4 +138,13 @@ button.icon_text.right img {
 a.hidden {
   visibility: hidden;
   pointer-events: none;
+}
+@media screen and (max-width: 600px) {
+  form {
+    width: 100%;
+  }
+
+  button.icon_text.add span {
+    display: none;
+  }
 }
