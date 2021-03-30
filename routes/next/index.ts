@@ -63,7 +63,7 @@ router.get('/', async (req, res) => {
       _tags: JSON.stringify(avaliableTags),
     });
   } catch (e) {
-    res.status(422).redirect('/schematics');
+    res.status(422).redirect('/next');
   }
 });
 router.param('id', async (req, res, next, id) => {
