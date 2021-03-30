@@ -147,4 +147,8 @@ a.hidden {
   button.icon_text.add span {
     display: none;
   }
+
+  footer {
+    justify-content: space-evenly;
+  }
 }
