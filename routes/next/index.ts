@@ -1,9 +1,9 @@
+import { FilterQuery, Types } from 'mongoose';
 import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
 import { mapTutorials, safeDescription } from '../../util';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from '../types';
-import { Types } from 'mongoose';
 import adminRouter from './admin/index';
 import tags from '../../tags.json';
 
@@ -22,12 +22,13 @@ router.get('/', async (req, res) => {
 
     const skip = limitPerPage * (page - 1);
 
-    let _query: any = {};
+    let _query: FilterQuery<SchematicDocument> = {};
     if (query)
       _query = {
         name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
-    if (tags) _query.tags = { $all: tags.split(' ') };
+    if (tags)
+      _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
 
     const schematics = await SchematicSchema.find(
       _query,
@@ -37,12 +38,12 @@ router.get('/', async (req, res) => {
         limit: limitPerPage,
       }
     );
-    const documents = await SchematicSchema.countDocuments();
+    const documents = await SchematicSchema.countDocuments(_query);
 
     const pages =
       (documents % limitPerPage === 0
         ? documents / limitPerPage
-        : Math.floor(documents / limitPerPage) + 1) || 1;
+        : Math.ceil(documents / limitPerPage)) || 1;
 
     if (page > pages)
       return res.redirect(

@@ -63,7 +63,10 @@ form &&
       searchParams.append(pair[0], pair[1]);
     }
     if (currentTags.length > 0) {
-      searchParams.set('tags', currentTags.map((t) => t.name).join(' '));
+      searchParams.set(
+        'tags',
+        currentTags.map((t) => t.name.replace(/ /g, '_')).join(' ')
+      );
     }
     const query = searchParams.get('query');
     if (!query) {
@@ -75,7 +78,10 @@ form &&
 
 window.addEventListener('load', () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const schematicTags = urlParams.get('tags')?.split(' ');
+  const schematicTags = urlParams
+    .get('tags')
+    ?.split(' ')
+    .map((t) => t.replace(/_/g, ' '));
 
   if (schematicTags) {
     for (const name of schematicTags) {

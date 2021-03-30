@@ -59,10 +59,11 @@ html
 
     nav#bottom
       - const queryParam = query ? `&query=${query}` : ""
-      - const firstPage = `/schematics?page=1${queryParam}`
-      - const lastPage = `/schematics?page=${pages}${queryParam}`
-      - const previousPage = `/schematics?page=${page-1 || 1}${queryParam}`
-      - const nextPage = `/schematics?page=${page+1}${queryParam}`
+      - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
+      - const firstPage = `/schematics?page=1${queryParam}${tagParam}`
+      - const lastPage = `/schematics?page=${pages}${queryParam}${tagParam}`
+      - const previousPage = `/schematics?page=${page-1 || 1}${queryParam}${tagParam}`
+      - const nextPage = `/schematics?page=${page+1}${queryParam}${tagParam}`
       a(href=firstPage)
         div.notched.btn
           button.small First Page 
