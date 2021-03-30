@@ -83,6 +83,12 @@ div.path {
 div.path div.part span {
   margin: 0 0.3em;
 }
+nav button.menu {
+  display: none;
+}
+nav button.menu:hover {
+  background-color: transparent;
+}
 footer {
   position: fixed;
   bottom: 0;
@@ -180,4 +186,31 @@ button.icon_text img {
 }
 button.icon_text.back img {
   transform: scaleX(-1);
+}
+@media screen and (max-width: 600px) {
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 3em;
+    grid-template-areas: 'buttons menu';
+  }
+  nav button.menu {
+    display: inline-block;
+    grid-area: menu;
+    align-self: baseline;
+    margin-top: 1.6em;
+  }
+  nav ul {
+    grid-area: buttons;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 5em;
+    transition: height 0.5s ease;
+  }
+  nav ul li.selected {
+    order: -1;
+  }
+  nav:hover ul,
+  nav:focus-within ul {
+    height: 15em;
+  }
 }
