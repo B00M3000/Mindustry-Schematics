@@ -58,6 +58,10 @@ html(lang="en")
         a(href=`/next?page=${page - 1 || 1}${queryParam}`)
           button.icon_text
             img(src="/assets/chevron.svg")
+      a(href="/next/schematics/create")
+        button.icon_text
+          img(src="/assets/add.svg")
+          span Add schematic
       if page < pages
         a(href=`/next?page=${page + 1}${queryParam}`)
           button.icon_text.right
@@ -66,10 +70,6 @@ html(lang="en")
         a(href=`/next?page=${pages}${queryParam}`)
           button.icon_text.right
             img(src="/assets/double_chevron.svg")
-      a(href="/next/schematics/create")
-        button.icon_text
-          img(src="/assets/add.svg")
-          span Add schematic
     script.
       const tags = !{_tags}
     script(src="/next/js/copy.js")
