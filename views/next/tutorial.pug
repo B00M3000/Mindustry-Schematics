@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    link(rel="stylesheet", href="/next/css/core.css")
+    link(rel="stylesheet", href="/next/css/tutorial.css")
+
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Help
+  body
+    include ../mixins/app_bar
+    +app_bar("help")
+    main
+      article
+        h1 #{title}
+        ul 
+          - let step_number = 1
+          each step of steps
+            li
+              h3 Step #{step_number}: #{step.name}
+              img(src=step.image)
+              p #{step.text}
+
+              - step_number++
+    footer
+      a(href="/next/help")
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back
