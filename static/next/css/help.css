@@ -11,3 +11,9 @@ main ul button {
   padding: 1em;
   width: 50vw;
 }
+
+@media screen and (max-width: 600px) {
+  main ul button {
+    width: 80vw;
+  }
+}
