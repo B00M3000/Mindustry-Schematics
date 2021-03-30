@@ -36,6 +36,11 @@ html
         textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?" required)
       div.notched.btn
         button(type="submit" name="submit") Submit Deletion Request
+    footer
+      a(href=`/next/schematics/${schematic._id}`)
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back
 
     include ../includes/loadingScreen.pug
 

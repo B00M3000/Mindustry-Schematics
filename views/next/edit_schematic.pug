@@ -49,7 +49,11 @@ html
         - const src = `/raw/schematics/${schematic._id}/image`
         img(src=src)
       button(type="submit" name="submit" value="Submit Edit Request") Submit Edit Request
-    
+    footer
+      a(href=`/next/schematics/${schematic._id}`)
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back
     include ../includes/loadingScreen.pug
 
     script.
