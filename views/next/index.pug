@@ -11,6 +11,7 @@ html(lang="en")
   body
     include ../mixins/app_bar
     +app_bar("schematics")
+    h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     div.search
       form.search(action="/next" method="GET")
         input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
@@ -48,6 +49,23 @@ html(lang="en")
                 - const src = `/raw/schematics/${schematic._id}/image`
                 img.schematic_image.lazy(data-src=src)
     footer
+      - const queryParam = query ? `&query=${query}` : ""
+      if page > 2
+        a(href=`/next/schematics?page=1${queryParam}`)
+          button.icon_text
+            img(src="/assets/double_chevron.svg")
+      if page > 1
+        a(href=`/next/schematics?page=${page - 1 || 1}${queryParam}`)
+          button.icon_text
+            img(src="/assets/chevron.svg")
+      if page < pages
+        a(href=`/next/schematics?page=${page + 1}${queryParam}`)
+          button.icon_text.right
+            img(src="/assets/chevron.svg")
+      if page < pages - 1
+        a(href=`/next/schematics?page=${pages}${queryParam}`)
+          button.icon_text.right
+            img(src="/assets/double_chevron.svg")
       a(href="/next/schematics/create")
         button.icon_text
           img(src="/assets/add.svg")
