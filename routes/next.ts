@@ -84,6 +84,9 @@ router.get('/:id/text', async (req, res) => {
 
   res.send(text);
 });
+router.get('/schematics', (req, res) => {
+  res.redirect('/next');
+});
 router.get('/schematics/create', (req, res) => {
   res.render('next/create_schematic', {
     url: req.url,
