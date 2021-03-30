@@ -1,9 +1,9 @@
 import 'tslib';
+import { FilterQuery, Types } from 'mongoose';
 import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from './types';
-import { Types } from 'mongoose';
 import { safeDescription } from '../util';
 import tags from '../tags.json';
 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
     const skip = limitPerPage * (page - 1);
 
-    let _query: any = {};
+    let _query: FilterQuery<SchematicDocument> = {};
     if (query)
       _query = {
         name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
@@ -39,7 +39,7 @@ router.get('/', async (req, res) => {
         limit: limitPerPage,
       }
     );
-    const documents = await SchematicSchema.countDocuments();
+    const documents = await SchematicSchema.countDocuments(_query);
 
     const pages =
       (documents % limitPerPage === 0
