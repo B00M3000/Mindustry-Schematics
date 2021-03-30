@@ -1,6 +1,9 @@
 mixin app_bar(page)
   nav
     ul
+      if page == "admin"
+        li(class="selected")
+          a(href="/next/admin") Admin Panel
       li(class=`${page=='schematics' ? 'selected': ''}`)
         a(href="/next") Schematics
       li(class=`${page=='downloads' ? 'selected': ''}`)

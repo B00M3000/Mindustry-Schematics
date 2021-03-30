@@ -1,0 +1,79 @@
+doctype html
+head
+  include ../includes/head
+
+  link(rel='stylesheet' href='/next/css/core.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/schematic_change.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/tags.css' type='text/css')
+
+  meta(name="viewport" content="width=device-width" intialscale="1.0")
+
+  title Change a schematic
+body
+  include ../mixins/app_bar.pug
+  +app_bar("admin")
+  h1.title [Schematic Change]
+  if change.Delete
+    h3.mode(style="color: #fd5f5f") Delete
+    
+    h2.reason= "Reason: " + change.Delete
+    
+    div.schematic
+      h1.name= change.Original.name
+
+      - const src = `/raw/schematics/${change.id}/image`
+      img.preview(src=src)
+      h3.creator= 'by ' + change.Original.creator
+      h4.description !{change.Original.description}
+      if originalTags
+        div.tags
+          each tag in originalTags
+            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+      div.actions
+        - const view = `/schematics/${change.id}`
+        - const accept = `/next/admin/schematic_changes/${change._id}/accept`
+        - const decline = `/next/admin/schematic_changes/${change._id}/decline`
+        a(href=view)
+          div.notched.btn
+            button.small View
+        a(href=accept)
+          div.notched.btn
+            button.small Accept
+        a(href=decline)
+          div.notched.btn
+            button.small Decline
+  else
+    h2.mode(style="color: green") Modify
+    
+      h4.reason What and Why: !{change.Description}
+    div#schematics
+      div.schematic
+        h2.name.original= change.Original.name
+        h2.name.changed= change.Changed.name
+
+        img.preview.original(src=`/raw/schematics/${change.id}/image`)
+        img.preview.changed(src=`/raw/schematic-changes/${change._id}/image`)
+
+        h3.creator.original= 'by ' + change.Original.creator
+        h3.creator.changed= 'by ' + change.Changed.creator
+
+        h4.description.original !{change.Original.description}
+        h4.description.changed !{change.Changed.description}
+
+        div.tags.original
+          each tag in originalTags
+            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+        div.tags.changed
+          each tag in changedTags
+            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+
+      
+  footer
+    a(href="/next/admin/schematic_changes")
+      div.notched.btn
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back 
+    
+
+
