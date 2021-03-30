@@ -33,6 +33,7 @@ app.use('/tutorials', routes.tutorials);
 app.use('/admin', routes.admin);
 app.use('/api', routes.api);
 app.use('/raw', routes.raw);
+app.use('/next', routes.next);
 
 // Handle 404
 app.use((req, res) => {
