@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint **/**.ts",
     "start": "tsc && node .",
-    "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon .\""
+    "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon .\"",
+    "_dev": "concurrently --kill-others \"tsc --watch\" \"node .\""
   },
   "keywords": [],
   "author": "",
