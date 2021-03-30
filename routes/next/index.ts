@@ -61,6 +61,7 @@ router.get('/', async (req, res) => {
       schematics,
       tags: avaliableTags,
       _tags: JSON.stringify(avaliableTags),
+      queriedTags: tags,
     });
   } catch (e) {
     res.status(422).redirect('/next');
@@ -153,6 +154,7 @@ router.get('/help/:name', (req, res) => {
   if (!tutorial) return res.redirect('/help');
   res.render('next/tutorial.pug', {
     html: tutorial.html,
+    title: tutorial.title,
   });
 });
 router.get('/info', (req, res) => {
