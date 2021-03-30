@@ -38,6 +38,9 @@ p {
   grid-area: description;
 }
 .modify .changedTags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   grid-area: tags;
 }
 .modify .tags {
@@ -76,4 +79,35 @@ p {
   left: 0;
   background-color: rgba(0, 255, 13, 0.2);
   z-index: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .schematic {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto min-content min-content min-content;
+    grid-template-areas:
+      'title'
+      'author'
+      'image '
+      'description'
+      'tags'
+      'actions';
+    gap: 1em 2em;
+    align-items: center;
+    justify-items: center;
+  }
+  .preview {
+    width: 70vw;
+  }
+  .modify .changedTags {
+    width: 100%;
+  }
+  .tags {
+    justify-content: center;
+  }
+  .name {
+    font-size: 1em;
+  }
 }
