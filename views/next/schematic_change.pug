@@ -3,8 +3,9 @@ head
   include ../includes/head
 
   link(rel='stylesheet' href='/next/css/core.css' type='text/css')
-  link(rel='stylesheet' href='/next/css/schematic_change.css' type='text/css')
+  link(rel="stylesheet", href="/next/css/admin.css")
   link(rel='stylesheet' href='/next/css/tags.css' type='text/css')
+  link(rel='stylesheet' href='/next/css/schematic_change.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 
@@ -12,13 +13,27 @@ head
 body
   include ../mixins/app_bar.pug
   +app_bar("admin")
+  mixin actions()
+    div.actions
+      - const view = `/schematics/${change.id}`
+      - const accept = `/next/admin/schematic_changes/${change._id}/accept`
+      - const decline = `/next/admin/schematic_changes/${change._id}/decline`
+      a(href=view)
+        div.notched.btn
+          button.small View
+      a(href=accept)
+        div.notched.btn
+          button.small Accept
+      a(href=decline)
+        div.notched.btn
+          button.small Decline
   h1.title [Schematic Change]
   if change.Delete
     h3.mode(style="color: #fd5f5f") Delete
     
-    h2.reason= "Reason: " + change.Delete
+    h4.reason= "Reason: " + change.Delete
     
-    div.schematic
+    div.schematic.delete
       h1.name= change.Original.name
 
       - const src = `/raw/schematics/${change.id}/image`
@@ -29,45 +44,45 @@ body
         div.tags
           each tag in originalTags
             div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-      div.actions
-        - const view = `/schematics/${change.id}`
-        - const accept = `/next/admin/schematic_changes/${change._id}/accept`
-        - const decline = `/next/admin/schematic_changes/${change._id}/decline`
-        a(href=view)
-          div.notched.btn
-            button.small View
-        a(href=accept)
-          div.notched.btn
-            button.small Accept
-        a(href=decline)
-          div.notched.btn
-            button.small Decline
+      +actions()
   else
-    h2.mode(style="color: green") Modify
+    h3.mode(style="color: green") Modify
     
       h4.reason What and Why: !{change.Description}
     div#schematics
-      div.schematic
-        h2.name.original= change.Original.name
-        h2.name.changed= change.Changed.name
+      div.schematic.modify
+        - let different
+        div.name
+          - different = change.Original.name != change.Changed.name
+          h1.name(class=`${different ? "original": ""}`)= change.Original.name
+          if different
+            h1.name.changed= change.Changed.name
+        
+        img.preview(src=`/raw/schematics/${change.id}/image`)
 
-        img.preview.original(src=`/raw/schematics/${change.id}/image`)
-        img.preview.changed(src=`/raw/schematic-changes/${change._id}/image`)
+        div.creator
+          - different = change.Original.creator != change.Changed.creator
+          h3.creator(class=`${different ? "original": ""}`)= 'by ' + change.Original.creator
+          if different
+            h3.creator.changed= 'by ' + change.Changed.creator
 
-        h3.creator.original= 'by ' + change.Original.creator
-        h3.creator.changed= 'by ' + change.Changed.creator
+        div.description
+          - different = change.Original.description != change.Changed.description
+          h4(class=`${different ? "original": ""}`) !{change.Original.description}
+          if different
+            h4.changed !{change.Changed.description}
 
-        h4.description.original !{change.Original.description}
-        h4.description.changed !{change.Changed.description}
+        div.changedTags
+          - different = change.Original.tags != change.Changed.tags
+          div.tags(class=`${different ? "original": ""}`)
+            each tag in originalTags
+              div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+          if different
+            div.tags.changed
+              each tag in changedTags
+                div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+        +actions()
 
-        div.tags.original
-          each tag in originalTags
-            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-        div.tags.changed
-          each tag in changedTags
-            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-
-      
   footer
     a(href="/next/admin/schematic_changes")
       div.notched.btn

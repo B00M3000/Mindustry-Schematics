@@ -32,6 +32,7 @@ a {
 html {
   position: relative;
   min-height: 100vh;
+  color: white;
 }
 
 html::before {
@@ -81,6 +82,12 @@ div.path {
 }
 div.path div.part span {
   margin: 0 0.3em;
+}
+nav button.menu {
+  display: none;
+}
+nav button.menu:hover {
+  background-color: transparent;
 }
 footer {
   position: fixed;
@@ -137,7 +144,7 @@ button {
   box-shadow: 0px 0px 0.6em black;
   display: flex;
   align-items: center;
-  background-color: rgb(61, 61, 61);
+  z-index: 9;
 }
 
 #copied_popup img {
@@ -179,4 +186,53 @@ button.icon_text img {
 }
 button.icon_text.back img {
   transform: scaleX(-1);
+}
+@media screen and (max-width: 600px) {
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 3em;
+    grid-template-areas: 'buttons menu';
+  }
+  nav button.menu {
+    display: inline-block;
+    grid-area: menu;
+    align-self: baseline;
+    margin-top: 1.6em;
+  }
+  nav ul {
+    grid-area: buttons;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 5em;
+    transition: height 0.5s ease;
+  }
+  nav ul li.selected {
+    order: -1;
+  }
+  nav:hover ul,
+  nav:focus-within ul {
+    height: 15em;
+  }
+  @keyframes fly-in-out {
+    0% {
+      top: 0px;
+      opacity: 0;
+    }
+    50% {
+      top: 5em;
+      opacity: 1;
+    }
+    70% {
+      top: 5em;
+      opacity: 1;
+    }
+    100% {
+      top: 5em;
+      opacity: 0;
+    }
+  }
+  #copied_popup {
+    width: 100%;
+    border-radius: 0 0 0.5em 0.5em;
+  }
 }

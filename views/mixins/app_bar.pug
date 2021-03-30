@@ -12,4 +12,6 @@ mixin app_bar(page)
         a(href="/next/help") Help
       li(class=`${page=='info' ? 'selected': ''}`)
         a(href="/next/info") Info
+    button.icon.menu
+      img(src="/assets/menu.svg")
     block

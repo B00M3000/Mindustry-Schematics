@@ -37,7 +37,16 @@ p {
 .description {
   grid-area: description;
 }
-.tags {
+.modify .changedTags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-area: tags;
+}
+.modify .tags {
+  width: 100%;
+}
+.delete .tags {
   grid-area: tags;
 }
 .actions {
@@ -46,25 +55,68 @@ p {
   gap: 1em;
 }
 .original {
-  pointer-events: all;
+  position: relative;
+}
+.original::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 0, 0, 0.2);
+  z-index: 1;
 }
 .changed {
-  opacity: 0;
-  pointer-events: none;
+  position: relative;
 }
-@keyframes show_changes {
-  0% {
-    opacity: 0;
-    background-color: transparent;
-  }
-  100% {
-    opacity: 1;
-    background-color: var(--surface);
-    transform: translateY(calc(100% + 0.5em));
-    pointer-events: all;
-  }
+.changed::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 255, 13, 0.2);
+  z-index: 1;
 }
-.original:hover + .changed,
-.changed:hover {
-  animation: show_changes 0.5s ease-in-out 0s 1 normal forwards;
+
+@media screen and (max-width: 600px) {
+  .schematic {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto min-content min-content min-content;
+    grid-template-areas:
+      'title'
+      'author'
+      'image '
+      'description'
+      'tags'
+      'actions';
+    gap: 1em 2em;
+    align-items: center;
+    justify-items: center;
+  }
+  .preview {
+    width: 70vw;
+  }
+  .modify .changedTags {
+    width: 100%;
+  }
+  .tags {
+    justify-content: center;
+  }
+  h1.name {
+    font-size: 1.2em;
+  }
+  h3.creator {
+    font-size: 0.8em;
+  }
+  .title {
+    font-size: 1.4em;
+  }
+  .reason {
+    font-size: 1.1em;
+  }
 }

@@ -1,4 +1,4 @@
-ul.downloads{
+ul.downloads {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,11 +7,16 @@ ul.downloads{
   padding: 1em;
 }
 
-ul.downloads button.download  {
+ul.downloads button.download {
   width: 50vw;
   padding: 1em;
   cursor: pointer;
   border-radius: 10px;
   background-color: var(--surface);
   color: var(--on-surface);
+}
+@media screen and (max-width: 600px) {
+  ul.downloads button.download {
+    width: 80vw;
+  }
 }

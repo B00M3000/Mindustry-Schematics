@@ -84,4 +84,37 @@ div.power img {
   height: 1.5rem;
   margin-right: 0.5em;
 }
-
+@media screen and (max-width: 600px) {
+  main {
+    text-align: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
+    grid-template-areas:
+      'title'
+      'author'
+      'preview'
+      'views'
+      'description'
+      'data'
+      'tags'
+      'actions';
+    align-items: center;
+    justify-items: center;
+  }
+  main #preview {
+    width: 70vw;
+  }
+  main .title {
+    font-size: 1.2em;
+  }
+  main .author {
+    font-size: 0.9em;
+  }
+  .data {
+    align-items: center;
+    font-size: 0.8em;
+  }
+  div.requirements {
+    justify-content: center;
+  }
+}
