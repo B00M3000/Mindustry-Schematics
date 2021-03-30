@@ -57,10 +57,11 @@ html(lang="en")
                 img.schematic_image.lazy(data-src=src)
     footer
       - const queryParam = query ? `&query=${query}` : ""
-      - const firstPage = `/next?page=1${queryParam}`
-      - const previousPage = `/next?page=${page - 1 || 1}${queryParam}`
-      - const nextPage = `/next?page=${page + 1}${queryParam}`
-      - const lastPage = `/next?page=${pages}${queryParam}`
+      - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
+      - const firstPage = `/next?page=1${queryParam}${tagParam}`
+      - const previousPage = `/next?page=${page - 1 || 1}${queryParam}${tagParam}`
+      - const nextPage = `/next?page=${page + 1}${queryParam}${tagParam}`
+      - const lastPage = `/next?page=${pages}${queryParam}${tagParam}`
       a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
         button.icon_text
           img(src="/assets/double_chevron.svg")
