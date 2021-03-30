@@ -17,7 +17,10 @@ router.get('/:name', (req, res) => {
 
   if (!tutorial) return res.redirect('/tutorials');
 
-  res.render('tutorial', tutorial);
+  res.render('tutorial', {
+    html: tutorial.html,
+    title: tutorial.title,
+  });
 });
 
 export default router;

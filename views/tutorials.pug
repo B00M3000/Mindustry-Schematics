@@ -20,14 +20,13 @@ html
     h3 Click the text to open the tutorial.
     hr
     ul
-      each tutorial in tutorials
+      each tutorial of tutorials 
+        - const name = tutorial[0]
+        - const title = tutorial[1].title
         li
-          - const onclick = `window.location.href="/tutorials/${tutorial.name}"`
-
-          div.tutorial(onclick=onclick)
-            h2 #{tutorial.title}
-
-
+          a(href=`/tutorials/${name}`)
+            div.tutorial
+              h2 #{title}
 
     nav#bottom
       a(href="/")
