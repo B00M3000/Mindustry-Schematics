@@ -37,7 +37,13 @@ p {
 .description {
   grid-area: description;
 }
-.tags {
+.modify .changedTags {
+  grid-area: tags;
+}
+.modify .tags {
+  width: 100%;
+}
+.delete .tags {
   grid-area: tags;
 }
 .actions {
@@ -46,25 +52,28 @@ p {
   gap: 1em;
 }
 .original {
-  pointer-events: all;
+  position: relative;
+}
+.original::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 0, 0, 0.2);
+  z-index: 1;
 }
 .changed {
-  opacity: 0;
-  pointer-events: none;
+  position: relative;
 }
-@keyframes show_changes {
-  0% {
-    opacity: 0;
-    background-color: transparent;
-  }
-  100% {
-    opacity: 1;
-    background-color: var(--surface);
-    transform: translateY(calc(100% + 0.5em));
-    pointer-events: all;
-  }
-}
-.original:hover + .changed,
-.changed:hover {
-  animation: show_changes 0.5s ease-in-out 0s 1 normal forwards;
+.changed::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 255, 13, 0.2);
+  z-index: 1;
 }
