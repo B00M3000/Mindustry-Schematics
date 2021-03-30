@@ -61,6 +61,7 @@ router.get('/', async (req, res) => {
       schematics,
       tags: avaliableTags,
       _tags: JSON.stringify(avaliableTags),
+      queriedTags: tags,
     });
   } catch (e) {
     res.status(422).redirect('/next');

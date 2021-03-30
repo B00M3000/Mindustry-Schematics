@@ -4,6 +4,13 @@ html(lang="en")
     link(rel="stylesheet", href="/next/css/core.css")
     link(rel="stylesheet", href="/next/css/schematics.css")
     link(rel="stylesheet", href="/next/css/input_tags.css")
+    - let queryMeta = query ? `; Query "${query}"`: ""
+    - let tagsMeta = queriedTags ? `; Tags ${queriedTags.split(" ").join(", ")}` : ""
+    meta(property="og:title" content=`Schematics${queryMeta}${tagsMeta}`)
+    meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
 
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
