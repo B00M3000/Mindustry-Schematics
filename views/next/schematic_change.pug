@@ -31,7 +31,7 @@ body
   if change.Delete
     h3.mode(style="color: #fd5f5f") Delete
     
-    h2.reason= "Reason: " + change.Delete
+    h4.reason= "Reason: " + change.Delete
     
     div.schematic.delete
       h1.name= change.Original.name
@@ -46,7 +46,7 @@ body
             div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
       +actions()
   else
-    h2.mode(style="color: green") Modify
+    h3.mode(style="color: green") Modify
     
       h4.reason What and Why: !{change.Description}
     div#schematics
@@ -54,17 +54,17 @@ body
         - let different
         div.name
           - different = change.Original.name != change.Changed.name
-          h2(class=`${different ? "original": ""}`)= change.Original.name
+          h1.name(class=`${different ? "original": ""}`)= change.Original.name
           if different
-            h2.changed= change.Changed.name
+            h1.name.changed= change.Changed.name
         
         img.preview(src=`/raw/schematics/${change.id}/image`)
 
         div.creator
           - different = change.Original.creator != change.Changed.creator
-          h3(class=`${different ? "original": ""}`)= 'by ' + change.Original.creator
+          h3.creator(class=`${different ? "original": ""}`)= 'by ' + change.Original.creator
           if different
-            h3.changed= 'by ' + change.Changed.creator
+            h3.creator.changed= 'by ' + change.Changed.creator
 
         div.description
           - different = change.Original.description != change.Changed.description

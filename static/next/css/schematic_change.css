@@ -107,7 +107,16 @@ p {
   .tags {
     justify-content: center;
   }
-  .name {
-    font-size: 1em;
+  h1.name {
+    font-size: 1.2em;
+  }
+  h3.creator {
+    font-size: 0.8em;
+  }
+  .title {
+    font-size: 1.4em;
+  }
+  .reason {
+    font-size: 1.1em;
   }
 }
