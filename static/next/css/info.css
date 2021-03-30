@@ -1,4 +1,4 @@
-main ul{
+main ul {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +6,7 @@ main ul{
   gap: 1em;
   padding: 1em;
 }
-main li{
+main li {
   cursor: pointer;
   border-radius: 0.5em;
   width: 50vw;
@@ -16,4 +16,9 @@ main li button {
   height: 100%;
   width: 100%;
   padding: 1em;
+}
+@media screen and (max-width: 600px) {
+  main li {
+    width: 80vw;
+  }
 }
