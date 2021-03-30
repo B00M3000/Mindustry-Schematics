@@ -59,7 +59,7 @@ div.requirements {
   display: flex;
   gap: 5px 10px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
 }
 div.requirements > span {
   display: inline-flex;
@@ -87,7 +87,7 @@ div.power img {
 .tags {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   width: max-content;
   gap: 1em;
 }
