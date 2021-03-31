@@ -34,7 +34,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes.main);
-app.use('/tutorials', routes.help);
+app.use('/info', routes.info);
+app.use('/downloads', routes.downloads);
+app.use('/help', routes.help);
 app.use('/admin', routes.admin);
 app.use('/api', routes.api);
 app.use('/raw', routes.raw);
