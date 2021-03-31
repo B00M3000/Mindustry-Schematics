@@ -17,7 +17,7 @@ const router = Router();
 router.param('_id', async (req, res, next, _id) => {
   const change = await SchematicChangeSchema.findOne({ _id });
 
-  if (!change) return res.redirect('/next/admin/schematic_changes');
+  if (!change) return res.redirect('/admin/schematic_changes');
 
   (req as SchematicChangeRequest).change = change;
 
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
     const change = changes[i] as ModifiedSchematicChangeDocument;
     change.Original = await SchematicSchema.findOne({ _id: changes[i].id });
   }
-  res.render('next/schematic_changes', {
+  res.render('schematic_changes', {
     changes,
   });
 });
@@ -61,7 +61,7 @@ router.get('/:_id', async (req, res) => {
   if (change.Description) {
     change.Description = safeDescription(change.Description);
   }
-  res.render('next/schematic_change', {
+  res.render('schematic_change', {
     change,
     originalTags,
     changedTags,
@@ -90,7 +90,7 @@ router.get('/:_id/accept', async (req, res) => {
     });
   }
 
-  res.redirect('/next/admin/schematic_changes');
+  res.redirect('/admin/schematic_changes');
 });
 
 router.get('/:_id/decline', async (req, res) => {
@@ -100,7 +100,7 @@ router.get('/:_id/decline', async (req, res) => {
     _id: change._id,
   });
 
-  res.redirect('/next/admin/schematic_changes');
+  res.redirect('/admin/schematic_changes');
 });
 
 export default router;

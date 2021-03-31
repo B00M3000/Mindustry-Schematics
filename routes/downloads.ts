@@ -4,5 +4,5 @@ const router = Router();
 export default router;
 
 router.get('/downloads', (req, res) => {
-  res.render('next/downloads.pug');
+  res.render('downloads.pug');
 });

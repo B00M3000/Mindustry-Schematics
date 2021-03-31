@@ -44,12 +44,12 @@ router.get('/', async (req, res) => {
 
     if (page > pages)
       return res.redirect(
-        `/next/?page=${pages}${query ? `&query=${query}` : ''}${
+        `/?page=${pages}${query ? `&query=${query}` : ''}${
           tags ? `&tags=${tags}` : ''
         }`
       );
 
-    res.render('next/index.pug', {
+    res.render('index.pug', {
       skip,
       query,
       page,
@@ -89,7 +89,7 @@ router.get('/schematics', (req, res) => {
   res.redirect('/next');
 });
 router.get('/schematics/create', (req, res) => {
-  res.render('next/create_schematic', {
+  res.render('create_schematic', {
     url: req.url,
     tags,
     _tags: JSON.stringify(tags),
@@ -111,7 +111,7 @@ router.get('/schematics/:id', async (req, res) => {
   const tags = schematic.tags.map((name) =>
     avaliableTags.find((t) => t.name === name)
   );
-  res.render('next/schematic', {
+  res.render('schematic', {
     url: req.url,
     schematic,
     tags,
@@ -121,7 +121,7 @@ router.get('/schematics/:id', async (req, res) => {
 router.get('/schematics/:id/edit', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
-  res.render('next/edit_schematic', {
+  res.render('edit_schematic', {
     schematic,
     tags,
     _tags: JSON.stringify(tags),
@@ -133,7 +133,7 @@ router.get('/schematics/:id/delete', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
   schematic.description = safeDescription(schematic.description || '');
-  res.render('next/delete_schematic', {
+  res.render('delete_schematic', {
     schematic,
   });
 });

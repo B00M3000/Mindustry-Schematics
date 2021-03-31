@@ -4,8 +4,8 @@ const router = Router();
 export default router;
 
 router.get('/info', (req, res) => {
-  res.render('next/info.pug');
+  res.render('info.pug');
 });
 router.get('/info/credits', (req, res) => {
-  res.render('next/credits.pug');
+  res.render('credits.pug');
 });
