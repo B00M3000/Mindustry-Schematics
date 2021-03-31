@@ -22,11 +22,11 @@ html(lang="en")
     +app_bar("schematics")
     h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     div.search
-      form.search(action="/next" method="GET")
+      form.search(action="/" method="GET")
         input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
         div.controls
           button(type="submit"): img(src="/assets/check-mark.svg")
-          a(href="/next")
+          a(href="/")
             button(type="button"): img(src="/assets/cross-mark.svg")
         input#tags(type="text" list="tags-list" placeholder="Tags")
         datalist(id="tags-list")
@@ -60,10 +60,10 @@ html(lang="en")
     footer
       - const queryParam = query ? `&query=${query}` : ""
       - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
-      - const firstPage = `/next?page=1${queryParam}${tagParam}`
-      - const previousPage = `/next?page=${page - 1 || 1}${queryParam}${tagParam}`
-      - const nextPage = `/next?page=${page + 1}${queryParam}${tagParam}`
-      - const lastPage = `/next?page=${pages}${queryParam}${tagParam}`
+      - const firstPage = `/?page=1${queryParam}${tagParam}`
+      - const previousPage = `/?page=${page - 1 || 1}${queryParam}${tagParam}`
+      - const nextPage = `/?page=${page + 1}${queryParam}${tagParam}`
+      - const lastPage = `/?page=${pages}${queryParam}${tagParam}`
       a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
         button.icon_text
           img(src="/assets/double_chevron.svg")
