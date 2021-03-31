@@ -4,8 +4,9 @@ html
     include ../includes/head
 
     link(rel='stylesheet' href='/next/css/core.css' type='text/css')
-    link(rel='stylesheet' href='/next/css/schematic_form.css' type='text/css')
     link(rel='stylesheet' href='/next/css/input_tags.css' type='text/css')
+    link(rel='stylesheet' href='/next/css/scanning.css' type='text/css')
+    link(rel='stylesheet' href='/next/css/schematic_form.css' type='text/css')
     
     meta(property="og:title" content="Create a Schematic")
     meta(property="og:description" content="You can add a schematic to the database by providing a name, creator, description, schematic copy text and image ")
@@ -49,9 +50,9 @@ html
         div.notched.btn
           button(type="submit" name="submit" value="Submit") Submit
 
-    div#schematic-generate(style="display:none;")
+    div#schematic-generate
       h2 Parsing Schematic...
-      img(src="/assets/fancy_loading.gif" width="125px" height="100px")
+      include ../includes/scanning.pug
 
     footer
       a(href="/next")

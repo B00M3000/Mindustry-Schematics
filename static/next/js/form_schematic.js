@@ -45,9 +45,8 @@ text &&
       text.classList.add('invalid');
       return;
     }
-
-    mainContent.style.display = 'none';
-    schematicGenerate.style.display = '';
+    document.body.classList.remove('parsed');
+    document.body.classList.add('parsing');
 
     const url = `/api/schematics/parse`;
     const data = new FormData();
@@ -57,9 +56,8 @@ text &&
       body: data,
     });
 
-    schematicGenerate.style.display = 'none';
-    mainContent.style.display = '';
-
+    document.body.classList.add('parsed');
+    document.body.classList.remove('parsing');
     switch (response.status) {
       case 200:
         {
