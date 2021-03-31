@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
       queriedTags: tags,
     });
   } catch (e) {
-    res.status(422).redirect('/next');
+    res.status(422).redirect('/');
   }
 });
 router.param('id', async (req, res, next, id) => {
@@ -86,7 +86,7 @@ router.get('/:id/text', async (req, res) => {
   res.send(text);
 });
 router.get('/schematics', (req, res) => {
-  res.redirect('/next');
+  res.redirect('/');
 });
 router.get('/schematics/create', (req, res) => {
   res.render('create_schematic', {

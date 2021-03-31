@@ -17,7 +17,7 @@ router.use((req, res, next) => {
 
   if (s && s === secret) return next();
 
-  res.redirect('/next');
+  res.redirect('/');
 });
 
 router.get('/', (req, res) => {
