@@ -3,9 +3,10 @@ html
   head
     include includes/head
 
-    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/core.css' type='text/css')
+    link(rel='stylesheet' href='/css/input_tags.css' type='text/css')
+    link(rel='stylesheet' href='/css/scanning.css' type='text/css')
     link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
-    link(rel='stylesheet' href='/css/tags_input.css' type='text/css')
     
     meta(property="og:title" content="Create a Schematic")
     meta(property="og:description" content="You can add a schematic to the database by providing a name, creator, description, schematic copy text and image ")
@@ -17,8 +18,9 @@ html
 
     title Create schematic
   body
+    include mixins/app_bar
+    +app_bar("schematics")
     h1 Create a Schematic
-    hr
     div#main-content
       form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data")
         div.inputs
@@ -48,14 +50,15 @@ html
         div.notched.btn
           button(type="submit" name="submit" value="Submit") Submit
 
-    div#schematic-generate(style="display:none;")
+    div#schematic-generate
       h2 Parsing Schematic...
-      img(src="/assets/fancy_loading.gif" width="125px" height="100px")
+      include includes/scanning.pug
 
-    nav#bottom
-      a(href="/schematics")
-        div.notched.btn
-          button.small Back Schematics
+    footer
+      a(href="/next")
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back
     script.
       const tags = !{_tags}
       const _currentTags = []

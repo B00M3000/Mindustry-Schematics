@@ -1,37 +1,87 @@
 doctype html
-head
-  include includes/head
+html(lang="en")
+  head
+    include includes/head
 
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-  
-  meta(property="og:title" content="Mindustry Tools")
-  meta(property="og:description" content="Explore a variety of Mindustry Tools here.")
+    link(rel="stylesheet", href="/css/core.css")
+    link(rel="stylesheet", href="/css/schematics.css")
+    link(rel="stylesheet", href="/css/input_tags.css")
+    - let queryMeta = query ? `; Query "${query}"`: ""
+    - let tagsMeta = queriedTags ? `; Tags ${queriedTags.split(" ").join(", ")}` : ""
+    meta(property="og:title" content=`Schematics${queryMeta}${tagsMeta}`)
+    meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(property="og:url" content=url)
 
-  meta(property="og:image" content="/assets/mindustry_banner.png")
-  meta(property="og:type" content="website")
-  meta(property="og:url" content=url)
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Schematics
+  body
+    include mixins/app_bar
+    +app_bar("schematics")
+    h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
+    div.search
+      form.search(action="/next" method="GET")
+        input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
+        div.controls
+          button(type="submit"): img(src="/assets/check-mark.svg")
+          a(href="/next")
+            button(type="button"): img(src="/assets/cross-mark.svg")
+        input#tags(type="text" list="tags-list" placeholder="Tags")
+        datalist(id="tags-list")
+          each tag of tags
+            option(value=tag.name)
+      ul.tags
+    main
+      ul#schematics_result
+        each schematic in schematics
+          - const info = `/schematics/${schematic._id}`
+          - const copy = `copy("${schematic.text}")`
+          - const edit = `/schematics/${schematic._id}/edit`
+          - const _delete = `/schematics/${schematic._id}/delete`
 
-  meta(name="viewport" content="width=device-width" intialscale="1.0")
-  title Mindustry Schematics and Tutorials
-body(style="text-align: center")
-  h1 Mindustry Schematics and Tutorials
-  hr
-  a(href="/schematics") 
-    div.notched.btn
-      button.small Schematics
-  a(href="/tutorials") 
-    div.notched.btn
-      button.small Tutorials
-  a(href="/credits") 
-    div.notched.btn
-      button.small Credits
-  a(href="https://discord.gg/PnHG9xSMVP" target="_blank") 
-    div.notched.btn
-      button.small Discord Server
-  br
-  a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar") 
-    div.notched.btn
-      button.small  Download Foo's AG Client
-  a(href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar") 
-    div.notched.btn
-      button.small Download Official Mindustry Client
+          li.schematic
+            div.tools
+              a(href=info)
+                button.icon: img(src="/assets/info.svg")
+              button.icon(onclick=copy): img(src="/assets/copy.svg")
+              a(href=edit)
+                button.icon: img(src="/assets/pencil.svg")
+              a(href=_delete)
+                button.icon: img(src="/assets/trash.svg") 
+
+            div.view
+              div.name
+                h2= schematic.name
+              div.schematic_image_container
+                - const src = `/raw/schematics/${schematic._id}/image`
+                img.schematic_image.lazy(data-src=src)
+    footer
+      - const queryParam = query ? `&query=${query}` : ""
+      - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
+      - const firstPage = `/next?page=1${queryParam}${tagParam}`
+      - const previousPage = `/next?page=${page - 1 || 1}${queryParam}${tagParam}`
+      - const nextPage = `/next?page=${page + 1}${queryParam}${tagParam}`
+      - const lastPage = `/next?page=${pages}${queryParam}${tagParam}`
+      a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
+        button.icon_text
+          img(src="/assets/double_chevron.svg")
+      a(href=previousPage class=`${page > 1 ? "": "hidden"}`)
+        button.icon_text
+          img(src="/assets/chevron.svg")
+      a(href="/schematics/create")
+        button.icon_text.add
+          img(src="/assets/add.svg")
+          span Add schematic
+      a(href=nextPage class=`${page < pages ? "": "hidden"}`)
+        button.icon_text.right
+          img(src="/assets/chevron.svg")
+      a(href=lastPage class=`${page < pages - 1 ? "": "hidden"}`)
+        button.icon_text.right
+          img(src="/assets/double_chevron.svg")
+    script.
+      const tags = !{_tags}
+    script(src="/js/copy.js")
+    script(src="/js/schematics.js")
+    script(src="/js/tags_input.js")

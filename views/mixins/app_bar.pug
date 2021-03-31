@@ -3,15 +3,15 @@ mixin app_bar(page)
     ul
       if page == "admin"
         li(class="selected")
-          a(href="/next/admin") Admin Panel
+          a(href="/admin") Admin Panel
       li(class=`${page=='schematics' ? 'selected': ''}`)
         a(href="/next") Schematics
       li(class=`${page=='downloads' ? 'selected': ''}`)
-        a(href="/next/downloads") Downloads
+        a(href="/downloads") Downloads
       li(class=`${page=='help' ? 'selected': ''}`)
-        a(href="/next/help") Help
+        a(href="/help") Help
       li(class=`${page=='info' ? 'selected': ''}`)
-        a(href="/next/info") Info
+        a(href="/info") Info
     button.icon.menu
       img(src="/assets/menu.svg")
     block
