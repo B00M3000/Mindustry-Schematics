@@ -1,4 +1,3 @@
-import 'tslib';
 import { FilterQuery, Types } from 'mongoose';
 import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
@@ -6,13 +5,11 @@ import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from './types';
 import { safeDescription } from '../util';
 import tags from '../tags.json';
-
-const router = Router();
 const { ObjectId } = Types;
 const avaliableTags = tags;
-
 const limitPerPage = 20;
-
+const router = Router();
+export default router;
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
   const query = String(req.query.query || '');
@@ -27,7 +24,6 @@ router.get('/', async (req, res) => {
       _query = {
         name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
-
     if (tags)
       _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
 
@@ -44,16 +40,16 @@ router.get('/', async (req, res) => {
     const pages =
       (documents % limitPerPage === 0
         ? documents / limitPerPage
-        : Math.floor(documents / limitPerPage) + 1) || 1;
+        : Math.ceil(documents / limitPerPage)) || 1;
 
     if (page > pages)
       return res.redirect(
-        `/schematics?page=${pages}${query ? `&query=${query}` : ''}${
+        `/next/?page=${pages}${query ? `&query=${query}` : ''}${
           tags ? `&tags=${tags}` : ''
         }`
       );
 
-    res.render('schematics', {
+    res.render('next/index.pug', {
       skip,
       query,
       page,
@@ -66,52 +62,9 @@ router.get('/', async (req, res) => {
       queriedTags: tags,
     });
   } catch (e) {
-    res.status(422).redirect('/schematics');
+    res.status(422).redirect('/next');
   }
 });
-
-router.get('/create', (req, res) => {
-  res.render('create_schematic', {
-    url: req.url,
-    tags,
-    _tags: JSON.stringify(tags),
-  });
-});
-
-router.post('/create', async (req, res) => {
-  const { name, author, creator, text, description, tags } = req.body;
-
-  const schematic = Schematic.decode(text);
-  const {
-    powerBalance,
-    powerConsumption,
-    powerProduction,
-    requirements,
-  } = schematic;
-  const data = await schematic.toImageBuffer();
-  const mimetype = 'image/png';
-  const newSchematic = {
-    name,
-    creator: creator === undefined ? author : creator,
-    text,
-    description,
-    encoding_version: schematic.version,
-    powerBalance,
-    powerConsumption,
-    powerProduction,
-    requirements,
-    tags: JSON.parse(tags),
-    image: {
-      Data: data,
-      ContentType: mimetype,
-    },
-  };
-
-  const { id } = await new SchematicSchema(newSchematic).save();
-
-  res.redirect(`/schematics/${id}`);
-});
-
 router.param('id', async (req, res, next, id) => {
   const schematic = await SchematicSchema.findById(ObjectId(id));
 
@@ -120,7 +73,6 @@ router.param('id', async (req, res, next, id) => {
 
   next();
 });
-
 router.get('/:id/text', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
@@ -133,8 +85,17 @@ router.get('/:id/text', async (req, res) => {
 
   res.send(text);
 });
-
-router.get('/:id', async (req, res) => {
+router.get('/schematics', (req, res) => {
+  res.redirect('/next');
+});
+router.get('/schematics/create', (req, res) => {
+  res.render('next/create_schematic', {
+    url: req.url,
+    tags,
+    _tags: JSON.stringify(tags),
+  });
+});
+router.get('/schematics/:id', async (req, res) => {
   let { schematic } = req as SchematicRequest;
   schematic = (await SchematicSchema.findOneAndUpdate(
     { _id: schematic._id },
@@ -150,18 +111,17 @@ router.get('/:id', async (req, res) => {
   const tags = schematic.tags.map((name) =>
     avaliableTags.find((t) => t.name === name)
   );
-  schematic.description = safeDescription(schematic.description || '');
-  res.render('schematic_info', {
+  res.render('next/schematic', {
     url: req.url,
     schematic,
     tags,
+    safeDescription: safeDescription(schematic.description || ''),
   });
 });
-
-router.get('/:id/edit', async (req, res) => {
+router.get('/schematics/:id/edit', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
-  res.render('edit_schematic', {
+  res.render('next/edit_schematic', {
     schematic,
     tags,
     _tags: JSON.stringify(tags),
@@ -169,13 +129,11 @@ router.get('/:id/edit', async (req, res) => {
   });
 });
 
-router.get('/:id/delete', async (req, res) => {
+router.get('/schematics/:id/delete', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
   schematic.description = safeDescription(schematic.description || '');
-  res.render('delete_schematic', {
+  res.render('next/delete_schematic', {
     schematic,
   });
 });
-
-export default router;

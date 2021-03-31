@@ -1,11 +1,11 @@
 import { Request, Router } from 'express';
 import SchematicChangeSchema, {
   SchematicChangeDocument,
-} from '../../schemas/SchematicChange.js';
-import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic.js';
+} from '../../schemas/SchematicChange';
+import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
 
 import avaliableTags from '../../tags.json';
-import { safeDescription } from '../../util';
+import { safeDescription } from '../../util/index';
 
 interface ModifiedSchematicChangeDocument extends SchematicChangeDocument {
   Original?: SchematicDocument | null;
@@ -17,7 +17,7 @@ const router = Router();
 router.param('_id', async (req, res, next, _id) => {
   const change = await SchematicChangeSchema.findOne({ _id });
 
-  if (!change) return res.redirect('/admin/schematic_changes');
+  if (!change) return res.redirect('/next/admin/schematic_changes');
 
   (req as SchematicChangeRequest).change = change;
 
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
     const change = changes[i] as ModifiedSchematicChangeDocument;
     change.Original = await SchematicSchema.findOne({ _id: changes[i].id });
   }
-  res.render('schematic_changes', {
+  res.render('next/schematic_changes', {
     changes,
   });
 });
@@ -48,7 +48,6 @@ router.get('/:_id', async (req, res) => {
     change.Changed.tags.map((name) =>
       avaliableTags.find((t) => t.name === name)
     );
-  console.log(change);
   if (change.Original) {
     change.Original.description = safeDescription(
       change.Original.description || ''
@@ -62,7 +61,7 @@ router.get('/:_id', async (req, res) => {
   if (change.Description) {
     change.Description = safeDescription(change.Description);
   }
-  res.render('schematic_change', {
+  res.render('next/schematic_change', {
     change,
     originalTags,
     changedTags,
@@ -73,20 +72,14 @@ router.get('/:_id/accept', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
 
   if (change.Delete) {
-    const schematic = await SchematicSchema.findOneAndDelete({
+    await SchematicSchema.deleteOne({
       _id: change.id,
     });
     await SchematicChangeSchema.deleteMany({
       id: change.id,
     });
-    req.app.get('eventHandler').deleteSchematic({
-      triggeredAt: new Date().getTime(),
-      schematicId: schematic._id,
-      schematicName: schematic.name,
-      reason: change.Delete
-    })
   } else {
-    const schematic = await SchematicSchema.findOneAndUpdate(
+    await SchematicSchema.updateOne(
       {
         _id: change.id,
       },
@@ -95,15 +88,9 @@ router.get('/:_id/accept', async (req, res) => {
     await SchematicChangeSchema.deleteOne({
       _id: change._id,
     });
-    req.app.get('eventHandler').editSchematic({
-      triggeredAt: new Date().getTime(),
-      schematicId: schematic._id,
-      schematicName: schematic.name,
-      changes: change.Description
-    })
   }
 
-  res.redirect('/admin/schematic_changes');
+  res.redirect('/next/admin/schematic_changes');
 });
 
 router.get('/:_id/decline', async (req, res) => {
@@ -113,7 +100,7 @@ router.get('/:_id/decline', async (req, res) => {
     _id: change._id,
   });
 
-  res.redirect('/admin/schematic_changes');
+  res.redirect('/next/admin/schematic_changes');
 });
 
 export default router;
