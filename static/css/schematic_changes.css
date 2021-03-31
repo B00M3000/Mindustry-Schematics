@@ -1,4 +1,7 @@
-div.changes{
+body {
+  color: white;
+}
+div.changes {
   padding: 2em;
   display: flex;
   gap: 2em;
@@ -7,4 +10,13 @@ div.changes{
 }
 div.changes a {
   text-decoration: none;
+}
+.title {
+  text-align: center;
+  margin: 1em 0 0 0;
+}
+.schematic h2 {
+  backdrop-filter: blur(1em) brightness(0.7);
+  margin: 0;
+  padding: 0.8em 0;
 }

@@ -1,10 +1,10 @@
 doctype html
 html(lang="en")
   head
-    include ../includes/head
+    include includes/head
 
-    link(rel="stylesheet", href="/next/css/core.css")
-    link(rel="stylesheet", href="/next/css/info.css")
+    link(rel="stylesheet", href="/css/core.css")
+    link(rel="stylesheet", href="/css/info.css")
 
     meta(property="og:title" content="Info")
     meta(property="og:description" content="Know more about this website")
@@ -14,8 +14,8 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Info
   body
-    include ../mixins/app_bar
-    include ../mixins/notched_button
+    include mixins/app_bar
+    include mixins/notched_button
     +app_bar("info")
     main
       ul
@@ -23,7 +23,7 @@ html(lang="en")
           a(href="https://discord.gg/PnHG9xSMVP" target="_blank") 
             button Discord Server
         li
-          a(href="/next/info/credits")
+          a(href="/info/credits")
             button Credits
 
-    script(src="/next/js/info.js") 
+    script(src="/js/info.js") 

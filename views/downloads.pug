@@ -1,10 +1,10 @@
 doctype html
 html(lang="en")
   head
-    include ../includes/head
+    include includes/head
 
-    link(rel="stylesheet", href="/next/css/core.css")
-    link(rel="stylesheet", href="/next/css/downloads.css")
+    link(rel="stylesheet", href="/css/core.css")
+    link(rel="stylesheet", href="/css/downloads.css")
 
     meta(property="og:title" content="Downloads")
     meta(property="og:description" content="Downloads for mindustry clients")
@@ -14,7 +14,7 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Downloads
   body
-    include ../mixins/app_bar
+    include mixins/app_bar
     +app_bar("downloads")
     main
       ul.downloads

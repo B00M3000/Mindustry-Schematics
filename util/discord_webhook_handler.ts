@@ -14,13 +14,14 @@ interface DiscordWebhookEmbed {
 
 interface DiscordWebhookBody {
   username?: string;
+  // eslint-disable-next-line camelcase
   avatar_url?: string;
   content?: string;
   embeds?: DiscordWebhookEmbed[];
 }
 
 interface DiscordWebhookRequestHeaders {
-  "Content-Type"?: string
+  'Content-Type'?: string;
 }
 
 interface DiscordWebhookRequest {
@@ -30,42 +31,41 @@ interface DiscordWebhookRequest {
 }
 
 export class DiscordWebhookHandler {
-  constructor(url: string){
-    this.url = url
+  constructor(url: string) {
+    this.url = url;
   }
-  
-  readonly url: string
-  
+
+  readonly url: string;
+
   send(body: DiscordWebhookBody): number {
-  
-    let headers: DiscordWebhookRequestHeaders = {
-      "Content-Type": "application/json"
-    }
-    
-    let data: DiscordWebhookRequest = { 
-      method: "POST", 
+    const headers: DiscordWebhookRequestHeaders = {
+      'Content-Type': 'application/json',
+    };
+
+    const data: DiscordWebhookRequest = {
+      method: 'POST',
       headers,
       body: JSON.stringify(body),
-    }
-    
-    fetch(this.url, data)
-    
-    return 200
+    };
+
+    fetch(this.url, data as any);
+
+    return 200;
   }
-  
+
   sendMessage(message: string): number {
-    let body: DiscordWebhookBody = {
-      content: message
-    }
-    
-    return this.send(body)
+    const body: DiscordWebhookBody = {
+      content: message,
+    };
+
+    return this.send(body);
   }
-  
+
   sendEmbed(embed: DiscordWebhookEmbed): number {
-    let body: DiscordWebhookBody = {
-      embeds: [ embed ]
-    }
-    
-    return this.send(body)
+    const body: DiscordWebhookBody = {
+      embeds: [embed],
+    };
+
+    return this.send(body);
   }
 }

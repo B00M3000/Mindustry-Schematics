@@ -1,20 +1,25 @@
 import 'pug';
 import './util/config_env';
 import * as routes from './routes';
+import { DiscordWebhookHandler, EventHandler, rootDir } from './util';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fileuploader from 'express-fileupload';
 import mongo from './mongo';
 import path from 'path';
-import { rootDir, EventHandler, DiscordWebhookHandler } from './util';
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-const discordWebhookHandler = new DiscordWebhookHandler(process.env.WEBHOOK_URL)
-const eventHandler = new EventHandler(discordWebhookHandler, process.env.WEBSITE_URL)
-app.set('eventHandler', eventHandler)
+const discordWebhookHandler = new DiscordWebhookHandler(
+  process.env.WEBHOOK_URL as string
+);
+const eventHandler = new EventHandler(
+  discordWebhookHandler,
+  process.env.WEBSITE_URL as string
+);
+app.set('eventHandler', eventHandler);
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -28,16 +33,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => res.render('index'));
-
-app.get('/credits', (req, res) => res.render('credits'));
-
-app.use('/schematics', routes.schematics);
-app.use('/tutorials', routes.tutorials);
+app.use('/', routes.main);
+app.use('/tutorials', routes.help);
 app.use('/admin', routes.admin);
 app.use('/api', routes.api);
 app.use('/raw', routes.raw);
-app.use('/next', routes.next);
 
 // Handle 404
 app.use((req, res) => {

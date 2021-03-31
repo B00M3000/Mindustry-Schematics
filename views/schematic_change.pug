@@ -2,90 +2,93 @@ doctype html
 head
   include includes/head
 
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-  link(rel='stylesheet' href='/css/schematic.css' type='text/css')
+  link(rel='stylesheet' href='/css/core.css' type='text/css')
+  link(rel="stylesheet", href="/css/admin.css")
+  link(rel='stylesheet' href='/css/tags.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic_change.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 
   title Change a schematic
 body
-  h1= '[Schematic Change] ' + change.id
-  hr
+  include mixins/app_bar.pug
+  +app_bar("admin")
+  mixin actions()
+    div.actions
+      - const view = `/schematics/${change.id}`
+      - const accept = `/admin/schematic_changes/${change._id}/accept`
+      - const decline = `/admin/schematic_changes/${change._id}/decline`
+      a(href=view)
+        div.notched.btn
+          button.small View
+      a(href=accept)
+        div.notched.btn
+          button.small Accept
+      a(href=decline)
+        div.notched.btn
+          button.small Decline
+  h1.title [Schematic Change]
   if change.Delete
-    span(style="color: #fd5f5f") Delete
+    h3.mode(style="color: #fd5f5f") Delete
     
-    br
+    h4.reason= "Reason: " + change.Delete
     
-    h2= "Reason: " + change.Delete
-    
-    h1= "Name: " + change.Original.name
-    
-    - const src = `/raw/schematics/${change.id}/image`
-    img(src=src width="166px" height="166px")
-    h3= 'by ' + change.Original.creator
-    h4 Description: !{change.Original.description}
-    if tags
-      h3 Tags:
-      div.tags
-        each tag in tags
-          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+    div.schematic.delete
+      h1.name= change.Original.name
 
-    h4 Copy the text below to import: 
-    p= change.Original.text
+      - const src = `/raw/schematics/${change.id}/image`
+      img.preview(src=src)
+      h3.creator= 'by ' + change.Original.creator
+      h4.description !{change.Original.description}
+      if originalTags
+        div.tags
+          each tag in originalTags
+            div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+      +actions()
   else
-    h2(style="color: green") Modify
+    h3.mode(style="color: green") Modify
     
-      h4 What and Why: !{change.Description}
+      h4.reason What and Why: !{change.Description}
     div#schematics
-      h2.left= "Name: " + change.Original.name
-      
-      - const srcO = `/raw/schematics/${change.id}/image`
-      img.left(src=srcO width="166px" height="166px")
-      h3.left= 'by ' + change.Original.creator
-      h4.left Description: !{change.Original.description}
-      h3.left Tags:
-      div.tags.left
-        each tag in originalTags
-          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-      h4.left Original schematic Text: 
-      p.left= change.Original.text
+      div.schematic.modify
+        - let different
+        div.name
+          - different = change.Original.name != change.Changed.name
+          h1.name(class=`${different ? "original": ""}`)= change.Original.name
+          if different
+            h1.name.changed= change.Changed.name
+        
+        img.preview(src=`/raw/schematics/${change.id}/image`)
 
-      img.arrow(src="/assets/arrow.svg" width="128px" height="128px" style="border: none;")
-      
-      h2.right= "Name: " + change.Changed.name
-    
-      - const srcC = `/raw/schematic-changes/${change._id}/image`
-      img.right(src=srcC width="166px" height="166px")
-      h3.right= 'by ' + change.Changed.creator
-      h4.right Description: !{change.Changed.description}
-      h3.right Tags:
-      div.tags.right
-        each tag in changedTags
-          div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-      h4.right New Schematic Text: 
-      p.right= change.Changed.text
-    
-    br
-    br
-    br
-      
-  nav#bottom
-    - const view = `/schematics/${change.id}`
-    - const accept = `/admin/schematic_changes/${change._id}/accept`
-    - const decline = `/admin/schematic_changes/${change._id}/decline`
+        div.creator
+          - different = change.Original.creator != change.Changed.creator
+          h3.creator(class=`${different ? "original": ""}`)= 'by ' + change.Original.creator
+          if different
+            h3.creator.changed= 'by ' + change.Changed.creator
+
+        div.description
+          - different = change.Original.description != change.Changed.description
+          h4(class=`${different ? "original": ""}`) !{change.Original.description}
+          if different
+            h4.changed !{change.Changed.description}
+
+        div.changedTags
+          - different = change.Original.tags != change.Changed.tags
+          div.tags(class=`${different ? "original": ""}`)
+            each tag in originalTags
+              div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+          if different
+            div.tags.changed
+              each tag in changedTags
+                div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+        +actions()
+
+  footer
     a(href="/admin/schematic_changes")
       div.notched.btn
-        button.small Back to Schematic Changes
-    a(href=view)
-      div.notched.btn
-        button.small View
-    a(href=accept)
-      div.notched.btn
-        button.small Accept
-    a(href=decline)
-      div.notched.btn
-        button.small Decline
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back 
     
 
 
