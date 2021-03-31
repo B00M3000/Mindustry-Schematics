@@ -6,12 +6,12 @@ export default router;
 
 const tutorials = mapTutorials();
 
-router.get('/help', (req, res) => {
+router.get('/', (req, res) => {
   res.render('help.pug', {
     tutorials,
   });
 });
-router.get('/help/:name', (req, res) => {
+router.get('/:name', (req, res) => {
   const { name } = req.params;
   const tutorial = tutorials.get(name);
   if (!tutorial) return res.redirect('/help');
