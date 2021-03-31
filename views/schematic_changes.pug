@@ -2,15 +2,18 @@ doctype html
 head
   include includes/head
 
-  link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+  link(rel='stylesheet' href='/css/core.css' type='text/css')
+  link(rel='stylesheet' href='/css/admin.css' type='text/css')
+  link(rel='stylesheet' href='/css/schematics.css' type='text/css')
   link(rel='stylesheet' href='/css/schematic_changes.css' type='text/css')
 
   meta(name="viewport" content="width=device-width" intialscale="1.0")
 
   title Schematic changes
 body
-  h1 Schematic Changes
-  hr
+  include mixins/app_bar
+  +app_bar("admin")
+  h1.title Schematic Changes
   div.changes
     each change in changes
       - const href = `/admin/schematic_changes/${change._id}`
@@ -24,12 +27,10 @@ body
         img.schematic_image(src=src)
           
 
-  nav#bottom
+  footer 
     a(href="/admin")
-      div.notched.btn
-        button.small Back to Admin Panel
-    a(href="/schematics")
-      div.notched.btn
-        button.small Schematics
+        button.icon_text.back 
+          img(src="/assets/arrow.svg")
+          span Back
           
   script(src="/js/schematics.js")

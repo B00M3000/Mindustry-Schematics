@@ -1,10 +1,10 @@
 doctype html
 head
-  include ../includes/head
+  include includes/head
 
-  link(rel='stylesheet' href='/next/css/core.css' type='text/css')
-  link(rel='stylesheet' href='/next/css/schematic.css' type='text/css')
-  link(rel='stylesheet' href='/next/css/tags.css' type='text/css')
+  link(rel='stylesheet' href='/css/core.css' type='text/css')
+  link(rel='stylesheet' href='/css/schematic.css' type='text/css')
+  link(rel='stylesheet' href='/css/tags.css' type='text/css')
 
   - const imageSrc = `/raw/schematics/${schematic._id}/image`
 
@@ -15,11 +15,13 @@ head
   meta(property="og:type" content="website")
   meta(property="og:url" content=url)
 
+  meta(name="twitter:card" content="summary_large_image")
+
   meta(name="viewport" content="width=device-width" intialscale="1.0")
   - const title = '[Schematic] ' + schematic.name
   title= title
 body
-  include ../mixins/app_bar
+  include mixins/app_bar
   +app_bar("schematics")
   main
     h1.title= title
@@ -56,19 +58,19 @@ body
         img(src="/assets/copy.svg")
       button.icon(onclick=`share("${title.replace(/\n|\r/g, "\\n")}", "${schematic.description.replace(/\n|\r/g, "\\n")}")`)
         img(src="/assets/share.svg")
-      a(href=`/next/schematics/${schematic._id}/edit`)
+      a(href=`/schematics/${schematic._id}/edit`)
         button.icon
           img(src="/assets/pencil.svg")
-      a(href=`/next/schematics/${schematic._id}/delete`)
+      a(href=`/schematics/${schematic._id}/delete`)
         button.icon
           img(src="/assets/trash.svg")
       
     p.text= schematic.text
   footer
-    a(href="/next")
+    a(href="/")
       button.icon_text.back
         img(src="/assets/arrow.svg")
         span Back
-  script(src="/next/js/copy.js")
-  script(src="/next/js/share.js")
+  script(src="/js/copy.js")
+  script(src="/js/share.js")
 
