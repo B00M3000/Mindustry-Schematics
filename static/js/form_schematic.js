@@ -100,7 +100,6 @@ form &&
       body: data,
     });
     const url = new URL(response.url);
-    url.pathname = `/next${url.pathname}`;
     // redirect the user to the page of the new schematic
     location.href = url;
   });
