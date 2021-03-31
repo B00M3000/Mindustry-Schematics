@@ -89,7 +89,7 @@ router.post('/create', async (req, res) => {
       triggeredAt: new Date().getTime(),
       schematicId: id,
       schematicName: newSchematic.name,
-    })
+    });
   } catch (error) {
     res.status(422).redirect(`/schematics`);
   }
