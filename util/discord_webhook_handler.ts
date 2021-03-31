@@ -19,13 +19,13 @@ interface DiscordWebhookBody {
   embeds?: DiscordWebhookEmbed[];
 }
 
-interface DiscordWebhookRequestHeader {
+interface DiscordWebhookRequestHeaders {
   "Content-Type"?: string
 }
 
 interface DiscordWebhookRequest {
   method: string;
-  header?: DiscordWebhookRequestHeader;
+  headers?: DiscordWebhookRequestHeaders;
   body: string | DiscordWebhookBody;
 }
 
@@ -38,23 +38,17 @@ export class DiscordWebhookHandler {
   
   send(body: DiscordWebhookBody): number {
   
-    let header: DiscordWebhookRequestHeader = {
+    let headers: DiscordWebhookRequestHeaders = {
       "Content-Type": "application/json"
     }
     
     let data: DiscordWebhookRequest = { 
       method: "POST", 
-      header,
+      headers,
       body: JSON.stringify(body),
     }
-
-    console.log(data)
     
     fetch(this.url, data)
-      .then(r => r.json())
-      .then(d => {
-        console.log(d)
-      })
     
     return 200
   }

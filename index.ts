@@ -13,9 +13,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 const discordWebhookHandler = new DiscordWebhookHandler(process.env.WEBHOOK_URL)
-const eventHandler = new EventHandler(discordWebhookHandler, process.env.WEBHOOK_URL)
+const eventHandler = new EventHandler(discordWebhookHandler, process.env.WEBSITE_URL)
 app.set('eventHandler', eventHandler)
-discordWebhookHandler.sendMessage('Hello, I sent this from inside the main code!')
 
 app.set('view engine', 'pug');
 app.set('views', './views');
