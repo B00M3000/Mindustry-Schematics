@@ -173,6 +173,32 @@ textarea::-webkit-scrollbar-thumb {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+#schematic-generate h2 {
+  text-align: center;
+  font-size: 1em;
+}
+#schematic-generate svg {
+  max-width: 30vh;
+}
+body.parsed h1,
+body.parsed #main-content,
+body.parsing #schematic-generate {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+body.parsing h1,
+body.parsing #main-content,
+body.parsed #schematic-generate {
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 @media screen and (max-width: 600px) {
