@@ -44,8 +44,8 @@ export class DiscordWebhookHandler {
     
     let data: DiscordWebhookRequest = { 
       method: "POST", 
-      //header,
-      body//: JSON.stringify(body),
+      header,
+      body: JSON.stringify(body),
     }
 
     console.log(data)
