@@ -4,6 +4,7 @@
   justify-content: start;
   width: max-content;
   gap: 1em;
+  max-width: 100%;
 }
 .tag {
   display: inline-block;

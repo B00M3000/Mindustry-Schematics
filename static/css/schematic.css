@@ -117,4 +117,7 @@ div.power img {
   div.requirements {
     justify-content: center;
   }
+  div.tags {
+    justify-content: center;
+  }
 }
