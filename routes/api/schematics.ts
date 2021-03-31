@@ -85,6 +85,11 @@ router.post('/create', async (req, res) => {
     const { id } = await new SchematicSchema(newSchematic).save();
 
     res.status(200).redirect(`/schematics/${id}`);
+    req.app.get('eventHandler').createSchematic({
+      triggeredAt: new Date().getTime(),
+      schematicId: id,
+      schematicName: newSchematic.name,
+    })
   } catch (error) {
     res.status(422).redirect(`/schematics`);
   }

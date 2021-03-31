@@ -6,11 +6,15 @@ import express from 'express';
 import fileuploader from 'express-fileupload';
 import mongo from './mongo';
 import path from 'path';
-import { rootDir } from './util';
+import { rootDir, EventHandler, DiscordWebhookHandler } from './util';
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+const discordWebhookHandler = new DiscordWebhookHandler(process.env.WEBHOOK_URL)
+const eventHandler = new EventHandler(discordWebhookHandler, process.env.WEBSITE_URL)
+app.set('eventHandler', eventHandler)
 
 app.set('view engine', 'pug');
 app.set('views', './views');
