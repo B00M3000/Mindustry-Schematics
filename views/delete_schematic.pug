@@ -3,44 +3,43 @@ html
   head
     include includes/head
 
-    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
+    link(rel='stylesheet' href='/css/core.css' type='text/css')
     link(rel='stylesheet' href='/css/schematic_form.css' type='text/css')
+    link(rel='stylesheet' href='/css/delete_schematic.css' type='text/css')
     
-    - const imageSrc = `/schematics/${schematic.id}/image`
+    - const imageSrc = `/raw/schematics/${schematic.id}/image`
     
     meta(property="og:title" content="Request Deletion of a Schematic")
     meta(property="og:description" content="Submit a request to delete a schematic. ")
     meta(property="og:image" content=imageSrc)
     meta(property="og:type" content="website")
-    meta(property="og:url" content=url)
 
     meta(name="viewport" content="width=device-width" intialscale="1.0")
 
     title Delete a schematic
   body
-    h1 Delete a Schematic
-    hr
-
-    h1= '[Schematic]' + schematic.name
-    hr
-    - const src = `/raw/schematics/${schematic._id}/image`
-    img(src=src width="166px" height="166px")
-    h3= 'by ' + schematic.creator || schematic.author
-    h4= 'Description: ' + schematic.description
-
+    include mixins/app_bar
+    +app_bar("schematics")
     - const action = `/api/schematics/${schematic._id}/delete`
-
+    h1 Delete a Schematic
     form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
+      h2.title= '[Schematic] ' + schematic.name
+      - const src = `/raw/schematics/${schematic._id}/image`
+      img(src=src)
+      h3.author= 'by ' + schematic.creator || schematic.author
+      h4.description !{schematic.description}
+  
+
       div.inputs
         label(for="reason") Reason: 
         textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?" required)
       div.notched.btn
         button(type="submit" name="submit") Submit Deletion Request
-
-    nav#bottom
-      a(href="/schematics")
-        div.notched.btn
-          button.small Back to Schematics
+    footer
+      a(href=`/schematics/${schematic._id}`)
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back
 
     include includes/loadingScreen.pug
 

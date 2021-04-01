@@ -1,0 +1,62 @@
+form {
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: min-content min-content min-content min-content min-content min-content min-content;
+  gap: 1em 2em;
+  padding: 2em;
+  grid-template-areas:
+    'preview title'
+    'preview author'
+    'preview description'
+    'preview input'
+    'preview submit';
+  align-items: center;
+  justify-items: baseline;
+}
+.title {
+  grid-area: title;
+}
+.author {
+  grid-area: author;
+}
+.description {
+  grid-area: description;
+  text-align: start;
+}
+form img {
+  grid-area: preview;
+  width: 100%;
+  border-radius: 1em;
+  align-self: baseline;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  align-items: baseline;
+}
+@media screen and (max-width: 600px) {
+  form {
+    text-align: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
+    grid-template-areas:
+      'title'
+      'author'
+      'preview'
+      'description'
+      'input'
+      'submit';
+    justify-items: center;
+  }
+  form img {
+    width: 70vw;
+  }
+  form .title {
+    font-size: 1.2em;
+  }
+  form .author {
+    font-size: 0.9em;
+  }
+}

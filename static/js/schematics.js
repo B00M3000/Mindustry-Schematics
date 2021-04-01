@@ -36,54 +36,60 @@
 //   image.width *= scale
 //   image.height *= scale
 // }
-const form = document.querySelector("form")
-document.addEventListener("DOMContentLoaded", function() {
-  const lazyloadImages = document.querySelectorAll("img.lazy");
+const form = document.querySelector('form');
+document.addEventListener('DOMContentLoaded', function () {
+  const lazyloadImages = document.querySelectorAll('img.lazy');
   const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-      const img = entry.target
-      img.src = img.dataset.src
-      img.addEventListener('load', ()=> img.classList.add('loaded'))
-      observer.unobserve(img)
-    }
-    })
-  }, {
-  })
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.addEventListener('load', () => img.classList.add('loaded'));
+        observer.unobserve(img);
+      }
+    });
+  }, {});
   lazyloadImages.forEach(function (img) {
-    observer.observe(img)
-  })
+    observer.observe(img);
+  });
 });
 
-form && form.addEventListener("submit", (e) => {
-  e.preventDefault()
-  const formData = new FormData(form)
-  const searchParams = new URLSearchParams()
-  for (const pair of formData) {  
-    searchParams.append(pair[0], pair[1])
-  }
-  if (currentTags.length > 0) {
-    searchParams.set("tags", currentTags.map(t => t.name).join(' '))
-  }
-  const query = searchParams.get('query')
-  if (!query) {
-    searchParams.delete("query")
-  }
-  const url = `${form.action}?${searchParams}`
-  window.location.href = url
-})
+form &&
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const searchParams = new URLSearchParams();
+    for (const pair of formData) {
+      searchParams.append(pair[0], pair[1]);
+    }
+    if (currentTags.length > 0) {
+      searchParams.set(
+        'tags',
+        currentTags.map((t) => t.name.replace(/ /g, '_')).join(' ')
+      );
+    }
+    const query = searchParams.get('query');
+    if (!query) {
+      searchParams.delete('query');
+    }
+    const url = `${form.action}?${searchParams}`;
+    window.location.href = url;
+  });
 
-window.addEventListener("load", () => {
-  const urlParams = new URLSearchParams(window.location.search)
-  const schematicTags = urlParams.get('tags')?.split(" ")
+window.addEventListener('load', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const schematicTags = urlParams
+    .get('tags')
+    ?.split(' ')
+    .map((t) => t.replace(/_/g, ' '));
 
   if (schematicTags) {
     for (const name of schematicTags) {
-      const tag = tags.find(t => t?.name.toLowerCase() == name.toLowerCase())
+      const tag = tags.find((t) => t?.name.toLowerCase() == name.toLowerCase());
       if (tag) {
-        addTag(tag)
-        currentTags.push(tag)
+        addTag(tag);
+        currentTags.push(tag);
       }
     }
-  } 
-})
+  }
+});

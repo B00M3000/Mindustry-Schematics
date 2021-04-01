@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    include includes/head
+
+    link(rel="stylesheet", href="/css/core.css")
+    link(rel="stylesheet", href="/css/help.css")
+
+    meta(property="og:title" content="Help")
+    meta(property="og:description" content="Tutorials that you might find helpful")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Help
+  body
+    include mixins/app_bar
+    +app_bar("help")
+    main
+      ul
+        each tutorial of tutorials 
+          li
+            a(href=`/help/${tutorial[0]}`)
+              button #{tutorial[1].title}

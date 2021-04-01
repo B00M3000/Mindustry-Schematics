@@ -1,0 +1,238 @@
+@font-face {
+  font-family: 'Mindustry';
+  src: url('../../fonts/Mindustry.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+:root {
+  --primary: #ffc72d;
+  --primary-light: #ffe54c;
+  --primary-dark: #c68400;
+  --on-primary: #000;
+  --background: #1a1a1a;
+  --on-background: #fff;
+  --surface: #323232;
+  --on-surface: #fff;
+  --error: #a00000;
+  --on-error: #fff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Mindustry';
+  outline: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+html {
+  position: relative;
+  min-height: 100vh;
+  color: white;
+}
+
+html::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/mindustry_banner.png');
+  background-size: 100%;
+  filter: brightness(0.2);
+  z-index: -1;
+  padding-bottom: 5em;
+}
+
+nav {
+  padding: 0;
+  position: sticky;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  box-shadow: 0px 0px 5px black;
+  top: 0;
+  left: 0;
+  margin-bottom: 0.5em;
+  z-index: 20;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 1.5em;
+  gap: 1em;
+}
+nav ul li {
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+nav ul li.selected {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+div.path {
+  display: flex;
+  justify-content: start;
+  padding: 0 0 0.5em 1.5em;
+  font-size: 0.9em;
+}
+div.path div.part span {
+  margin: 0 0.3em;
+}
+nav button.menu {
+  display: none;
+}
+nav button.menu:hover {
+  background-color: transparent;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.3);
+  /* backdrop-filter: blur(5px); */
+  color: var(--on-surface);
+  width: 100%;
+  padding: 0.5em;
+  gap: 1em;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  border: 2px solid #808080;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  cursor: pointer;
+}
+@keyframes fly-in-out {
+  0% {
+    top: 0px;
+    opacity: 0;
+  }
+  50% {
+    top: 6em;
+    opacity: 1;
+  }
+  70% {
+    top: 6em;
+    opacity: 1;
+  }
+  100% {
+    top: 6em;
+    opacity: 0;
+  }
+}
+
+#copied_popup {
+  position: fixed;
+  right: 0;
+  align-items: center;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  animation-name: fly-in-out;
+  animation-duration: 3s;
+  padding: 1em;
+  border-right: none;
+  border-radius: 1em 0 0 1em;
+  box-shadow: 0px 0px 0.6em black;
+  display: flex;
+  align-items: center;
+  z-index: 9;
+}
+
+#copied_popup img {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  object-fit: contain;
+}
+
+button.icon {
+  cursor: pointer;
+  padding: 4px;
+  text-decoration: none;
+  background-color: var(--surface);
+  border: none;
+  border-radius: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  width: 3em;
+}
+button.icon:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+button.icon img {
+  max-width: 24px;
+  max-height: 24px;
+}
+button.icon_text {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+button.icon_text img {
+  width: 1.5em;
+  max-height: 1.5em;
+  object-fit: contain;
+}
+button.icon_text.back img {
+  transform: scaleX(-1);
+}
+@media screen and (max-width: 600px) {
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 3em;
+    grid-template-areas: 'buttons menu';
+  }
+  nav button.menu {
+    display: inline-block;
+    grid-area: menu;
+    align-self: baseline;
+    margin-top: 1.6em;
+  }
+  nav ul {
+    grid-area: buttons;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 5em;
+    transition: height 0.5s ease;
+  }
+  nav ul li.selected {
+    order: -1;
+  }
+  nav:hover ul,
+  nav:focus-within ul {
+    height: 15em;
+  }
+  @keyframes fly-in-out {
+    0% {
+      top: 0px;
+      opacity: 0;
+    }
+    50% {
+      top: 5em;
+      opacity: 1;
+    }
+    70% {
+      top: 5em;
+      opacity: 1;
+    }
+    100% {
+      top: 5em;
+      opacity: 0;
+    }
+  }
+  #copied_popup {
+    width: 100%;
+    border-radius: 0 0 0.5em 0.5em;
+  }
+}

@@ -1,36 +1,26 @@
 doctype html
-html
+html(lang="en")
   head
     include includes/head
 
-    link(rel='stylesheet' href='/css/Mindustry.css' type='text/css')
-    link(rel='stylesheet' href='/css/tutorial.css' type='text/css')
-    
+    link(rel="stylesheet", href="/css/core.css")
+    link(rel="stylesheet", href="/css/tutorial.css")
+
     meta(property="og:title" content=title)
     meta(property="og:description" content=description)
     meta(property="og:image" content="/assets/mindustry_banner.png")
     meta(property="og:type" content="website")
     meta(property="og:url" content=url)
-
-    meta(name="viewport" content="width=device-width" intialscale="1.0")
-    
-    title= title 
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title=title
   body
-    h1 #{title}
-    
-    - var step_number = 1
-    ul
-      each step of steps
-        li
-          h2 Step #{step_number}: #{step.name}
-          img(src=step.image)
-          p #{step.text}
-
-          - step_number++
-
-    nav#bottom
-      a(href="/tutorials")
-        div.notched.btn
-          button.small Back to Tutorials
-
-
+    include mixins/app_bar
+    +app_bar("help")
+    main
+      article !{html}
+    footer
+      a(href="/help")
+        button.icon_text.back
+          img(src="/assets/arrow.svg")
+          span Back

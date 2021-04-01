@@ -1,7 +1,14 @@
-body {
+article {
+  color: var(--on-background);
   text-align: center;
+  padding: 0 2em;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+article h1 {
+  margin: 1em 0;
+}
+article h3 {
+  margin: 1em;
+}
+article li {
+  padding: 1em;
 }
