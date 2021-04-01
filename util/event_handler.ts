@@ -5,8 +5,8 @@ interface Event {
 }
 
 interface SchematicEvent extends Event {
-  schematicId: string;
-  schematicName: string;
+  schematicId: string | null;
+  schematicName: string | null;
 }
 
 interface CreateSchematicEvent extends SchematicEvent {}
@@ -40,6 +40,9 @@ export class EventHandler {
       color: colors.get('green'),
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
+      }
     });
   }
 
@@ -49,6 +52,9 @@ export class EventHandler {
       title: `Changed: ${event.schematicName}`,
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
+      }
     });
   }
 
@@ -58,6 +64,9 @@ export class EventHandler {
       title: `Deleted: ${event.schematicName}`,
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
+      }
     });
   }
 }
