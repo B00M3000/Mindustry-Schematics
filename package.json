@@ -7,7 +7,7 @@
     "lint": "eslint **/**.ts",
     "start": "node .",
     "postinstall": "npm run tsc",
-    "tsc": "npm run tsc",
+    "tsc": "tsc",
     "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon .\"",
     "_dev": "concurrently --kill-others \"tsc --watch\" \"node .\""
   },
