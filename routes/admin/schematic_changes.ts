@@ -72,31 +72,31 @@ router.get('/:_id/accept', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
 
   if (change.Delete) {
-    const schematic = await SchematicSchema.findOneAndDelete({
+    const schematic = (await SchematicSchema.findOneAndDelete({
       _id: change.id,
-    });
+    })) as SchematicDocument;
     await SchematicChangeSchema.deleteMany({
       id: change.id,
     });
     req.app.get('eventHandler').deleteSchematic({
       triggeredAt: new Date().getTime(),
       schematicId: schematic._id,
-      schematicName: schematic.name
+      schematicName: schematic.name,
     });
   } else {
-    const schematic = await SchematicSchema.findOneAndUpdate(
+    const schematic = (await SchematicSchema.findOneAndUpdate(
       {
         _id: change.id,
       },
       change.Changed
-    );
+    )) as SchematicDocument;
     await SchematicChangeSchema.deleteOne({
       _id: change._id,
     });
     req.app.get('eventHandler').editSchematic({
       triggeredAt: new Date().getTime(),
       schematicId: schematic._id,
-      schematicName: schematic.name
+      schematicName: schematic.name,
     });
   }
 
