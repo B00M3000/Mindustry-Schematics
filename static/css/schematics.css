@@ -110,9 +110,6 @@ li.schematic div.view div.name {
   max-width: 100%;
   padding: 0 5px;
 }
-li.schematic div.view div.schematic_image_container {
-  z-index: 1;
-}
 div.tools {
   display: flex;
   background-color: var(--surface);
@@ -122,6 +119,7 @@ div.tools > * {
 }
 
 .schematic_image {
+  z-index: 1;
   height: 166px;
   width: 166px;
 

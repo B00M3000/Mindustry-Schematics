@@ -54,9 +54,8 @@ html(lang="en")
             div.view
               div.name
                 h2= schematic.name
-              div.schematic_image_container
-                - const src = `/raw/schematics/${schematic._id}/image`
-                img.schematic_image.lazy(data-src=src)
+              - const src = `/raw/schematics/${schematic._id}/image`
+              img.schematic_image.lazy(data-src=src)
     footer
       - const queryParam = query ? `&query=${query}` : ""
       - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
