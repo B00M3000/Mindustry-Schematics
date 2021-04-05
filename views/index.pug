@@ -21,18 +21,17 @@ html(lang="en")
     include mixins/app_bar
     +app_bar("schematics")
     h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
-    div.search
-      form.search(action="/" method="GET")
-        input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
-        div.controls
-          button(type="submit"): img(src="/assets/check-mark.svg")
-          a(href="/")
-            button(type="button"): img(src="/assets/cross-mark.svg")
-        input#tags(type="text" list="tags-list" placeholder="Tags")
-        datalist(id="tags-list")
-          each tag of tags
-            option(value=tag.name)
-      ul.tags
+    form.search(action="/" method="GET")
+      input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
+      div.controls
+        button(type="submit"): img(src="/assets/check-mark.svg")
+        a(href="/")
+          button(type="button"): img(src="/assets/cross-mark.svg")
+      input#tags(type="text" list="tags-list" placeholder="Tags")
+      datalist(id="tags-list")
+        each tag of tags
+          option(value=tag.name)
+    ul.tags
     main
       ul#schematics_result
         each schematic in schematics
