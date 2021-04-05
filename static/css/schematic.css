@@ -14,6 +14,7 @@ main {
     'preview tags'
     'preview actions';
   align-items: center;
+  word-break: break-all;
 }
 #preview {
   grid-area: preview;

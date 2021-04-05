@@ -23,7 +23,6 @@
   box-sizing: border-box;
   font-family: 'Mindustry';
   outline: none;
-  word-break: break-all;
 }
 a {
   text-decoration: none;
