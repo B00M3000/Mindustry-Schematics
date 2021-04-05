@@ -70,6 +70,7 @@ div.controls img {
 }
 ul.tags {
   grid-area: tags;
+  padding: 0;
 }
 ul#schematics_result {
   display: flex;

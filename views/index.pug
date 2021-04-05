@@ -4,8 +4,8 @@ html(lang="en")
     include includes/head
 
     link(rel="stylesheet", href="/css/core.css")
-    link(rel="stylesheet", href="/css/schematics.css")
     link(rel="stylesheet", href="/css/input_tags.css")
+    link(rel="stylesheet", href="/css/schematics.css")
     - let queryMeta = query ? `; Query "${query}"`: ""
     - let tagsMeta = queriedTags ? `; Tags ${queriedTags.split(" ").join(", ")}` : ""
     meta(property="og:title" content=`Schematics${queryMeta}${tagsMeta}`)
@@ -31,7 +31,7 @@ html(lang="en")
       datalist(id="tags-list")
         each tag of tags
           option(value=tag.name)
-    ul.tags
+      ul.tags
     main
       ul#schematics_result
         each schematic in schematics
