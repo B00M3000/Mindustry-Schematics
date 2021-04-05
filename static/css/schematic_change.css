@@ -2,7 +2,10 @@ body {
   color: white;
 }
 p {
+  word-wrap: break-word;
   word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 .mode,
 .title,
@@ -22,6 +25,10 @@ p {
     'image actions';
   gap: 1em 2em;
   align-items: center;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 .preview {
   width: 100%;

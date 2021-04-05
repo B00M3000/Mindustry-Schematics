@@ -14,7 +14,10 @@ main {
     'preview tags'
     'preview actions';
   align-items: center;
+  word-wrap: break-word;
   word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 #preview {
   grid-area: preview;
@@ -30,6 +33,7 @@ main {
 }
 .description {
   grid-area: description;
+  max-width: 100%;
 }
 .author {
   grid-area: author;
