@@ -6,6 +6,8 @@ mixin app_bar(page)
           a(href="/admin") Admin Panel
       li(class=`${page=='schematics' ? 'selected': ''}`)
         a(href="/") Schematics
+      li(class=`${page=='logic' ? 'logic': ''}`)
+        a(href="https://logic.mindustryschematics.com") Logic Emulator
       li(class=`${page=='downloads' ? 'selected': ''}`)
         a(href="/downloads") Downloads
       li(class=`${page=='help' ? 'selected': ''}`)
