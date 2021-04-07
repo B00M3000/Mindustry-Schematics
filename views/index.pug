@@ -63,10 +63,12 @@ html(lang="en")
     footer
       - const queryParam = query ? `&query=${query}` : ""
       - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
-      - const firstPage = `/?page=1${queryParam}${tagParam}`
-      - const previousPage = `/?page=${page - 1 || 1}${queryParam}${tagParam}`
-      - const nextPage = `/?page=${page + 1}${queryParam}${tagParam}`
-      - const lastPage = `/?page=${pages}${queryParam}${tagParam}`
+      - const modeParam = mode ? `&mode=${mode}` : ""
+      - const constantParams = `${modeParam}${queryParam}${tagParam}`
+      - const firstPage = `/?page=1${constantParams}`
+      - const previousPage = `/?page=${page - 1 || 1}${constantParams}`
+      - const nextPage = `/?page=${page + 1}${constantParams}`
+      - const lastPage = `/?page=${pages}${constantParams}`
       a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
         button.icon_text
           img(src="/assets/double_chevron.svg")
