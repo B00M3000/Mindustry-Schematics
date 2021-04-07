@@ -15,7 +15,8 @@ form {
   display: grid;
   grid-template-columns: 1fr max-content;
   grid-template-areas:
-    'search controls'
+    'controls controls'
+    'search search'
     ' tag_input tag_input'
     ' tags tags ';
   gap: 1em;
@@ -43,15 +44,20 @@ input#tags {
   grid-area: tag_input;
 }
 div.controls {
+  grid-area: controls;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.controls div.buttons {
   display: flex;
   align-items: center;
   border: 2px solid #808080;
   border-radius: 0.5rem;
   overflow: hidden;
   background-color: var(--surface);
-  grid-area: controls;
 }
-div.controls button {
+div.controls div.buttons button {
   border-radius: 0;
   border: none;
   height: 2em;
@@ -60,13 +66,23 @@ div.controls button {
   justify-content: center;
   align-items: center;
 }
-div.controls button:hover {
+div.controls div.buttons button:hover {
   background-color: #ffffff80;
 }
 div.controls img {
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+div.controls select {
+  padding: 0.3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: 2px solid #808080;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--surface);
 }
 ul.tags {
   grid-area: tags;

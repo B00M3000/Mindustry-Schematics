@@ -12,6 +12,8 @@ const router = Router();
 export default router;
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
+  const mode =
+    req.query.mode === 'creator' ? ('creator' as const) : ('name' as const);
   const query = String(req.query.query || '');
   const tags = String(req.query.tags || '');
   try {
@@ -22,7 +24,7 @@ router.get('/', async (req, res) => {
     let _query: FilterQuery<SchematicDocument> = {};
     if (query)
       _query = {
-        name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
+        [mode]: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
     if (tags)
       _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
@@ -58,6 +60,7 @@ router.get('/', async (req, res) => {
       tags: avaliableTags,
       _tags: JSON.stringify(avaliableTags),
       queriedTags: tags,
+      mode,
     });
   } catch (e) {
     res.status(422).redirect('/');
