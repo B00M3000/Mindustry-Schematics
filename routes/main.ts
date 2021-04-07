@@ -27,6 +27,17 @@ router.get('/', async (req, res) => {
     if (tags)
       _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
 
+    const documents = await SchematicSchema.countDocuments(_query);
+
+    const pages = Math.ceil(documents / limitPerPage) || 1;
+
+    if (page > pages)
+      return res.redirect(
+        `/?page=${pages}${query ? `&query=${query}` : ''}${
+          tags ? `&tags=${tags}` : ''
+        }`
+      );
+
     const schematics = await SchematicSchema.find(
       _query,
       'id name image text',
@@ -35,19 +46,6 @@ router.get('/', async (req, res) => {
         limit: limitPerPage,
       }
     );
-    const documents = await SchematicSchema.countDocuments(_query);
-
-    const pages =
-      (documents % limitPerPage === 0
-        ? documents / limitPerPage
-        : Math.ceil(documents / limitPerPage)) || 1;
-
-    if (page > pages)
-      return res.redirect(
-        `/?page=${pages}${query ? `&query=${query}` : ''}${
-          tags ? `&tags=${tags}` : ''
-        }`
-      );
 
     res.render('index.pug', {
       skip,
