@@ -12,3 +12,7 @@ article h3 {
 article li {
   padding: 1em;
 }
+article img {
+  max-width: 100%;
+  margin: 1em 0;
+}

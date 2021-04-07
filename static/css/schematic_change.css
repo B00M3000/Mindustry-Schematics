@@ -2,7 +2,10 @@ body {
   color: white;
 }
 p {
+  word-wrap: break-word;
   word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 .mode,
 .title,
@@ -22,6 +25,10 @@ p {
     'image actions';
   gap: 1em 2em;
   align-items: center;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 .preview {
   width: 100%;
@@ -37,40 +44,21 @@ p {
 .description {
   grid-area: description;
 }
-.modify .changedTags {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.tags {
   grid-area: tags;
-}
-.modify .tags {
   width: 100%;
-}
-.delete .tags {
-  grid-area: tags;
+  padding: 1em;
 }
 .actions {
   grid-area: actions;
   display: flex;
   gap: 1em;
 }
-.original {
+.added {
   position: relative;
+  display: inline-block;
 }
-.original::before {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 0, 0, 0.2);
-  z-index: 1;
-}
-.changed {
-  position: relative;
-}
-.changed::before {
+.added::before {
   content: '';
   position: absolute;
   height: 100%;
@@ -80,7 +68,32 @@ p {
   background-color: rgba(0, 255, 13, 0.2);
   z-index: 1;
 }
-
+.removed {
+  position: relative;
+  display: inline-block;
+}
+.removed::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 0, 0, 0.2);
+  z-index: 1;
+}
+.tag.added::before {
+  top: -0.5em;
+  left: -0.5em;
+  height: calc(100% + 1em);
+  width: calc(100% + 1em);
+}
+.tag.removed::before {
+  top: -0.5em;
+  left: -0.5em;
+  height: calc(100% + 1em);
+  width: calc(100% + 1em);
+}
 @media screen and (max-width: 600px) {
   .schematic {
     padding: 2em;
@@ -100,9 +113,6 @@ p {
   }
   .preview {
     width: 70vw;
-  }
-  .modify .changedTags {
-    width: 100%;
   }
   .tags {
     justify-content: center;

@@ -14,9 +14,14 @@ h3.info {
 form {
   display: grid;
   grid-template-columns: 1fr max-content;
+  grid-template-areas:
+    'controls controls'
+    'search search'
+    ' tag_input tag_input'
+    ' tags tags ';
   gap: 1em;
-  padding: 1em;
-  width: 50%;
+  padding: 1em 20%;
+  width: 100%;
 }
 form input {
   color: white;
@@ -28,15 +33,23 @@ form input {
 }
 input#schematics_search {
   background-image: url('/assets/search-icon.svg');
-  background-position: 0.6em 0.4em;
-  background-size: 1.5em 1.5em;
+  background-origin: border-box;
+  background-position: 0.6em 50%;
+  background-size: auto 70%;
   background-repeat: no-repeat;
   padding-left: 3em;
+  grid-area: search;
 }
 input#tags {
-  grid-column: 1 / 3;
+  grid-area: tag_input;
 }
 div.controls {
+  grid-area: controls;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div.controls div.buttons {
   display: flex;
   align-items: center;
   border: 2px solid #808080;
@@ -44,7 +57,7 @@ div.controls {
   overflow: hidden;
   background-color: var(--surface);
 }
-div.controls button {
+div.controls div.buttons button {
   border-radius: 0;
   border: none;
   height: 2em;
@@ -53,13 +66,27 @@ div.controls button {
   justify-content: center;
   align-items: center;
 }
-div.controls button:hover {
+div.controls div.buttons button:hover {
   background-color: #ffffff80;
 }
 div.controls img {
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+div.controls select {
+  padding: 0.3rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: 2px solid #808080;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--surface);
+}
+ul.tags {
+  grid-area: tags;
+  padding: 0;
 }
 ul#schematics_result {
   display: flex;
@@ -110,9 +137,6 @@ li.schematic div.view div.name {
   max-width: 100%;
   padding: 0 5px;
 }
-li.schematic div.view div.schematic_image_container {
-  z-index: 1;
-}
 div.tools {
   display: flex;
   background-color: var(--surface);
@@ -122,6 +146,7 @@ div.tools > * {
 }
 
 .schematic_image {
+  z-index: 1;
   height: 166px;
   width: 166px;
 
@@ -149,6 +174,7 @@ img.lazy.loaded {
 @media screen and (max-width: 600px) {
   form {
     width: 100%;
+    padding: 1em 5%;
   }
 
   button.icon_text.add span {

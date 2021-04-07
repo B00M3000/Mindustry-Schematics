@@ -12,6 +12,8 @@ const router = Router();
 export default router;
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
+  const mode =
+    req.query.mode === 'creator' ? ('creator' as const) : ('name' as const);
   const query = String(req.query.query || '');
   const tags = String(req.query.tags || '');
   try {
@@ -22,10 +24,21 @@ router.get('/', async (req, res) => {
     let _query: FilterQuery<SchematicDocument> = {};
     if (query)
       _query = {
-        name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
+        [mode]: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
     if (tags)
       _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
+
+    const documents = await SchematicSchema.countDocuments(_query);
+
+    const pages = Math.ceil(documents / limitPerPage) || 1;
+
+    if (page > pages)
+      return res.redirect(
+        `/?page=${pages}${query ? `&query=${query}` : ''}${
+          tags ? `&tags=${tags}` : ''
+        }`
+      );
 
     const schematics = await SchematicSchema.find(
       _query,
@@ -35,19 +48,6 @@ router.get('/', async (req, res) => {
         limit: limitPerPage,
       }
     );
-    const documents = await SchematicSchema.countDocuments(_query);
-
-    const pages =
-      (documents % limitPerPage === 0
-        ? documents / limitPerPage
-        : Math.ceil(documents / limitPerPage)) || 1;
-
-    if (page > pages)
-      return res.redirect(
-        `/?page=${pages}${query ? `&query=${query}` : ''}${
-          tags ? `&tags=${tags}` : ''
-        }`
-      );
 
     res.render('index.pug', {
       skip,
@@ -60,6 +60,7 @@ router.get('/', async (req, res) => {
       tags: avaliableTags,
       _tags: JSON.stringify(avaliableTags),
       queriedTags: tags,
+      mode,
     });
   } catch (e) {
     res.status(422).redirect('/');

@@ -13,6 +13,10 @@ form {
     'preview submit';
   align-items: center;
   justify-items: baseline;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 .title {
   grid-area: title;
