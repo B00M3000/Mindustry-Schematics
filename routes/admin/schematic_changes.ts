@@ -4,9 +4,9 @@ import SchematicChangeSchema, {
 } from '../../schemas/SchematicChange';
 import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
 
+import { diffArrays, diffSentences } from 'diff';
 import avaliableTags from '../../tags.json';
 import { safeDescription } from '../../util/index';
-
 interface ModifiedSchematicChangeDocument extends SchematicChangeDocument {
   Original?: SchematicDocument | null;
 }
@@ -38,20 +38,32 @@ router.get('/', async (req, res) => {
 router.get('/:_id', async (req, res) => {
   const { change } = req as SchematicChangeRequest;
   change.Original = await SchematicSchema.findOne({ _id: change.id });
-  const originalTags =
-    change.Original &&
-    change.Original.tags.map((name) =>
-      avaliableTags.find((t) => t.name === name)
-    );
-  const changedTags =
-    change.Changed &&
-    change.Changed.tags.map((name) =>
-      avaliableTags.find((t) => t.name === name)
-    );
+  let params: Record<string, unknown> = {
+    change,
+  };
   if (change.Original) {
-    change.Original.description = safeDescription(
-      change.Original.description || ''
+    const originalTags = change.Original.tags.map((name) =>
+      avaliableTags.find((t) => t.name === name)
     );
+    const changedTags = change.Changed.tags.map((name) =>
+      avaliableTags.find((t) => t.name === name)
+    );
+    const diffs = {
+      name: diffSentences(change.Original.name, change.Changed.name),
+      creator: diffSentences(change.Original.creator, change.Changed.creator),
+      description: diffSentences(
+        change.Original.description,
+        change.Changed.description
+      ),
+      tags: diffArrays(originalTags, changedTags),
+    };
+    console.log(diffs.tags);
+    params = {
+      ...params,
+      originalTags,
+      changedTags,
+      diffs,
+    };
   }
   if (change.Changed) {
     change.Changed.description = safeDescription(
@@ -61,11 +73,7 @@ router.get('/:_id', async (req, res) => {
   if (change.Description) {
     change.Description = safeDescription(change.Description);
   }
-  res.render('schematic_change', {
-    change,
-    originalTags,
-    changedTags,
-  });
+  res.render('schematic_change', params);
 });
 
 router.get('/:_id/accept', async (req, res) => {

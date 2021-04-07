@@ -52,35 +52,31 @@ body
     div#schematics
       div.schematic.modify
         - let different
-        div.name
-          - different = change.Original.name != change.Changed.name
-          h1.name(class=`${different ? "original": ""}`)= change.Original.name
-          if different
-            h1.name.changed= change.Changed.name
-        
+        h1.name
+          each diff in diffs.name
+            - const mode  = diff.added ? "added" : diff.removed ? "removed" : "unmodified"
+            span(class=mode)=diff.value
+
         img.preview(src=`/raw/schematics/${change.id}/image`)
 
         div.creator
-          - different = change.Original.creator != change.Changed.creator
-          h3.creator(class=`${different ? "original": ""}`)= 'by ' + change.Original.creator
-          if different
-            h3.creator.changed= 'by ' + change.Changed.creator
+          span='by '
+          each diff in diffs.creator
+            - const mode  = diff.added ? "added" : diff.removed ? "removed" : "unmodified"
+            span(class=mode)=diff.value
 
         div.description
-          - different = change.Original.description != change.Changed.description
-          h4(class=`${different ? "original": ""}`) !{change.Original.description}
-          if different
-            h4.changed !{change.Changed.description}
+          each diff in diffs.description
+            - const mode  = diff.added ? "added" : diff.removed ? "removed" : "unmodified"
+            span(class=mode)=diff.value
 
-        div.changedTags
-          - different = change.Original.tags != change.Changed.tags
-          div.tags(class=`${different ? "original": ""}`)
-            each tag in originalTags
-              div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
-          if different
-            div.tags.changed
-              each tag in changedTags
-                div.tag(style=`--color: ${tag.color}`): div.layer: span #{tag.name}
+        div.tags
+          each diff in diffs.tags
+            - const mode  = diff.added ? "added" : diff.removed ? "removed" : "unmodified"
+            - const tags = diff.value
+            each tag in tags
+              div.tag(style=`--color: ${tag.color}` class=mode): div.layer: span #{tag.name}
+
         +actions()
 
   footer

@@ -94,7 +94,7 @@ footer {
   bottom: 0;
   display: flex;
   background-color: rgba(0, 0, 0, 0.3);
-  /* backdrop-filter: blur(5px); */
+  backdrop-filter: blur(2px);
   color: var(--on-surface);
   width: 100%;
   padding: 0.5em;
