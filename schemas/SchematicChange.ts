@@ -1,5 +1,5 @@
+import mongoose, { LeanDocument } from 'mongoose';
 import { SchematicDocument } from './Schematic';
-import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   id: {
@@ -16,7 +16,7 @@ const schema = new mongoose.Schema({
 });
 export interface SchematicChangeDocument extends mongoose.Document {
   id: string;
-  Changed: SchematicDocument;
+  Changed: Omit<LeanDocument<SchematicDocument>, '__v' | 'id' | '_id'>;
   Description?: string;
   Delete?: string;
 }
