@@ -61,6 +61,7 @@ nav {
   z-index: 20;
 }
 nav ul {
+  --items: 5;
   display: flex;
   list-style: none;
   padding: 1.5em;
@@ -211,7 +212,7 @@ button.icon_text.back img {
   }
   nav:hover ul,
   nav:focus-within ul {
-    height: 15em;
+    height: calc(var(--items) * 3.5em);
   }
   @keyframes fly-in-out {
     0% {
