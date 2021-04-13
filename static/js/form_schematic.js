@@ -61,6 +61,7 @@ text &&
     switch (response.status) {
       case 200:
         {
+          errorSpan.innerHTML = '';
           text.classList.remove('invalid');
           const json = await response.json();
           const imageData = json.image;
@@ -77,7 +78,7 @@ text &&
         break;
       case 400: {
         text.classList.add('invalid');
-        const data = await response.json() || {};
+        const data = (await response.json()) || {};
         const { error } = data;
         errorSpan.innerText = error.message || "This isn't a valid schematic";
         break;
