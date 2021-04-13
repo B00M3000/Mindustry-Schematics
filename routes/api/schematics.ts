@@ -25,7 +25,6 @@ router.post('/parse', async (req, res) => {
         `The schematic size (${width}x${height}) is bigger than the allowed size (${maxSize}x${maxSize})`
       );
     }
-    console.log(schematic.height, schematic.width);
     res.send({
       name: schematic.name,
       description: schematic.description,
