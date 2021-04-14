@@ -207,6 +207,8 @@ body.parsed #schematic-generate {
     display: flex;
     flex-direction: column;
     gap: 0;
+    padding: 0 10vw;
+    width: 100%;
   }
   .inputs *:is(input, textarea) {
     width: 100%;
@@ -219,8 +221,6 @@ body.parsed #schematic-generate {
   }
 
   span.error {
-    visibility: hidden;
-    grid-column: 2;
     transform: translateY(0.5em);
   }
 }

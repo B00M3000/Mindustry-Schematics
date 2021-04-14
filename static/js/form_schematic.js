@@ -7,7 +7,7 @@ const form = document.querySelector('form');
 const submitButton = document.querySelector('button[type=submit]');
 const mainContent = document.getElementById('main-content');
 const schematicGenerate = document.getElementById('schematic-generate');
-
+const errorSpan = document.querySelector('span.error');
 function isValidSchematic(base64Code) {
   try {
     const decoded = atob(base64Code);
@@ -61,6 +61,7 @@ text &&
     switch (response.status) {
       case 200:
         {
+          errorSpan.innerHTML = '';
           text.classList.remove('invalid');
           const json = await response.json();
           const imageData = json.image;
@@ -75,9 +76,13 @@ text &&
           form.classList.remove('locked');
         }
         break;
-      case 400:
+      case 400: {
         text.classList.add('invalid');
+        const data = (await response.json()) || {};
+        const { error } = data;
+        errorSpan.innerText = error.message || "This isn't a valid schematic";
         break;
+      }
       case 431:
         alert('The schematic has too much data');
         console.log(value.length);
