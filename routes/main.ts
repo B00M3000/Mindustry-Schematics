@@ -87,7 +87,6 @@ router.get('/:id/text', async (req, res) => {
   res.send(text);
 });
 router.get('/schematics', (req, res) => {
-  console.log(req.query);
   const search = new URLSearchParams();
   for (const key in req.query) {
     const value = req.query[key];
