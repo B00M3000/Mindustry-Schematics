@@ -57,7 +57,6 @@ router.get('/:_id', async (req, res) => {
       ),
       tags: diffArrays(originalTags, changedTags),
     };
-    console.log(diffs.tags);
     params = {
       ...params,
       originalTags,

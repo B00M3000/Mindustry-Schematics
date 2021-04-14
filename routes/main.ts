@@ -87,6 +87,15 @@ router.get('/:id/text', async (req, res) => {
   res.send(text);
 });
 router.get('/schematics', (req, res) => {
+  const search = new URLSearchParams();
+  for (const key in req.query) {
+    const value = req.query[key];
+    if (value) search.set(key, String(value));
+  }
+  if (search.toString()) {
+    res.redirect(`/?${search}`);
+    return;
+  }
   res.redirect('/');
 });
 router.get('/schematics/create', (req, res) => {

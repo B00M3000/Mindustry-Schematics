@@ -61,9 +61,10 @@ nav {
   z-index: 20;
 }
 nav ul {
+  --items: 5;
   display: flex;
   list-style: none;
-  padding: 1.5em;
+  padding: 1.5rem;
   gap: 1em;
 }
 nav ul li {
@@ -194,10 +195,18 @@ button.icon_text.back img {
     grid-template-areas: 'buttons menu';
   }
   nav button.menu {
-    display: inline-block;
+    display: inline-flex;
     grid-area: menu;
     align-self: baseline;
-    margin-top: 1.6em;
+    margin-top: 1.6rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  nav button.menu img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    width: 100%;
   }
   nav ul {
     grid-area: buttons;
@@ -209,9 +218,8 @@ button.icon_text.back img {
   nav ul li.selected {
     order: -1;
   }
-  nav:hover ul,
   nav:focus-within ul {
-    height: 15em;
+    height: calc(var(--items) * 3.5em);
   }
   @keyframes fly-in-out {
     0% {

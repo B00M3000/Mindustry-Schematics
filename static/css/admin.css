@@ -6,10 +6,3 @@ ul.options {
   gap: 1em;
   padding: 1em;
 }
-
-@media screen and (max-width: 600px) {
-  nav:hover ul,
-  nav:focus-within ul {
-    height: 17em;
-  }
-}

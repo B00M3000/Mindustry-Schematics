@@ -1,7 +1,11 @@
 mixin app_bar(page)
+  - let isAdmin = page == "admin"
+  //- this is used by the css to know how much the panel should expand
+  //- on mobile devices
+  - let items = 5 + isAdmin
   nav
-    ul
-      if page == "admin"
+    ul(style=`--items: ${items}`)
+      if isAdmin
         li(class="selected")
           a(href="/admin") Admin Panel
       li(class=`${page=='schematics' ? 'selected': ''}`)
