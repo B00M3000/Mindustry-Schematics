@@ -22,7 +22,10 @@ html
     +app_bar("schematics")
     h1 Create a Schematic
     div#main-content
-      form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data")
+      form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data" data-mode="text")
+        div.mode
+          button.selected(type="button" value="text") Text
+          button(type="button" value="file") File
         div.inputs
           label(for="name") Name: 
           input(type="text" name="name" id="name" placeholder="Name of the schematic" required)
@@ -35,6 +38,8 @@ html
 
           label(for="text") Schematic:
           input#text(type="text" name="text" placeholder="Paste the schematic here" required autofocus)
+          label(for="file") File:
+          input#file(type="file" name="file" accept=".msch")
           span.error This isn't a valid schematic
           label(for="tags") Tags:
           input#tags(type="text" list="tags-list")

@@ -38,16 +38,19 @@ form * {
   visibility: hidden;
 }
 
-form.locked > *:not(div.inputs, div.schematic-text) {
+form.locked > *:not(div.inputs, div.schematic-text, div.mode) {
   opacity: 0;
   pointer-events: none;
 }
-form.locked > div.inputs > *:not(input#text, label[for='text'], span.error) {
+form.locked
+  > div.inputs
+  > *:not(input#text, label[for='text'], input#file, label[for='file'], span.error) {
   opacity: 0;
   pointer-events: none;
 }
 form.locked > div.inputs {
   transform: translateY(-50%);
+  z-index: 1;
 }
 .inputs {
   --bottomPadding: 3px;
@@ -55,7 +58,7 @@ form.locked > div.inputs {
   display: grid;
   gap: 1em;
   grid-auto-flow: row;
-  grid-template-columns: auto max-content;
+  grid-template-columns: auto min-content;
 }
 
 .inputs label {
@@ -103,8 +106,15 @@ input#image {
   color: white;
   outline: none;
 }
-
-input.invalid {
+input#file {
+  resize: none;
+  cursor: pointer;
+}
+input#file::-webkit-file-upload-button {
+  display: none;
+}
+input.invalid,
+input.invalid ~ input#file {
   border-bottom-color: rgb(255, 101, 101);
 }
 span.error {
@@ -112,7 +122,7 @@ span.error {
   grid-column: 2;
   transform: translateY(-0.5em);
 }
-input.invalid + span.error {
+input.invalid ~ span.error {
   visibility: visible;
   color: rgb(255, 101, 101);
 }
@@ -199,6 +209,33 @@ body.parsing #main-content,
 body.parsed #schematic-generate {
   opacity: 0;
   transition: opacity 0.5s ease;
+}
+
+div.mode {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: #888888 solid 2px;
+  border-radius: 1rem;
+  z-index: 2;
+  background-color: var(--surface);
+  overflow: hidden;
+}
+div.mode button {
+  border: none;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 0.8rem;
+}
+form[data-mode='text'] div.mode button[value='text'],
+form[data-mode='file'] div.mode button[value='file'] {
+  background-color: #707070;
+}
+form *:is(#text, label[for='text'], #file, label[for='file']) {
+  display: none;
+}
+form[data-mode='text'] *:is(#text, label[for='text']),
+form[data-mode='file'] *:is(#file, label[for='file']) {
+  display: block;
 }
 
 @media screen and (max-width: 600px) {
