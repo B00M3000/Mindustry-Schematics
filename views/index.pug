@@ -21,7 +21,6 @@ html(lang="en")
   body
     include mixins/app_bar
     +app_bar("schematics")
-    h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
     form.search(action="/" method="GET")
       input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
       div.controls
@@ -60,6 +59,8 @@ html(lang="en")
                 h2= schematic.name
               - const src = `/raw/schematics/${schematic._id}/image`
               img.schematic_image.lazy(data-src=src)
+    h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
+    
     footer
       - const queryParam = query ? `&query=${query}` : ""
       - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
