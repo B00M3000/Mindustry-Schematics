@@ -64,7 +64,7 @@ nav ul {
   --items: 5;
   display: flex;
   list-style: none;
-  padding: 1.5rem;
+  padding: 1rem;
   gap: 1em;
 }
 nav ul li {
@@ -198,7 +198,7 @@ button.icon_text.back img {
     display: inline-flex;
     grid-area: menu;
     align-self: baseline;
-    margin-top: 1.6rem;
+    margin-top: 1.1rem;
     width: 2rem;
     height: 2rem;
   }
@@ -215,7 +215,7 @@ button.icon_text.back img {
     grid-area: buttons;
     flex-direction: column;
     overflow-y: hidden;
-    height: 5em;
+    height: 4rem;
     transition: height 0.5s ease;
   }
   nav ul .selected {
