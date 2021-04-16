@@ -41,7 +41,7 @@ router.get('/:_id', async (req, res) => {
   let params: Record<string, unknown> = {
     change,
   };
-  if (change.Original) {
+  if (change.Original && change.Changed) {
     const originalTags = change.Original.tags.map((name) =>
       avaliableTags.find((t) => t.name === name)
     );
@@ -63,8 +63,6 @@ router.get('/:_id', async (req, res) => {
       changedTags,
       diffs,
     };
-  }
-  if (change.Changed) {
     change.Changed.description = safeDescription(
       change.Changed.description || ''
     );
