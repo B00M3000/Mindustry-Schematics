@@ -71,7 +71,7 @@ nav ul li {
   padding: 0.5em;
   border-radius: 0.5em;
 }
-nav ul li.selected {
+nav ul .selected li {
   background-color: var(--primary);
   color: var(--on-primary);
 }
@@ -215,7 +215,7 @@ button.icon_text.back img {
     height: 5em;
     transition: height 0.5s ease;
   }
-  nav ul li.selected {
+  nav ul .selected {
     order: -1;
   }
   nav:focus-within ul {
