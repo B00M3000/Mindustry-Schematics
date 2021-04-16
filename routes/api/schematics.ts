@@ -5,6 +5,8 @@ import { SchematicRequest } from '../../routes/types.js';
 import SchematicSchema from '../../schemas/Schematic.js';
 import Tags from '../../tags.json';
 
+class SchematicSizeError extends Error {}
+
 const router = Router();
 
 router.post('/parse', async (req, res) => {
@@ -16,7 +18,13 @@ router.post('/parse', async (req, res) => {
   try {
     const decoded = decodeURIComponent(text);
     const schematic = Schematic.decode(decoded);
-
+    const maxSize = 90;
+    if (schematic.width > maxSize || schematic.height > maxSize) {
+      const { height, width } = schematic;
+      throw new SchematicSizeError(
+        `The schematic size (${width}x${height}) is bigger than the allowed size (${maxSize}x${maxSize})`
+      );
+    }
     res.send({
       name: schematic.name,
       description: schematic.description,
@@ -27,13 +35,20 @@ router.post('/parse', async (req, res) => {
     });
   } catch (error) {
     let code = 500;
+    let message: string | undefined;
     if (error instanceof Error) {
       if (error.message.includes('valid')) code = 400;
+      else if (error instanceof SchematicSizeError) {
+        code = 400;
+        ({ message } = error);
+      }
     } else if (typeof error === 'string') {
       if (error.includes('valid')) code = 400;
     }
     res.status(code).send({
-      error,
+      error: {
+        message,
+      },
     });
   }
 });

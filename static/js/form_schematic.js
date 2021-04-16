@@ -7,7 +7,9 @@ const form = document.querySelector('form');
 const submitButton = document.querySelector('button[type=submit]');
 const mainContent = document.getElementById('main-content');
 const schematicGenerate = document.getElementById('schematic-generate');
-
+const errorSpan = document.querySelector('span.error');
+const modeDiv = document.querySelector('div.mode');
+const fileInput = document.getElementById('file');
 function isValidSchematic(base64Code) {
   try {
     const decoded = atob(base64Code);
@@ -37,12 +39,15 @@ schematicInput &&
   });
 
 text &&
-  text.addEventListener('change', async () => {
+  text.addEventListener('change', async (e) => {
+    // reset the file input when the user changes the text input
+    if (e.isTrusted) fileInput.value = '';
     const value = text.value;
     const form = document.querySelector('form');
     form.classList.add('locked');
     if (!isValidSchematic(value)) {
       text.classList.add('invalid');
+      errorSpan.innerText = "This isn't a valid schematic";
       return;
     }
     document.body.classList.remove('parsed');
@@ -61,6 +66,7 @@ text &&
     switch (response.status) {
       case 200:
         {
+          errorSpan.innerHTML = '';
           text.classList.remove('invalid');
           const json = await response.json();
           const imageData = json.image;
@@ -75,9 +81,13 @@ text &&
           form.classList.remove('locked');
         }
         break;
-      case 400:
+      case 400: {
         text.classList.add('invalid');
+        const data = (await response.json()) || {};
+        const { error } = data;
+        errorSpan.innerText = error.message || "This isn't a valid schematic";
         break;
+      }
       case 431:
         alert('The schematic has too much data');
         console.log(value.length);
@@ -85,12 +95,39 @@ text &&
     }
   });
 
+if (modeDiv) {
+  for (const child of modeDiv.children) {
+    child.addEventListener('click', (e) => {
+      form.dataset.mode = child.value;
+    });
+  }
+}
+// this is a "bind" to the text input
+// when the user selects a file, it will be read and converted to base64
+// which then is passed to the text input
+fileInput &&
+  fileInput.addEventListener('input', (e) => {
+    /**@type {FileList} */
+    const files = e.target.files;
+    const setText = (value) => {
+      text.value = value;
+      const event = new Event('change');
+      text.dispatchEvent(event);
+    };
+    if (!files[0]) return setText('');
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      setText(btoa(event.target.result));
+    });
+    reader.readAsBinaryString(files[0]);
+  });
 form &&
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitButton.disabled = true;
     submitButton.innerHTML = 'Please wait...';
     const data = new FormData(form);
+    data.delete('file');
     if (!location.href.endsWith('/delete')) {
       // eslint-disable-next-line no-undef
       data.append('tags', JSON.stringify(currentTags));
