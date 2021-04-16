@@ -64,14 +64,14 @@ nav ul {
   --items: 5;
   display: flex;
   list-style: none;
-  padding: 1.5rem;
+  padding: 1rem;
   gap: 1em;
 }
 nav ul li {
   padding: 0.5em;
   border-radius: 0.5em;
 }
-nav ul li.selected {
+nav ul .selected li {
   background-color: var(--primary);
   color: var(--on-primary);
 }
@@ -198,9 +198,12 @@ button.icon_text.back img {
     display: inline-flex;
     grid-area: menu;
     align-self: baseline;
-    margin-top: 1.6rem;
+    margin-top: 1.1rem;
     width: 2rem;
     height: 2rem;
+  }
+  nav button.menu:focus {
+    pointer-events: none;
   }
   nav button.menu img {
     max-width: 100%;
@@ -212,10 +215,10 @@ button.icon_text.back img {
     grid-area: buttons;
     flex-direction: column;
     overflow-y: hidden;
-    height: 5em;
+    height: 4rem;
     transition: height 0.5s ease;
   }
-  nav ul li.selected {
+  nav ul .selected {
     order: -1;
   }
   nav:focus-within ul {

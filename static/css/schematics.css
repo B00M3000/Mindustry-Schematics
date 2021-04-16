@@ -91,7 +91,7 @@ ul.tags {
 ul#schematics_result {
   display: flex;
   flex-wrap: wrap;
-  gap: 2em;
+  gap: 1rem 0.5rem;
   justify-content: center;
 }
 .schematic {
