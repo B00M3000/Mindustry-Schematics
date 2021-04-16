@@ -25,7 +25,11 @@ router.param('_id', async (req, res, next, _id) => {
 });
 
 router.get('/', async (req, res) => {
-  const changes = await SchematicChangeSchema.find({});
+  const changes = await SchematicChangeSchema.find({}, null, {
+    sort: {
+      _id: -1,
+    },
+  });
   for (let i = 0; i < changes.length; i++) {
     const change = changes[i] as ModifiedSchematicChangeDocument;
     change.Original = await SchematicSchema.findOne({ _id: changes[i].id });

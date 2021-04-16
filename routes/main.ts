@@ -46,6 +46,9 @@ router.get('/', async (req, res) => {
       {
         skip,
         limit: limitPerPage,
+        sort: {
+          _id: -1,
+        },
       }
     );
 
