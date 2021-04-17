@@ -12,6 +12,8 @@ const router = Router();
 export default router;
 router.get('/', async (req, res) => {
   let page = Number(req.query.page);
+  const mode =
+    req.query.mode === 'creator' ? ('creator' as const) : ('name' as const);
   const query = String(req.query.query || '');
   const tags = String(req.query.tags || '');
   try {
@@ -22,25 +24,14 @@ router.get('/', async (req, res) => {
     let _query: FilterQuery<SchematicDocument> = {};
     if (query)
       _query = {
-        name: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
+        [mode]: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
       };
     if (tags)
       _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
 
-    const schematics = await SchematicSchema.find(
-      _query,
-      'id name image text',
-      {
-        skip,
-        limit: limitPerPage,
-      }
-    );
     const documents = await SchematicSchema.countDocuments(_query);
 
-    const pages =
-      (documents % limitPerPage === 0
-        ? documents / limitPerPage
-        : Math.ceil(documents / limitPerPage)) || 1;
+    const pages = Math.ceil(documents / limitPerPage) || 1;
 
     if (page > pages)
       return res.redirect(
@@ -48,6 +39,18 @@ router.get('/', async (req, res) => {
           tags ? `&tags=${tags}` : ''
         }`
       );
+
+    const schematics = await SchematicSchema.find(
+      _query,
+      'id name image text',
+      {
+        skip,
+        limit: limitPerPage,
+        sort: {
+          _id: -1,
+        },
+      }
+    );
 
     res.render('index.pug', {
       skip,
@@ -60,6 +63,7 @@ router.get('/', async (req, res) => {
       tags: avaliableTags,
       _tags: JSON.stringify(avaliableTags),
       queriedTags: tags,
+      mode,
     });
   } catch (e) {
     res.status(422).redirect('/');
@@ -86,6 +90,15 @@ router.get('/:id/text', async (req, res) => {
   res.send(text);
 });
 router.get('/schematics', (req, res) => {
+  const search = new URLSearchParams();
+  for (const key in req.query) {
+    const value = req.query[key];
+    if (value) search.set(key, String(value));
+  }
+  if (search.toString()) {
+    res.redirect(`/?${search}`);
+    return;
+  }
   res.redirect('/');
 });
 router.get('/schematics/create', (req, res) => {

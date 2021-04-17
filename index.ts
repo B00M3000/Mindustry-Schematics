@@ -5,6 +5,7 @@ import { DiscordWebhookHandler, EventHandler, rootDir } from './util';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fileuploader from 'express-fileupload';
+import fs from 'fs';
 import mongo from './mongo';
 import path from 'path';
 
@@ -28,8 +29,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(fileuploader());
 
+const backgrounds = fs
+  .readdirSync(path.join(rootDir, '/static/assets/backgrounds'))
+  .map((file) => path.join('/assets/backgrounds', file).replace(/\\/g, '/'));
+
+app.locals = {
+  backgrounds,
+  _backgrounds: JSON.stringify(backgrounds),
+};
+
 app.use((req, res, next) => {
   req.url = req.originalUrl;
+
   next();
 });
 

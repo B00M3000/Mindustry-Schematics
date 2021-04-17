@@ -4,9 +4,10 @@ html(lang="en")
     include includes/head
 
     link(rel="stylesheet", href="/css/core.css")
-    link(rel="stylesheet", href="/css/schematics.css")
     link(rel="stylesheet", href="/css/input_tags.css")
-    - let queryMeta = query ? `; Query "${query}"`: ""
+    link(rel="stylesheet", href="/css/schematics.css")
+    - let queryPrefix = mode == "name" ? "Query": "Creator"
+    - let queryMeta = query ? `; ${queryPrefix} "${query}"`: ""
     - let tagsMeta = queriedTags ? `; Tags ${queriedTags.split(" ").join(", ")}` : ""
     meta(property="og:title" content=`Schematics${queryMeta}${tagsMeta}`)
     meta(property="og:description" content="View, share schematics submit improvements to existing schematics and submit deletion requesets to bad or unwanted schematics here.")
@@ -21,17 +22,20 @@ html(lang="en")
     include mixins/app_bar
     +app_bar("schematics")
     h3.info=`Page ${page} of ${pages}, Showing ${skip}-${skip+length} of ${documents}`
-    div.search
-      form.search(action="/" method="GET")
-        input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
-        div.controls
+    form.search(action="/" method="GET")
+      input#schematics_search(type="text" placeholder="Search for schematics..." name="query"   value=query autofocus)
+      div.controls
+        select#mode(name="mode")
+          option(value="name" selected=mode=="name") Name 
+          option(value="creator" selected=mode=="creator") Creator
+        div.buttons
           button(type="submit"): img(src="/assets/check-mark.svg")
           a(href="/")
             button(type="button"): img(src="/assets/cross-mark.svg")
-        input#tags(type="text" list="tags-list" placeholder="Tags")
-        datalist(id="tags-list")
-          each tag of tags
-            option(value=tag.name)
+      input#tags(type="text" list="tags-list" placeholder="Tags")
+      datalist(id="tags-list")
+        each tag of tags
+          option(value=tag.name)
       ul.tags
     main
       ul#schematics_result
@@ -54,16 +58,18 @@ html(lang="en")
             div.view
               div.name
                 h2= schematic.name
-              div.schematic_image_container
-                - const src = `/raw/schematics/${schematic._id}/image`
-                img.schematic_image.lazy(data-src=src)
+              - const src = `/raw/schematics/${schematic._id}/image`
+              img.schematic_image.lazy(data-src=src)
+    
     footer
       - const queryParam = query ? `&query=${query}` : ""
       - const tagParam = queriedTags ? `&tags=${queriedTags}` : ""
-      - const firstPage = `/?page=1${queryParam}${tagParam}`
-      - const previousPage = `/?page=${page - 1 || 1}${queryParam}${tagParam}`
-      - const nextPage = `/?page=${page + 1}${queryParam}${tagParam}`
-      - const lastPage = `/?page=${pages}${queryParam}${tagParam}`
+      - const modeParam = mode ? `&mode=${mode}` : ""
+      - const constantParams = `${modeParam}${queryParam}${tagParam}`
+      - const firstPage = `/?page=1${constantParams}`
+      - const previousPage = `/?page=${page - 1 || 1}${constantParams}`
+      - const nextPage = `/?page=${page + 1}${constantParams}`
+      - const lastPage = `/?page=${pages}${constantParams}`
       a(href=firstPage class=`${page > 2 ? "": "hidden"}`)
         button.icon_text
           img(src="/assets/double_chevron.svg")

@@ -1,19 +1,23 @@
 mixin app_bar(page)
+  - let isAdmin = page == "admin"
+  //- this is used by the css to know how much the panel should expand
+  //- on mobile devices
+  - let items = 5 + isAdmin
   nav
-    ul
-      if page == "admin"
-        li(class="selected")
-          a(href="/admin") Admin Panel
-      li(class=`${page=='schematics' ? 'selected': ''}`)
-        a(href="/") Schematics
-      li(class=`${page=='logic' ? 'logic': ''}`)
-        a(href="https://logic.mindustryschematics.com") Logic Emulator
-      li(class=`${page=='downloads' ? 'selected': ''}`)
-        a(href="/downloads") Downloads
-      li(class=`${page=='help' ? 'selected': ''}`)
-        a(href="/help") Help
-      li(class=`${page=='info' ? 'selected': ''}`)
-        a(href="/info") Info
+    ul(style=`--items: ${items}`)
+      if isAdmin
+        a(href="/admin")
+          li(class="selected") Admin Panel
+      a(href="/" class=`${page=='schematics' ? 'selected': ''}`) 
+        li Schematics
+      a(href="https://logic.mindustryschematics.com" class=`${page=='logic' ? 'logic': ''}`)
+        li Logic Emulator
+      a(href="/downloads" class=`${page=='downloads' ? 'selected': ''}`) 
+        li Downloads
+      a(href="/help" class=`${page=='help' ? 'selected': ''}`) 
+        li Help
+      a(href="/info" class=`${page=='info' ? 'selected': ''}`) 
+        li Info
     button.icon.menu
       img(src="/assets/menu.svg")
     block

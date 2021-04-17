@@ -15,6 +15,7 @@ export default async () => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
+    useFindAndModify: false,
   });
 
   return mongoose;

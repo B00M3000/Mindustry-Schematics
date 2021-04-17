@@ -1,4 +1,5 @@
 import { ItemCost } from 'mindustry-schematic-parser';
+import mongodb from 'mongodb';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
@@ -23,7 +24,7 @@ export interface SchematicDocument extends mongoose.Document {
   description: string;
   // eslint-disable-next-line camelcase
   encoding_version: string;
-  image: { Data: Buffer; ContentType: string };
+  image: { Data: mongodb.Binary; ContentType: string };
   name: string;
   powerConsumption: number;
   powerProduction: number;
@@ -32,5 +33,6 @@ export interface SchematicDocument extends mongoose.Document {
   text: string;
   views: number;
 }
+
 const SchematicSchema = mongoose.model<SchematicDocument>('Schematics', schema);
 export default SchematicSchema;

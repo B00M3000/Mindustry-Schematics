@@ -44,7 +44,7 @@ function addTag(tag) {
   xMark.src = '/assets/cross-mark.svg';
   xMark.addEventListener('click', () => {
     ul.removeChild(li);
-    currentTags.pop(currentTags.indexOf(tag.name));
+    currentTags.splice(currentTags.indexOf(tag), 1);
   });
   layer.appendChild(xMark);
   li.appendChild(layer);
