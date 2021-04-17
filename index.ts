@@ -7,6 +7,7 @@ import express from 'express';
 import fileuploader from 'express-fileupload';
 import mongo from './mongo';
 import path from 'path';
+import fs from 'fs';
 
 const PORT = process.env.PORT || 3000;
 
@@ -28,8 +29,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(fileuploader());
 
+const backgrounds = fs.readdirSync(path.join(rootDir, '/static/assets/backgrounds')).map(file => path.join('/assets/backgrounds', file))
+
+app.locals = {
+  backgrounds,
+  _backgrounds: JSON.stringify(backgrounds),
+}
+
 app.use((req, res, next) => {
   req.url = req.originalUrl;
+  
   next();
 });
 
