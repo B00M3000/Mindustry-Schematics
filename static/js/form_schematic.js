@@ -41,7 +41,7 @@ schematicInput &&
 text &&
   text.addEventListener('change', async (e) => {
     // reset the file input when the user changes the text input
-    if (e.isTrusted) fileInput.value = '';
+    if (e.isTrusted && fileInput) fileInput.value = '';
     const value = text.value;
     const form = document.querySelector('form');
     form.classList.add('locked');

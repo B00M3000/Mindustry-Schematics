@@ -35,10 +35,11 @@ html
         textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description
 
         label(for="text") Schematic: 
-        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text readonly required)
+        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text required)
+        span.error This isn't a valid schematic
 
-        label(for="description") Changes: 
-        textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what was changed and why?" required)
+        label(for="changes") Changes: 
+        textarea.rounded-input(type="text" name="cDescription" id="changes" placeholder="Description of what was changed and why?" required)
         label(for="tags") Tags:
         input#tags(type="text" list="tags-list")
         datalist(id="tags-list")
