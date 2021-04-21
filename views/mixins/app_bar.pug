@@ -2,7 +2,7 @@ mixin app_bar(page)
   - let isAdmin = user && user.access == "admin"
   //- this is used by the css to know how much the panel should expand
   //- on mobile devices
-  - let items = 5 + isAdmin
+  - let items = 6 + isAdmin
   nav
     ul(style=`--items: ${items}`)
       if isAdmin

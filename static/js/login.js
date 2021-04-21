@@ -1,15 +1,14 @@
-const userForms = document.getElementsByClassName("users")
-for(uf of userForms){
-  uf.addEventListener('submit', async e => {
-    e.preventDefault()
-    e.stopPropogation()
-    const data = new FormData(uf)
-    const response = await fetch(form.action, {
-      method: form.method,
+const userForms = document.getElementsByClassName('users');
+for (uf of userForms) {
+  uf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // e.stopPropogation();
+    const data = new FormData(uf);
+    await fetch(uf.action, {
+      method: uf.method,
       body: data,
     });
-    return false
-  })
+  });
 }
 
 function regenerateToken(token){
