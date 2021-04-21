@@ -6,8 +6,8 @@ mixin app_bar(page)
   nav
     ul(style=`--items: ${items}`)
       if isAdmin
-        a(href="/admin")
-          li(class="selected") Admin Panel
+        a.selected(href="/admin")
+          li Admin Panel
       a(href="/" class=`${page=='schematics' ? 'selected': ''}`) 
         li Schematics
       a(href="https://logic.mindustryschematics.com" class=`${page=='logic' ? 'logic': ''}`)
