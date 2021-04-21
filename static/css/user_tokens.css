@@ -8,6 +8,7 @@ ul.users {
   align-items: center;
   list-style: none;
   padding: 1rem;
+  gap: 1.5rem;
 }
 ul.users li {
   background-color: var(--surface);

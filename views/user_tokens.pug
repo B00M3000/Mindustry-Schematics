@@ -26,5 +26,13 @@ html(lang="en")
                 option(value="mod" selected) Mod
               else
                 option(value="mod") Mod
-            button(class="regenerate" onclick=`regenerateToken("${u.token}")`) Regenerate Token
+            button(class="regenerate" type="button" onclick=`regenerateToken("${u.token}")`) Regenerate Token
             button(type="submit") Save
+    footer
+      a(href="/user")
+        div.notched.btn
+          button.icon_text.back
+            img(src="/assets/arrow.svg")
+            span Back 
+
+    script(src="/js/login.js")
