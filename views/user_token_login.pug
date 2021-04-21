@@ -1,8 +1,13 @@
 doctype html
 html(lang="en")
   head
+    link(rel="stylesheet", href="/css/core.css")
+  
     title User 
   body
+    include mixins/app_bar
+    +app_bar("user")
+    
     if user
       h2= `Welcome back ${user.username}`
       
