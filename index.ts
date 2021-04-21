@@ -2,7 +2,8 @@ import 'pug';
 import './util/config_env';
 import * as routes from './routes';
 import { DiscordWebhookHandler, EventHandler, rootDir } from './util';
-import UserTokenSchema, { UserTokenDocument } from './schemas/UserToken';
+import { User, roles } from './auth';
+import UserTokenSchema from './schemas/UserToken';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fileuploader from 'express-fileupload';
@@ -40,24 +41,24 @@ app.locals = {
 };
 
 app.use(async (req, res, next) => {
-  const { token } = req.cookies
-  
-  if(token){
-    var user = await UserTokenSchema.findOne({
+  const { token } = req.cookies;
+
+  if (token) {
+    const userDoc = await UserTokenSchema.findOne({
       token,
-    })
-    
-    if(user) {
-      if(user.access == "mod" || user.access == "admin"){
-        user.isMod = true;
-        if(user.access == "admin"){
-          user.isAdmin = true;
-          var all = await UserTokenSchema.find({})
-          res.locals.users = all
-        } else user.isAdmin = false;
-      } else user.isMod = false;
-      res.locals.user = user
+    });
+    if (!userDoc) return;
+    const user = new User({
+      name: userDoc.username,
+      role: userDoc.access,
+      token: userDoc.token,
+    });
+    console.log(user.role > roles.mod);
+    if (user.role >= roles.admin) {
+      const docs = await UserTokenSchema.find({});
+      res.locals.users = docs;
     }
+    res.locals.user = user;
   }
 
   req.url = req.originalUrl;
@@ -72,7 +73,7 @@ app.use('/help', routes.help);
 app.use('/admin', routes.admin);
 app.use('/api', routes.api);
 app.use('/raw', routes.raw);
-app.use('/user', routes.user)
+app.use('/user', routes.user);
 
 // Handle 404
 app.use((req, res) => {
