@@ -1,5 +1,5 @@
 mixin app_bar(page)
-  - let isAdmin = page == "admin"
+  - let isAdmin = user && user.access == "admin"
   //- this is used by the css to know how much the panel should expand
   //- on mobile devices
   - let items = 5 + isAdmin

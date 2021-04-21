@@ -2,6 +2,7 @@ import 'pug';
 import './util/config_env';
 import * as routes from './routes';
 import { DiscordWebhookHandler, EventHandler, rootDir } from './util';
+import UserTokenSchema, { UserTokenDocument } from './schemas/UserToken';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fileuploader from 'express-fileupload';
@@ -38,7 +39,17 @@ app.locals = {
   _backgrounds: JSON.stringify(backgrounds),
 };
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
+  const { token } = req.cookies
+  
+  if(token){
+    const user = await UserTokenSchema.findOne({
+      token,
+    })
+    
+    if(user) res.locals.user = user
+  }
+
   req.url = req.originalUrl;
 
   next();
@@ -51,6 +62,7 @@ app.use('/help', routes.help);
 app.use('/admin', routes.admin);
 app.use('/api', routes.api);
 app.use('/raw', routes.raw);
+app.use('/user', routes.user)
 
 // Handle 404
 app.use((req, res) => {
