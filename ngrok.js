@@ -21,7 +21,7 @@ ngrok.connect({
       headers: {
         "Content-Type": "application/json",
       },
-      body: {
+      body: JSON.stringify({
         embeds: [
           {
             title: "A ngrok tunnel has been established.",
@@ -29,6 +29,6 @@ ngrok.connect({
             url,
           }  
         ]
-      }
+      })
     })
   })
