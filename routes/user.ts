@@ -39,9 +39,11 @@ router.post('/:token', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  const user = res.locals.user as User;
-  res.render('user_token_login', {
-    isAdmin: user.access >= accessLevels.admin,
-    isMod: user.access >= accessLevels.mod,
-  });
+  const user = res.locals.user as User | undefined;
+  const options: Record<string, unknown> = {};
+  if (user) {
+    options.isAdmin = user.access >= accessLevels.admin;
+    options.isMod = user.access >= accessLevels.mod;
+  }
+  res.render('user_token_login', options);
 });
