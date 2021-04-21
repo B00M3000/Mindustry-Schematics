@@ -50,11 +50,11 @@ app.use(async (req, res, next) => {
     if (!userDoc) return;
     const user = new User({
       name: userDoc.username,
-      role: userDoc.access,
+      access: userDoc.access,
       token: userDoc.token,
     });
-    console.log(user.role > roles.mod);
-    if (user.role >= roles.admin) {
+    console.log(user.access > roles.mod);
+    if (user.access >= roles.admin) {
       const docs = await UserTokenSchema.find({});
       res.locals.users = docs;
     }

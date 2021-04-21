@@ -20,7 +20,7 @@ router.post('/logout', async (req, res) => {
 
 router.post('/:token', async (req, res) => {
   const user = res.locals.user as User;
-  if (!user || user.role < roles.admin) return res.sendStatus(403);
+  if (!user || user.access < roles.admin) return res.sendStatus(403);
 
   const { username, token, access } = req.body;
   const _token = req.params.token;

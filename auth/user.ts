@@ -1,18 +1,18 @@
-import { UserRole } from './roles';
+import { UserAccess } from './roles';
 
 interface UserOptions {
-  role: UserRole | string;
+  access: UserAccess | string;
   token: string;
   name: string;
 }
 export class User {
-  role: UserRole;
+  access: UserAccess;
   token: string;
   name: string;
   constructor(options: UserOptions) {
     ({ token: this.token, name: this.name } = options);
-    if (typeof options.role === 'string') {
-      this.role = UserRole.from(options.role);
-    } else this.role = options.role;
+    if (typeof options.access === 'string')
+      this.access = UserAccess.from(options.access);
+    else this.access = options.access;
   }
 }

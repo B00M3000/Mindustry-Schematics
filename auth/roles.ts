@@ -1,4 +1,4 @@
-export class UserRole {
+export class UserAccess {
   readonly name: string;
   readonly level: number;
   constructor(name: string, level: number) {
@@ -6,7 +6,7 @@ export class UserRole {
     this.level = level;
   }
 
-  static from(name: string): UserRole {
+  static from(name: string): UserAccess {
     if (name in roles) return roles[name as keyof typeof roles];
     throw new Error('The role is not defined');
   }
@@ -24,7 +24,7 @@ export class UserRole {
 // the names must be camelCase
 // the lower the level of the role, the higher its privileges
 export const roles = {
-  admin: new UserRole('admin', 0),
-  mod: new UserRole('mod', 1),
-  user: new UserRole('user', 2),
+  admin: new UserAccess('admin', 0),
+  mod: new UserAccess('mod', 1),
+  user: new UserAccess('user', 2),
 };
