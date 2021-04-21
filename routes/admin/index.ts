@@ -2,22 +2,16 @@ import { Router } from 'express';
 import changesRouter from './schematic_changes';
 const router = Router();
 
-const secret = 'tadatada';
-
 router.use((req, res, next) => {
   const { originalUrl } = req;
   if (originalUrl.includes('/image')) return next();
 
-  if (originalUrl === '/admin/' + secret) {
-    res.cookie('secret', secret, { maxAge: 3600000 }); // 1 hour
-    return res.redirect('/admin');
-  }
+  if(!(res.locals && res.locals.user)) return res.redirect('/')
 
-  const s = req.cookies.secret;
-
-  if (s && s === secret) return next();
-
-  res.redirect('/');
+  const access = res.locals.user.access
+  
+  if(access == "mod" || access == "admin") return next();
+  else return res.redirect('/')
 });
 
 router.get('/', (req, res) => {
