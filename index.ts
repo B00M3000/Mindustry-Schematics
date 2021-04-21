@@ -43,11 +43,21 @@ app.use(async (req, res, next) => {
   const { token } = req.cookies
   
   if(token){
-    const user = await UserTokenSchema.findOne({
+    var user = await UserTokenSchema.findOne({
       token,
     })
     
-    if(user) res.locals.user = user
+    if(user) {
+      if(user.access == "mod" || user.access == "admin"){
+        user.isMod = true;
+        if(user.access == "admin"){
+          user.isAdmin = true;
+          var all = await UserTokenSchema.find({})
+          res.locals.users = all
+        } else user.isAdmin = false;
+      } else user.isMod = false;
+      res.locals.user = user
+    }
   }
 
   req.url = req.originalUrl;
