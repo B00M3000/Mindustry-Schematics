@@ -7,7 +7,8 @@ export class UserAccess {
   }
 
   static from(name: string): UserAccess {
-    if (name in roles) return roles[name as keyof typeof roles];
+    if (name in accessLevels)
+      return accessLevels[name as keyof typeof accessLevels];
     throw new Error('The role is not defined');
   }
 
@@ -23,7 +24,7 @@ export class UserAccess {
 }
 // the names must be camelCase
 // the lower the level of the role, the higher its privileges
-export const roles = {
+export const accessLevels = {
   admin: new UserAccess('admin', 0),
   mod: new UserAccess('mod', 1),
   user: new UserAccess('user', 2),

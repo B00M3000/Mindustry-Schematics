@@ -1,4 +1,4 @@
-import { User, roles } from '../auth';
+import { User, accessLevels } from '../auth';
 import { Router } from 'express';
 import UserTokenSchema from '../schemas/UserToken';
 
@@ -20,7 +20,7 @@ router.post('/logout', async (req, res) => {
 
 router.post('/:token', async (req, res) => {
   const user = res.locals.user as User;
-  if (!user || user.access < roles.admin) return res.sendStatus(403);
+  if (!user || user.access < accessLevels.admin) return res.sendStatus(403);
 
   const { username, token, access } = req.body;
   const _token = req.params.token;
@@ -39,5 +39,9 @@ router.post('/:token', async (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.render('user_token_login');
+  const user = res.locals.user as User;
+  res.render('user_token_login', {
+    isAdmin: user.access >= accessLevels.admin,
+    isMod: user.access >= accessLevels.mod,
+  });
 });

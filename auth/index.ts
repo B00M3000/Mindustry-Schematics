@@ -1,2 +1,2 @@
-export { UserAccess, roles } from './roles';
+export { UserAccess, accessLevels } from './roles';
 export { User } from './user';
