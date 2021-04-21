@@ -1,0 +1,42 @@
+h2 {
+  margin: 1rem;
+  text-align: center;
+}
+ul.users {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  padding: 1rem;
+}
+ul.users li {
+  background-color: var(--surface);
+  padding: 0.7rem;
+  border-radius: 1rem;
+}
+ul.users li form {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+ul.users li input,
+ul.users li input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  color: var(--on-surface);
+  border: none;
+  border-bottom: 2px solid #888888;
+}
+ul li input:focus {
+  border-color: var(--primary-light);
+}
+ul.users li select {
+  background-color: var(--surface);
+  color: var(--on-surface);
+  padding: 0.5em;
+  border: 2px solid #888;
+  border-radius: 0.5em;
+  font-size: 0.78rem;
+}

@@ -42,7 +42,7 @@ app.locals = {
 
 app.use(async (req, res, next) => {
   const { token } = req.cookies;
-  console.log(token);
+
   if (token) {
     const userDoc = await UserTokenSchema.findOne({
       token,

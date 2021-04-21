@@ -20,6 +20,8 @@ router.get('/', (req, res) => {
   res.render('admin');
 });
 
+router.get('/tokens', (req, res) => res.render('user_tokens'));
+
 router.use('/schematic_changes', changesRouter);
 
 export default router;

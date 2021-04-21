@@ -1,43 +1,33 @@
 doctype html
 html(lang="en")
   head
+    include includes/head
     link(rel="stylesheet", href="/css/core.css")
-  
+    link(rel="stylesheet", href="/css/user.css")
+
     title User 
   body
     include mixins/app_bar
     +app_bar("user")
     
     if user
-      h2= `Welcome back ${user.name}`
-      
-      form(action="/user/logout" method="POST")
-        input(type="submit" value="Logout")
-        
-      if isMod
-        button(onclick="window.location.href='/admin'") Admin Panel
-        
-      if isAdmin
-        for u in users
-          form.users(action=`/user/${u.token}` method="POST")
-            input(type="text" name="username" value=u.username)
-            input(id=u.token type="text" name="token" value=u.token readonly)
-            select(name="access")
-              if u.access == "admin"
-                option(value="admin" selected) Admin
-              else
-                option(value="admin") Admin
-              if u.access == "mod"
-                option(value="mod" selected) Mod
-              else
-                option(value="mod") Mod
-            button(class="regenerate" onclick=`regenerateToken("${u.token}")`) Regenerate Token
-            input(type="submit" value="Save")
-          br
+      main
+        div.login
+          h2= `Welcome back, ${user.name}`
+          form(action="/user/logout" method="POST")
+            button(type="submit") Logout
+          
+        if isMod
+          a.link(href="/admin/schematic_changes")
+            button.small Schematic Changes
+          
+        if isAdmin
+          a.link(href="/admin/tokens")
+            button User Tokens
         
     else
       form(action="/user/login" method="POST")
-        input(name="token" type="text" placeholder="Enter your token here..." required)
+        input(name="token" type="password" placeholder="Enter your token here..." required)
         input(type="submit" value="Login")
       
     script(src="/js/login.js")
