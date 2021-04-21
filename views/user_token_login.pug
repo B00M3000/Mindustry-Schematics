@@ -11,15 +11,15 @@ html(lang="en")
     +app_bar("user")
     
     if user
-      h2= `Welcome back ${user.username}`
+      h2= `Welcome back ${user.name}`
       
       form(action="/user/logout" method="POST")
         input(type="submit" value="Logout")
         
-      if user.isMod
+      if isMod
         button(onclick="window.location.href='/admin'") Admin Panel
         
-      if user.isAdmin
+      if isAdmin
         for u in users
           form.users(action=`/user/${u.token}` method="POST")
             input(type="text" name="username" value=u.username)
