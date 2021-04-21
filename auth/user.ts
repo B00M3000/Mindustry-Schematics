@@ -1,4 +1,4 @@
-import { UserAccess } from './roles';
+import { UserAccess } from './access';
 
 interface UserOptions {
   access: UserAccess | string;

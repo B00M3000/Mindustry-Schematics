@@ -2,7 +2,7 @@ import 'pug';
 import './util/config_env';
 import * as routes from './routes';
 import { DiscordWebhookHandler, EventHandler, rootDir } from './util';
-import { User, roles } from './auth';
+import { User, accessLevels } from './auth';
 import UserTokenSchema from './schemas/UserToken';
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -53,8 +53,7 @@ app.use(async (req, res, next) => {
       access: userDoc.access,
       token: userDoc.token,
     });
-    console.log(user.access > roles.mod);
-    if (user.access >= roles.admin) {
+    if (user.access >= accessLevels.admin) {
       const docs = await UserTokenSchema.find({});
       res.locals.users = docs;
     }
