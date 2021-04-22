@@ -3,3 +3,4 @@ User-agent: *
 Allow: /
 Disallow: /static
 Disallow: /admin
+Disallow: /?
