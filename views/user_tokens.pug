@@ -10,7 +10,19 @@ html(lang="en")
   body
     include mixins/app_bar
     +app_bar("user")
+    
     h2 User Tokens
+    
+    form#template(action=`/user/{token}` method="POST" style="display: none;")
+      button(class="delete" type="button" onclick=`deleteToken("{token}")`) Delete
+      input(type="text" name="username")
+      input(type="text" name="token" readonly)
+      select(name="access")
+        option(value="admin") Admin
+        option(value="mod" selected) Mod
+      button(class="regenerate" type="button" onclick=`regenerateToken("{token}")`) Regenerate Token
+      button(type="submit") Save
+    
     ul.users
       for u in users
         li
@@ -29,6 +41,7 @@ html(lang="en")
                 option(value="mod") Mod
             button(class="regenerate" type="button" onclick=`regenerateToken("${u.token}")`) Regenerate Token
             button(type="submit") Save
+    button(class="create" type="button" onclick=`createToken()`) Create User Token
     footer
       a(href="/user")
         div.notched.btn
