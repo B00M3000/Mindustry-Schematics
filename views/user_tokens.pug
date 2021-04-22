@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+  head
+    include includes/head
+
+    link(rel='stylesheet' href='/css/core.css' type='text/css')
+    link(rel='stylesheet' href='/css/user_tokens.css' type='text/css')
+
+    title User Tokens
+  body
+    include mixins/app_bar
+    +app_bar("user")
+    h2 User Tokens
+    ul.users
+      for u in users
+        li
+          form.users(action=`/user/${u.token}` method="POST")
+            input(type="text" name="username" value=u.username)
+            input(id=u.token type="text" name="token" value=u.token readonly)
+            select(name="access")
+              if u.access == "admin"
+                option(value="admin" selected) Admin
+              else
+                option(value="admin") Admin
+              if u.access == "mod"
+                option(value="mod" selected) Mod
+              else
+                option(value="mod") Mod
+            button(class="regenerate" type="button" onclick=`regenerateToken("${u.token}")`) Regenerate Token
+            button(type="submit") Save
+    footer
+      a(href="/user")
+        div.notched.btn
+          button.icon_text.back
+            img(src="/assets/arrow.svg")
+            span Back 
+
+    script(src="/js/login.js")

@@ -1,28 +1,23 @@
-const userForms = document.getElementsByClassName("users")
-for(uf of userForms){
-  uf.addEventListener('submit', async e => {
-    e.preventDefault()
-    e.stopPropogation()
-    const data = new FormData(uf)
-    const response = await fetch(form.action, {
-      method: form.method,
+const userForms = document.getElementsByClassName('users');
+for (uf of userForms) {
+  uf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // e.stopPropogation();
+    const data = new FormData(uf);
+    await fetch(uf.action, {
+      method: uf.method,
       body: data,
     });
-    return false
-  })
+  });
 }
 
-function regenerateToken(token){
-  var tokenInput = document.getElementById(`input-${token}`)
-  tokenInput.value = generateId(16)
+function regenerateToken(token) {
+  const tokenInput = document.getElementById(token);
+  tokenInput.value = generateId();
 }
 
-function generateId(length) {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-  for (var i = 0; i < length; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-  return text;
+function generateId() {
+  const preffix = new Date().getTime().toString(36);
+  const suffix = Math.floor(Math.random() * 100000).toString(36);
+  return preffix + suffix;
 }

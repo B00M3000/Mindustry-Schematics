@@ -42,12 +42,12 @@ app.locals = {
 
 app.use(async (req, res, next) => {
   const { token } = req.cookies;
-
+  res.locals.levels = accessLevels;
   if (token) {
     const userDoc = await UserTokenSchema.findOne({
       token,
     });
-    if (!userDoc) return;
+    if (!userDoc) return next();
     const user = new User({
       name: userDoc.username,
       access: userDoc.access,
