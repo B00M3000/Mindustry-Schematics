@@ -108,10 +108,6 @@
     "color": "#7eded7"
   },
   {
-    "name": "Non-Stackable",
-    "color": "#6751b0"
-  },
-  {
     "name": "Core Design",
     "color": "#e6bc53"
   },
@@ -128,23 +124,67 @@
     "color": "#8b8f83"
   },
   {
-    "name": "t5",
+    "name": "T5",
     "color": "#545453"
   },
   {
-    "name": "t4",
+    "name": "T4",
     "color": "#545453"
   },
   {
-    "name": "t3",
+    "name": "T3",
     "color": "#545453"
   },
   {
-    "name": "t2",
+    "name": "T2",
     "color": "#545453"
   },
   {
-    "name": "t1",
+    "name": "T1",
     "color": "#545453"
-  }
+  },
+  {
+    "name": "Cyrofluid",
+    "color": "#34d5eb"
+  },
+  {
+    "name": "From Sand",
+    "color": "#f7cba4"
+  },
+  {
+    "name": "Offence",
+    "color": "#fc6b03"
+  },
+  {
+    "name": "Combustion Generator",
+    "color": "#403939"
+  },
+  {
+    "name": "Impact Reactor",
+    "color": "#e86e35"
+  },
+  {
+    "name": "RTG Generator",
+    "color": "#7422a3"
+  },
+  {
+    "name": "Thermal Generator",
+    "color": "#e86e35"
+  },
+  {
+    "name": "Unit Control",
+    "color": "#8a37a6"
+  },
+  {
+    "name": "Water",
+    "color": "#3937a6"
+  },
+  {
+    "name": "Mining",
+    "color": "#8a37a6"
+  },
+  {
+    "name": "Drills",
+    "color": "#7a6a66"
+  },
 ]
