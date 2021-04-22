@@ -29,12 +29,16 @@ html
       h3.author= 'by ' + schematic.creator || schematic.author
       h4.description !{schematic.description}
   
-
       div.inputs
         label(for="reason") Reason: 
-        textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?" required)
+        if isMod
+          textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?")
+        else
+          textarea.rounded-input(type="text" name="reason" id="reason" placeholder="Why should this schematic be removed?" required)
       div.notched.btn
-        button(type="submit" name="submit") Submit Deletion Request
+        button(id="request" type="submit" name="submit") Submit Deletion Request
+        if isMod
+          button(id="direct" type="submit" name="submit") Direct Deletion
     footer
       a(href=`/schematics/${schematic._id}`)
         button.icon_text.back

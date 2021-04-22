@@ -185,6 +185,11 @@ router.post('/:id/edit', async (req, res) => {
 });
 
 router.post('/:id/delete', async (req, res) => {
+  console.log(req.body)
+  if(req.body.submit == "direct") {
+    
+  }
+
   const { schematic } = req as SchematicRequest;
   const { reason } = req.body;
 

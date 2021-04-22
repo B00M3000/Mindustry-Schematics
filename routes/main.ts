@@ -3,6 +3,7 @@ import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from './types';
+import { User, accessLevels } from '../auth';
 import { safeDescription } from '../util';
 import tags from '../tags.json';
 const { ObjectId } = Types;
@@ -134,19 +135,27 @@ router.get('/schematics/:id', async (req, res) => {
 router.get('/schematics/:id/edit', async (req, res) => {
   const { schematic } = req as SchematicRequest;
 
+  const user = res.locals.user as User | undefined;
+  var isMod = user ? user.access >= accessLevels.mod : undefined
+
   res.render('edit_schematic', {
     schematic,
     tags,
     _tags: JSON.stringify(tags),
     previousTags: JSON.stringify(schematic.tags),
+    isMod,
   });
 });
 
 router.get('/schematics/:id/delete', async (req, res) => {
   const { schematic } = req as SchematicRequest;
+  
+  const user = res.locals.user as User | undefined;
+  var isMod = user ? user.access >= accessLevels.mod : undefined
 
   schematic.description = safeDescription(schematic.description || '');
   res.render('delete_schematic', {
     schematic,
+    isMod,
   });
 });
