@@ -13,21 +13,21 @@ html(lang="en")
     
     h2 User Tokens
     
-    form#template(action=`/user/{token}` method="POST" style="display: none;")
-      button(class="delete" type="button" onclick=`deleteToken("{token}")`) Delete
+    form#template.userForms(action=`/user/{token}` method="POST" style="display: none;")
+      button(class="delete" type="button" onclick=`deleteToken(this.parentElement)`) Delete
       input(type="text" name="username")
       input(type="text" name="token" readonly)
       select(name="access")
         option(value="admin") Admin
         option(value="mod" selected) Mod
-      button(class="regenerate" type="button" onclick=`regenerateToken("{token}")`) Regenerate Token
+      button(class="regenerate" type="button" onclick=`regenerateToken(this.parentElement)`) Regenerate Token
       button(type="submit") Save
     
     ul.users
       for u in users
         li
-          form.users(action=`/user/${u.token}` method="POST" id=`form-${u.token}`)
-            button(class="delete" type="button" onclick=`deleteToken("${u.token}")`) Delete
+          form.userForms(action=`/user/${u.token}` method="POST" id=`form-${u.token}`)
+            button(class="delete" type="button" onclick=`deleteToken(this.parentElement)`) Delete
             input(type="text" name="username" value=u.username)
             input(id=u.token type="text" name="token" value=u.token readonly)
             select(name="access")
@@ -39,7 +39,7 @@ html(lang="en")
                 option(value="mod" selected) Mod
               else
                 option(value="mod") Mod
-            button(class="regenerate" type="button" onclick=`regenerateToken("${u.token}")`) Regenerate Token
+            button(class="regenerate" type="button" onclick=`regenerateToken(this.parentElement)`) Regenerate Token
             button(type="submit") Save
     button(class="create" type="button" onclick=`createToken()`) Create User Token
     footer

@@ -1,10 +1,10 @@
-const userForms = document.getElementsByClassName('users');
+const userForms = document.getElementsByClassName('usersForms');
 for (uf of userForms) {
-  addSubmitListener(uf)
+  if(uf.id != "template") addSubmitListener(uf)
 }
 
 function addSubmitListener(form){
-  uf.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
     await fetch(form.action, {
@@ -23,8 +23,6 @@ function createToken(){
   form.id = `form-${token}`
   form.action = `/user/${token}`
   console.log(form)
-  form.querySelector('.delete').onclick = `deleteToken("${token}")`
-  form.querySelector('.regenerate').onclick = `regenerateToken("${token}")`
   form.querySelector('input[name="token"]').id = token
   form.querySelector('input[name="token"]').value = token
   addSubmitListener(form)
@@ -33,17 +31,15 @@ function createToken(){
   users.append(li)
 }
 
-async function deleteToken(token){
-  const form = document.getElementById(`form-${token}`)
-  if(form){
-    form.remove()
-    await fetch(form.action, {
-      method: "DELETE",
-    })
-  }
+async function deleteToken(form){
+  form.remove()
+  await fetch(form.action, {
+    method: "DELETE",
+  })
 }
 
-function regenerateToken(token) {
+function regenerateToken(form) {
+  const token = form.id.replace('form-', '')
   const tokenInput = document.getElementById(token);
   tokenInput.value = generateId();
 }
