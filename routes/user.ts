@@ -1,6 +1,6 @@
 import { User, accessLevels } from '../auth';
 import { Router } from 'express';
-// import UserTokenSchema from '../schemas/UserToken';
+import UserTokenSchema from '../schemas/UserToken';
 
 const router = Router();
 export default router;
@@ -22,10 +22,10 @@ router.post('/:token', async (req, res) => {
   const user = res.locals.user as User;
   if (!user || user.access < accessLevels.admin) return res.sendStatus(403);
 
-  const { /* username, */ token /*, access */ } = req.body;
-  // const _token = req.params.token;
+  const { username, token , access } = req.body;
+  const _token = req.params.token;
   if (user && user.token === req.params.token) res.cookie('token', token);
-  /* const response = await UserTokenSchema.updateOne(
+  const response = await UserTokenSchema.findOneAndUpdate(
     {
       token: _token,
     },
@@ -33,10 +33,25 @@ router.post('/:token', async (req, res) => {
       username,
       token,
       access,
+    },
+    {
+      upsert: true,
     }
-  ); */
+  );
   res.sendStatus(200);
 });
+
+router.delete('/:token', async (req, res) => {
+  const user = res.locals.user as User;
+  if (!user || user.access < accessLevels.admin) return res.sendStatus(403);
+
+  const _token = req.params.token;
+  const response = await UserTokenSchema.deleteOne(
+    {
+      token: _token,
+    }
+  );
+})
 
 router.get('/', (req, res) => {
   const user = res.locals.user as User | undefined;

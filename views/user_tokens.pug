@@ -14,7 +14,8 @@ html(lang="en")
     ul.users
       for u in users
         li
-          form.users(action=`/user/${u.token}` method="POST")
+          form.users(action=`/user/${u.token}` method="POST" id=`form-${u.token}`)
+            button(class="delete" type="button" onclick=`deleteToken("${u.token}")`) Delete
             input(type="text" name="username" value=u.username)
             input(id=u.token type="text" name="token" value=u.token readonly)
             select(name="access")

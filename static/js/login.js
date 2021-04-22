@@ -1,14 +1,27 @@
 const userForms = document.getElementsByClassName('users');
 for (uf of userForms) {
+  addSubmitListener(uf)
+}
+
+function addSubmitListener(form){
   uf.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // e.stopPropogation();
-    const data = new FormData(uf);
-    await fetch(uf.action, {
-      method: uf.method,
+    const data = new FormData(form);
+    await fetch(form.action, {
+      method: form.method,
       body: data,
     });
   });
+}
+
+async function deleteToken(token){
+  const form = document.getElementById(`form-${token}`)
+  if(form){
+    form.remove()
+    await fetch(form.action, {
+      method: "DELETE",
+    })
+  }
 }
 
 function regenerateToken(token) {
