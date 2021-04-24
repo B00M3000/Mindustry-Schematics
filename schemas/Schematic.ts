@@ -1,5 +1,5 @@
-import { ItemCost } from 'mindustry-schematic-parser';
-import mongodb from 'mongodb';
+import type { ItemCost } from 'mindustry-schematic-parser';
+import type mongodb from 'mongodb';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({

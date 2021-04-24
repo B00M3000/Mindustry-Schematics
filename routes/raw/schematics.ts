@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { SchematicRequest } from '../../routes/types.js';
+import type { SchematicRequest } from '../../routes/types.js';
 import SchematicSchema from '../../schemas/Schematic.js';
 
 const router = Router();

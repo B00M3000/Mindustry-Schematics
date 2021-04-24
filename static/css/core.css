@@ -6,9 +6,9 @@
 }
 
 :root {
-  --primary: #ffc72d;
-  --primary-light: #ffe54c;
-  --primary-dark: #c68400;
+  --primary: hsl(44, 100%, 60%);
+  --primary-light: hsl(44, 100%, 70%);
+  --primary-dark: hsl(44, 100%, 50%);
   --on-primary: #000;
   --background: #1a1a1a;
   --on-background: #fff;
@@ -61,7 +61,7 @@ html::before {
   background-size: 100%;
   filter: brightness(0.3);
   z-index: -2;
-  padding-bottom: 5em;
+  padding-bottom: 5rem;
 }
 html::after {
   content: '';
@@ -74,7 +74,7 @@ html::after {
   background-size: 100%;
   filter: brightness(0.3);
   z-index: -1;
-  padding-bottom: 5em;
+  padding-bottom: 5rem;
   opacity: 0;
 }
 html.active_background::before {
@@ -83,47 +83,7 @@ html.active_background::before {
 html.active_background::after {
   animation: fade 6s linear 3s infinite normal forwards;
 }
-nav {
-  padding: 0;
-  position: sticky;
-  background-color: var(--surface);
-  color: var(--on-surface);
-  box-shadow: 0px 0px 5px black;
-  top: 0;
-  left: 0;
-  margin-bottom: 0.5em;
-  z-index: 20;
-}
-nav ul {
-  --items: 5;
-  display: flex;
-  list-style: none;
-  padding: 1rem;
-  gap: 1em;
-}
-nav ul li {
-  padding: 0.5em;
-  border-radius: 0.5em;
-}
-nav ul .selected li {
-  background-color: var(--primary);
-  color: var(--on-primary);
-}
-div.path {
-  display: flex;
-  justify-content: start;
-  padding: 0 0 0.5em 1.5em;
-  font-size: 0.9em;
-}
-div.path div.part span {
-  margin: 0 0.3em;
-}
-nav button.menu {
-  display: none;
-}
-nav button.menu:hover {
-  background-color: transparent;
-}
+
 footer {
   position: fixed;
   bottom: 0;
@@ -132,7 +92,7 @@ footer {
   backdrop-filter: blur(2px);
   color: var(--on-surface);
   width: 100%;
-  padding: 0.5em;
+  padding: 0.5rem;
   gap: 1em;
   z-index: 10;
   justify-content: center;
@@ -140,8 +100,8 @@ footer {
 }
 button {
   border: 2px solid #808080;
-  border-radius: 0.5em;
-  padding: 0.5em;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
   background-color: var(--surface);
   color: var(--on-surface);
   cursor: pointer;
@@ -173,9 +133,9 @@ button {
   color: var(--on-surface);
   animation-name: fly-in-out;
   animation-duration: 3s;
-  padding: 1em;
+  padding: 1rem;
   border-right: none;
-  border-radius: 1em 0 0 1em;
+  border-radius: 1rem 0 0 1rem;
   box-shadow: 0px 0px 0.6em black;
   display: flex;
   align-items: center;
@@ -189,75 +149,7 @@ button {
   object-fit: contain;
 }
 
-button.icon {
-  cursor: pointer;
-  padding: 4px;
-  text-decoration: none;
-  background-color: var(--surface);
-  border: none;
-  border-radius: 0;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 3em;
-  width: 3em;
-}
-button.icon:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-button.icon img {
-  max-width: 24px;
-  max-height: 24px;
-}
-button.icon_text {
-  display: flex;
-  gap: 0.5em;
-  align-items: center;
-}
-button.icon_text img {
-  width: 1.5em;
-  max-height: 1.5em;
-  object-fit: contain;
-}
-button.icon_text.back img {
-  transform: scaleX(-1);
-}
 @media screen and (max-width: 600px) {
-  nav {
-    display: grid;
-    grid-template-columns: 1fr 3em;
-    grid-template-areas: 'buttons menu';
-  }
-  nav button.menu {
-    display: inline-flex;
-    grid-area: menu;
-    align-self: baseline;
-    margin-top: 1.1rem;
-    width: 2rem;
-    height: 2rem;
-  }
-  nav button.menu:focus {
-    pointer-events: none;
-  }
-  nav button.menu img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    width: 100%;
-  }
-  nav ul {
-    grid-area: buttons;
-    flex-direction: column;
-    overflow-y: hidden;
-    height: 4rem;
-    transition: height 0.5s ease;
-  }
-  nav ul .selected {
-    order: -1;
-  }
-  nav:focus-within ul {
-    height: calc(var(--items) * 3.5em);
-  }
   @keyframes fly-in-out {
     0% {
       top: 0px;

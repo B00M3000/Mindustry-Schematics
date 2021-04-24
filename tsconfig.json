@@ -1,22 +1,22 @@
 {
+  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
+    "baseUrl": "./",
+    "lib": ["DOM", "ES2017", "WebWorker"],
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "checkJs": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
-    "importHelpers": true,
-    "incremental": true,
     "isolatedModules": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
     "noImplicitAny": true,
-    "outDir": "dist",
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES6"
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "typeRoots": ["typings"]
   },
-  "include": ["routes", "schema", "util", "./*.ts"]
+  "include": ["src/node_modules/**/*", "**/**.ts"],
+  "exclude": ["node_modules/*", "__sapper__/*", "static/*"]
 }
