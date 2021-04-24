@@ -2,7 +2,7 @@ import { FilterQuery, Types } from 'mongoose';
 import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
-import { SchematicRequest } from './types';
+import type { SchematicRequest } from './types';
 import { safeDescription } from '../util';
 import tags from '../tags.json';
 const { ObjectId } = Types;

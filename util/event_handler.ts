@@ -1,4 +1,4 @@
-import { DiscordWebhookHandler } from './discord_webhook_handler';
+import type { DiscordWebhookHandler } from './discord_webhook_handler';
 
 interface Event {
   triggeredAt: number;
@@ -41,8 +41,8 @@ export class EventHandler {
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
     });
   }
 
@@ -53,8 +53,8 @@ export class EventHandler {
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
     });
   }
 
@@ -65,8 +65,8 @@ export class EventHandler {
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
     });
   }
 }

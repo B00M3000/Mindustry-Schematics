@@ -1,13 +1,70 @@
+import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic.js';
+import type { FilterQuery } from 'mongoose';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import SchematicChangeSchema from '../../schemas/SchematicChange.js';
-import { SchematicRequest } from '../../routes/types.js';
-import SchematicSchema from '../../schemas/Schematic.js';
+import type { SchematicQueryJSON } from '@/interfaces/json.js';
+import type { SchematicRequest } from '../../routes/types.js';
 import Tags from '../../tags.json';
 
 class SchematicSizeError extends Error {}
 
 const router = Router();
+
+const limitPerPage = 20;
+
+router.get('/', async (req, res) => {
+  let page = Number(req.query.page);
+  const mode =
+    req.query.mode === 'creator' ? ('creator' as const) : ('name' as const);
+  const query = String(req.query.query || '');
+  const tags = String(req.query.tags || '');
+  try {
+    if (!page || isNaN(page) || page < 1 || page % 1 !== 0) page = 1;
+
+    const skip = limitPerPage * (page - 1);
+
+    let _query: FilterQuery<SchematicDocument> = {};
+    if (query)
+      _query = {
+        [mode]: new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i'),
+      };
+    if (tags)
+      _query.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
+
+    const documents = await SchematicSchema.countDocuments(_query);
+
+    const pages = Math.ceil(documents / limitPerPage) || 1;
+
+    if (page > pages)
+      return res.redirect(
+        `/api/schematics?page=${pages}${query ? `&query=${query}` : ''}${
+          tags ? `&tags=${tags}` : ''
+        }`
+      );
+
+    const schematics = await SchematicSchema.find(_query, '_id name text', {
+      skip,
+      limit: limitPerPage,
+      sort: {
+        _id: -1,
+      },
+    });
+    const data: SchematicQueryJSON = {
+      skip,
+      query,
+      page,
+      pages,
+      documents,
+      schematics,
+      tags,
+      mode,
+    };
+    res.send(data);
+  } catch (e) {
+    res.sendStatus(422);
+  }
+});
 
 router.post('/parse', async (req, res) => {
   const { text } = req.body;
@@ -110,6 +167,13 @@ router.post('/create', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  const schematic = await SchematicSchema.findOne(
+    { _id: req.params.id },
+    '-image'
+  );
+  res.send(schematic);
+});
 router.param('id', async (req, res, next, id) => {
   const schematic = await SchematicSchema.findOne({ _id: id });
 

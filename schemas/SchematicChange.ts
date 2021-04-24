@@ -1,5 +1,5 @@
 import mongoose, { LeanDocument } from 'mongoose';
-import { SchematicDocument } from './Schematic';
+import type { SchematicDocument } from './Schematic';
 
 const schema = new mongoose.Schema({
   id: {
