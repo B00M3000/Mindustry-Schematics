@@ -9,7 +9,8 @@
     "postinstall": "npm run tsc",
     "tsc": "tsc",
     "dev": "concurrently --kill-others \"tsc --watch\" \"nodemon .\"",
-    "_dev": "concurrently --kill-others \"tsc --watch\" \"node .\""
+    "_dev": "concurrently --kill-others \"tsc --watch\" \"node .\"",
+    "ngrok": "node ngrok.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "form-data": "^3.0.1",
     "mindustry-schematic-parser": "^2.0.1",
     "mongoose": "^5.12.1",
+    "ngrok": "^4.0.1",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
     "pug-code-gen": "^3.0.2",

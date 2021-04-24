@@ -5,3 +5,4 @@ export { default as main } from './main';
 export { default as help } from './help';
 export { default as info } from './info';
 export { default as downloads } from './downloads';
+export { default as user } from './user';
