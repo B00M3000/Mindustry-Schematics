@@ -24,7 +24,7 @@
   import type { Tag } from '@/interfaces/tag';
   import SchematicCard from '@/src/components/SchematicCard.svelte';
   import IconButton from '../components/buttons/IconButton.svelte';
-
+  import { goto } from '@sapper/app';
   export let data: SchematicQueryJSON;
   let form: HTMLFormElement;
   let currentTags = data.tags
@@ -44,8 +44,7 @@
         currentTags.map((t) => t.name.replace(/ /g, '_')).join(' ')
       );
     }
-    const response = await fetch(`/api/schematics?${searchParams}`);
-    data = await response.json();
+    await goto(`/?${searchParams}`);
   }
   function pageLink(page: number) {
     const params = new URLSearchParams({ page: page.toString() });
