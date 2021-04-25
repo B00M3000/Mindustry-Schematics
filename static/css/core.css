@@ -16,6 +16,7 @@
   --on-surface: #fff;
   --error: #a00000;
   --on-error: #fff;
+  --highlight-surface: hsl(0, 0%, 40%);
 }
 * {
   margin: 0;
