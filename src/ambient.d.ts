@@ -1,5 +1,3 @@
-import type { SvelteComponent } from 'svelte';
-
 /**
  * These declarations tell TypeScript that we allow import of images, e.g.
  * ```
@@ -31,7 +29,8 @@ declare module '*.png' {
 }
 
 declare module '*.svg' {
-  const value: SvelteComponent;
+  import type { SvelteComponent } from 'svelte';
+  const value: typeof SvelteComponent;
   export default value;
 }
 
