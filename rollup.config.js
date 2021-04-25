@@ -9,9 +9,11 @@ import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
+import svelteSVG from 'rollup-plugin-svelte-svg';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import url from '@rollup/plugin-url';
+
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
@@ -43,8 +45,9 @@ export default {
         },
       }),
       url({
-        sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
+        sourceDir: path.resolve(__dirname, 'static'),
         publicPath: '/client/',
+        exclude: ['**/*.svg'],
       }),
       resolve({
         browser: true,
@@ -53,6 +56,7 @@ export default {
       commonjs(),
       json(),
       typescript({ sourceMap: dev }),
+      svelteSVG({ dev }),
       alias({
         resolve: ['.jsx', '.js', '.ts', '.svelte'],
         entries: [{ find: '@', replacement: path.resolve(__dirname) }],
@@ -112,9 +116,10 @@ export default {
         emitCss: false,
       }),
       url({
-        sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
+        sourceDir: path.resolve(__dirname, 'static'),
         publicPath: '/client/',
         emitFiles: false, // already emitted by client build
+        exclude: ['**/*.svg'],
       }),
       resolve({
         dedupe: ['svelte'],
@@ -122,6 +127,7 @@ export default {
       commonjs(),
       json(),
       typescript({ sourceMap: dev }),
+      svelteSVG({ generate: 'ssr', dev }),
       alias({
         resolve: ['.jsx', '.js', '.ts', '.svelte'],
         entries: [{ find: '@', replacement: path.resolve(__dirname) }],
