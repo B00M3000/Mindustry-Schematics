@@ -1,9 +1,13 @@
+import type {
+  SchematicParseErrorJSON,
+  SchematicParseJSON,
+  SchematicQueryJSON,
+} from '@/interfaces/json.js';
 import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic.js';
 import type { FilterQuery } from 'mongoose';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import SchematicChangeSchema from '../../schemas/SchematicChange.js';
-import type { SchematicQueryJSON } from '@/interfaces/json.js';
 import type { SchematicRequest } from '../../routes/types.js';
 import Tags from '../../tags.json';
 
@@ -82,14 +86,12 @@ router.post('/parse', async (req, res) => {
         `The schematic size (${width}x${height}) is bigger than the allowed size (${maxSize}x${maxSize})`
       );
     }
-    res.send({
+    const data: SchematicParseJSON = {
       name: schematic.name,
       description: schematic.description,
-      powerProduction: schematic.powerProduction,
-      powerConsumption: schematic.powerConsumption,
-      requirements: schematic.requirements,
       image: (await schematic.toImageBuffer()).toString('base64'),
-    });
+    };
+    res.send(data);
   } catch (error) {
     let code = 500;
     let message: string | undefined;
@@ -102,11 +104,10 @@ router.post('/parse', async (req, res) => {
     } else if (typeof error === 'string') {
       if (error.includes('valid')) code = 400;
     }
-    res.status(code).send({
-      error: {
-        message,
-      },
-    });
+    const data: SchematicParseErrorJSON = {
+      error: { message },
+    };
+    res.status(code).send(data);
   }
 });
 type Tag = {
@@ -172,6 +173,8 @@ router.get('/:id', async (req, res) => {
     { _id: req.params.id },
     '-image'
   );
+  if (!schematic) return res.sendStatus(404);
+
   res.send(schematic);
 });
 router.param('id', async (req, res, next, id) => {
@@ -245,7 +248,7 @@ router.post('/:id/edit', async (req, res) => {
   // eslint-disable-next-line new-cap
   await new SchematicChangeSchema(schematicChange).save();
 
-  res.redirect(`/schematics`);
+  res.redirect(`/schematics/${originalSchematic._id}`);
 });
 
 router.post('/:id/delete', async (req, res) => {
@@ -259,7 +262,7 @@ router.post('/:id/delete', async (req, res) => {
 
   await new SchematicChangeSchema(schematicChange).save();
 
-  res.redirect('/schematics');
+  res.redirect(`/schematics/${schematic._id}`);
 });
 
 export default router;

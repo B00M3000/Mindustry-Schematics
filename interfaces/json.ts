@@ -15,3 +15,14 @@ export interface SchematicQueryJSON {
   tags: string;
   mode: 'creator' | 'name';
 }
+
+export interface SchematicParseJSON {
+  name: string;
+  description: string;
+  image: string;
+}
+export interface SchematicParseErrorJSON {
+  error: {
+    message?: string;
+  };
+}

@@ -18,6 +18,8 @@
 
 <script lang="ts">
   import type { SchematicJSON } from '@/interfaces/json';
+  import BackButton from '@/src/components/buttons/BackButton.svelte';
+  import SchematicForm from '@/src/components/SchematicForm.svelte';
   export let schematic: SchematicJSON;
 </script>
 
@@ -35,42 +37,18 @@
   <title>Edit a Schematic</title>
 </svelte:head>
 <h1>Edit a Schematic</h1>
-<form action="/api/schematics/{schematic.id}" method="POST">
-  <div class="inputs">
-    <label for="name">Name:</label>
-    <input
-      id="name"
-      name="name"
-      placeholder="Name of the schematic"
-      value={schematic.name}
-      required
-    />
-    <label for="creator">Creator:</label>
-    <input
-      id="creator"
-      name="creator"
-      placeholder="Creator of the schematic"
-      value={schematic.creator}
-      required
-    />
-    <label for="description">Description:</label>
-    <input
-      id="description"
-      name="description"
-      placeholder="Description of the schematic"
-      value={schematic.description}
-      required
-    />
-    <label for="description">Schematic:</label>
-    <input
-      id="description"
-      name="description"
-      placeholder="Description of the schematic"
-      value={schematic.description}
-      required
-    />
-  </div>
-</form>
+<SchematicForm
+  variant="edit"
+  action="/api/schematics/{schematic._id}/edit"
+  initialData={schematic}
+/>
+<footer>
+  <BackButton href="/schematics/{schematic._id}" smart />
+</footer>
 
 <style>
+  h1 {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
 </style>

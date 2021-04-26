@@ -29,7 +29,8 @@ declare module '*.png' {
 }
 
 declare module '*.svg' {
-  const value: string;
+  import type { SvelteComponent } from 'svelte';
+  const value: typeof SvelteComponent;
   export default value;
 }
 

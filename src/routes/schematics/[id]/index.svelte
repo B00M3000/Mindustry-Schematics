@@ -26,7 +26,7 @@
   import IconButton from '@/src/components/buttons/IconButton.svelte';
   import { share } from '@/src/util/share';
   import BackButton from '@/src/components/buttons/BackButton.svelte';
-  import { navigation } from '@/src/stores';
+
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/raw/schematics/${schematic._id}/image`;
@@ -52,13 +52,6 @@
     'blast-compound',
     'pyratite',
   ];
-  function goBack(e: MouseEvent) {
-    const { previous } = $navigation;
-    if (previous && !previous.startsWith('http')) {
-      e.preventDefault();
-      return history.back();
-    }
-  }
 </script>
 
 <svelte:head>
@@ -143,7 +136,7 @@
   </div>
 </main>
 <footer>
-  <BackButton href="/" on:click={goBack} />
+  <BackButton href="/" smart />
 </footer>
 
 <style>
