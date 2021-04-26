@@ -41,7 +41,7 @@ schematicInput &&
 text &&
   text.addEventListener('change', async (e) => {
     // reset the file input when the user changes the text input
-    if (e.isTrusted) fileInput.value = '';
+    if (e.isTrusted && fileInput) fileInput.value = '';
     const value = text.value;
     const form = document.querySelector('form');
     form.classList.add('locked');
@@ -88,6 +88,10 @@ text &&
         errorSpan.innerText = error.message || "This isn't a valid schematic";
         break;
       }
+      case 500:
+        text.classList.add('invalid');
+        errorSpan.innerHTML = 'Parsing error, try again later';
+        break;
       case 431:
         alert('The schematic has too much data');
         console.log(value.length);

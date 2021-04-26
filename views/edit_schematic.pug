@@ -23,7 +23,10 @@ html
     +app_bar("schematics")
     h1 Edit a Schematic
     - const action = `/api/schematics/${schematic._id}/edit`
-    form#onSubmitLoadingScreen(action=action method="POST" encType="multipart/form-data")
+    form(action=action method="POST" encType="multipart/form-data" data-mode="text")
+      div.mode
+        button.selected(type="button" value="text") Text
+        button(type="button" value="file") File
       div.inputs
         label(for="name") Name: 
         input(type="text" name="name" id="name" placeholder="Name of the schematic" value=schematic.name   required)
@@ -35,10 +38,13 @@ html
         textarea.rounded-input(type="text" name="description" id="description" placeholder="Description of the schematic"  required)= schematic.description
 
         label(for="text") Schematic: 
-        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text readonly required)
+        input(type="text" name="text" id="text" placeholder="Paste the schematic here" value=schematic.text required)
+        label(for="file") File:
+        input#file(type="file" name="file" accept=".msch")
+        span.error This isn't a valid schematic
 
-        label(for="description") Changes: 
-        textarea.rounded-input(type="text" name="cDescription" id="text" placeholder="Description of what was changed and why?" required)
+        label(for="changes") Changes: 
+        textarea.rounded-input(type="text" name="cDescription" id="changes" placeholder="Description of what was changed and why?" required)
         label(for="tags") Tags:
         input#tags(type="text" list="tags-list")
         datalist(id="tags-list")
