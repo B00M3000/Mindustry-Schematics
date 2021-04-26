@@ -2,7 +2,7 @@
 	export let value = "Submit";
 	
   function handleClick(){
-    this.innerHTML = "Please wait..."
+    value = "Please wait..."
   }
 </script>
 

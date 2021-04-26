@@ -6,7 +6,9 @@
     "dev": "sapper dev",
     "build": "sapper build",
     "start": "node __sapper__/build",
-    "validate": "svelte-check --ignore src/node_modules/@sapper"
+    "validate": "svelte-check --ignore src/node_modules/@sapper",
+    "ngrok": "node ngrok.js",
+    "getenv": "node getenv.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
