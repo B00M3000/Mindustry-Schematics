@@ -1,0 +1,29 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 1rem;
+}
+div.info {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  align-items: center;
+}
+a.link {
+  align-self: center;
+}
+form.login {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  justify-content: center;
+}
+form.login input {
+  background-color: var(--surface);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  border: 2px solid #888888;
+  color: var(--on-surface);
+}
