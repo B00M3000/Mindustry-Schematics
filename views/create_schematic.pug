@@ -23,7 +23,7 @@ html
     +app_bar("schematics")
     h1 Create a Schematic
     div#main-content
-      form#onSubmitLoadingScreen.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data" data-mode="text")
+      form.locked(action="/api/schematics/create" method="POST" encType="multipart/form-data" data-mode="text")
         div.mode
           button.selected(type="button" value="text") Text
           button(type="button" value="file") File
