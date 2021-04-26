@@ -33,7 +33,17 @@ p {
 .preview {
   width: 100%;
   grid-area: image;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.preview figure::before {
   border-radius: 1em;
+}
+.preview img {
+  width: 100%;
+  border-radius: 1em;
+  display: block;
 }
 .name {
   grid-area: title;

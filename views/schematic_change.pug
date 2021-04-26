@@ -56,9 +56,12 @@ body
           each diff in diffs.name
             - const mode  = diff.added ? "added" : diff.removed ? "removed" : "unmodified"
             span(class=mode)=diff.value
-
-        img.preview(src=`/raw/schematics/${change.id}/image`)
-
+        div.preview
+          figure(class=differentImages ? "removed": "unmodified")
+            img(src=`/raw/schematic-changes/${change.id}/image/original`)
+          if differentImages
+            figure.added
+              img(src=`/raw/schematic-changes/${change.id}/image/changed`)
         div.creator
           span='by '
           each diff in diffs.creator

@@ -66,6 +66,10 @@ router.get('/:_id', async (req, res) => {
       originalTags,
       changedTags,
       diffs,
+      differentImages: Buffer.compare(
+        Buffer.from(change.Original.image.Data.buffer),
+        Buffer.from(change.Changed.image.Data.buffer)
+      ),
     };
     change.Changed.description = safeDescription(
       change.Changed.description || ''

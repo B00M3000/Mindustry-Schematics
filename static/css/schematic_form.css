@@ -211,33 +211,6 @@ body.parsed #schematic-generate {
   transition: opacity 0.5s ease;
 }
 
-div.mode {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: #888888 solid 2px;
-  border-radius: 1rem;
-  z-index: 2;
-  background-color: var(--surface);
-  overflow: hidden;
-}
-div.mode button {
-  border: none;
-  padding: 0.5rem;
-  text-align: center;
-  border-radius: 0.8rem;
-}
-form[data-mode='text'] div.mode button[value='text'],
-form[data-mode='file'] div.mode button[value='file'] {
-  background-color: #707070;
-}
-form *:is(#text, label[for='text'], #file, label[for='file']) {
-  display: none;
-}
-form[data-mode='text'] *:is(#text, label[for='text']),
-form[data-mode='file'] *:is(#file, label[for='file']) {
-  display: block;
-}
-
 @media screen and (max-width: 600px) {
   .inputs {
     --bottomPadding: 3px;
