@@ -88,6 +88,10 @@ text &&
         errorSpan.innerText = error.message || "This isn't a valid schematic";
         break;
       }
+      case 500:
+        text.classList.add('invalid');
+        errorSpan.innerHTML = 'Parsing error, try again later';
+        break;
       case 431:
         alert('The schematic has too much data');
         console.log(value.length);
