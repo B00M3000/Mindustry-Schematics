@@ -150,6 +150,33 @@ button {
   object-fit: contain;
 }
 
+input,
+textarea {
+  outline: none;
+  resize: vertical;
+  color: white;
+  background-color: var(--surface);
+  border: 2px solid #808080;
+  padding: 0.5em;
+  border-radius: 0.5rem;
+}
+textarea {
+  height: 100px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 600px) {
   @keyframes fly-in-out {
     0% {
