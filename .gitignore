@@ -1,11 +1,6 @@
-/node_modules/
-.env
-dist/
-
-ngrok.zip
-ngrok
-
 .DS_Store
-/src/node_modules/@sapper/
-yarn-error.log
-/__sapper__/
+node_modules
+/.svelte
+/build
+/functions
+.env
