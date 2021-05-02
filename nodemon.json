@@ -1,6 +1,0 @@
-{
-  "ignore": [
-    "static/*",
-    "ngrok.js"
-  ]
-}
