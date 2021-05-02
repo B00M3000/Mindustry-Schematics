@@ -33,13 +33,9 @@
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/fira-mono": "^4.2.2",
-    "@lukeed/uuid": "^2.0.0",
     "cookie": "^0.4.1",
     "diff": "^5.0.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-http-proxy": "^1.6.2",
     "mindustry-schematic-parser": "^2.1.0",
     "mongoose": "^5.12.5",
     "node-fetch": "^2.6.1",
