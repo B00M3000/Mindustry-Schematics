@@ -44,4 +44,7 @@ export interface SchematicChangeJSON {
   differentImages: boolean;
 }
 
-export type UserTokenJSON = LeanDocument<UserTokenDocument>;
+export type UserTokenJSON = Pick<
+  LeanDocument<UserTokenDocument>,
+  'access' | 'token' | 'username'
+>;

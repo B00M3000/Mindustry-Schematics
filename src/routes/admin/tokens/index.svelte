@@ -34,6 +34,22 @@
   onMount(() => {
     if (redirect) goto(redirect);
   });
+  async function createToken() {
+    users = [
+      {
+        access: 'mod',
+        token: (
+          await (
+            await fetch('/api/admin/tokens/regenerate', {
+              method: 'POST',
+            })
+          ).json()
+        ).token,
+        username: '',
+      },
+      ...users,
+    ];
+  }
 </script>
 
 <svelte:head>
@@ -43,9 +59,10 @@
 {#if $auth.isAdmin}
   <h2>User Tokens</h2>
   <ul class="users">
+    <button on:click={createToken}>Create Token</button>
     {#each users as user}
       <li>
-        <User {user} />
+        <User {user} bind:users />
       </li>
     {/each}
   </ul>

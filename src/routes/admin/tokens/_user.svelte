@@ -3,7 +3,7 @@
 
   import { auth } from '@/client/stores/auth';
   import type { UserTokenJSON } from '@/interfaces/json';
-
+  export let users: UserTokenJSON[];
   export let user: UserTokenJSON;
   let token = user.token;
   let form: HTMLFormElement;
@@ -15,6 +15,8 @@
       auth.logout();
       await goto('/user');
     }
+    users.splice(users.indexOf(user), 1);
+    users = users;
   }
   async function regenerateToken() {
     const response = await fetch('/api/admin/tokens/regenerate', {
