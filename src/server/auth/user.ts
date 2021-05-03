@@ -20,7 +20,7 @@ export class User {
   static async get(token?: string): Promise<User | undefined> {
     if (!token) return;
     const userDoc = await UserTokenSchema.findOne({
-      token,
+      token: String(token),
     });
     if (!userDoc) return;
     const user = new User({
