@@ -48,8 +48,8 @@ html {
   min-height: 100vh;
   color: white;
   background-color: var(--background);
-  --current-image: url('/assets/backgrounds/cursed-impact-on-water.png');
-  --previous-image: url('/assets/backgrounds/cursed-impact-on-water.png');
+  --top-image: url('/assets/backgrounds/cursed-impact-on-water.png');
+  --bottom-image: url('/assets/backgrounds/cursed-impact-on-water.png');
 }
 html::before, html::after{
   content: '';
@@ -63,26 +63,23 @@ html::before, html::after{
   padding-bottom: 5rem;
 }
 html::before {
-  background-image: var(--previous-image);
-  z-index: -2;
+  background-image: var(--top-image);
+  z-index: -1;
+  opacity: 0;
 }
 html::after {
-  background-image: var(--current-image);
+  background-image: var(--bottom-image);
   z-index: -2;
-  opacity: 0;
 }
 
-html.first::before, html.first::after, html.second::before, html.second::after{
+html.top::before, html.bottom::before{
   transition: opacity 0.5s ease;
 }
-html.first::before, html.second::after{
+
+html.top::before{
   opacity: 1;
-  z-index: -1;
 }
-html.first::after, html.second::before{
-  opacity: 0;
-  z-index: -2;
-}
+
 footer {
   position: fixed;
   bottom: 0;

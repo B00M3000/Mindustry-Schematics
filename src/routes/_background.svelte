@@ -26,13 +26,13 @@
   async function updateBackground() {
     let bottom = html.style.getPropertyValue('--bottom-image');
     let top = nextBackground(bottom);
-    html.style.setProperty('--top-image', top);
-    html.classList.remove('second');
-    html.classList.add('first');
+    html.style.setProperty('--top-image', `url(${top})`);
+    html.classList.remove('bottom');
+    html.classList.add('top');
     await new Promise((resolve) => setTimeout(resolve, duration / 2));
-    const background = nextBackground(top);
-    html.style.setProperty('--current-image', `url(${background}`);
-    html.classList.remove('first');
-    html.classList.add('second');
+    bottom = nextBackground(top);
+    html.style.setProperty('--bottom-image', `url(${bottom}`);
+    html.classList.remove('top');
+    html.classList.add('bottom');
   }
 </script>
