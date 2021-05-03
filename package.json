@@ -7,7 +7,11 @@
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
     "lint": "prettier --check . && eslint --ignore-path .gitignore .",
+    "lint:fix": "eslint --fix --ignore-path .gitignore .",
     "format": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=12.21.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "1.0.0-next.16",

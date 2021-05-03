@@ -7,8 +7,7 @@ export class UserAccess {
   }
 
   static from(name: string): UserAccess {
-    if (name in accessLevels)
-      return accessLevels[name as keyof typeof accessLevels];
+    if (name in accessLevels) return accessLevels[name as keyof typeof accessLevels];
     throw new Error('The role is not defined');
   }
 
