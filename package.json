@@ -11,7 +11,7 @@
     "format": "prettier --write ."
   },
   "engines": {
-    "node": ">=12.21.0"
+    "node": "<=12.21.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "1.0.0-next.16",
