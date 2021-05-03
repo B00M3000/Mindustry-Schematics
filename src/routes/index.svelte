@@ -19,12 +19,10 @@
   import IconButton from '@/client/components/buttons/IconButton.svelte';
   import { goto } from '$app/navigation';
   import type { Load } from '@sveltejs/kit';
+  import { parseTags } from '@/lib/tag';
   export let data: SchematicQueryJSON;
   let form: HTMLFormElement;
-  let currentTags = data.tags
-    .split(' ')
-    .map((tag) => Tags.find((t) => t.name == tag))
-    .filter((tag) => tag) as Tag[];
+  let currentTags = parseTags(data.tags.split(' '));
   async function search(e: Event) {
     e.preventDefault();
     const formData = new FormData(form);

@@ -9,6 +9,7 @@
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
   import Tags from '@/../tags.json';
+  import { parseTags } from '@/lib/tag';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -28,8 +29,7 @@
   let description = initialData?.description || '';
   let text = initialData?.text || '';
   let creator = initialData?.creator || '';
-  let currentTags: Tag[] =
-    (initialData?.tags.map((tag) => Tags.find((t) => t.name == tag)) as Tag[]) || [];
+  let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
 
   let image = initialData ? `/api/schematics/${initialData._id}/image` : undefined;
 

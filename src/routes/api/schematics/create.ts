@@ -26,7 +26,7 @@ export const post: RequestHandler = async (req) => {
 
     const tags = (JSON.parse(rawTags) as Tag[])
       .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name === n));
+      .filter((n) => Tags.find((t) => t.name.toLowerCase() === n.toLowerCase()));
 
     const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
     const data = await schematic.toImageBuffer();

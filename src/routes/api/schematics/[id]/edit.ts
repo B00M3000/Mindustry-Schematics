@@ -43,7 +43,7 @@ export const post: RequestHandler = async (req) => {
   try {
     tags = (JSON.parse(stringTags) as Tag[])
       .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name === n));
+      .filter((n) => Tags.find((t) => t.name.toLowerCase() === n.toLowerCase()));
   } catch (error) {
     tags = undefined;
   }

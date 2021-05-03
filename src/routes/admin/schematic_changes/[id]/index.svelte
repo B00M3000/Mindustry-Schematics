@@ -25,15 +25,13 @@
   import type { Tag } from '@/interfaces/tag';
   import Actions from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
+  import { parseTags } from '@/lib/tag';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
   let differentImages = data.differentImages;
-  let originalTags =
-    (original?.tags?.map((name) => Tags.find((t) => t.name === name)) as Tag[]) ?? [];
-  let changedTags =
-    (change.Changed?.tags?.map((name) => Tags.find((t) => t.name === name)) as Tag[]) ??
-    [];
+  let originalTags = original ? parseTags(original.tags) : [];
+  let changedTags = change.Changed ? parseTags(change.Changed.tags) : [];
   let diffs:
     | undefined
     | {
