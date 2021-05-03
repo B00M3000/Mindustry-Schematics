@@ -6,8 +6,8 @@ import {
   SchematicSchema,
 } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { arc, Schematic } from 'mindustry-schematic-parser';
-import { Item, Liquid } from 'mindustry-schematic-parser/dist/mindustry';
+import { Schematic, arc, mindustry } from 'mindustry-schematic-parser';
+const { Item, Liquid } = mindustry;
 const { Point2 } = arc;
 function renderAsSame(...schematics: [string, string]): boolean {
   const a = Schematic.decode(schematics[0]),
