@@ -1,25 +1,25 @@
-import mongoose, { LeanDocument } from "mongoose";
-import type { SchematicDocument } from "./schematic";
+import mongoose, { LeanDocument } from 'mongoose';
+import type { SchematicDocument } from './schematic';
 
 const schema = new mongoose.Schema({
-	id: {
-		type: String,
-		required: true,
-	},
-	Changed: {
-		type: Object,
-	},
+  id: {
+    type: String,
+    required: true,
+  },
+  Changed: {
+    type: Object,
+  },
 
-	Description: String,
+  Description: String,
 
-	Delete: String,
+  Delete: String,
 });
 export interface SchematicChangeDocument extends mongoose.Document {
-	id: string;
-	Changed?: Omit<LeanDocument<SchematicDocument>, "__v" | "id" | "_id">;
-	Description?: string;
-	Delete?: string;
+  id: string;
+  Changed?: Omit<LeanDocument<SchematicDocument>, '__v' | 'id' | '_id'>;
+  Description?: string;
+  Delete?: string;
 }
 
 export const SchematicChangeSchema: mongoose.Model<SchematicChangeDocument> =
-	mongoose.models.SchematicChanges || mongoose.model("SchematicChanges", schema);
+  mongoose.models.SchematicChanges || mongoose.model('SchematicChanges', schema);

@@ -1,20 +1,20 @@
-import { getTutorials } from "@/server/tutorials";
-import type { RequestHandler } from "@sveltejs/kit";
+import { getTutorials } from '@/server/tutorials';
+import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async (req) => {
-	const { name } = req.params;
-	const tutorials = getTutorials();
-	const tutorial = tutorials.get(name);
+  const { name } = req.params;
+  const tutorials = getTutorials();
+  const tutorial = tutorials.get(name);
 
-	if (!tutorial)
-		return {
-			status: 404,
-		};
-	return {
-		status: 200,
-		body: {
-			title: tutorial.title,
-			html: tutorial.html,
-		},
-	};
+  if (!tutorial)
+    return {
+      status: 404,
+    };
+  return {
+    status: 200,
+    body: {
+      title: tutorial.title,
+      html: tutorial.html,
+    },
+  };
 };

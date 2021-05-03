@@ -1,71 +1,71 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 interface DiscordWebhookEmbedImage {
-	url: string;
+  url: string;
 }
 
 interface DiscordWebhookEmbed {
-	title?: string;
-	url?: string;
-	description?: string;
-	color?: string;
-	image?: DiscordWebhookEmbedImage;
+  title?: string;
+  url?: string;
+  description?: string;
+  color?: string;
+  image?: DiscordWebhookEmbedImage;
 }
 
 interface DiscordWebhookBody {
-	username?: string;
-	// eslint-disable-next-line camelcase
-	avatar_url?: string;
-	content?: string;
-	embeds?: DiscordWebhookEmbed[];
+  username?: string;
+  // eslint-disable-next-line camelcase
+  avatar_url?: string;
+  content?: string;
+  embeds?: DiscordWebhookEmbed[];
 }
 
 interface DiscordWebhookRequestHeaders {
-	"Content-Type"?: string;
+  'Content-Type'?: string;
 }
 
 interface DiscordWebhookRequest {
-	method: string;
-	headers?: DiscordWebhookRequestHeaders;
-	body: string;
+  method: string;
+  headers?: DiscordWebhookRequestHeaders;
+  body: string;
 }
 
 export class DiscordWebhookHandler {
-	constructor(url: string) {
-		this.url = url;
-	}
+  constructor(url: string) {
+    this.url = url;
+  }
 
-	readonly url: string;
+  readonly url: string;
 
-	send(body: DiscordWebhookBody): number {
-		const headers: DiscordWebhookRequestHeaders = {
-			"Content-Type": "application/json",
-		};
+  send(body: DiscordWebhookBody): number {
+    const headers: DiscordWebhookRequestHeaders = {
+      'Content-Type': 'application/json',
+    };
 
-		const data: DiscordWebhookRequest = {
-			method: "POST",
-			headers,
-			body: JSON.stringify(body),
-		};
+    const data: DiscordWebhookRequest = {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    };
 
-		fetch(this.url, data as never);
+    fetch(this.url, data as never);
 
-		return 200;
-	}
+    return 200;
+  }
 
-	sendMessage(message: string): number {
-		const body: DiscordWebhookBody = {
-			content: message,
-		};
+  sendMessage(message: string): number {
+    const body: DiscordWebhookBody = {
+      content: message,
+    };
 
-		return this.send(body);
-	}
+    return this.send(body);
+  }
 
-	sendEmbed(embed: DiscordWebhookEmbed): number {
-		const body: DiscordWebhookBody = {
-			embeds: [embed],
-		};
+  sendEmbed(embed: DiscordWebhookEmbed): number {
+    const body: DiscordWebhookBody = {
+      embeds: [embed],
+    };
 
-		return this.send(body);
-	}
+    return this.send(body);
+  }
 }
