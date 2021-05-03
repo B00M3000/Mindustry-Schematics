@@ -24,7 +24,7 @@
   src="/assets/arrow.svg"
   alt="back"
   border
-  classname="invert-x"
+  class="invert-x"
   on:click={goBack}
 >
   <span>Back</span>

@@ -15,8 +15,6 @@
   import type { SchematicJSON } from '@/interfaces/json';
   import { safeDescription } from '@/lib/safe_description';
   import type { ItemName } from 'mindustry-schematic-parser';
-  import Tags from '@/../tags.json';
-  import type { Tag } from '@/interfaces/tag';
   import { copy } from '@/client/copy';
   import IconButton from '@/client/components/buttons/IconButton.svelte';
   import { share } from '@/client/share';

@@ -24,15 +24,9 @@ export const post: RequestHandler = async (req) => {
       },
       body: 'Not found',
     };
-  // eslint-disable-next-line prefer-const
-  let {
-    name,
-    creator,
-    text,
-    description,
-    cDescription,
-    tags: stringTags,
-  } = parseForm<Body>(req.body);
+  const parsedForm = parseForm<Body>(req.body);
+  let { text } = parsedForm;
+  const { name, creator, description, cDescription, tags: stringTags } = parsedForm;
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {
       status: 400,

@@ -9,7 +9,7 @@ declare module '@zerodevx/svelte-toast' {
     initial: number;
     progress: number;
     reversed: boolean;
-    intro: any;
+    intro: unknown;
     theme: { [key: string]: string };
   }
 

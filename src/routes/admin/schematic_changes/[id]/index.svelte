@@ -21,7 +21,6 @@
   import { safeDescription } from '@/lib/safe_description';
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
-  import Tags from '@/../tags.json';
   import type { Tag } from '@/interfaces/tag';
   import Actions from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';

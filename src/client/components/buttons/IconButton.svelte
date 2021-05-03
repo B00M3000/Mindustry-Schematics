@@ -2,19 +2,18 @@
   export let href: string | undefined = undefined;
   export let src: string;
   export let alt: string;
-  export let classname: svelte.JSX.ClassName | undefined = '';
   export let border = false;
 </script>
 
 {#if href}
-  <a {href} class={classname} on:click>
+  <a {href} class={$$props.class} on:click>
     <button class="icon" class:no_border={!border}>
       <img {src} {alt} />
       <slot />
     </button>
   </a>
 {:else}
-  <button class="icon {classname}" class:no_border={!border} on:click>
+  <button class="icon {$$props.class}" class:no_border={!border} on:click>
     <img {src} {alt} />
     <slot />
   </button>

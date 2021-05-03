@@ -8,7 +8,6 @@
   import TagInput from './TagInput.svelte';
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
-  import Tags from '@/../tags.json';
   import { parseTags } from '@/lib/tag';
   export let variant: 'create' | 'edit';
   export let action: string;
@@ -51,7 +50,7 @@
     if (!file) return '';
     const reader = new FileReader();
     const promise = new Promise<string>((resolve) =>
-      reader.addEventListener('load', (e) => resolve(btoa(e.target!.result as string))),
+      reader.addEventListener('load', (e) => resolve(btoa(e.target?.result as string))),
     );
     reader.readAsBinaryString(file);
     return promise;
@@ -79,7 +78,7 @@
     locked = true;
   }
   async function parseSchematic(this: HTMLInputElement) {
-    const text = this.type == 'text' ? this.value : await fileToText(this.files![0]);
+    const text = this.type == 'text' ? this.value : await fileToText(this.files?.[0]);
 
     if (!isValidSchematic(text)) {
       invalid = true;

@@ -12,9 +12,7 @@
 
 <script lang="ts">
   import TagInput from '@/client/components/TagInput.svelte';
-  import Tags from '@/../tags.json';
   import type { SchematicQueryJSON } from '@/interfaces/json';
-  import type { Tag } from '@/interfaces/tag';
   import SchematicCard from '@/client/components/SchematicCard.svelte';
   import IconButton from '@/client/components/buttons/IconButton.svelte';
   import { goto } from '$app/navigation';
@@ -91,21 +89,21 @@
     href={pageLink(1)}
     src="/assets/double_chevron.svg"
     alt="first page"
-    classname={data.page < 3 ? 'hidden' : ''}
+    class={data.page < 3 ? 'hidden' : ''}
     border
   />
   <IconButton
     href={pageLink(data.page - 1 || 1)}
     src="/assets/chevron.svg"
     alt="previous page"
-    classname={data.page < 2 ? 'hidden' : ''}
+    class={data.page < 2 ? 'hidden' : ''}
     border
   />
   <IconButton
     href="/schematics/create"
     src="/assets/add.svg"
     alt="add schematic"
-    classname="add"
+    class="add"
     border
   >
     <span>Add Schematic</span>
@@ -114,14 +112,14 @@
     href={pageLink(data.page + 1)}
     src="/assets/chevron.svg"
     alt="next page"
-    classname="right {data.page > data.pages - 1 ? 'hidden' : ''}"
+    class="right {data.page > data.pages - 1 ? 'hidden' : ''}"
     border
   />
   <IconButton
     href={pageLink(data.pages)}
     src="/assets/double_chevron.svg"
     alt="last page"
-    classname="right {data.page > data.pages - 2 ? 'hidden' : ''}"
+    class="right {data.page > data.pages - 2 ? 'hidden' : ''}"
     border
   />
 </footer>

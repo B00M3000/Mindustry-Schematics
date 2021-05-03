@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+  // eslint-disable-next-line no-undef
   let intervalId: NodeJS.Timeout;
 </script>
 

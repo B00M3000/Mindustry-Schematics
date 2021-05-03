@@ -13,15 +13,15 @@ export class UserAccess {
 
   /** This adds support for the operators `>`, `>=`, `<`, and `<=`
    * */
-  valueOf() {
+  valueOf(): number {
     return this.level * -1;
   }
 
-  toString() {
+  toString(): string {
     return this.name;
   }
 
-  toJSON() {
+  toJSON(): string {
     return this.name;
   }
 }

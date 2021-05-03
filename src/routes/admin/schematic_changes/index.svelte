@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ context, fetch, page, session }) => {
+  export const load: Load = async ({ fetch, session }) => {
     const { isMod } = session as Session;
     if (!isMod) {
       return {};

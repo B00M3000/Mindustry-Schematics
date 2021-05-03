@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { PromiseProvider } from 'mongoose';
-
   import { onMount } from 'svelte';
 
   export let src: string | undefined;

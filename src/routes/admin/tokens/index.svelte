@@ -3,7 +3,7 @@
 
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ context, fetch, page, session }) => {
+  export const load: Load = async ({ fetch, session }) => {
     const { isAdmin } = session as Session;
     if (!isAdmin)
       return {
@@ -25,7 +25,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
-  import type { Writable } from 'svelte/store';
   import type { UserTokenJSON } from '@/interfaces/json';
   import User from './_user.svelte';
   import { auth } from '@/client/stores/auth';

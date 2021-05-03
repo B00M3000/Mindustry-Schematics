@@ -1,50 +1,6 @@
 <script lang="ts">
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import Person from './_person.svelte';
-
-  type Person = {
-    name: string;
-    [x: string]: string;
-  };
-
-  const people: Record<string, Person[]> = {
-    Developer: [
-      {
-        name: 'MochaBoom',
-        IGN: 'MochaBoom',
-        'Discord Name': '!!NoobMan13!!',
-        'Discord ID': '564177349990416484',
-      },
-      {
-        name: 'JeanJPNM',
-        'Discord Name': 'JeanJPNM',
-        'Discord ID': '564177349990416484',
-      },
-    ],
-    'Logic Emulator Creator': [
-      {
-        name: 'rspx',
-        Github: '<a href="https://github.com/rspx" style="color: lightblue;">rspx</a> ',
-        'Discord name': 'Danisimo',
-        'Discord ID': '363665323528028162',
-      },
-    ],
-    'Moderator/Admin': [
-      {
-        name: "The Lil' Leo",
-        'Discord/IGN': "The Lil' Leo",
-        'Discord ID': '751519627233722378',
-      },
-    ],
-    Contributor: [
-      {
-        name: 'Kei',
-        'Discord/IGN': 'Kei',
-        'Discord ID': '271947902002266112',
-      },
-    ],
-  };
-  const credits = Object.keys(people);
 </script>
 
 <svelte:head>
