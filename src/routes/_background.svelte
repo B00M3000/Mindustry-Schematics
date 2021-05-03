@@ -1,16 +1,20 @@
+<script context="module" lang="ts">
+  let intervalId: NodeJS.Timeout;
+</script>
+
 <script lang="ts">
   import { onMount } from 'svelte';
 
   let backgrounds: string[];
   let html: HTMLElement;
-  const duration = 6000;
+  const duration = 30000;
   onMount(() => {
     html = document.documentElement;
     async function load() {
       const response = await fetch('/api/backgrounds');
       backgrounds = (await response.json()) as string[];
-      html.classList.add('active');
-      setInterval(() => {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = setInterval(() => {
         updateBackground();
       }, duration);
     }
