@@ -37,6 +37,5 @@ export const auth = {
     let token: string | undefined;
     this.subscribe(($auth) => (token = $auth.token))();
     if (token) await this.login(token);
-    else console.log('Missing auth token');
   },
 };

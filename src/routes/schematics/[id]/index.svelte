@@ -27,7 +27,6 @@
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/api/schematics/${schematic._id}/image`;
   const description = safeDescription(schematic.description);
-  console.log(schematic.tags);
   const tags = parseTags(schematic.tags);
   const items: ItemName[] = [
     'copper',
