@@ -9,6 +9,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic, arc, mindustry } from 'mindustry-schematic-parser';
 const { Item, Liquid } = mindustry;
 const { Point2 } = arc;
+
 function renderAsSame(...schematics: [string, string]): boolean {
   const a = Schematic.decode(schematics[0]),
     b = Schematic.decode(schematics[1]);
