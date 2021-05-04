@@ -2,9 +2,9 @@ import type { Context } from "@/interfaces/app";
 import type { SchematicChangeJSON } from "@/interfaces/json";
 import { SchematicChangeSchema, SchematicDocument, SchematicSchema } from "@/server/mongo";
 import type { RequestHandler } from "@sveltejs/kit";
-import { Schematic } from "mindustry-schematic-parser";
-import { Point2 } from "mindustry-schematic-parser/dist/arc";
-import { Item, Liquid } from "mindustry-schematic-parser/dist/mindustry";
+import { Schematic, arc, mindustry } from "mindustry-schematic-parser";
+const { Point2 } = arc;
+const { Item, Liquid } = mindustry;
 
 function renderAsSame(...schematics: [string, string]): boolean {
 	const a = Schematic.decode(schematics[0]),
