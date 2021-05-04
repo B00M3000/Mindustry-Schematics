@@ -1,4 +1,4 @@
 export interface Tag {
-	name: string;
-	color: string;
+  name: string;
+  color: string;
 }

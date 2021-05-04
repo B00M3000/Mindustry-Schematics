@@ -1,4 +1,5 @@
 # Contributing
+
 This is a quick explanation on how to get started with the project.
 
 ## File structure
@@ -18,12 +19,14 @@ This is a quick explanation on how to get started with the project.
 │       │          └───api    # routes dedicated only to apis
 │       │
 │       └───server    # code exclusive to server
-│ 
+│
 └───static    # static file assets
 ```
 
 ## Path mapping
+
 This project uses path mapping on typescript imports
+
 ```
   project paths
   @  =>  src

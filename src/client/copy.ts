@@ -4,22 +4,22 @@
  * @returns `true` if the operation was successful, else returns `false`
  */
 export function copy(text: string): boolean {
-	const textArea = document.createElement("textarea");
-	textArea.value = text;
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
 
-	// Avoid scrolling to bottom
-	textArea.style.top = "0";
-	textArea.style.left = "0";
-	textArea.style.position = "fixed";
+  // Avoid scrolling to bottom
+  textArea.style.top = '0';
+  textArea.style.left = '0';
+  textArea.style.position = 'fixed';
 
-	document.body.appendChild(textArea);
+  document.body.appendChild(textArea);
 
-	textArea.focus();
-	textArea.select();
+  textArea.focus();
+  textArea.select();
 
-	const successful = document.execCommand("copy");
+  const successful = document.execCommand('copy');
 
-	document.body.removeChild(textArea);
+  document.body.removeChild(textArea);
 
-	return successful;
+  return successful;
 }

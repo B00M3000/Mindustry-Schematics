@@ -7,22 +7,21 @@ export class UserAccess {
   }
 
   static from(name: string): UserAccess {
-    if (name in accessLevels)
-      return accessLevels[name as keyof typeof accessLevels];
+    if (name in accessLevels) return accessLevels[name as keyof typeof accessLevels];
     throw new Error('The role is not defined');
   }
 
   /** This adds support for the operators `>`, `>=`, `<`, and `<=`
    * */
-  valueOf() {
+  valueOf(): number {
     return this.level * -1;
   }
 
-  toString() {
+  toString(): string {
     return this.name;
   }
 
-  toJSON() {
+  toJSON(): string {
     return this.name;
   }
 }
