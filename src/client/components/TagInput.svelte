@@ -30,28 +30,17 @@
   }
 </script>
 
-<input
-  id="tags"
-  type="text"
-  list="tags-list"
-  placeholder="Tags"
-  on:input={handleChange}
-/>
-<datalist id="tags-list">
-  {#each Tags as tag}
-    <option value={tag.name} />
-  {/each}
-</datalist>
-<ul class="tags">
-  {#each currentTags as tag (tag.name)}
-    <li style="--color: {tag.color}">
-      <div class="layer">
-        {tag.name}
-        <img src="/assets/cross-mark.svg" alt="remove" on:click={() => removeTag(tag)} />
-      </div>
-    </li>
-  {/each}
-</ul>
+<template lang="pug">
+  input#tags(type="text" list="tags-list" placeholder="Tags" on:input!="{handleChange}")
+  datalist#tags-list
+    +each("Tags as tag")
+      option(value!="{tag.name}")
+  ul.tags
+    +each("currentTags as tag (tag.name)")
+      li(style="--color: {tag.color}")
+        div.layer {tag.name}
+          img(src="/assets/cross-mark.svg" alt="remove" on:click!="{()=> removeTag(tag)}")
+</template>
 
 <style>
   ul.tags {
