@@ -28,7 +28,7 @@ interface Env {
 const rawEnv = configEnv();
 
 const env: Env = {
-  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS),
+  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS ?? true),
   MONGO_PASS: rawEnv.MONGO_PASS,
   MONGO_PATH: rawEnv.MONGO_PATH,
   MONGO_USER: rawEnv.MONGO_USER,
