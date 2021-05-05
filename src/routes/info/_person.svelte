@@ -2,12 +2,12 @@
   export let name: string;
 </script>
 
-<button class="person">{name}</button>
-<div class="container popup">
-  <div class="person popup">
-    <slot />
-  </div>
-</div>
+<template lang="pug">
+  button.person {name}
+  div.container.popup
+    div.person.popup
+      slot
+</template>
 
 <style>
   button + div.container.popup {

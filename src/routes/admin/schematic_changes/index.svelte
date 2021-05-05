@@ -29,31 +29,22 @@
   });
 </script>
 
-<svelte:head>
-  <title>Schemtic Changes</title>
-</svelte:head>
-
-{#if $auth.isAdmin}
-  <h1 class="title">Schematic Changes</h1>
-  <div class="changes">
-    {#each changes as change}
-      <a href="schematic_changes/{change._id}">
-        <div class="schematic">
-          <h2>
-            <span class={change.mode}>
-              {change.mode}
-            </span>
-            <span> {change.name}</span>
-          </h2>
-          <LazyImage src="/api/schematics/{change.id}/image" alt="schematic preview" />
-        </div>
-      </a>
-    {/each}
-  </div>
-  <footer>
-    <BackButton href="/user" smart />
-  </footer>
-{/if}
+<template lang="pug">
+  svelte:head
+    title Schematic Changes
+  +if("$auth.isAdmin")
+    h1.changes Schematic Changes
+    div.changes
+      +each("changes as change")
+        a(href="schematic_changes/{change._id}")
+          div.schematic
+            h2
+              span(class!="{change.mode}") {change.mode} 
+              span {change.name}
+            LazyImage(src="/api/schematics/{change.id}/image" alt="schematic preview")
+    footer
+      BackButton(href="user" smart)
+</template>
 
 <style>
   div.changes {

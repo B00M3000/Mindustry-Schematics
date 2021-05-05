@@ -30,35 +30,33 @@
   }
 </script>
 
-<svelte:head>
-  <title>Delete a Schematic</title>
-</svelte:head>
+<template lang="pug">
+  svelte:head
+    title Delete a Schematic
 
-<h1>Delete a Schematic</h1>
-<form
-  action="/api/schematics/{schematic._id}/delete"
-  method="POST"
-  bind:this={form}
-  on:submit={submit}
->
-  <h2 class="title">[Schematic] {schematic.name}</h2>
-  <img src="/api/schematics/{schematic._id}/image" alt="schematic preview" />
-  <h3 class="creator">by {schematic.creator}</h3>
-  <h4 class="description">{@html safeDescription(schematic.description)}</h4>
-  <div class="inputs">
-    <label for="reason">Reason:</label>
-    <textarea
-      name="reason"
-      id="reason"
-      placeholder="Why should this schematic be removed?"
-      required
-    />
-  </div>
-  <button type="submit">Submit Deletion Request</button>
-</form>
-<footer>
-  <BackButton href="/schematics/{schematic._id}" smart />
-</footer>
+  h1 Delete a Schematic
+  form(  
+    action="/api/schematics/{schematic._id}/delete"
+    method="POST"
+    bind:this!="{form}"
+    on:submit!="{submit}"
+  )
+    h2.title [Schematic] {schematic.name}
+    img(src="/api/schematics/{schematic._id}/image" alt="schematic preview")
+    h3.creator by {schematic.creator}
+    h4.description 
+      +html("safeDescription(schematic.description)")
+    div.inputs
+      label(for="reason")
+      textarea#reason(
+        name="reason"
+        placeholder="Why should this schematic be removed?"
+        required
+      )
+    button(type="submit") Submit Deletion Request
+  footer
+    BackButton(href="/schematics/{schematic._id}" smart)
+</template>
 
 <style>
   h1 {

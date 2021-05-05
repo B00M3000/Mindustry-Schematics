@@ -22,21 +22,18 @@
   };
 </script>
 
-<svelte:head>
-  <meta property="og:title" content={content.title} />
-  <meta property="og:image" content="/assets/mindustry_banner.png" />
-  <meta property="og:type" content="website" />
-  <title>{content.title}</title>
-</svelte:head>
-
-<main>
-  <article>
-    {@html content.html}
-  </article>
-</main>
-<footer>
-  <BackButton href="/guides" />
-</footer>
+<template lang="pug">
+  svelte:head
+    meta(property="og:title" content!="{content.title}")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    title {content.title}
+  main
+    article
+      +html("content.html")
+  footer
+    BackButton(href="/guides")
+</template>
 
 <style>
   article {

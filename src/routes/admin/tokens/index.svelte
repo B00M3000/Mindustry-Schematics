@@ -52,24 +52,19 @@
   }
 </script>
 
-<svelte:head>
-  <title>User Tokens</title>
-</svelte:head>
-
-{#if $auth.isAdmin}
-  <h2>User Tokens</h2>
-  <ul class="users">
-    <button on:click={createToken}>Create Token</button>
-    {#each users as user}
-      <li>
-        <User {user} bind:users />
-      </li>
-    {/each}
-  </ul>
-{/if}
-<footer>
-  <BackButton href="/user" smart />
-</footer>
+<template lang="pug">
+  svelte:head
+    title User Tokens
+  +if("$auth.isAdmin")
+    h2 User Tokens
+    ul.users
+      button(on:click!="{createToken}") Create Token
+      +each("users as user")
+        li
+          User({user} bind:users)
+  footer
+    BackButton(href="/user" smart)
+</template>
 
 <style>
   h2 {

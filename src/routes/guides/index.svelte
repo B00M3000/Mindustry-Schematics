@@ -22,26 +22,21 @@
   export let tutorials: TutorialInfo[];
 </script>
 
-<svelte:head>
-  <meta property="og:title" content="Guides" />
-  <meta property="og:description" content="Guides that you might find helpful" />
-  <meta property="og:image" content="/assets/mindustry_banner.png" />
-  <meta property="og:type" content="website" />
-  <title>Guides</title>
-</svelte:head>
-<main>
-  {#await tutorials then tutorials}
-    <ul>
-      {#each tutorials as tutorial}
-        <li>
-          <a href="/guides/{tutorial.name}">
-            <button>{tutorial.title}</button>
-          </a>
-        </li>
-      {/each}
-    </ul>
-  {/await}
-</main>
+<template lang="pug">
+  svelte:head
+    meta(property="og:title" content="Guides")
+    meta(property="og:description" content="Guides that you might find helpful")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    title Guides
+  
+  main
+    ul
+      +each("tutorials as tutorial")
+        li
+          a(href="/guides/{tutorial.name}")
+            button {tutorial.title}
+</template>
 
 <style>
   main ul {

@@ -19,10 +19,17 @@
   }
 </script>
 
-<div class="actions">
-  <a href="/schematics/{change.id}">
-    <button>View</button>
-  </a>
-  <button on:click={accept}>Accept</button>
-  <button on:click={decline}>Decline</button>
-</div>
+<template lang="pug">
+  div.actions
+    a(href="/schematics/{change.id}")
+      button View
+    button(on:click!="{accept}") Accept
+    button(on:click!="{decline}") Decline
+</template>
+
+<style>
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+</style>

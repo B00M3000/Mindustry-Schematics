@@ -16,17 +16,15 @@
   export let error: Error;
 </script>
 
-<svelte:head>
-  <title>{status}</title>
-</svelte:head>
-
-<h1>{status}</h1>
-
-<p>{error.message}</p>
-
-{#if dev && error.stack}
-  <pre>{error.stack}</pre>
-{/if}
+<template lang="pug">
+  svelte:head
+    title {status}
+  
+  h1 {status}
+  p {error.message}
+  +if("dev && error.stack")
+    pre {error.stack}
+</template>
 
 <style>
   h1 {

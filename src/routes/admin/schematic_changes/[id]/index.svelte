@@ -53,81 +53,54 @@
   }
 </script>
 
-<svelte:head>
-  <title>Change a Schematic</title>
-</svelte:head>
-
-<main>
-  {#if change.Delete != undefined && original}
-    <h3 class="mode delete">Delete</h3>
-    <h4 class="reason">Reason: {change.Delete}</h4>
-    <div class="schematic delete">
-      <h1 class="name">{original.name}</h1>
-      <img
-        src="/api/schematics/{change.id}/image"
-        alt="schematic preview"
-        class="preview"
-      />
-      <h3 class="creator">by {original.creator}</h3>
-      <h4 class="description">{@html safeDescription(original.description)}</h4>
-      <div class="tags">
-        {#each originalTags as tag}
-          <div class="tag" style="--color: {tag.color};">
-            <div class="layer">
-              <span>{tag.name}</span>
-            </div>
-          </div>
-        {/each}
-      </div>
-      <Actions {change} />
-    </div>
-  {:else if diffs}
-    <h3 class="mode">Modify</h3>
-    <h4 class="reason">What and Why: {change.Description}</h4>
-    <div class="schematic modify">
-      <h1 class="name">
-        {#each diffs.name as diff}
-          <span class={classOfDiff(diff)}>{diff.value}</span>
-        {/each}
-      </h1>
-      <div class="preview">
-        <figure class={differentImages ? 'removed' : 'unmodified'}>
-          <img src="/api/schematics/{change.id}/image" alt="old preview" />
-        </figure>
-        {#if differentImages}
-          <figure class="added">
-            <img src="/api/schematic_changes/{change._id}/image" alt="new preview" />
-          </figure>
-        {/if}
-      </div>
-      <div class="creator">
-        {#each diffs.creator as diff}
-          <span class={classOfDiff(diff)}>{diff.value}</span>
-        {/each}
-      </div>
-      <div class="description">
-        {#each diffs.description as diff}
-          <span class={classOfDiff(diff)}>{diff.value}</span>
-        {/each}
-      </div>
-      <div class="tags">
-        {#each diffs.tags as diff}
-          {#each diff.value as tag}
-            <div class="tag {classOfDiff(diff)}" style="--color: {tag.color}">
-              <div class="layer">
-                <span>{tag.name}</span>
-              </div>
-            </div>
-          {/each}
-        {/each}
-      </div>
-      <Actions {change} />
-    </div>
-  {/if}
-</main>
-<footer>
-  <BackButton href="/admin/schematic_changes" smart />
-</footer>
+<template lang="pug">
+  svelte:head
+    title Change a Schematic
+  
+  main
+    +if("change.Delete != undefined && original")
+      h3.mode.delete Delete
+      h4.reason Reason: {change.Delete}
+      div.schematic.delete
+        h1.name {original.name}
+        img.preview(src="/api/schematics/{change.id}/image" alt="schematic preview")
+        h3.creator by {original.creator}
+        h4.description: +html("safeDescription(original.description)")
+        div.tags
+          +each("originalTags as tag")
+            div.tag(style="--color: {tag.color};")
+              div.layer
+                span {tag.name}
+        Actions({change})
+      +elseif("diffs")
+        h3.mode Modify
+        h4.reason What and Why
+        div.schematic.modify
+          h1.name
+            +each("diffs.name as diff")
+              span(class!="{classOfDiff(diff)}") {diff.value}
+          div.preview
+            figure(class!="{differentImages ? 'removed' : 'unmodified'}")
+              img(src="/api/schematics/{change.id}/image" alt="old preview")
+            +if("differentImages")
+              figure.added
+                img(src="/api/schematic_changes/{change._id}/image" alt="new preview")
+          div.creator
+            +each("diffs.creator as diff")
+              span(class!="{classOfDiff(diff)}") {diff.value}
+          div.description
+            +each("diffs.description as diff")
+              span(class!="{classOfDiff(diff)}") {diff.value}
+          div.tags
+            +each("diffs.tags as diff")
+              +each("diff.value as tag")
+                div.tag(class!="{classOfDiff(diff)}" style="--color: {tag.color}")
+                  div.layer
+                    span {tag.name}
+          Actions({change})
+  footer
+    BackButton(href="/admin/schematic_changes" smart)
+</template>
 
 <style>
   .tags {
