@@ -16,5 +16,24 @@ function configEnv(): dotenv.DotenvParseOutput {
   throw new Error('No .env files found');
 }
 
-const env = configEnv();
+interface Env {
+  MONGO_USER: string | undefined;
+  MONGO_PASS: string | undefined;
+  MONGO_PATH: string | undefined;
+  WEBHOOK_URL: string | undefined;
+  WEBSITE_URL: string | undefined;
+  ENABLE_WEBHOOKS: boolean;
+}
+
+const rawEnv = configEnv();
+
+const env: Env = {
+  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS),
+  MONGO_PASS: rawEnv.MONGO_PASS,
+  MONGO_PATH: rawEnv.MONGO_PATH,
+  MONGO_USER: rawEnv.MONGO_USER,
+  WEBHOOK_URL: rawEnv.WEBHOOK_URL,
+  WEBSITE_URL: rawEnv.WEBSITE_URL,
+};
+
 export default env;
