@@ -398,6 +398,7 @@
     text-align: center;
     border-radius: 0.8rem;
   }
+
   @media screen and (max-width: 600px) {
     .inputs {
       --bottomPadding: 3px;
@@ -407,8 +408,11 @@
       padding: 0 10vw;
       width: 100%;
     }
-    .inputs *:is(input, textarea) {
+    .inputs :global(*:is(input, textarea)) {
       width: 100%;
+    }
+    .inputs :global(ul.tags) {
+      margin-top: 1rem;
     }
     .inputs > label {
       margin: 2em 0 0.5em 0;
