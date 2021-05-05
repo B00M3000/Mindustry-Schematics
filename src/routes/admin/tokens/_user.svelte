@@ -36,9 +36,7 @@
       $auth.name = data.get('username') as string;
       $auth.token = data.get('token') as string;
     }
-    if (response.status == 403)
-      // TODO: update the session state
-      window.location.reload();
+    if (response.status == 403) await auth.sync();
   }
 </script>
 
