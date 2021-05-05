@@ -58,7 +58,7 @@
 </svelte:head>
 
 <main>
-  {#if change.Delete && original}
+  {#if change.Delete != undefined && original}
     <h3 class="mode delete">Delete</h3>
     <h4 class="reason">Reason: {change.Delete}</h4>
     <div class="schematic delete">
