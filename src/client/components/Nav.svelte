@@ -19,8 +19,8 @@
     <a href="/downloads" class:selected={current == 'downloads'}>
       <li>Downloads</li>
     </a>
-    <a href="/help" class:selected={current == 'help'}>
-      <li>Help</li>
+    <a href="/guides" class:selected={current == 'guides'}>
+      <li>Guides</li>
     </a>
     <a href="/info" class:selected={current == 'info'}>
       <li>Info</li>

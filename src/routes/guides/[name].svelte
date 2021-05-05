@@ -33,7 +33,7 @@
   </article>
 </main>
 <footer>
-  <BackButton href="/help" />
+  <BackButton href="/guides" />
 </footer>
 
 <style>

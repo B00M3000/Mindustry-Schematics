@@ -21,18 +21,18 @@
 </script>
 
 <svelte:head>
-  <meta property="og:title" content="Help" />
-  <meta property="og:description" content="Tutorials that you might find helpful" />
+  <meta property="og:title" content="Guides" />
+  <meta property="og:description" content="Guides that you might find helpful" />
   <meta property="og:image" content="/assets/mindustry_banner.png" />
   <meta property="og:type" content="website" />
-  <title>Help</title>
+  <title>Guides</title>
 </svelte:head>
 <main>
   {#await tutorials then tutorials}
     <ul>
       {#each tutorials as tutorial}
         <li>
-          <a href="/help/{tutorial.name}">
+          <a href="/guides/{tutorial.name}">
             <button>{tutorial.title}</button>
           </a>
         </li>
