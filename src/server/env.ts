@@ -1,20 +1,20 @@
-import dotenv from "dotenv";
-import path from "path";
-import fs from "fs";
+import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
 
 function configEnv(): dotenv.DotenvParseOutput {
-  if(path.resolve(".env.dev")){
+  if (fs.existsSync(path.resolve('.env.dev'))) {
     return (
       dotenv.config({
-  			path: path.resolve(".env.dev"),
-  		}).parsed || {}
-    )
+        path: path.resolve('.env.dev'),
+      }).parsed || {}
+    );
   } else {
     return (
-  		dotenv.config({
-  			path: path.resolve(".env"),
-  		}).parsed || {}
-  	);
+      dotenv.config({
+        path: path.resolve('.env'),
+      }).parsed || {}
+    );
   }
 }
 
