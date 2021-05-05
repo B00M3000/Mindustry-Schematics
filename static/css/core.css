@@ -50,6 +50,7 @@ html {
   background-color: var(--background);
   --top-image: url('/assets/backgrounds/cursed-impact-on-water.png');
   --bottom-image: url('/assets/backgrounds/cursed-impact-on-water.png');
+  scroll-behavior: smooth;
 }
 html::before, html::after{
   content: '';
