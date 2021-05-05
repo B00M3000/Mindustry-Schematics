@@ -1,3 +1,7 @@
+<script context="module" lang="ts">
+  export const prerender = true;
+</script>
+
 <svelte:head>
   <meta property="og:title" content="Info" />
   <meta property="og:description" content="Know more about this website" />

@@ -1,3 +1,7 @@
+<script context="module" lang="ts">
+  export const prerender = true;
+</script>
+
 <script lang="ts">
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import Person from './_person.svelte';
