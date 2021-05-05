@@ -6,11 +6,10 @@
   import { navigating } from '$app/stores';
   import { BarLoader } from 'svelte-loading-spinners';
   import Background from './_background.svelte';
-  export let segment: string;
   $paths;
 </script>
 
-<Nav tab={segment} />
+<Nav />
 
 {#if browser}
   <SvelteToast />

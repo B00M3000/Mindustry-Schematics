@@ -1,8 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  export let tab: string;
   let ul: HTMLUListElement;
-  $: current = $page?.path.split('/')[1] ?? tab;
+  $: current = $page?.path.split('/')[1] ;
 </script>
 
 <nav>
