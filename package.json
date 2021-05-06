@@ -1,6 +1,6 @@
 {
   "name": "mindustry-schematics",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "scripts": {
     "start": "svelte-kit start",
     "dev": "svelte-kit dev",
