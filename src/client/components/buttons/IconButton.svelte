@@ -5,19 +5,17 @@
   export let border = false;
 </script>
 
-{#if href}
-  <a {href} class={$$props.class} on:click>
-    <button class="icon" class:no_border={!border}>
-      <img {src} {alt} />
-      <slot />
-    </button>
-  </a>
-{:else}
-  <button class="icon {$$props.class}" class:no_border={!border} on:click>
-    <img {src} {alt} />
-    <slot />
-  </button>
-{/if}
+<template lang="pug">
+  +if("href")
+    a({href} class!="{$$props.class}" on:click)
+      button.icon(class:no_border!="{!border}")
+        img({src} {alt})
+        slot
+    +else
+      button.icon(class!="{$$props.class}" class:no_border!="{!border}" on:click)
+        img({src} {alt})
+        slot
+</template>
 
 <style>
   button.icon {
