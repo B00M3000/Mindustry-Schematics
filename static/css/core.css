@@ -16,7 +16,9 @@
   --on-surface: hsl(0, 0%, 100%);
   --error: hsl(0, 100%, 31%);
   --on-error: hsl(0, 0%, 100%);
+  --highlight-background: hsl(0, 0%, 30%);
   --highlight-surface: hsl(0, 0%, 40%);
+  --highlight-error: hsl(0, 100%, 40%);
 }
 * {
   margin: 0;
