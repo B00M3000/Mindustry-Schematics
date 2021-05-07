@@ -9,13 +9,13 @@
   --primary: hsl(44, 100%, 60%);
   --primary-light: hsl(44, 100%, 70%);
   --primary-dark: hsl(44, 100%, 50%);
-  --on-primary: #000;
-  --background: #1a1a1a;
-  --on-background: #fff;
-  --surface: #323232;
-  --on-surface: #fff;
-  --error: #a00000;
-  --on-error: #fff;
+  --on-primary: hsl(0, 0%, 0%);
+  --background: hsl(0, 0%, 10%);
+  --on-background: hsl(0, 0%, 100%);
+  --surface: hsl(0, 0%, 20%);
+  --on-surface: hsl(0, 0%, 100%);
+  --error: hsl(0, 100%, 31%);
+  --on-error: hsl(0, 0%, 100%);
   --highlight-surface: hsl(0, 0%, 40%);
 }
 * {
