@@ -16,7 +16,12 @@
     if (!tag) return;
     const isUsed = currentTags.includes(tag);
     if (tag && !isUsed) {
-      currentTags = [...currentTags, tag];
+      currentTags.push(tag);
+      currentTags = currentTags.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
       input.value = '';
     } else {
       input.value = '';
