@@ -26,8 +26,10 @@ export const auth = {
       token,
     });
   },
-  logout(): void {
-    document.cookie = 'token=';
+  async logout(): Promise<void> {
+    await fetch('/api/user/logout', {
+      method: 'POST',
+    });
     set({
       isAdmin: false,
       isMod: false,

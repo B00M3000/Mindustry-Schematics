@@ -37,6 +37,7 @@ export class EventHandler {
   readonly events: Event[];
 
   createSchematic(event: CreateSchematicEvent): void {
+    if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('green'),
       title: `New Schematic: ${event.schematicName}`,
@@ -48,6 +49,7 @@ export class EventHandler {
   }
 
   editSchematic(event: EditSchematicEvent): void {
+    if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('yellow'),
       title: `Changed: ${event.schematicName}`,
@@ -60,6 +62,7 @@ export class EventHandler {
   }
 
   deleteSchematic(event: DeleteSchematicEvent): void {
+    if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('red'),
       title: `Deleted: ${event.schematicName}`,

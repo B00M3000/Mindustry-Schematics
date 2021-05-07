@@ -3,11 +3,12 @@
   import SchematicForm from '@/client/components/SchematicForm.svelte';
 </script>
 
-<h1>Create a Schematic</h1>
-<SchematicForm variant="create" action="/api/schematics/create" />
-<footer>
-  <BackButton href="/" smart />
-</footer>
+<template lang="pug">
+  h1 Create Schematic
+  SchematicForm(variant="create" action="/api/schematics/create")
+  footer
+    BackButton(href="/" smart)
+</template>
 
 <style>
   h1 {

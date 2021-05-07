@@ -6,22 +6,19 @@
   import { navigating } from '$app/stores';
   import { BarLoader } from 'svelte-loading-spinners';
   import Background from './_background.svelte';
-  export let segment: string;
   $paths;
 </script>
 
-<Nav tab={segment} />
-
-{#if browser}
-  <SvelteToast />
-  {#if $navigating}
-    <div class="loader">
-      <BarLoader size={100} unit="vw" duration="30s" color="#ffc933" />
-    </div>
-  {/if}
-{/if}
-<slot />
-<Background />
+<template lang="pug">
+  Nav
+  +if("browser")
+    SvelteToast
+    +if("$navigating")
+      div.loader
+        BarLoader(size=100 unit="vw" duration="30s" color="#ffc933")
+  slot
+  Background
+</template>
 
 <style>
   :root {

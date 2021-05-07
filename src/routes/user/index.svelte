@@ -12,38 +12,29 @@
   }
   async function logout(e: FormSubmitEvent) {
     e.preventDefault();
-    auth.logout();
+    await auth.logout();
   }
 </script>
 
-<svelte:head>
-  <title>User Login</title>
-</svelte:head>
-{#if $auth.token}
-  <main>
-    <div class="info">
-      <h2>Welcome back {$auth.name}</h2>
-      <form action="/api/user/logout" method="POST" on:submit={logout}>
-        <button>Logout</button>
-      </form>
-    </div>
-    {#if $auth.isAdmin}
-      <a href="/admin/tokens" class="link">
-        <button>User Tokens</button>
-      </a>
-    {/if}
-    {#if $auth.isMod}
-      <a href="/admin/schematic_changes" class="link">
-        <button>Schematic Changes</button>
-      </a>
-    {/if}
-  </main>
-{:else}
-  <form action="/api/user/login" method="POST" class="login" on:submit={login}>
-    <input name="token" type="password" placeholder="Enter your token here..." required />
-    <button> Login </button>
-  </form>
-{/if}
+<template lang="pug">
+  svelte:head
+    title User Login
+  +if("$auth.token")
+    main
+      div.info
+        h2 Welcome Back {$auth.name}
+        button(on:click!="{logout}") Logout
+      +if("$auth.isAdmin")
+        a.link(href="/admin/tokens")
+          button User Tokens
+      +if("$auth.isMod")
+        a.link(href="/admin/schematic_changes")
+          button Schematic Changes
+    +else
+      form.login(on:submit!="{login}")
+        input(name="token" type="password" placeholder="Enter your token here..." required)
+        button Login
+</template>
 
 <style>
   main {

@@ -6,33 +6,24 @@
   export const prerender = true;
 </script>
 
-<svelte:head>
-  <meta property="og:title" content="Downloads" />
-  <meta property="og:description" content="Downloads for mindustry clients" />
-  <meta property="og:image" content="/assets/mindustry_banner.png" />
-  <meta property="og:type" content="website" />
-  <title>Downloads</title>
-</svelte:head>
-<main>
-  <ul class="downloads">
-    <li>
-      <a
-        href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar"
-      >
-        <li>
-          <button>Download Foo's AG Client</button>
-        </li>
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar"
-      >
-        <button>Download Official Mindustry Client</button>
-      </a>
-    </li>
-  </ul>
-</main>
+<template lang="pug">
+  svelte:head
+    meta(property="og:title" content="Downloads" )
+    meta(property="og:description" content="Downloads for mindustry clients" )
+    meta(property="og:image" content="/assets/mindustry_banner.png" )
+    meta(property="og:type" content="website" )
+    title Downloads
+  
+  main
+    ul.downloads
+      li
+        a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar")
+          li
+            button Download Foo's AG Client
+      li
+        a(href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar")
+          button Download Official Mindustry Client
+</template>
 
 <style>
   ul.downloads {

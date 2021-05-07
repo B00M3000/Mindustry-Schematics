@@ -1,35 +1,27 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  export let tab: string;
   let ul: HTMLUListElement;
-  $: current = $page?.path.split('/')[1] ?? tab;
+  $: current = $page?.path.split('/')[1];
 </script>
 
-<nav>
-  <ul bind:this={ul} style="--items: {ul?.children.length || 1}">
-    <a href="/user" class:selected={/(user)|(admin)/.test(current)}>
-      <li>User Login</li>
-    </a>
-    <a href="/" class:selected={current == '' || current == 'schematics'}>
-      <li>Schematics</li>
-    </a>
-    <a href="https://logic.mindustryschematics.com">
-      <li>Logic Emulator</li>
-    </a>
-    <a href="/downloads" class:selected={current == 'downloads'}>
-      <li>Downloads</li>
-    </a>
-    <a href="/help" class:selected={current == 'help'}>
-      <li>Help</li>
-    </a>
-    <a href="/info" class:selected={current == 'info'}>
-      <li>Info</li>
-    </a>
-  </ul>
-  <button class="icon menu">
-    <img src="/assets/menu.svg" alt="menu" />
-  </button>
-</nav>
+<template lang="pug">
+  nav
+    ul(bind:this!="{ul}" style="--items {ul?.chidren?.length || 1}")
+      a(href="/user" class:selected!="{(/(user)|(admin)/).test(current)}")
+        li User Login
+      a(href="/" class:selected!="{current== '' || current == 'schematics'}")
+        li Schematics
+      a(href="https://logic.mindustryschematics.com")
+        li Logic Emulator
+      a(href="/downloads" class:selected!="{current== 'downloads'}")
+        li Downloads
+      a(href="/guides" class:selected!="{current== 'guides'}")
+        li Guides
+      a(href="/info" class:selected!="{current== 'info'}")
+        li Info
+    button.icon.menu
+      img(src="/assets/menu.svg" alt="menu")
+</template>
 
 <style>
   nav {

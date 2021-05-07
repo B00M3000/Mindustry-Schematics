@@ -19,7 +19,7 @@ export const post: RequestHandler<Context> = async (req) => {
       status: 404,
       body: 'Change not found',
     };
-  if (change.Delete) {
+  if (change.Delete != undefined) {
     const schematic = (await SchematicSchema.findOneAndDelete({
       _id: change.id,
     })) as SchematicDocument;

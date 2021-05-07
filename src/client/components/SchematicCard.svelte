@@ -11,28 +11,27 @@
   }
 </script>
 
-<div class="schematic">
-  <div class="tools">
-    <IconButton href="/schematics/{schematic._id}" src="/assets/info.svg" alt="info" />
-    <IconButton on:click={copySchematic} src="/assets/copy.svg" alt="copy" />
-    <IconButton
+<template lang="pug">
+
+div.schematic
+  div.tools
+    IconButton(href="/schematics/{schematic._id}" src="/assets/info.svg" alt="info")
+    IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
+    IconButton(
       href="/schematics/{schematic._id}/edit"
       src="/assets/pencil.svg"
       alt="edit"
-    />
-    <IconButton
+    )
+    IconButton(
       href="/schematics/{schematic._id}/delete"
       src="/assets/trash.svg"
       alt="delete"
-    />
-  </div>
-  <div class="view">
-    <div class="name">
-      <h2>{schematic.name}</h2>
-    </div>
-    <LazyImage src="/api/schematics/{schematic._id}/image" alt="Schematic Preview" />
-  </div>
-</div>
+    )
+  div.view
+    div.name
+      h2 {schematic.name}
+    LazyImage(src="/api/schematics/{schematic._id}/image" alt="Schematic Preview")
+</template>
 
 <style>
   .schematic {

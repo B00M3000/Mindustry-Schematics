@@ -17,22 +17,23 @@
   export let schematic: SchematicJSON;
 </script>
 
-<svelte:head>
-  <meta property="og:title" content="Request a Change on a Existing Schematic. " />
-  <meta property="og:description" content="Submit a request to modify a schematic." />
-  <meta property="og:image" content="/api/schematics/{schematic.id}/image" />
-  <meta property="og:type" content="website" />
-  <title>Edit a Schematic</title>
-</svelte:head>
-<h1>Edit a Schematic</h1>
-<SchematicForm
-  variant="edit"
-  action="/api/schematics/{schematic._id}/edit"
-  initialData={schematic}
-/>
-<footer>
-  <BackButton href="/schematics/{schematic._id}" smart />
-</footer>
+<template lang="pug">
+  svelte:head
+    meta(property="og:title" content="Request a Change on a Existing Schematic. ")
+    meta(property="og:description" content="Submit a request to modify a schematic.")
+    meta(property="og:image" content="/api/schematics/{schematic.id}/image")
+    meta(property="og:type" content="website")
+    title Edit a Schematic
+
+  h1 Edit a Schematic
+  SchematicForm(
+    variant="edit"
+    action="/api/schematics/{schematic._id}/edit"
+    initialData!="{schematic}"
+  )
+  footer
+    BackButton(href="/schematics/{schematic._id}" smart)
+</template>
 
 <style>
   h1 {

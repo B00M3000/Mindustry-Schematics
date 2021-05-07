@@ -43,86 +43,70 @@
   }
 </script>
 
-<svelte:head>
-  <title>Mindustry Schematics</title>
-</svelte:head>
-<h3 class="info">
-  Page {data.page} of {data.pages}, Showing {data.skip}-{data.skip +
-    data.schematics.length} of {data.documents}
-</h3>
-<form class="search" bind:this={form} on:submit={search}>
-  <input
-    id="schematics_search"
-    placeholder="Search for schematics..."
-    name="query"
-    value={data.query}
-  />
-  <div class="controls">
-    <select name="mode" id="mode">
-      <option value="name" selected={data.mode == 'name'}>Name</option>
-      <option value="creator" selected={data.mode == 'creator'}>Creator</option>
-    </select>
-    <div class="buttons">
-      <button type="submit">
-        <img src="/assets/check-mark.svg" alt="Search" />
-      </button>
-      <a href="/">
-        <button type="button">
-          <img src="/assets/cross-mark.svg" alt="Clear" />
-        </button>
-      </a>
-    </div>
-  </div>
-  <TagInput bind:currentTags />
-</form>
-<main>
-  <ul id="schematics_result">
-    {#each data.schematics as schematic}
-      <li class="schematic">
-        <SchematicCard {schematic} />
-      </li>
-    {/each}
-  </ul>
-</main>
-<footer>
-  <IconButton
-    href={pageLink(1)}
-    src="/assets/double_chevron.svg"
-    alt="first page"
-    class={data.page < 3 ? 'hidden' : ''}
-    border
-  />
-  <IconButton
-    href={pageLink(data.page - 1 || 1)}
-    src="/assets/chevron.svg"
-    alt="previous page"
-    class={data.page < 2 ? 'hidden' : ''}
-    border
-  />
-  <IconButton
-    href="/schematics/create"
-    src="/assets/add.svg"
-    alt="add schematic"
-    class="add"
-    border
-  >
-    <span>Add Schematic</span>
-  </IconButton>
-  <IconButton
-    href={pageLink(data.page + 1)}
-    src="/assets/chevron.svg"
-    alt="next page"
-    class="right {data.page > data.pages - 1 ? 'hidden' : ''}"
-    border
-  />
-  <IconButton
-    href={pageLink(data.pages)}
-    src="/assets/double_chevron.svg"
-    alt="last page"
-    class="right {data.page > data.pages - 2 ? 'hidden' : ''}"
-    border
-  />
-</footer>
+<template lang="pug">
+  svelte:head
+    title Mindustry Schematics
+  h3.info Page {data.page} of {data.pages}, Showing {data.skip}-{data.skip + data.schematics.length} of {data.documents}
+  form.search(bind:this!="{form}" on:submit!="{search}")
+    input#schematics_search(
+      placeholder="Search for schematics..."
+      name="query"
+      value!="{data.query}"
+    )
+    div.controls
+      select#mode(name="mode")
+        option(value="name" selected!="{data.mode == 'name'}") Name
+        option(value="creatior" selected!="{data.mode == 'creator'}") Creator
+      div.buttons
+        button(type="submit")
+          img(src="/assets/check-mark.svg" alt="Search")
+        a(href="/")
+          button(type="submit")
+            img(src="/assets/cross-mark.svg" alt="Clear")
+    TagInput(bind:currentTags)
+  main
+    ul#schematics_result
+      +each("data.schematics as schematic")
+        li.schematic
+          SchematicCard({schematic})
+  footer
+    IconButton(
+      href!="{pageLink(1)}"
+      src="/assets/double_chevron.svg"
+      alt="first page"
+      class!="{data.page < 3 ? 'hidden' : ''}"
+      border
+    )
+    IconButton(
+      href!="{pageLink(data.page - 1 || 1)}"
+      src="/assets/chevron.svg"
+      alt="previous page"
+      class!="{data.page < 2 ? 'hidden' : ''}"
+      border
+    )
+    IconButton(
+      href="/schematics/create"
+      src="/assets/add.svg"
+      alt="add schematic"
+      class="add"
+      border
+    )
+      span Add Schematic
+    IconButton.right(
+      href!="{pageLink(data.page + 1)}"
+      src="/assets/chevron.svg"
+      alt="next page"
+      class!="{data.page > data.pages - 1 ? 'hidden' : ''}"
+      border
+    )
+    IconButton.right(
+      href!="{pageLink(data.pages)}"
+      src="/assets/double_chevron.svg"
+      alt="last page"
+      class!="{data.page > data.pages - 2 ? 'hidden' : ''}"
+      border
+    )
+</template>
 
 <style>
   main {

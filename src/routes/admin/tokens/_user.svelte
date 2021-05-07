@@ -12,7 +12,7 @@
       method: 'DELETE',
     });
     if ($auth.token == user.token) {
-      auth.logout();
+      await auth.logout();
       await goto('/user');
     }
     users.splice(users.indexOf(user), 1);
@@ -36,23 +36,21 @@
       $auth.name = data.get('username') as string;
       $auth.token = data.get('token') as string;
     }
-    if (response.status == 403)
-      // TODO: update the session state
-      window.location.reload();
+    if (response.status == 403) await auth.sync();
   }
 </script>
 
-<form bind:this={form} on:submit={save}>
-  <button type="button" on:click={deleteToken}>Delete</button>
-  <input type="text" name="username" value={user.username} />
-  <input type="text" name="token" value={token} readonly />
-  <select name="access">
-    <option value="admin" selected={user.access == 'admin'}>Admin</option>
-    <option value="mod" selected={user.access == 'mod'}>Mod</option>
-  </select>
-  <button type="button" on:click={regenerateToken}>Regenarate Token</button>
-  <button>Save</button>
-</form>
+<template lang="pug">
+  form(bind:this!="{form}" on:submit!="{save}")
+    button(type="button" on:click!="{deleteToken}") Delete
+    input(type="text" name="username" value!="{user.username}") 
+    input(type="text" name="token" value!="{user.token}" readonly)
+    select(name="access")
+      option(value="admin" selected!="{user.access == 'admin'}") Admin
+      option(value="mod" selected!="{user.access == 'mod'}") Mod
+    button(type="button" on:click!="{regenerateToken}") Regenerate Token
+    button Save
+</template>
 
 <style>
   form {

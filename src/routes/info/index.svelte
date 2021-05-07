@@ -1,24 +1,24 @@
-<svelte:head>
-  <meta property="og:title" content="Info" />
-  <meta property="og:description" content="Know more about this website" />
-  <meta property="og:image" content="/assets/mindustry_banner.png" />
-  <meta property="og:type" content="website" />
-  <title>Info</title>
-</svelte:head>
-<main>
-  <ul>
-    <li>
-      <a href="https://discord.gg/PnHG9xSMVP" target="_blank">
-        <button>Discord Server</button>
-      </a>
-    </li>
-    <li>
-      <a href="/info/credits">
-        <button>Credits</button>
-      </a>
-    </li>
-  </ul>
-</main>
+<script context="module" lang="ts">
+  export const prerender = true;
+</script>
+
+<template lang="pug">
+  svelte:head
+    meta(property="og:title" content="Info")
+    meta(property="og:description" content="Know more about this website")
+    meta(property="og:image" content="/assets/mindustry_banner.png")
+    meta(property="og:type" content="website")
+    title Info
+
+  main
+    ul
+      li
+        a(href="https://discord.gg/PnHG9xSMVP" target="_blank")
+          button Discord Server
+      li
+        a(href="/info/credits")
+          button Credits
+</template>
 
 <style>
   main ul {

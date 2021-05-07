@@ -52,83 +52,64 @@
   }
 </script>
 
-<svelte:head>
-  <meta property="og:title" content={schematic.name} />
-  <meta property="og:description" content="" />
-  <meta property="og:image" content={imgUrl} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="url" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="stylesheet" href="/css/tags.css" />
-  <title>{title}</title>
-</svelte:head>
-<main>
-  <h1 class="title">{title}</h1>
-  <h5 class="views">Views: {schematic.views}</h5>
-  <img src={imgUrl} alt="schematic preview" id="preview" />
-  <h3 class="author">by {schematic.creator}</h3>
-  <h4 class="description">{@html description}</h4>
-  <div class="data">
-    <div class="requirements">
-      {#each items as item}
-        {#if schematic.requirements[item]}
-          <span>
-            <img src="/assets/items/{item}.png" alt={item} class="item" />
-            <span>{schematic.requirements[item]}</span>
-          </span>
-        {/if}
-      {/each}
-    </div>
-    {#if schematic.powerConsumption || schematic.powerProduction}
-      <div class="power">
-        {#if schematic.powerProduction}
-          <span style="color: rgb(251, 211, 103);">
-            <img src="/assets/power-icon-yellow.svg" alt="positive power icon" />
-            <span>
-              +{schematic.powerProduction}
-            </span>
-          </span>
-        {/if}
-        {#if schematic.powerConsumption}
-          <span style="color: rgb(229, 84, 84);">
-            <img src="/assets/power-icon-red.svg" alt="negative power icon" />
-            <span>
-              -{schematic.powerConsumption}
-            </span>
-          </span>
-        {/if}
-      </div>
-    {/if}
-  </div>
-  <div class="tags">
-    {#each tags as tag}
-      <div class="tag" style="--color: {tag.color}">
-        <div class="layer">{tag.name}</div>
-      </div>
-    {/each}
-  </div>
-  <div class="actions">
-    <IconButton src="/assets/copy.svg" alt="copy schematic" on:click={copySchematic} />
-    <IconButton
+<template lang="pug">
+  svelte:head
+    meta( property="og:title" content!="{schematic.name}" )
+    meta( property="og:description" content="" )
+    meta( property="og:image" content!="{imgUrl}" )
+    meta( property="og:type" content="website" )
+    meta( property="og:url" content="url" )
+    meta( name="twitter:card" content="summary_large_image" )
+    link( rel="stylesheet" href="/css/tags.css" )
+    title {title}
+  main
+    h1.title {title}
+    h5.views Views {schematic.views}
+    img#preview(src!="{imgUrl}" alt="schematic preview")
+    h3.author by {schematic.creator}
+    h4.description
+      +html("description")
+    div.data
+      div.requirements
+        +each("items as item")
+          +if("schematic.requirements[item]")
+            span
+              img.item(src="/assets/items/{item}.png" alt!="{item}")
+              span {schematic.requirements[item]}
+      +if("schematic.powerConsumption || schematic.powerProduction")
+        div.power
+          +if("schematic.powerProduction")
+            span(style="color: rgb(251, 211, 103);")
+              img(src="/assets/power-icon-yellow.svg" alt="positive power icon")
+              span +{schematic.powerProduction}
+          +if("schematic.powerConsumption")
+            span(style="color: rgb(229, 84, 84);")
+              img(src="/assets/power-icon-red.svg" alt="negative power icon" )
+              span -{schematic.powerConsumption}
+    div.tags
+      +each("tags as tag")
+        div.tag(style="--color: {tag.color}")
+          div.layer {tag.name}
+    div.actions
+      IconButton(src="/assets/copy.svg" alt="copy schematic" on:click!="{copySchematic}")
+      IconButton(
       src="/assets/share.svg"
       alt="share schematic"
-      on:click={() => share(schematic.name, window.location.href)}
-    />
-    <IconButton
-      href="/schematics/{schematic._id}/edit"
-      src="/assets/pencil.svg"
-      alt="edit schematic"
-    />
-    <IconButton
-      href="/schematics/{schematic._id}/delete"
-      src="/assets/trash.svg"
-      alt="delete schematic"
-    />
-  </div>
-</main>
-<footer>
-  <BackButton href="/" smart />
-</footer>
+      on:click!="{() => share(schematic.name, window.location.href)}"
+      )
+      IconButton(
+        href="/schematics/{schematic._id}/edit"
+        src="/assets/pencil.svg"
+        alt="edit schematic"
+      )
+      IconButton(
+        href="/schematics/{schematic._id}/delete"
+        src="/assets/trash.svg"
+        alt="delete schematic"
+      )
+  footer
+    BackButton(href="/" smart)
+</template>
 
 <style>
   main {

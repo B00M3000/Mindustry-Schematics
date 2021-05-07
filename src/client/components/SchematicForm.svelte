@@ -117,95 +117,91 @@
   }
 </script>
 
-<div class="wrapper {parseState}">
-  <form {action} class:locked data-variant={variant} on:submit={submit} bind:this={form}>
-    <div class="mode">
-      <button
+<template lang="pug">
+
+div.wrapper(class!="{parseState}")
+  form({action} class:locked data-variant!="{variant}" on:submit!="{submit}" bind:this!="{form}")
+    div.mode
+      button(
         type="button"
-        class:selected={mode == 'text'}
-        on:click={() => changeMode('text')}>Text</button
-      >
-      <button
-        type="button"
-        class:selected={mode == 'file'}
-        on:click={() => changeMode('file')}
-      >
-        File</button
-      >
-    </div>
-    <div class="inputs">
-      <label for="name">Name:</label>
-      <input
+        class:selected!="{mode == 'text'}"
+        on:click!="{() => changeMode('text')}") Text
+      button(
+        type!="button"
+        class:selected!="{mode == 'file'}"
+        on:click!="{() => changeMode('file')}"
+      ) File
+    
+    div.inputs
+      label(for="name") Name:
+      input(
         name="name"
         id="name"
         placeholder="Name of the schematic"
         required
-        value={name}
-      />
-      <label for="creator">Creator:</label>
-      <input
+        value!="{name}"
+      )
+      label(for="creator") Creator:
+      input(
         name="creator"
         id="creator"
         placeholder="Creator of the schematic"
         required
-        value={creator}
-      />
-      <label for="description">Description:</label>
-      <textarea
+        value!="{creator}"
+      )
+      label(for="description") Description:
+      textarea(
         name="description"
         id="description"
         placeholder="Description of the schematic"
-        value={description}
+        value!="{description}"
         required
-      />
-      <label for={mode}>{mode == 'text' ? 'Schematic' : 'File'}:</label>
-      {#if mode == 'text'}
-        <input
+      )
+      label(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
+      +if("mode =='text'")
+        input(
           name="text"
           id="text"
           placeholder="Paste the schematic text here"
           required
           class:invalid
-          value={text}
-          on:change={parseSchematic}
-        />
-      {:else}
-        <input
-          type="file"
-          name="file"
-          id="file"
-          accept=".msch"
-          required
-          class:invalid
-          on:change={parseSchematic}
-        />
-      {/if}
-      {#if error}
-        <span class="error">{error}</span>
-      {/if}
-      <label for="tags">Tags:</label>
-      <TagInput bind:currentTags />
-      {#if variant == 'edit'}
-        <label for="changes">Changes:</label>
-        <textarea
+          value!="{text}"
+          on:change!="{parseSchematic}"
+        )
+        +else
+          input(
+            type="file"
+            name="file"
+            id="file"
+            accept=".msch"
+            required
+            class:invalid
+            on:change!="{parseSchematic}"
+          )
+      +if("error")
+        span.error {error}
+      label(for="tags") Tags:
+      TagInput(bind:currentTags)
+      +if("variant == 'edit'")
+        label(for="changes") Changes:
+        textarea(
           name="cDescription"
           id="changes"
           placeholder="Description of what was changed and why?"
           required
-        />
-      {/if}
-    </div>
-    <figure id="image_preview">
-      <figcaption>Schematic preview</figcaption>
-      <img src={image} alt="schematic preview" />
-    </figure>
-    <button disabled={submitting}>{submitting ? 'Please wait...' : 'Submit'}</button>
-  </form>
-  <div id="parse-animation">
-    <h2>Parsing schematic...</h2>
-    <Scanning class="scan" />
-  </div>
-</div>
+        )
+    
+    figure(id="image_preview")
+      figcaption Schematic preview
+      img(src!="{image}" alt="schematic preview")
+    
+    button(disabled!="{submitting}") {submitting ? 'Please wait...' : 'Submit'}
+  
+  div(id="parse-animation")
+    h2 Parsing schematic...
+    Scanning.scan
+
+</template>
 
 <style>
   form {
@@ -398,6 +394,7 @@
     text-align: center;
     border-radius: 0.8rem;
   }
+
   @media screen and (max-width: 600px) {
     .inputs {
       --bottomPadding: 3px;
@@ -407,8 +404,11 @@
       padding: 0 10vw;
       width: 100%;
     }
-    .inputs *:is(input, textarea) {
+    .inputs :global(*:is(input, textarea)) {
       width: 100%;
+    }
+    .inputs :global(ul.tags) {
+      margin-top: 1rem;
     }
     .inputs > label {
       margin: 2em 0 0.5em 0;
