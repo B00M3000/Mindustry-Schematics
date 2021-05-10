@@ -7,7 +7,7 @@
     const access = UserAccess.from((session as Session).access);
     if (
       !access.can({
-        schematics: ['delete', 'update'],
+        schematics: { delete: 'all', update: 'all' },
       })
     )
       return {

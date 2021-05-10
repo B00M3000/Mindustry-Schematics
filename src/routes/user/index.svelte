@@ -1,7 +1,7 @@
 <script lang="ts">
   import { auth } from '@/client/stores/auth';
-  let allowTokens = $auth.access.can({ userTokens: ['read', 'update'] });
-  let allowChanges = $auth.access.can({ schematics: ['delete', 'update'] });
+  let allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
+  let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
   type FormSubmitEvent = Event & {
     currentTarget: EventTarget & HTMLFormElement;
   };

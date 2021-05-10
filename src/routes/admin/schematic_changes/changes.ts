@@ -20,7 +20,7 @@ async function findOriginals(changes: Changes): Promise<Originals> {
 }
 export const get: RequestHandler<Context> = async (req) => {
   const access = UserAccess.from(req.context.access);
-  if (!access.can({ schematics: ['delete', 'update'] })) {
+  if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
     return { status: 403, body: { message: 'Forbidden' } };
   }
   const changes: Changes = await SchematicChangeSchema.find({}, 'id _id Delete', {

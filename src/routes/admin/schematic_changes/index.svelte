@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
     const access = UserAccess.from((session as Session).access);
-    if (!access.can({ schematics: ['delete', 'update'] })) {
+    if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
       return {
         props: {
           redirect: true,
@@ -30,7 +30,7 @@
   import { UserAccess } from '@/lib/auth/access';
   export let redirect = false;
   export let changes: SchematicChangeInfoJSON[] = [];
-  const allowed = $auth.access.can({ schematics: ['delete', 'update'] });
+  const allowed = !redirect;
   onMount(() => {
     if (redirect) goto('/user');
   });

@@ -38,7 +38,7 @@ export class User {
   /**
    *
    * @deprecated This method should not be used, consider using the new permission check as the following
-   *    @example  user.access.can({schematics: ["read", "delete"]})
+   * @example  user.access.can({schematics: { read: 'all', update: 'all' }})
    * @param user
    * @returns
    */

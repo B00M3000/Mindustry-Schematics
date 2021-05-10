@@ -5,7 +5,16 @@
 
   export const load: Load = async ({ fetch, session }) => {
     const access = UserAccess.from((session as Session).access);
-    if (!access.can({ userTokens: ['create', 'read', 'update', 'delete'] }))
+    if (
+      !access.can({
+        userTokens: {
+          create: 'all',
+          delete: 'all',
+          read: 'all',
+          update: 'all',
+        },
+      })
+    )
       return {
         props: {
           redirect: '/user',

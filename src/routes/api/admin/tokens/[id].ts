@@ -11,7 +11,7 @@ interface Data {
 }
 export const post: RequestHandler<Context> = async (req) => {
   const currentAccess = UserAccess.from(req.context.access);
-  if (!currentAccess.can({ schematics: ['update'] }))
+  if (!currentAccess.can({ schematics: { update: 'all' } }))
     return {
       status: 403,
       headers: {
@@ -52,7 +52,7 @@ export const post: RequestHandler<Context> = async (req) => {
 };
 export const del: RequestHandler<Context> = async (req) => {
   const access = UserAccess.from(req.context.access);
-  if (!access.can({ schematics: ['delete'] }))
+  if (!access.can({ schematics: { delete: 'all' } }))
     return {
       status: 403,
       headers: {

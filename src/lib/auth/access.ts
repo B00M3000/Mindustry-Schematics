@@ -1,13 +1,25 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 export type Resource = 'schematics' | 'userTokens';
+export type ResourceControl = 'own' | 'all';
 export type Action = 'create' | 'read' | 'update' | 'delete';
 type Permission = {
-  [R in Resource]?: Set<Action>;
+  [R in Resource]?: {
+    [A in Action]?: ResourceControl;
+  };
 };
 type PermissionData = {
-  [R in Resource]?: Action[];
+  [R in Resource]?: {
+    [A in Action]?: ResourceControl;
+  };
 };
+/** Compares both `a` and `b` and returns a boolean value
+ *  representing whether `a` has more control than `b`
+ */
+function isControlGreaterThan(a: ResourceControl, b: ResourceControl) {
+  const controls: ResourceControl[] = ['all', 'own'];
+  return controls.indexOf(a) <= controls.indexOf(b);
+}
 export class UserAccess {
   readonly name: string;
   private readonly permissions: Permission = {};
@@ -17,9 +29,7 @@ export class UserAccess {
     extend,
   }: {
     name: string;
-    permissions: {
-      [R in Resource]?: Action[];
-    };
+    permissions: PermissionData;
     extend?: UserAccess;
   }) {
     this.name = name;
@@ -31,10 +41,12 @@ export class UserAccess {
     for (const r in permissions) {
       const resource = r as Resource;
       if (!this.permissions[resource]) {
-        this.permissions[resource] = new Set(permissions[resource]);
+        this.permissions[resource] = { ...permissions[resource] };
       } else {
-        for (const action of permissions[resource] as Action[]) {
-          (this.permissions[resource] as Set<Action>).add(action);
+        for (const a in permissions[resource]) {
+          const action = a as Action;
+          // @ts-ignore
+          this.permissions[resource][action] = permissions[resource][action];
         }
       }
     }
@@ -53,17 +65,17 @@ export class UserAccess {
    * @returns
    */
   can(permissions: PermissionData): boolean {
-    console.log(this.permissions);
     // to speed things up
     if (this.name == accessLevels.none.name) return false;
     for (const r in permissions) {
       const resource = r as Resource;
-      for (const a of permissions[resource] as Action[]) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      for (const a in permissions[resource]!) {
         const action = a as Action;
-        if (!this.permissions[resource]?.has(action)) {
-          console.log(this.permissions[resource], action);
+        const access = this.permissions[resource]?.[action];
+        if (!access) return false;
+        if (!isControlGreaterThan(access, permissions[resource]?.[action] ?? 'own'))
           return false;
-        }
       }
     }
     return true;
@@ -85,7 +97,12 @@ export const accessLevels = {
       name: 'admin',
       extend: this.mod,
       permissions: {
-        userTokens: ['create', 'delete', 'read', 'update'],
+        userTokens: {
+          create: 'all',
+          delete: 'all',
+          read: 'all',
+          update: 'all',
+        },
       },
     });
   },
@@ -93,7 +110,12 @@ export const accessLevels = {
     return new UserAccess({
       name: 'mod',
       permissions: {
-        schematics: ['create', 'delete', 'read', 'update'],
+        schematics: {
+          create: 'all',
+          delete: 'all',
+          read: 'all',
+          update: 'all',
+        },
       },
     });
   },

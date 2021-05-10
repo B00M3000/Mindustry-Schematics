@@ -10,7 +10,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler<Context> = async (req) => {
   const access = UserAccess.from(req.context.access);
-  if (!access.can({ schematics: ['delete', 'update'] }))
+  if (!access.can({ schematics: { delete: 'all', update: 'all' } }))
     return {
       status: 403,
       body: 'Forbidden',
