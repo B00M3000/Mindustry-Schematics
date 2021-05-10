@@ -1,9 +1,11 @@
 import type { Context } from '@/interfaces/app';
+import { UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler<Context> = async (req) => {
-  if (!req.context.isAdmin)
+  const access = UserAccess.from(req.context.access);
+  if (!access.can({ userTokens: ['read'] }))
     return {
       status: 403,
       headers: {

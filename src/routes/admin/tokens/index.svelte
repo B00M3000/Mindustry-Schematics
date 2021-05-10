@@ -4,8 +4,8 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, session }) => {
-    const { isAdmin } = session as Session;
-    if (!isAdmin)
+    const access = UserAccess.from((session as Session).access);
+    if (!access.can({ userTokens: ['create', 'read', 'update', 'delete'] }))
       return {
         props: {
           redirect: '/user',
@@ -29,8 +29,10 @@
   import User from './_user.svelte';
   import { auth } from '@/client/stores/auth';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
+  import { UserAccess } from '@/lib/auth/access';
   export let redirect: string | null = null;
   export let users: UserTokenJSON[] = [];
+  const allowed = redirect == null;
   onMount(() => {
     if (redirect) goto(redirect);
   });
@@ -55,7 +57,7 @@
 <template lang="pug">
   svelte:head
     title User Tokens
-  +if("$auth.isAdmin")
+  +if("allowed")
     h2 User Tokens
     ul.users
       button(on:click!="{createToken}") Create Token

@@ -4,8 +4,16 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, page, session }) => {
-    const { isMod } = session as Session;
-    if (!isMod) return {};
+    const access = UserAccess.from((session as Session).access);
+    if (
+      !access.can({
+        schematics: ['delete', 'update'],
+      })
+    )
+      return {
+        status: 403,
+        error: new Error('Forbidden'),
+      };
     const response = await fetch(`/admin/schematic_changes/${page.params.id}/change`);
     const json = await response.json();
     return {
@@ -25,6 +33,7 @@
   import Actions from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { parseTags } from '@/lib/tag';
+  import { UserAccess } from '@/lib/auth/access';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;

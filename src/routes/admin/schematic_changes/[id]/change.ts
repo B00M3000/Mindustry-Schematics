@@ -1,5 +1,6 @@
 import type { Context } from '@/interfaces/app';
 import type { SchematicChangeJSON } from '@/interfaces/json';
+import { UserAccess } from '@/lib/auth/access';
 import {
   SchematicChangeSchema,
   SchematicDocument,
@@ -50,7 +51,12 @@ function renderAsSame(...schematics: [string, string]): boolean {
   return true;
 }
 export const get: RequestHandler<Context> = async ({ params, context }) => {
-  if (!context.isMod)
+  const access = UserAccess.from(context.access);
+  if (
+    !access.can({
+      schematics: ['delete', 'update'],
+    })
+  )
     return {
       status: 403,
       body: 'Forbidden',

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { auth } from '@/client/stores/auth';
-
+  let allowTokens = $auth.access.can({ userTokens: ['read', 'update'] });
+  let allowChanges = $auth.access.can({ schematics: ['delete', 'update'] });
   type FormSubmitEvent = Event & {
     currentTarget: EventTarget & HTMLFormElement;
   };
@@ -24,10 +25,10 @@
       div.info
         h2 Welcome Back {$auth.name}
         button(on:click!="{logout}") Logout
-      +if("$auth.isAdmin")
+      +if("allowTokens")
         a.link(href="/admin/tokens")
           button User Tokens
-      +if("$auth.isMod")
+      +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
     +else

@@ -1,5 +1,6 @@
 import type { Context } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
+import { UserAccess } from '@/lib/auth/access';
 import {
   SchematicChangeDocument,
   SchematicChangeSchema,
@@ -18,7 +19,8 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   return originals;
 }
 export const get: RequestHandler<Context> = async (req) => {
-  if (!req.context.isMod) {
+  const access = UserAccess.from(req.context.access);
+  if (!access.can({ schematics: ['delete', 'update'] })) {
     return { status: 403, body: 'Forbidden' };
   }
   const changes: Changes = await SchematicChangeSchema.find({}, 'id _id Delete', {

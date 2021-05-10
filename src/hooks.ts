@@ -3,7 +3,7 @@ import cookie from 'cookie';
 import type { GetContext, GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
 import type { Context, Session } from './interfaces/app';
-import { User } from './server/auth';
+import { User } from './server/auth/user';
 /** **This function should not be imported manually** */
 export const getContext: GetContext<Context> = async (request) => {
   await mongo();
@@ -12,15 +12,14 @@ export const getContext: GetContext<Context> = async (request) => {
   return {
     name: user?.name,
     token: user?.token,
-    ...User.levels(user),
+    access: user?.access.name,
   };
 };
 export const getSession: GetSession<Context, Session> = async ({ context }) => {
   return {
-    isAdmin: context.isAdmin,
-    isMod: context.isMod,
     name: context.name,
     token: context.token,
+    access: context.access,
   };
 };
 export const handle: Handle = async ({ request, render }) => {
