@@ -122,20 +122,39 @@ export const accessLevels = {
   get verifiedUser() {
     return new UserAccess({
       name: 'verifiedUser',
-      permissions: {},
+      permissions: {
+        schematics: {
+          read: 'all',
+          create: 'own',
+          delete: 'own',
+          update: 'own',
+        },
+      },
     });
   },
   get user() {
     return new UserAccess({
       name: 'user',
-      permissions: {},
+      permissions: {
+        schematics: {
+          read: 'all',
+          create: 'own',
+          delete: 'own',
+          update: 'own',
+        },
+      },
     });
   },
   // represents a basic user with no permissions besides the universal ones
   get none() {
     return new UserAccess({
-      name: 'verifiedUser',
-      permissions: {},
+      name: 'none',
+      permissions: {
+        schematics: {
+          read: 'all',
+          create: 'own',
+        },
+      },
     });
   },
 };
