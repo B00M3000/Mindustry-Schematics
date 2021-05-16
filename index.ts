@@ -88,6 +88,10 @@ app.use(
     res: express.Response,
     next: express.NextFunction
   ) => {
+    app.get('eventHandler').unhandledError({
+      triggeredAt: new Date().getTime(),
+      message: error.toString(),
+    });
     res.status(505);
     res.render('errors/500');
     console.log(error);
