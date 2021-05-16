@@ -1,4 +1,3 @@
-import { writevSync } from 'node:fs';
 import { DiscordWebhookHandler } from './discord_webhook_handler';
 
 interface Event {
