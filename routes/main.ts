@@ -3,10 +3,10 @@ import SchematicSchema, { SchematicDocument } from '../schemas/Schematic';
 import { Router } from 'express';
 import { Schematic } from 'mindustry-schematic-parser';
 import { SchematicRequest } from './types';
+import Tags from '../tags.json';
+import { parseTags } from '../util/parse_tags';
 import { safeDescription } from '../util';
-import tags from '../tags.json';
 const { ObjectId } = Types;
-const avaliableTags = tags;
 const limitPerPage = 20;
 const router = Router();
 export default router;
@@ -60,8 +60,8 @@ router.get('/', async (req, res) => {
       pages,
       documents,
       schematics,
-      tags: avaliableTags,
-      _tags: JSON.stringify(avaliableTags),
+      tags: Tags,
+      _tags: JSON.stringify(Tags),
       queriedTags: tags,
       mode,
     });
@@ -104,8 +104,8 @@ router.get('/schematics', (req, res) => {
 router.get('/schematics/create', (req, res) => {
   res.render('create_schematic', {
     url: req.url,
-    tags,
-    _tags: JSON.stringify(tags),
+    tags: Tags,
+    _tags: JSON.stringify(Tags),
   });
 });
 router.get('/schematics/:id', async (req, res) => {
@@ -121,9 +121,7 @@ router.get('/schematics/:id', async (req, res) => {
       new: true,
     }
   )) as SchematicDocument;
-  const tags = schematic.tags.map((name) =>
-    avaliableTags.find((t) => t.name === name)
-  );
+  const tags = parseTags(schematic.tags);
   res.render('schematic', {
     url: req.url,
     schematic,
@@ -136,8 +134,8 @@ router.get('/schematics/:id/edit', async (req, res) => {
 
   res.render('edit_schematic', {
     schematic,
-    tags,
-    _tags: JSON.stringify(tags),
+    tags: Tags,
+    _tags: JSON.stringify(Tags),
     previousTags: JSON.stringify(schematic.tags),
   });
 });
