@@ -1,3 +1,4 @@
+import { writevSync } from 'node:fs';
 import { DiscordWebhookHandler } from './discord_webhook_handler';
 
 interface Event {
@@ -18,7 +19,9 @@ interface DeleteSchematicEvent extends SchematicEvent {
 interface EditSchematicEvent extends SchematicEvent {
   changes: string;
 }
-
+interface UnhandledErrorEvent extends Event {
+  message: string;
+}
 const colors = new Map();
 colors.set('red', fromHex('#ff0000'));
 colors.set('yellow', fromHex('#ffd000'));
@@ -41,8 +44,8 @@ export class EventHandler {
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
     });
   }
 
@@ -53,8 +56,8 @@ export class EventHandler {
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
     });
   }
 
@@ -65,8 +68,17 @@ export class EventHandler {
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`
-      }
+        url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
+      },
+    });
+  }
+
+  unhandledError(event: UnhandledErrorEvent) {
+    // TODO: send error logs on a different discord channel
+    this.webhookHandler.sendEmbed({
+      color: colors.get('red'),
+      title: 'Unhandled Error',
+      description: event.message,
     });
   }
 }
