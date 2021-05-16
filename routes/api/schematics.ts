@@ -3,7 +3,7 @@ import { Schematic } from 'mindustry-schematic-parser';
 import SchematicChangeSchema from '../../schemas/SchematicChange.js';
 import { SchematicRequest } from '../../routes/types.js';
 import SchematicSchema from '../../schemas/Schematic.js';
-import Tags from '../../tags.json';
+import { parseTags } from '../../util/parse_tags.js';
 
 class SchematicSizeError extends Error {}
 
@@ -61,9 +61,7 @@ router.post('/create', async (req, res) => {
   try {
     const schematic = Schematic.decode(text);
 
-    const tags = (JSON.parse(req.body.tags) as Tag[])
-      .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name === n));
+    const tags = parseTags(JSON.parse(req.body.tags) as Tag[]);
 
     const {
       powerBalance,
@@ -133,9 +131,7 @@ router.post('/:id/edit', async (req, res) => {
   } = req.body;
 
   try {
-    tags = (JSON.parse(tags) as Tag[])
-      .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name === n));
+    tags = parseTags(JSON.parse(tags) as Tag[]);
   } catch (error) {
     tags = undefined;
   }
