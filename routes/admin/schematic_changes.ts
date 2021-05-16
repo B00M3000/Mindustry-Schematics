@@ -5,7 +5,7 @@ import SchematicChangeSchema, {
 import SchematicSchema, { SchematicDocument } from '../../schemas/Schematic';
 
 import { diffArrays, diffSentences } from 'diff';
-import avaliableTags from '../../tags.json';
+import { parseTags } from '../../util/parse_tags';
 import { safeDescription } from '../../util/index';
 interface ModifiedSchematicChangeDocument extends SchematicChangeDocument {
   Original?: SchematicDocument | null;
@@ -46,12 +46,8 @@ router.get('/:_id', async (req, res) => {
     change,
   };
   if (change.Original && change.Changed) {
-    const originalTags = change.Original.tags.map((name) =>
-      avaliableTags.find((t) => t.name === name)
-    );
-    const changedTags = change.Changed.tags.map((name) =>
-      avaliableTags.find((t) => t.name === name)
-    );
+    const originalTags = parseTags(change.Original.tags);
+    const changedTags = parseTags(change.Changed.tags);
     const diffs = {
       name: diffSentences(change.Original.name, change.Changed.name),
       creator: diffSentences(change.Original.creator, change.Changed.creator),
