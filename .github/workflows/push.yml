@@ -9,13 +9,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-      - name: Wait for code analysis
-        uses: lewagon/wait-on-check-action@v0.2
-        with:
-          ref: master
-          check-name: analyze
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 20
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
