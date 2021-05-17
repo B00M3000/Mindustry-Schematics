@@ -94,7 +94,7 @@
             +if("differentImages")
               figure.added
                 img(src="/api/schematic_changes/{change._id}/image" alt="new preview")
-          div.creator
+          div.creator by 
             +each("diffs.creator as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}
           div.description
