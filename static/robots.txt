@@ -1,6 +1,3 @@
-# All Bots
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /
-Disallow: /static
-Disallow: /admin
-Disallow: /?
+Disallow:
