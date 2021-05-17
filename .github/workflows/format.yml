@@ -15,6 +15,7 @@ jobs:
           ref: master
           check-name: analyze
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 20
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
