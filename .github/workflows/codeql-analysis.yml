@@ -36,6 +36,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Wait for formatting
+        uses: lewagon/wait-on-check-action@v0.2
+        with: 
+          ref: master
+          check-name: format
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
