@@ -19,7 +19,9 @@ interface DeleteSchematicEvent extends SchematicEvent {
 interface EditSchematicEvent extends SchematicEvent {
   changes: string;
 }
-
+interface UnhandledErrorEvent extends Event {
+  message: string;
+}
 const colors = new Map();
 colors.set('red', 0xff0000);
 colors.set('yellow', 0xffd000);
@@ -71,6 +73,14 @@ export class EventHandler {
       image: {
         url: `${this.websiteURL}/raw/schematics/${event.schematicId}/image`,
       },
+    });
+  }
+  unhandledError(event: UnhandledErrorEvent): void {
+    // TODO: send error logs on a different discord channel
+    this.webhookHandler.sendEmbed({
+      color: colors.get('red'),
+      title: 'Unhandled Error',
+      description: event.message,
     });
   }
 }
