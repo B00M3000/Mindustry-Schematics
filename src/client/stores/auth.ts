@@ -22,6 +22,14 @@ const { set, subscribe } = writable<AuthStore>(
     })();
   },
 );
+function write(value: AuthStore) {
+  set(value);
+  (session as Writable<Session>).set({
+    access: value.access.name,
+    name: value.name,
+    token: value.token,
+  });
+}
 export const auth = {
   subscribe,
   async login(token: string): Promise<void> {
@@ -33,7 +41,8 @@ export const auth = {
     });
     if (response.status == 404) throw new Error('Token not registered');
     const data = await response.json();
-    set({
+    console.log(data);
+    write({
       ...data,
       token,
       access: UserAccess.from(data.access),
@@ -43,7 +52,7 @@ export const auth = {
     await fetch('/api/user/logout', {
       method: 'POST',
     });
-    set({
+    write({
       access: UserAccess.from(undefined),
     });
   },
