@@ -1,5 +1,5 @@
 import type { Context } from '@/interfaces/app';
-import { User } from '@/server/auth';
+import { User } from '@/server/auth/user';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';

@@ -1,8 +1,12 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
-    const { isMod } = session as Session;
-    if (!isMod) {
-      return {};
+    const access = UserAccess.from((session as Session).access);
+    if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
+      return {
+        props: {
+          redirect: true,
+        },
+      };
     }
     const response = await fetch('schematic_changes/changes');
     const changes = await response.json();
@@ -23,16 +27,19 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import LazyImage from '@/client/components/LazyImage.svelte';
   import { auth } from '@/client/stores/auth';
+  import { UserAccess } from '@/lib/auth/access';
+  export let redirect = false;
   export let changes: SchematicChangeInfoJSON[] = [];
+  const allowed = !redirect;
   onMount(() => {
-    if (!$auth.isMod) goto('/user');
+    if (redirect) goto('/user');
   });
 </script>
 
 <template lang="pug">
   svelte:head
     title Schematic Changes
-  +if("$auth.isAdmin")
+  +if("allowed")
     h1.changes Schematic Changes
     div.changes
       +each("changes as change")
@@ -43,10 +50,13 @@
               span {change.name}
             LazyImage(src="/api/schematics/{change.id}/image" alt="schematic preview")
     footer
-      BackButton(href="user" smart)
+      BackButton(href="/user" smart)
 </template>
 
 <style>
+  h1 {
+    text-align: center;
+  }
   div.changes {
     padding: 2rem;
     display: flex;

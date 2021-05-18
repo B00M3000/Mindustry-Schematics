@@ -1,13 +1,25 @@
 import { session } from '$app/stores';
 import type { Session } from '@/interfaces/app';
-import { writable } from 'svelte/store';
-const { set, subscribe } = writable<Session>(
+import { UserAccess } from '@/lib/auth/access';
+import { Writable, writable } from 'svelte/store';
+interface AuthStore {
+  name?: string;
+  token?: string;
+  access: UserAccess;
+}
+const { set, subscribe } = writable<AuthStore>(
   {
-    isAdmin: false,
-    isMod: false,
+    access: UserAccess.from(undefined),
   },
   (set) => {
-    session.subscribe(($session) => set($session))();
+    const s = session as Writable<Session>;
+    s.subscribe(($session) => {
+      set({
+        name: $session.name,
+        token: $session.token,
+        access: UserAccess.from($session.access),
+      });
+    })();
   },
 );
 export const auth = {
@@ -24,6 +36,7 @@ export const auth = {
     set({
       ...data,
       token,
+      access: UserAccess.from(data.access),
     });
   },
   async logout(): Promise<void> {
@@ -31,8 +44,7 @@ export const auth = {
       method: 'POST',
     });
     set({
-      isAdmin: false,
-      isMod: false,
+      access: UserAccess.from(undefined),
     });
   },
   async sync(): Promise<void> {

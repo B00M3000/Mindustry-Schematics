@@ -1,4 +1,5 @@
 import type { Context } from '@/interfaces/app';
+import { UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -9,7 +10,8 @@ interface Data {
   access: string;
 }
 export const post: RequestHandler<Context> = async (req) => {
-  if (!req.context.isAdmin)
+  const currentAccess = UserAccess.from(req.context.access);
+  if (!currentAccess.can({ schematics: { update: 'all' } }))
     return {
       status: 403,
       headers: {
@@ -49,7 +51,8 @@ export const post: RequestHandler<Context> = async (req) => {
   };
 };
 export const del: RequestHandler<Context> = async (req) => {
-  if (!req.context.isAdmin)
+  const access = UserAccess.from(req.context.access);
+  if (!access.can({ schematics: { delete: 'all' } }))
     return {
       status: 403,
       headers: {

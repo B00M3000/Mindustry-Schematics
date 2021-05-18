@@ -12,7 +12,10 @@
   let image: HTMLImageElement;
   let loaded = false;
   let visible = false;
-
+  $: {
+    // mark the image as unloaded if the src changes
+    loaded = Boolean(src && false);
+  }
   onMount(() => {
     image.addEventListener('load', () => (loaded = true));
     if (typeof IntersectionObserver !== 'undefined') {

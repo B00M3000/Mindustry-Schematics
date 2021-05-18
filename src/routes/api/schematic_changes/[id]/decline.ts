@@ -1,9 +1,11 @@
 import type { Context } from '@/interfaces/app';
+import { UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler<Context> = async (req) => {
-  if (!req.context.isMod)
+  const access = UserAccess.from(req.context.access);
+  if (!access.can({ schematics: { delete: 'all', update: 'all' } }))
     return {
       status: 403,
       body: 'Forbidden',
