@@ -31,7 +31,7 @@ export const post: RequestHandler<Context> = async (req) => {
     },
     body: {
       name: user.name,
-      ...User.levels(user),
+      access: user.access.name,
     },
   };
 };
