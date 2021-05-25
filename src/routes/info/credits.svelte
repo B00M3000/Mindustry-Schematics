@@ -61,6 +61,33 @@
               ul
                 li Discord/IGN: "Kei"
                 li Discord ID: "271947902002266112"
+      section
+        h3 Background Competion Winner
+        ul
+          li
+            Person(name="TheGamer_10n")
+              ul
+                li Discord/IGN: "undefined"
+                li Discord ID: "undefined"
+      section
+        h3 Background Competion Participants
+        ul
+          li
+            Person(name="The Lil' Leo")
+              ul
+                li Discord/IGN: "undefined"
+                li Discord ID: "undefined"
+          li
+            Person(name="Natasquare")
+              ul
+                li Discord/IGN: "undefined"
+                li Discord ID: "undefined"
+          li
+            Person(name="RT Omega")
+              ul
+                li Discord/IGN: "undefined"
+                li Discord ID: "undefined"
+          
   footer
     BackButton(href="/info")
 </template>
