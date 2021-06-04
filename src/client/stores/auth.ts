@@ -41,7 +41,6 @@ export const auth = {
     });
     if (response.status == 404) throw new Error('Token not registered');
     const data = await response.json();
-    console.log(data);
     write({
       ...data,
       token,
