@@ -1,15 +1,27 @@
 <script lang="ts">
   import { auth } from '@/client/stores/auth';
-  let allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
-  let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
+  $: allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
+  $: allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
+  let error: string | undefined;
   type FormSubmitEvent = Event & {
     currentTarget: EventTarget & HTMLFormElement;
   };
+  function getErrorMessage(e: unknown) {
+    if (e instanceof Error) {
+      if (e.message.includes('registered')) return 'Token not registered';
+    }
+    return 'Error during login, try again later';
+  }
   async function login(e: FormSubmitEvent) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    await auth.login(data.get('token') as string);
+    try {
+      error = undefined;
+      await auth.login(data.get('token') as string);
+    } catch (e) {
+      error = getErrorMessage(e);
+    }
   }
   async function logout(e: FormSubmitEvent) {
     e.preventDefault();
@@ -33,6 +45,8 @@
           button Schematic Changes
     +else
       form.login(on:submit!="{login}")
+        +if("error")
+          span.error {error}
         input(name="token" type="password" placeholder="Enter your token here..." required)
         button Login
 </template>
@@ -55,12 +69,17 @@
     align-self: center;
   }
   form.login {
-    display: flex;
+    place-items: center;
+    display: grid;
     padding: 1rem;
     gap: 1rem;
-    justify-content: center;
+    grid-template-columns: 1fr 1fr max-content 1fr;
+    grid-template-areas:
+      '. error error .'
+      '. input button .';
   }
   form.login input {
+    grid-area: input;
     background-color: var(--surface);
     border-radius: 0.5em;
     padding: 0.5em;
@@ -68,5 +87,12 @@
     color: var(--on-surface);
     max-width: 50vw;
     width: 15rem;
+  }
+  form.login button {
+    grid-area: button;
+  }
+  form.login span.error {
+    grid-area: error;
+    color: hsl(0, 100%, 65%);
   }
 </style>
