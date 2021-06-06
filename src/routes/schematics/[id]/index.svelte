@@ -74,7 +74,7 @@
         +each("items as item")
           +if("schematic.requirements[item]")
             span
-              img.item(src="/assets/items/{item}.png" alt!="{item}")
+              img.item(src="/assets/items/{item}.svg" alt!="{item}")
               span {schematic.requirements[item]}
       +if("schematic.powerConsumption || schematic.powerProduction")
         div.power
@@ -182,6 +182,7 @@
   }
   div.requirements > span > img {
     margin-right: 3px;
+    height: 2em;
   }
   div.power {
     margin-top: 1em;
