@@ -1,9 +1,25 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
-/// preferred files to load environment variables, the first files on the array are the first to be used
+
+/** The server side environment variables of this project*/
+interface Env {
+  MONGO_DATABASE_NAME?: string;
+  MONGO_USER?: string;
+  MONGO_PASS?: string;
+  MONGO_PATH?: string;
+  WEBHOOK_URL?: string;
+  WEBSITE_URL?: string;
+  ENABLE_WEBHOOKS: boolean;
+}
+
+type RawEnv = {
+  [K in keyof Env]?: string;
+};
+
+/** preferred files to load environment variables, the first files on the array are the first to be used */
 const envs = ['.env.dev', '.env'];
-function configEnv(): dotenv.DotenvParseOutput {
+function configEnv(): RawEnv {
   for (const file of envs) {
     const filePath = path.resolve(file);
     if (fs.existsSync(filePath))
@@ -16,24 +32,16 @@ function configEnv(): dotenv.DotenvParseOutput {
   throw new Error('No .env files found');
 }
 
-interface Env {
-  MONGO_USER: string | undefined;
-  MONGO_PASS: string | undefined;
-  MONGO_PATH: string | undefined;
-  WEBHOOK_URL: string | undefined;
-  WEBSITE_URL: string | undefined;
-  ENABLE_WEBHOOKS: boolean;
-}
-
+// the raw env has all its values contained as strings
+// non string values must be converted manually (see bellow)
 const rawEnv = configEnv();
 
+// the spread operator will automatically assign the string properties
+// and we override non string properties putting them after
+// the spread operator
 const env: Env = {
-  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS ?? true),
-  MONGO_PASS: rawEnv.MONGO_PASS,
-  MONGO_PATH: rawEnv.MONGO_PATH,
-  MONGO_USER: rawEnv.MONGO_USER,
-  WEBHOOK_URL: rawEnv.WEBHOOK_URL,
-  WEBSITE_URL: rawEnv.WEBSITE_URL,
+  ...rawEnv,
+  ENABLE_WEBHOOKS: rawEnv.ENABLE_WEBHOOKS?.toLowerCase() == 'true',
 };
 
 export default env;
