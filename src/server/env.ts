@@ -23,6 +23,8 @@ interface Env {
   WEBHOOK_URL: string | undefined;
   WEBSITE_URL: string | undefined;
   ENABLE_WEBHOOKS: boolean;
+  DISCORD_APPLICATION_ID: string | undefined
+  DISCORD_APPLICATION_SECRET: string | undefined
 }
 
 const rawEnv = configEnv();
@@ -34,6 +36,8 @@ const env: Env = {
   MONGO_USER: rawEnv.MONGO_USER,
   WEBHOOK_URL: rawEnv.WEBHOOK_URL,
   WEBSITE_URL: rawEnv.WEBSITE_URL,
+  DISCORD_APPLICATION_ID: rawEnv.DISCORD_APPLICATION_ID,
+  DISCORD_APPLICATION_SECRET: rawEnv.DISCORD_APPLICATION_SECRET
 };
 
 export default env;

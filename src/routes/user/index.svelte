@@ -1,4 +1,5 @@
 <script lang="ts">
+  import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
   let allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
   let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
@@ -35,6 +36,10 @@
       form.login(on:submit!="{login}")
         input(name="token" type="password" placeholder="Enter your token here..." required)
         button Login
+        
+      DiscordLogin
+        
+      
 </template>
 
 <style>
