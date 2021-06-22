@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-
+  import { browser } from '$app/env';
   export let src: string;
   export let alt: string;
   export let top = 0;
@@ -51,14 +51,19 @@
   });
 </script>
 
-<img {alt} bind:this={image} src={visible ? src : undefined} class:loaded />
+{#if browser}
+  <img {alt} bind:this={image} src={visible ? src : undefined} class:loaded />
+{:else}
+  <img {alt} {src} loading="lazy" />
+{/if}
 
 <style>
   img {
     opacity: 0;
     transition: opacity ease 0.5s;
   }
-  img.loaded {
+  img.loaded,
+  img[loading='lazy'] {
     opacity: 1;
   }
 </style>
