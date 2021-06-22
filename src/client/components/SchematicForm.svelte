@@ -9,6 +9,9 @@
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
   import { parseTags } from '@/lib/tag';
+  import { auth } from '../stores/auth';
+  import { toast } from '@zerodevx/svelte-toast';
+  import { onMount } from 'svelte';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -70,6 +73,11 @@
     });
     const url = response.headers.get('location');
     await goto(url || '/');
+    if (variant == 'edit' && $auth.access.can({ schematics: { update: 'all' } })) {
+      const { change } = await response.json();
+      const changeUrl = `/admin/schematic_changes/${change}`;
+      toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
+    }
   }
   function changeMode(newMode: Mode) {
     if (parseState == 'parsing') return;
