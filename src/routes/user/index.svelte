@@ -3,17 +3,7 @@
   import { auth } from '@/client/stores/auth';
   let allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
   let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
-  type FormSubmitEvent = Event & {
-    currentTarget: EventTarget & HTMLFormElement;
-  };
-  async function login(e: FormSubmitEvent) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    await auth.login(data.get('token') as string);
-  }
-  async function logout(e: FormSubmitEvent) {
-    e.preventDefault();
+  async function logout() {
     await auth.logout();
   }
 </script>
@@ -30,11 +20,8 @@
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
     +else
-      form.login(on:submit!="{login}")
-        input(name="token" type="password" placeholder="Enter your token here..." required)
-        button Login
-        
-      DiscordLogin
+      div.logins        
+        DiscordLogin
         
 
 </template>
@@ -56,19 +43,10 @@
   a.link {
     align-self: center;
   }
-  form.login {
+  .logins {
     display: flex;
-    padding: 1rem;
-    gap: 1rem;
-    justify-content: center;
-  }
-  form.login input {
-    background-color: var(--surface);
-    border-radius: 0.5em;
-    padding: 0.5em;
-    border: 2px solid #888888;
-    color: var(--on-surface);
-    max-width: 50vw;
-    width: 15rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
 </style>
