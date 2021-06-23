@@ -5,6 +5,8 @@ export const get: RequestHandler = async () => {
     client_id: env.DISCORD_APPLICATION_ID || '',
     scope: 'identify',
     redirect: `${env.WEBSITE_URL}/user/discord/redirect`,
+    response_type: 'code',
+    prompt: 'none'
   });
   return {
     status: 308,

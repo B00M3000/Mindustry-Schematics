@@ -1,18 +1,20 @@
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
-  discord_id: { type: String, required: true },
-  access_token: { type: String, required: true },
-  token_type: { type: String, required: true },
+  id: { type: String, required: true },
   username: { type: String, required: true },
-  avatarURL: { type: String },
+  discriminator: { type: String, required: true },
+  avatar_hash: { type: String },
+  avatar_url: { type: String },
+  tag: { type: String, required: true },
 });
 export interface UserDocument extends mongoose.Document {
-  discord_id: string;
-  access_token: string;
-  token_type: string;
+  id: string;
   username: string;
-  avatarURL?: string;
+  discriminator: string;
+  tag: string;
+  avatar_hash?: string;
+  avatar_url?: string;
 }
 
 export const UserSchema: mongoose.Model<UserDocument> =

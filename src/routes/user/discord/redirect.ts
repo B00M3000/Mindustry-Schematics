@@ -5,6 +5,7 @@ import { UserSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import env from '@/server/env';
 import * as cookie from 'cookie';
+
 async function get_tokens(code: string | null) {
   const data = new FormData();
   data.append('client_id', env.DISCORD_APPLICATION_ID);
@@ -59,8 +60,9 @@ export const get: RequestHandler = async (req) => {
       id: user.id,
       username: user.username,
       discriminator: user.discriminator,
-      avatar_url: user.avatar_url,
-      tag: `${user.username}#${user.discriminator}`,
+      avatar_hash: user.avatar,
+      avatar_url: user.avatar ? `/avatars/${user.id}/${user.avatar}.png` : `/embed/avatars/${user.discriminator}.png`,
+      tag: `${user.username}#${user.discriminator}`
     },
     {
       upsert: true,
