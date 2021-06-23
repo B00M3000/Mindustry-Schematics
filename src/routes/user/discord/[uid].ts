@@ -2,8 +2,8 @@ import { UserSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler = async (req) => {
-  const code = req.params.uid;
-  const user = await UserSchema.findOne({ id: code });
+  const uid = req.params.uid;
+  const user = await UserSchema.findOne({ _id: uid });
 
   if (!user)
     return {
