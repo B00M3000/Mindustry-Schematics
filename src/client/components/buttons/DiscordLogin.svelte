@@ -1,11 +1,11 @@
 <script lang="ts">
-  
 </script>
 
 <template lang="pug">
-  div.btn(onclick="window.location.href='/user/discord'")
-    img(src="/assets/discord_logo_white.png" width="40px" height="40px")
-    p Login with Discord
+  a(href="/user/discord")
+    div.btn
+      img(src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo")
+      p Login with Discord
 </template>
 
 <style>
@@ -24,7 +24,7 @@
     display: inline-block;
     width: 300px;
     height: 50px;
-    background: #738ADB;
+    background: #738adb;
     padding: 10px;
     text-align: center;
     border-radius: 5px;

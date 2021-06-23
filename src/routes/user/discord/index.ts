@@ -1,16 +1,18 @@
-import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { DISCORD_APPLICATION_ID, WEBSITE_URL } from '@/server/env';
-
-export const get: RequestHandler = async (req) => {
-  
+import env from '@/server/env';
+export const get: RequestHandler = async () => {
+  const params = new URLSearchParams({
+    client_id: env.DISCORD_APPLICATION_ID || '',
+    scope: 'identify',
+    redirect: `${env.WEBSITE_URL}/user/discord/redirect`,
+  });
   return {
     status: 308,
     headers: {
-      location: `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_APPLICATION_ID}?scope=identify?redirect=${WEBSITE_URL}/user/discord/redirect`
+      location: `https://discord.com/api/oauth2/authorize?${params}`,
     },
     body: {
-      message: "Redirect to Discord Oauth"
-    }
+      message: 'Redirect to Discord Oauth',
+    },
   };
 };

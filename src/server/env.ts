@@ -23,21 +23,21 @@ interface Env {
   WEBHOOK_URL: string | undefined;
   WEBSITE_URL: string | undefined;
   ENABLE_WEBHOOKS: boolean;
-  DISCORD_APPLICATION_ID: string | undefined
-  DISCORD_APPLICATION_SECRET: string | undefined
+  DISCORD_APPLICATION_ID: string | undefined;
+  DISCORD_APPLICATION_SECRET: string | undefined;
 }
 
 const rawEnv = configEnv();
 
 const env: Env = {
-  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS ?? true),
+  ENABLE_WEBHOOKS: Boolean(rawEnv.ENABLE_WEBHOOKS?.toLowerCase() !== 'false'),
   MONGO_PASS: rawEnv.MONGO_PASS,
   MONGO_PATH: rawEnv.MONGO_PATH,
   MONGO_USER: rawEnv.MONGO_USER,
   WEBHOOK_URL: rawEnv.WEBHOOK_URL,
   WEBSITE_URL: rawEnv.WEBSITE_URL,
   DISCORD_APPLICATION_ID: rawEnv.DISCORD_APPLICATION_ID,
-  DISCORD_APPLICATION_SECRET: rawEnv.DISCORD_APPLICATION_SECRET
+  DISCORD_APPLICATION_SECRET: rawEnv.DISCORD_APPLICATION_SECRET,
 };
 
 export default env;

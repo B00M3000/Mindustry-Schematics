@@ -1,4 +1,3 @@
-import type mongodb from 'mongodb';
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
@@ -6,14 +5,14 @@ const schema = new mongoose.Schema({
   access_token: { type: String, required: true },
   token_type: { type: String, required: true },
   username: { type: String, required: true },
-  avatarURL: { type: String }
+  avatarURL: { type: String },
 });
 export interface UserDocument extends mongoose.Document {
-  discord_id: string,
-  access_token: string,
-  token_type: string,
-  username: string,
-  avatarURL?: string,
+  discord_id: string;
+  access_token: string;
+  token_type: string;
+  username: string;
+  avatarURL?: string;
 }
 
 export const UserSchema: mongoose.Model<UserDocument> =
