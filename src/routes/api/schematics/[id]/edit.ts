@@ -30,7 +30,7 @@ export const post: RequestHandler = async (req) => {
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {
       status: 400,
-      body: 'Missing required data',
+      body: { error: 'Missing required data' },
     };
   }
   let tags: string[] | undefined;
@@ -69,18 +69,17 @@ export const post: RequestHandler = async (req) => {
     },
   };
 
-  const schematicChange = {
+  const change = await SchematicChangeSchema.create({
     id: originalSchematic._id,
     Changed: changedSchematic,
     Description: cDescription,
-  };
+  });
 
-  await new SchematicChangeSchema(schematicChange).save();
   return {
     status: 200,
     headers: {
       location: `/schematics/${originalSchematic._id}`,
     },
-    body: '',
+    body: { change: change._id },
   };
 };
