@@ -32,7 +32,6 @@ export class User {
       access: accessLevels.none,
       uid,
     });
-    console.log(user);
     return user;
   }
 
