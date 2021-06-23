@@ -61,8 +61,10 @@ export const get: RequestHandler = async (req) => {
       username: user.username,
       discriminator: user.discriminator,
       avatar_hash: user.avatar,
-      avatar_url: user.avatar ? `/avatars/${user.id}/${user.avatar}.png` : `/embed/avatars/${user.discriminator}.png`,
-      tag: `${user.username}#${user.discriminator}`
+      avatar_url: user.avatar
+        ? `/avatars/${user.id}/${user.avatar}.png`
+        : `/embed/avatars/${user.discriminator}.png`,
+      tag: `${user.username}#${user.discriminator}`,
     },
     {
       upsert: true,

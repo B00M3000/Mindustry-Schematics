@@ -6,7 +6,7 @@ export const get: RequestHandler = async () => {
     scope: 'identify',
     redirect: `${env.WEBSITE_URL}/user/discord/redirect`,
     response_type: 'code',
-    prompt: 'none'
+    prompt: 'none',
   });
   return {
     status: 308,
