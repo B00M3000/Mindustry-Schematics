@@ -1,18 +1,18 @@
-import { UserTokenSchema } from '@/server/mongo';
+import { UserSchema } from '@/server/mongo';
 import { UserAccess, accessLevels } from '@/lib/auth/access';
 
 interface UserOptions {
   access: UserAccess | string;
-  token: string;
+  uid: string;
   name: string;
 }
 export class User {
   access: UserAccess;
-  token: string;
+  uid: string;
   name: string;
 
   constructor(options: UserOptions) {
-    ({ token: this.token, name: this.name } = options);
+    ({ uid: this.uid, name: this.name } = options);
 
     if (typeof options.access === 'string') {
       this.access = UserAccess.from(options.access);
@@ -21,17 +21,18 @@ export class User {
     }
   }
 
-  static async get(token?: string): Promise<User | undefined> {
-    if (!token) return;
-    const userDoc = await UserTokenSchema.findOne({
-      token: String(token),
+  static async get(uid?: string): Promise<User | undefined> {
+    if (!uid) return;
+    const userDoc = await UserSchema.findOne({
+      id: uid,
     });
     if (!userDoc) return;
     const user = new User({
       name: userDoc.username,
-      access: userDoc.access,
-      token: userDoc.token,
+      access: accessLevels.none,
+      uid,
     });
+    console.log(user);
     return user;
   }
 

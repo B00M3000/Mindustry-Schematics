@@ -1,10 +1,10 @@
 export interface Context {
   name?: string;
-  token?: string;
+  uid?: string;
   access?: string;
 }
 export interface Session {
   name?: string;
-  token?: string;
+  uid?: string;
   access?: string;
 }

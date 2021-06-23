@@ -76,7 +76,9 @@ export const get: RequestHandler = async (req) => {
     status: 308,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('uid', result._id),
+      'set-cookie': cookie.serialize('uid', result.id, {
+        path: '/',
+      }),
     },
     body: {
       message: 'Redirect to User Dashboard',

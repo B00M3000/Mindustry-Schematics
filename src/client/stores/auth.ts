@@ -4,7 +4,7 @@ import { UserAccess } from '@/lib/auth/access';
 import { Writable, writable } from 'svelte/store';
 interface AuthStore {
   name?: string;
-  token?: string;
+  uid?: string;
   access: UserAccess;
 }
 const { set, subscribe } = writable<AuthStore>(
@@ -16,7 +16,7 @@ const { set, subscribe } = writable<AuthStore>(
     s.subscribe(($session) => {
       set({
         name: $session.name,
-        token: $session.token,
+        uid: $session.uid,
         access: UserAccess.from($session.access),
       });
     })();
@@ -24,18 +24,18 @@ const { set, subscribe } = writable<AuthStore>(
 );
 export const auth = {
   subscribe,
-  async login(token: string): Promise<void> {
+  async login(uid: string): Promise<void> {
     const response = await fetch('/api/user/login', {
       method: 'POST',
       body: JSON.stringify({
-        token,
+        uid,
       }),
     });
-    if (response.status == 404) throw new Error('Token not registered');
+    if (response.status == 404) throw new Error('Uid does not exist');
     const data = await response.json();
     set({
       ...data,
-      token,
+      uid,
       access: UserAccess.from(data.access),
     });
   },
@@ -48,8 +48,8 @@ export const auth = {
     });
   },
   async sync(): Promise<void> {
-    let token: string | undefined;
-    this.subscribe(($auth) => (token = $auth.token))();
-    if (token) await this.login(token);
+    let uid: string | undefined;
+    this.subscribe(($auth) => (uid = $auth.uid))();
+    if (uid) await this.login(uid);
   },
 };

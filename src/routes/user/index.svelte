@@ -21,14 +21,11 @@
 <template lang="pug">
   svelte:head
     title User Login
-  +if("$auth.token")
+  +if("$auth.uid")
     main
       div.info
         h2 Welcome Back {$auth.name}
         button(on:click!="{logout}") Logout
-      +if("allowTokens")
-        a.link(href="/admin/tokens")
-          button User Tokens
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
@@ -39,7 +36,7 @@
         
       DiscordLogin
         
-      
+
 </template>
 
 <style>

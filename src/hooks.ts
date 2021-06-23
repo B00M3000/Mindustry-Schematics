@@ -6,20 +6,20 @@ import type { Context, Session } from './interfaces/app';
 import { User } from './server/auth/user';
 import webhooks from './server/webhooks';
 /** **This function should not be imported manually** */
-export const getContext: GetContext<Context> = async (request) => {
+export const getContext: GetContext<Promise<Context>> = async (request) => {
   await mongo();
   const cookies = cookie.parse(request.headers.cookie || '');
-  const user = await User.get(cookies.token);
+  const user = await User.get(cookies.uid);
   return {
     name: user?.name,
-    token: user?.token,
+    uid: user?.uid,
     access: user?.access.name,
   };
 };
 export const getSession: GetSession<Context, Session> = async ({ context }) => {
   return {
     name: context.name,
-    token: context.token,
+    uid: context.uid,
     access: context.access,
   };
 };
