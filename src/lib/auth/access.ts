@@ -119,19 +119,6 @@ export const accessLevels = {
       },
     });
   },
-  get verifiedUser() {
-    return new UserAccess({
-      name: 'verifiedUser',
-      permissions: {
-        schematics: {
-          read: 'all',
-          create: 'own',
-          delete: 'own',
-          update: 'own',
-        },
-      },
-    });
-  },
   get user() {
     return new UserAccess({
       name: 'user',
