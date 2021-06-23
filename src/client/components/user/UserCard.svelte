@@ -1,11 +1,14 @@
-<script lang='ts'>
+<script lang="ts">
+  import UserIcon from './UserIcon.svelte';
+
   export let uid: string;
-  
-  const user = await fetch(`/user/discord/${uid}`)
-  
+  // promise with the user json data
+  const userPromise = fetch(`/user/discord/${uid}`).then((res) => res.json());
 </script>
 
 <template>
-  <UserIcon avatar_url={user.avatar_url}>
-  <p>{user.tag}</p>
+  {#await userPromise then user}
+    <UserIcon avatar_url={user.avatar_url} />
+    <p>{user.tag}</p>
+  {/await}
 </template>
