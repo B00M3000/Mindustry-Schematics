@@ -3,7 +3,7 @@
 
 <template lang="pug">
   a(href="/user/discord")
-    div.btn
+    button
       img(src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo")
       p Login with Discord
 </template>
@@ -18,10 +18,10 @@
     font-weight: bold;
     color: white;
   }
-  div {
-    text-align: center;
-    vertical-align: middle;
-    display: inline-block;
+  button {
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: 300px;
     height: 50px;
     background: #738adb;
@@ -29,5 +29,6 @@
     text-align: center;
     border-radius: 5px;
     line-height: 25px;
+    border: none;
   }
 </style>
