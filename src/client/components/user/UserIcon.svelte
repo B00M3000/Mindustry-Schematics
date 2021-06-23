@@ -1,10 +1,10 @@
-<script lang='ts'>
+<script lang="ts">
   export let avatar_url: string;
-  avatar_url += '?size=64'
-</scirpt>
+  avatar_url += '?size=64';
+</script>
 
 <template>
-  <img src={avatar_url}/>
+  <img src={avatar_url} alt="user icon" />
 </template>
 
 <style>
