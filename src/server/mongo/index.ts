@@ -24,5 +24,4 @@ export default async () => {
 };
 export * from './schemas/schematic';
 export * from './schemas/schematic_change';
-export * from './schemas/user_token';
 export * from './schemas/user';
