@@ -29,7 +29,7 @@ export class User {
     if (!userDoc) return;
     const user = new User({
       name: userDoc.username,
-      access: accessLevels.none,
+      access: UserAccess.from(userDoc.access),
       uid,
     });
     return user;
