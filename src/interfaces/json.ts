@@ -1,5 +1,9 @@
 import type { LeanDocument } from 'mongoose';
-import type { SchematicChangeDocument, SchematicDocument } from '../server/mongo';
+import type {
+  SchematicChangeDocument,
+  SchematicDocument,
+  UserDocument,
+} from '../server/mongo';
 export type SchematicJSON = Omit<LeanDocument<SchematicDocument>, 'image'>;
 export type BasicSchematicJSON = Pick<
   LeanDocument<SchematicDocument>,
@@ -38,4 +42,10 @@ export interface SchematicChangeJSON {
   mode: ChangeMode;
   original?: SchematicJSON | null;
   differentImages: boolean;
+}
+export interface UserSearchJSON {
+  page: number;
+  pages: number;
+  users: Pick<LeanDocument<UserDocument>, 'id' | 'tag' | 'access' | 'verified'>[];
+  total: number;
 }
