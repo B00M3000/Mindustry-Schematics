@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-export type Resource = 'schematics' | 'userTokens';
+export type Resource = 'schematics' | 'users';
 export type ResourceControl = 'own' | 'all';
 export type Action = 'create' | 'read' | 'update' | 'delete';
 type Permission = {
@@ -13,6 +13,17 @@ type PermissionData = {
     [A in Action]?: ResourceControl;
   };
 };
+
+// levels of access hierarchy
+// the first levels have more privileges
+export enum Level {
+  admin,
+  mod,
+  user,
+  none,
+}
+export type LevelName = keyof typeof Level;
+
 /** Compares both `a` and `b` and returns a boolean value
  *  representing whether `a` has more control than `b`
  */
@@ -21,14 +32,14 @@ function isControlGreaterThan(a: ResourceControl, b: ResourceControl) {
   return controls.indexOf(a) <= controls.indexOf(b);
 }
 export class UserAccess {
-  readonly name: string;
+  readonly name: LevelName;
   private readonly permissions: Permission = {};
   constructor({
     name,
     permissions,
     extend,
   }: {
-    name: string;
+    name: LevelName;
     permissions: PermissionData;
     extend?: UserAccess;
   }) {
@@ -81,6 +92,19 @@ export class UserAccess {
     return true;
   }
 
+  /**
+   * Compares `this` to `access` and returns:
+   *    - a negative number if `this` is less than `access`
+   *    - `0` if both are equal
+   *    - a positive number if `this` is more than `access`
+   * @param access The access
+   */
+  compare(access: UserAccess) {
+    if (this.name == access.name) return 0;
+    const smaller = Level[this.name] > Level[access.name];
+    return smaller ? -1 : 1;
+  }
+
   toString(): string {
     return this.name;
   }
@@ -89,15 +113,15 @@ export class UserAccess {
     return this.name;
   }
 }
+
 // the names must be camelCase
-// the lower the level of the role, the higher its privileges
-export const accessLevels = {
+export const accessLevels: Record<LevelName, UserAccess> = {
   get admin() {
     return new UserAccess({
       name: 'admin',
       extend: this.mod,
       permissions: {
-        userTokens: {
+        users: {
           create: 'all',
           delete: 'all',
           read: 'all',
