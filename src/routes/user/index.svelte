@@ -1,7 +1,7 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
-  let allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
+  let allowUsers = $auth.access.can({ users: { read: 'all', update: 'all' } });
   let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
   async function logout() {
     await auth.logout();
@@ -19,6 +19,9 @@
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+      +if("allowUsers")
+        a.link(href="/admin/users")
+          button User Panel
     +else
       div.logins        
         DiscordLogin
