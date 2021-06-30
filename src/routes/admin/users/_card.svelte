@@ -16,6 +16,7 @@
   async function save() {
     if (user.id == $auth.uid) {
       toast.push("You can't modify your own privileges");
+      reset();
       return;
     }
     const response = await fetch(`/api/admin/users/${user.id}`, {
@@ -37,6 +38,7 @@
         } else {
           toast.push("You can't promove a user to a level higher than yours");
         }
+        reset();
         break;
       }
     }
