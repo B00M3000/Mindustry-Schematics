@@ -8,6 +8,7 @@ const schema = new mongoose.Schema({
   avatar_url: { type: String },
   tag: { type: String, required: true },
   verified: { type: Boolean },
+  access: { type: String, required: true, default: 'none' },
 });
 export interface UserDocument extends mongoose.Document {
   id: string;
@@ -17,6 +18,7 @@ export interface UserDocument extends mongoose.Document {
   avatar_hash?: string;
   avatar_url?: string;
   verified?: boolean;
+  access: string;
 }
 
 export const UserSchema: mongoose.Model<UserDocument> =
