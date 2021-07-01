@@ -77,7 +77,7 @@
     gap: 1em;
     position: relative;
     flex-wrap: wrap;
-    width: 100%;
+    width: max-content;
     transition: margin 0.5s ease;
   }
   li > div {
