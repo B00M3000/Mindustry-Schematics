@@ -15,9 +15,9 @@ export const get: RequestHandler<Context> = async ({ context, query }) => {
       },
     };
   const limit = 50;
-  const search = query.get('search');
+  const search = query.get('tag');
   const filter: FilterQuery<UserDocument> = {};
-  if (search) filter.tag = new RegExp(escapeRegexString(search));
+  if (search) filter.tag = new RegExp(escapeRegexString(search), 'i');
   const documents = await UserSchema.countDocuments(filter);
   const pages = Math.ceil(documents / limit) || 1;
   let page = Number(query.get('page') || 1);
