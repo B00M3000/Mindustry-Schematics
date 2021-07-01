@@ -56,7 +56,7 @@
     div.controls
       select#mode(name="mode")
         option(value="name" selected!="{data.mode == 'name'}") Name
-        option(value="creatior" selected!="{data.mode == 'creator'}") Creator
+        option(value="creator" selected!="{data.mode == 'creator'}") Creator
       div.buttons
         button(type="submit")
           img(src="/assets/check-mark.svg" alt="Search")
