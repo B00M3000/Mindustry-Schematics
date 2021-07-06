@@ -50,11 +50,11 @@
     title User Panel
   form.search(on:submit!="{search}")
     div.field
-      label Tag
+      label(for="tag") Tag
       input#tag(type="text" name="tag" placeholder="User tag" value!="{query.get('tag')}")
     div.field
-      label Verification
-      select(name="verified")
+      label(for="verified") Verification
+      select#verified(name="verified")
         option(value="") Any
         option(value="true") Verified
         option(value="false") Not verified
