@@ -33,21 +33,33 @@
     e.preventDefault();
     let form = e.currentTarget as HTMLFormElement;
     let formData = new FormData(form);
-    let tag = formData.get('tag');
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => params.append(key, value as string));
+    // validotion
+    if (!params.get('tag')) params.delete('tag');
+    if (!params.get('verified')) params.delete('verified');
     let url = '/admin/users';
-    if (tag) {
-      url += `?tag=${tag}`;
-    }
+    if (params.toString()) url += `?${params}`;
     await goto(url);
   }
 </script>
 
+<option value="" />
 <template lang="pug">
+  svelte:head
+    title User Panel
   form.search(on:submit!="{search}")
-    label(for="tag") Tag: 
-    input#tag(type="text" name="tag" value!="{query.get('tag')}")
+    div.field
+      label Tag
+      input#tag(type="text" name="tag" placeholder="User tag" value!="{query.get('tag')}")
+    div.field
+      label Verification
+      select(name="verified")
+        option(value="") Any
+        option(value="true") Verified
+        option(value="false") Not verified
     button Search
-
+  
   ul.result
     +each("data.users as user")
       Card({user})    
@@ -62,11 +74,38 @@
     margin: 1em 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 1em;
     padding: 0 1rem;
     z-index: 10;
     flex-wrap: wrap;
+  }
+  .field {
+    display: inline-flex;
+    flex-direction: column;
+    border-radius: 0.5em;
+    background-color: var(--surface);
+    justify-content: space-between;
+  }
+  .field > label {
+    font-size: 0.8em;
+    margin: 0.2em 0 0 0.5em;
+    /* margin-left: 0.5em; */
+    order: -1;
+  }
+  .field > *:not(label) {
+    border: none;
+    border-bottom: 2px solid #808080;
+    background-color: var(--surface);
+    color: var(--on-surface);
+    border-radius: 0.6em;
+    padding: 0.2em;
+  }
+  .field input {
+    padding-left: 0.5em;
+  }
+  form > button {
+    align-self: center;
   }
   ul.result {
     display: flex;

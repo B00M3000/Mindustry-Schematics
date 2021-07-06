@@ -15,9 +15,16 @@ export const get: RequestHandler<Context> = async ({ context, query }) => {
       },
     };
   const limit = 50;
-  const search = query.get('tag');
-  const filter: FilterQuery<UserDocument> = {};
-  if (search) filter.tag = new RegExp(escapeRegexString(search), 'i');
+  const qTag = query.get('tag');
+  const qVerified = query.get('verified');
+  let verified: boolean | undefined;
+  if (qVerified) verified = qVerified.toLowerCase() !== 'false';
+  const filter: FilterQuery<UserDocument> = {
+    // if verified is true search where verified is true, else search where
+    // verified is false or undefined
+    verified: verified || { $in: [false, undefined] },
+  };
+  if (qTag) filter.tag = new RegExp(escapeRegexString(qTag), 'i');
   const documents = await UserSchema.countDocuments(filter);
   const pages = Math.ceil(documents / limit) || 1;
   let page = Number(query.get('page') || 1);
