@@ -14,7 +14,7 @@ export const get: RequestHandler<Context> = async ({ context, query }) => {
         message: 'Forbidden',
       },
     };
-  const limit = 50;
+  const limit = 20;
   const qTag = query.get('tag');
   const qVerified = query.get('verified');
   let verified: boolean | undefined;
