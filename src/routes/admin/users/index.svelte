@@ -27,6 +27,7 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import Card from './_card.svelte';
   import { goto } from '$app/navigation';
+  import Paginator from './_paginator.svelte';
   export let data: UserSearchJSON;
   export let query: URLSearchParams;
   async function search(e: Event) {
@@ -42,9 +43,18 @@
     if (params.toString()) url += `?${params}`;
     await goto(url);
   }
+  async function changePage(e: CustomEvent<{ page: number }>) {
+    const { page } = e.detail;
+    const params = new URLSearchParams(location.search);
+    if (page == 1) params.delete('page');
+    else params.set('page', page.toString());
+    let url = location.pathname;
+
+    if (params.toString()) url += `?${params}`;
+    await goto(url);
+  }
 </script>
 
-<option value="" />
 <template lang="pug">
   svelte:head
     title User Panel
@@ -59,12 +69,19 @@
         option(value="true") Verified
         option(value="false") Not verified
     button Search
-  
   ul.result
     +each("data.users as user")
       Card({user})    
       +else
         span No results
+  +if("data.users.length > 0")
+    div.pages
+      Paginator(
+        class="paginator"
+        pages!="{data.pages}"
+        page!="{data.page}"
+        on:change!="{changePage}"
+      )
   footer
     BackButton(href="/user" smart)
 </template>
@@ -114,5 +131,13 @@
     justify-content: center;
     gap: 1.5em;
     padding: 0 1rem;
+    margin-bottom: 2rem;
+  }
+  .pages {
+    display: flex;
+    justify-content: center;
+  }
+  .pages :global(.paginator) {
+    width: max-content;
   }
 </style>
