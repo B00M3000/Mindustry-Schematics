@@ -1,10 +1,10 @@
 import { getTutorials } from '@/server/tutorials';
 import type { RequestHandler } from '@sveltejs/kit';
-interface TutorialInfo {
+type TutorialInfo = {
   title: string;
   name: string;
-}
-export const get: RequestHandler = async () => {
+};
+export const get: RequestHandler<unknown, unknown, TutorialInfo[]> = async () => {
   const tutorials = getTutorials();
   const body: TutorialInfo[] = [];
   tutorials.forEach((value, key) => {

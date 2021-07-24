@@ -44,7 +44,7 @@ export const get: RequestHandler = async (req) => {
     };
     return {
       status: 200,
-      body,
+      body: body as never,
     };
   } catch (e) {
     return { status: 500, body: String(e) };

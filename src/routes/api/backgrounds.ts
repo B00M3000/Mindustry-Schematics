@@ -1,8 +1,9 @@
+import type { Locals } from '@/interfaces/app';
 import type { RequestHandler } from '@sveltejs/kit';
 import fs from 'fs';
 import path from 'path';
 let paths: string[] | undefined;
-export const get: RequestHandler = async () => {
+export const get: RequestHandler<Locals, unknown, string[]> = async () => {
   if (!paths)
     paths = fs
       .readdirSync(path.resolve('static/assets/backgrounds'))

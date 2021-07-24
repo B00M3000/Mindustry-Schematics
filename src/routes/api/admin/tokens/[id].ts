@@ -1,4 +1,4 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
@@ -9,8 +9,8 @@ interface Data {
   token: string;
   access: string;
 }
-export const post: RequestHandler<Context> = async (req) => {
-  const currentAccess = UserAccess.from(req.context.access);
+export const post: RequestHandler<Locals> = async (req) => {
+  const currentAccess = UserAccess.from(req.locals.access);
   if (!currentAccess.can({ schematics: { update: 'all' } }))
     return {
       status: 403,
@@ -40,7 +40,7 @@ export const post: RequestHandler<Context> = async (req) => {
     },
   );
   const headers: Record<string, string> = {};
-  if (req.context.token == req.params.id)
+  if (req.locals.token == req.params.id)
     headers['set-cookie'] = cookie.serialize('token', token, {
       path: '/',
     });
@@ -50,8 +50,8 @@ export const post: RequestHandler<Context> = async (req) => {
     body: 'Ok',
   };
 };
-export const del: RequestHandler<Context> = async (req) => {
-  const access = UserAccess.from(req.context.access);
+export const del: RequestHandler<Locals> = async (req) => {
+  const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: { delete: 'all' } }))
     return {
       status: 403,
@@ -66,7 +66,7 @@ export const del: RequestHandler<Context> = async (req) => {
     token: _token,
   });
   const headers: Record<string, string> = {};
-  if (req.params.id == req.context.token)
+  if (req.params.id == req.locals.token)
     headers['set-cookie'] = cookie.serialize('token', '', {
       path: '/',
     });

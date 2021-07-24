@@ -1,8 +1,8 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import type { RequestHandler } from '@sveltejs/kit';
-export const post: RequestHandler<Context> = async (req) => {
-  const access = UserAccess.from(req.context.access);
+export const post: RequestHandler<Locals> = async (req) => {
+  const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: { read: 'all', update: 'all' } }))
     return {
       status: 403,
