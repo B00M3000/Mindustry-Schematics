@@ -1,23 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-type Primitive = number | string | boolean | null | undefined | symbol | bigint;
-type Serializable<R = unknown> = { toJSON(): R };
-type ValidKey<T, K extends keyof T> = K extends string | number
-  ? T[K] extends Function
+type ValidKey<T, K extends keyof T> = K extends string
+  ? T[K] extends Function | symbol | bigint | undefined
     ? never
     : K
   : never;
-export type Serialized<T> = T extends Primitive
+export type Serialized<T> = T extends number | string | boolean | null
   ? T
   : T extends (infer R)[]
   ? Serialized<R>[]
   : T extends Map<infer K, infer R>
-  ? K extends string | number
-    ? Record<K, Serialized<R>>
+  ? K extends string
+    ? Record<string, Serialized<R>>
     : {}
-  : T extends Map<number, infer R>
-  ? Record<number, Serialized<R>>
-  : T extends Serializable<infer R>
+  : T extends { toJSON(...args: unknown[]): infer R }
   ? Serialized<R>
   : {
       [K in keyof T as ValidKey<T, K>]: Serialized<T[K]>;
