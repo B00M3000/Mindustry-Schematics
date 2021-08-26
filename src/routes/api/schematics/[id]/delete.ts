@@ -4,7 +4,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 interface Body {
   reason: string;
 }
-export const post: RequestHandler<unknown, Body> = async (req) => {
+type PostOutput = { error: string } | { change: string };
+export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
   const schematic = await SchematicSchema.findOne({ _id: req.params.id });
   if (!schematic)
     return {
@@ -12,22 +13,22 @@ export const post: RequestHandler<unknown, Body> = async (req) => {
       headers: {
         location: '/',
       },
-      body: 'Not found',
+      body: { error: 'Schematic not found' },
     };
   const { reason } = parseForm<Body>(req.body);
 
-  const schematicChange = {
+  const change = await SchematicChangeSchema.create({
     id: schematic._id,
     Delete: reason,
-  };
-
-  await new SchematicChangeSchema(schematicChange).save();
+  });
 
   return {
     status: 200,
     headers: {
       location: `/schematics/${schematic._id}`,
     },
-    body: 'OK',
+    body: {
+      change: change._id,
+    },
   };
 };

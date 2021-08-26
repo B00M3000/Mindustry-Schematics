@@ -4,6 +4,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import Tags from '@/../tags.json';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseForm } from '@/server/parse_body';
+import type { Locals } from '@/interfaces/app';
 interface Body {
   name: string;
   creator: string;
@@ -12,7 +13,8 @@ interface Body {
   tags: string;
   cDescription: string;
 }
-export const post: RequestHandler = async (req) => {
+type PostOutput = { error: string } | { change: string };
+export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => {
   const originalSchematic = await SchematicSchema.findOne({
     _id: req.params.id,
   });
@@ -22,7 +24,7 @@ export const post: RequestHandler = async (req) => {
       headers: {
         location: '/',
       },
-      body: 'Not found',
+      body: { error: 'Not found' },
     };
   const parsedForm = parseForm<Body>(req.body);
   let { text } = parsedForm;
@@ -30,7 +32,7 @@ export const post: RequestHandler = async (req) => {
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {
       status: 400,
-      body: 'Missing required data',
+      body: { error: 'Missing required data' },
     };
   }
   let tags: string[] | undefined;
@@ -69,18 +71,17 @@ export const post: RequestHandler = async (req) => {
     },
   };
 
-  const schematicChange = {
+  const change = await SchematicChangeSchema.create({
     id: originalSchematic._id,
     Changed: changedSchematic,
     Description: cDescription,
-  };
+  });
 
-  await new SchematicChangeSchema(schematicChange).save();
   return {
     status: 200,
     headers: {
       location: `/schematics/${originalSchematic._id}`,
     },
-    body: '',
+    body: { change: change._id },
   };
 };

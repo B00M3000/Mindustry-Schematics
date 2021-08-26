@@ -1,4 +1,4 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
 import {
@@ -18,8 +18,8 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   const originals = await Promise.all(promises);
   return originals;
 }
-export const get: RequestHandler<Context> = async (req) => {
-  const access = UserAccess.from(req.context.access);
+export const get: RequestHandler<Locals> = async (req) => {
+  const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
     return { status: 403, body: { message: 'Forbidden' } };
   }

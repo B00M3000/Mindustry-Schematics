@@ -1,9 +1,23 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
-  let allowUsers = $auth.access.can({ users: { read: 'all', update: 'all' } });
-  let allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
-  async function logout() {
+  $: allowUsers = $auth.access.can({ users: { read: 'all', update: 'all' } });
+  $: allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
+  let error: string | undefined;
+
+  type FormSubmitEvent = Event & {
+    currentTarget: EventTarget & HTMLFormElement;
+  };
+
+  function getErrorMessage(e: unknown) {
+    if (e instanceof Error) {
+      if (e.message.includes('registered')) return 'Token not registered';
+    }
+    return 'Error during login, try again later';
+  }
+
+  async function logout(e: FormSubmitEvent) {
+    e.preventDefault();
     await auth.logout();
   }
 </script>

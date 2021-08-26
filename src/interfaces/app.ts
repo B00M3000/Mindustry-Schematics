@@ -1,4 +1,4 @@
-export interface Context {
+export interface Locals {
   name?: string;
   uid?: string;
   access?: string;

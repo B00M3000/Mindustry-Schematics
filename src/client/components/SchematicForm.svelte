@@ -9,6 +9,9 @@
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
   import { parseTags } from '@/lib/tag';
+  import { auth } from '../stores/auth';
+  import { toast } from '@zerodevx/svelte-toast';
+  import { onMount } from 'svelte';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -70,6 +73,11 @@
     });
     const url = response.headers.get('location');
     await goto(url || '/');
+    if (variant == 'edit' && $auth.access.can({ schematics: { update: 'all' } })) {
+      const { change } = await response.json();
+      const changeUrl = `/admin/schematic_changes/${change}`;
+      toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
+    }
   }
   function changeMode(newMode: Mode) {
     if (parseState == 'parsing') return;
@@ -157,9 +165,9 @@ div.wrapper(class!="{parseState}")
         value!="{description}"
         required
       )
-      label(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
+      label.fixed(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
       +if("mode =='text'")
-        input(
+        input.fixed(
           name="text"
           id="text"
           placeholder="Paste the schematic text here"
@@ -169,7 +177,7 @@ div.wrapper(class!="{parseState}")
           on:change!="{parseSchematic}"
         )
         +else
-          input(
+          input.fixed(
             type="file"
             name="file"
             id="file"
@@ -179,7 +187,7 @@ div.wrapper(class!="{parseState}")
             on:change!="{parseSchematic}"
           )
       +if("error")
-        span.error {error}
+        span.error.fixed {error}
       label(for="tags") Tags:
       TagInput(bind:currentTags)
       +if("variant == 'edit'")
@@ -242,9 +250,7 @@ div.wrapper(class!="{parseState}")
     opacity: 0;
     pointer-events: none;
   }
-  form.locked
-    > div.inputs
-    > :global(*:not(input#text, label[for='text'], input#file, label[for='file'], span.error)) {
+  form.locked > div.inputs > :global(*:not(.fixed)) {
     opacity: 0;
     pointer-events: none;
   }
