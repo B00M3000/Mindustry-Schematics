@@ -6,6 +6,8 @@ import type { Locals, Session } from './interfaces/app';
 import { User } from './server/auth/user';
 import webhooks from './server/webhooks';
 
+const dbPromise = mongo();
+
 export const getSession: GetSession<Locals, Session> = async ({ locals }) => {
   return {
     name: locals.name,
@@ -16,7 +18,7 @@ export const getSession: GetSession<Locals, Session> = async ({ locals }) => {
 
 export const handle: Handle<Locals> = async ({ request, resolve }) => {
   try {
-    await mongo();
+    await dbPromise;
     const cookies = cookie.parse(request.headers.cookie || '');
     const user = await User.get(cookies.token);
     request.locals = {
