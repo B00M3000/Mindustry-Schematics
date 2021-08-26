@@ -1,4 +1,4 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import { User } from '@/server/auth/user';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -7,12 +7,23 @@ import * as cookie from 'cookie';
 interface BodyJSON {
   token: string;
 }
-export const post: RequestHandler<Context> = async (req) => {
+interface PostInput {
+  token: string;
+}
+type PostOutput =
+  | {
+      message: string;
+    }
+  | {
+      name: string;
+      access: string;
+    };
+export const post: RequestHandler<Locals, PostInput, PostOutput> = async (req) => {
   const { token } = parseForm<BodyJSON>(req.body);
   if (!token)
     return {
       status: 400,
-      body: 'Missing auth token',
+      body: { message: 'Missing auth token' },
     };
   const user = await User.get(token);
   if (!user)

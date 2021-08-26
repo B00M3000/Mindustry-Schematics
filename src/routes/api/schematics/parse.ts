@@ -1,3 +1,4 @@
+import type { Locals } from '@/interfaces/app';
 import type { SchematicParseErrorJSON, SchematicParseJSON } from '@/interfaces/json';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -5,7 +6,8 @@ import { Schematic } from 'mindustry-schematic-parser';
 
 class SchematicSizeError extends Error {}
 type RequestBody = { text: string };
-export const post: RequestHandler = async (req) => {
+type PostInput = string | { text: string };
+export const post: RequestHandler<Locals, PostInput> = async (req) => {
   const { text } = parseForm<RequestBody>(req.body);
   if (!text || text === '') {
     return {
@@ -32,7 +34,7 @@ export const post: RequestHandler = async (req) => {
     };
     return {
       status: 200,
-      body,
+      body: body as never,
     };
   } catch (error) {
     let status = 500;
@@ -51,7 +53,7 @@ export const post: RequestHandler = async (req) => {
     };
     return {
       status,
-      body,
+      body: body as never,
     };
   }
 };

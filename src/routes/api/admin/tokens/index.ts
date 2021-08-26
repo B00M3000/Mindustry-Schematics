@@ -1,10 +1,10 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<Context> = async (req) => {
-  const access = UserAccess.from(req.context.access);
+export const get: RequestHandler<Locals> = async (req) => {
+  const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: { read: 'all' } }))
     return {
       status: 403,
@@ -16,6 +16,6 @@ export const get: RequestHandler<Context> = async (req) => {
   const users = await UserTokenSchema.find({});
   return {
     status: 200,
-    body: users,
+    body: users as never,
   };
 };

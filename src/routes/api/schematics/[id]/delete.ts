@@ -4,7 +4,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 interface Body {
   reason: string;
 }
-export const post: RequestHandler<unknown, Body> = async (req) => {
+type PostOutput = { error: string } | { change: string };
+export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
   const schematic = await SchematicSchema.findOne({ _id: req.params.id });
   if (!schematic)
     return {

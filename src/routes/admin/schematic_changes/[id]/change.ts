@@ -1,4 +1,4 @@
-import type { Context } from '@/interfaces/app';
+import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
 import {
@@ -50,8 +50,8 @@ function renderAsSame(...schematics: [string, string]): boolean {
   }
   return true;
 }
-export const get: RequestHandler<Context> = async ({ params, context }) => {
-  const access = UserAccess.from(context.access);
+export const get: RequestHandler<Locals, unknown> = async ({ params, locals }) => {
+  const access = UserAccess.from(locals.access);
   if (
     !access.can({
       schematics: { delete: 'all', update: 'all' },
@@ -59,7 +59,7 @@ export const get: RequestHandler<Context> = async ({ params, context }) => {
   )
     return {
       status: 403,
-      body: 'Forbidden',
+      body: { message: 'Forbidden' },
     };
   const change = await SchematicChangeSchema.findOne(
     { _id: params.id },
@@ -78,7 +78,7 @@ export const get: RequestHandler<Context> = async ({ params, context }) => {
       Description: true,
     },
   );
-  if (!change) return { status: 404, body: 'Not Found' };
+  if (!change) return { status: 404, body: { message: 'Not Found' } };
   const mode = change?.Delete ? 'delete' : 'modify';
   const original = await SchematicSchema.findOne(
     { _id: change.id },
@@ -91,10 +91,9 @@ export const get: RequestHandler<Context> = async ({ params, context }) => {
       text: true,
     },
   );
-  const differentImages =
-    change.Changed && original
-      ? !renderAsSame(change.Changed.text, original.text)
-      : false;
+  const differentImages = Boolean(
+    change.Changed && original && !renderAsSame(change.Changed.text, original.text),
+  );
   // const differentImages =
   // 	change.Changed && original
   // 		? Buffer.compare(
@@ -120,6 +119,6 @@ export const get: RequestHandler<Context> = async ({ params, context }) => {
   }
   return {
     status: 200,
-    body,
+    body: body as never,
   };
 };

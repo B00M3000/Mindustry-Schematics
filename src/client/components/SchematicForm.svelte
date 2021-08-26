@@ -165,9 +165,9 @@ div.wrapper(class!="{parseState}")
         value!="{description}"
         required
       )
-      label(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
+      label.fixed(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
       +if("mode =='text'")
-        input(
+        input.fixed(
           name="text"
           id="text"
           placeholder="Paste the schematic text here"
@@ -177,7 +177,7 @@ div.wrapper(class!="{parseState}")
           on:change!="{parseSchematic}"
         )
         +else
-          input(
+          input.fixed(
             type="file"
             name="file"
             id="file"
@@ -187,7 +187,7 @@ div.wrapper(class!="{parseState}")
             on:change!="{parseSchematic}"
           )
       +if("error")
-        span.error {error}
+        span.error.fixed {error}
       label(for="tags") Tags:
       TagInput(bind:currentTags)
       +if("variant == 'edit'")
@@ -250,9 +250,7 @@ div.wrapper(class!="{parseState}")
     opacity: 0;
     pointer-events: none;
   }
-  form.locked
-    > div.inputs
-    > :global(*:not(input#text, label[for='text'], input#file, label[for='file'], span.error)) {
+  form.locked > div.inputs > :global(*:not(.fixed)) {
     opacity: 0;
     pointer-events: none;
   }
