@@ -9,8 +9,8 @@ export const get: RequestHandler = async (req) => {
   return {
     status: 200,
     headers: {
-      'Content-Type': 'image/png',
-      'Content-Length': body.length.toString(),
+      'content-type': 'image/png',
+      'content-length': body.length.toString(),
     },
     body,
   };
