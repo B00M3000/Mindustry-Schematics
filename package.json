@@ -16,7 +16,6 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cookie": "^0.4.1",
     "@types/diff": "^5.0.1",
-    "@types/node-fetch": "^3.0.3",
     "@types/showdown": "^1.9.4",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
@@ -42,7 +41,6 @@
     "dotenv": "^10.0.0",
     "mindustry-schematic-parser": "^4.0.0",
     "mongoose": "^6.0.5",
-    "node-fetch": "^3.0.0",
     "showdown": "^1.9.1"
   }
 }
