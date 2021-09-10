@@ -15,6 +15,9 @@ export const get: RequestHandler<unknown, unknown, TutorialInfo[]> = async () =>
   });
   return {
     status: 200,
+    headers: {
+      'cache-control': 'max-age=86400', // cache for 1 day
+    },
     body,
   };
 };

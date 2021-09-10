@@ -16,8 +16,10 @@ export const get: RequestHandler = async (req) => {
   return {
     status: 200,
     headers: {
-      'Content-Type': 'image/png',
-      'Content-Length': body.length.toString(),
+      'cache-control': 'max-age=1800',
+      'content-disposition': `inline; filename="${schematic.Changed.name}.png"`,
+      'content-Type': 'image/png',
+      'content-Length': body.length.toString(),
     },
     body,
   };

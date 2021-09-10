@@ -15,6 +15,9 @@ export const get: RequestHandler<unknown, unknown, GetOutput> = async (req) => {
     };
   return {
     status: 200,
+    headers: {
+      'cache-control': 'max-age=86400', // cache for 1 day
+    },
     body: {
       title: tutorial.title,
       html: tutorial.html,

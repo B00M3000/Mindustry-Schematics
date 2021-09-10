@@ -10,6 +10,9 @@ export const get: RequestHandler<Locals, unknown, string[]> = async () => {
       .map((file) => path.join('/assets/backgrounds', file).replace(/\\/g, '/'));
   return {
     status: 200,
+    headers: {
+      'cache-control': 'max-age=86400', // cache for 1 day
+    },
     body: paths,
   };
 };

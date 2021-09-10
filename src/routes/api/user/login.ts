@@ -35,7 +35,7 @@ export const post: RequestHandler<Locals, PostInput, PostOutput> = async (req) =
     };
   return {
     headers: {
-      Location: '/user',
+      location: '/user',
       'set-cookie': cookie.serialize('token', token, {
         path: '/',
       }),
