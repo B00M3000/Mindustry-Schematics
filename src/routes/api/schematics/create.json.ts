@@ -63,7 +63,7 @@ export const post: RequestHandler<unknown, Body, GetOutput> = async (req) => {
       },
     };
 
-    const { id } = await new SchematicSchema(newSchematic).save();
+    const { id } = await SchematicSchema.create(newSchematic);
     webhooks.createSchematic({
       triggeredAt: new Date().getTime(),
       schematicId: id,
