@@ -50,6 +50,11 @@ export const get: RequestHandler = async (req) => {
       body: body as never,
     };
   } catch (e) {
-    return { status: 500, body: String(e) };
+    return {
+      status: 500,
+      body: {
+        error: String(e),
+      },
+    };
   }
 };

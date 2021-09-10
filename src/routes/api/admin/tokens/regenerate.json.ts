@@ -1,7 +1,14 @@
 import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import type { RequestHandler } from '@sveltejs/kit';
-export const post: RequestHandler<Locals> = async (req) => {
+type GetOutput =
+  | {
+      message: string;
+    }
+  | {
+      token: string;
+    };
+export const post: RequestHandler<Locals, unknown, GetOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: { read: 'all', update: 'all' } }))
     return {
@@ -9,7 +16,9 @@ export const post: RequestHandler<Locals> = async (req) => {
       headers: {
         location: '/',
       },
-      body: 'Forbidden',
+      body: {
+        message: 'Forbidden',
+      },
     };
   // TODO: replace this with uuid
   const preffix = new Date().getTime().toString(36);

@@ -20,7 +20,7 @@
           redirect: '/user',
         },
       };
-    const response = await fetch('/api/admin/tokens');
+    const response = await fetch('/api/admin/tokens.json');
     const users = await response.json();
 
     return {
@@ -46,16 +46,14 @@
     if (redirect) goto(redirect);
   });
   async function createToken() {
+    const response = await fetch('/api/admin/tokens/regenerate.json', {
+      method: 'POST',
+    });
+    const { token } = await response.json();
     users = [
       {
         access: 'mod',
-        token: (
-          await (
-            await fetch('/api/admin/tokens/regenerate', {
-              method: 'POST',
-            })
-          ).json()
-        ).token,
+        token,
         username: '',
       },
       ...users,

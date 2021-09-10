@@ -56,6 +56,8 @@ export const post: RequestHandler<Locals> = async (req) => {
     headers: {
       location: '/admin/schematic_changes',
     },
-    body: 'Success',
+    body: {
+      message: 'Success',
+    },
   };
 };

@@ -2,7 +2,7 @@
   export const load: Load = async ({ fetch, page }) => {
     const { params } = page;
     const { name } = params;
-    const response = await fetch(`/api/tutorials/${name}`);
+    const response = await fetch(`/api/tutorials/${name}.json`);
     const content = await response.json();
     return {
       props: { content },

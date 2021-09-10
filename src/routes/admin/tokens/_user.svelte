@@ -8,7 +8,7 @@
   let token = user.token;
   let form: HTMLFormElement;
   async function deleteToken() {
-    await fetch(`/api/admin/tokens/${user.token}`, {
+    await fetch(`/api/admin/tokens/${user.token}.json`, {
       method: 'DELETE',
     });
     if ($auth.token == user.token) {
@@ -19,7 +19,7 @@
     users = users;
   }
   async function regenerateToken() {
-    const response = await fetch('/api/admin/tokens/regenerate', {
+    const response = await fetch('/api/admin/tokens/regenerate.json', {
       method: 'POST',
     });
     ({ token } = await response.json());
@@ -27,16 +27,14 @@
   async function save(e: Event) {
     e.preventDefault();
     const data = new FormData(form);
-    const response = await fetch(`/api/admin/tokens/${user.token}`, {
+    const response = await fetch(`/api/admin/tokens/${user.token}.json`, {
       method: 'POST',
       body: data,
     });
 
-    if ($auth.token == user.token) {
-      $auth.name = data.get('username') as string;
-      $auth.token = data.get('token') as string;
+    if ($auth.token == user.token || response.status == 403) {
+      await auth.sync();
     }
-    if (response.status == 403) await auth.sync();
   }
 </script>
 

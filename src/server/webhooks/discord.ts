@@ -1,5 +1,3 @@
-// import fetch from 'node-fetch';
-
 interface DiscordWebhookEmbedImage {
   url: string;
 }

@@ -14,7 +14,9 @@
         status: 403,
         error: new Error('Forbidden'),
       };
-    const response = await fetch(`/admin/schematic_changes/${page.params.id}/change`);
+    const response = await fetch(
+      `/admin/schematic_changes/${page.params.id}/change.json`,
+    );
     const json = await response.json();
     return {
       props: {
@@ -72,7 +74,7 @@
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
-        img.preview(src="/api/schematics/{change.id}/image" alt="schematic preview")
+        img.preview(src="/api/schematics/{change.id}/image.png" alt="schematic preview")
         h3.creator by {original.creator}
         h4.description: +html("safeDescription(original.description)")
         div.tags
@@ -90,10 +92,10 @@
               span(class!="{classOfDiff(diff)}") {diff.value}
           div.preview
             figure(class!="{differentImages ? 'removed' : 'unmodified'}")
-              img(src="/api/schematics/{change.id}/image" alt="old preview")
+              img(src="/api/schematics/{change.id}/image.png" alt="old preview")
             +if("differentImages")
               figure.added
-                img(src="/api/schematic_changes/{change._id}/image" alt="new preview")
+                img(src="/api/schematic_changes/{change._id}/image.png" alt="new preview")
           div.creator by 
             +each("diffs.creator as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}

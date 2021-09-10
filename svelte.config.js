@@ -9,10 +9,7 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: {
-      name: 'node-adapter',
-      adapt: node,
-    },
+    adapter: node(),
     vite: {
       resolve: {
         alias: {
