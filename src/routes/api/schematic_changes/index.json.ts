@@ -1,12 +1,8 @@
 import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
-import {
-  SchematicChangeDocument,
-  SchematicChangeSchema,
-  SchematicDocument,
-  SchematicSchema,
-} from '@/server/mongo';
+import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicChangeDocument, SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 type Changes = Pick<SchematicChangeDocument, 'id' | '_id' | 'Delete'>[];
 type Originals = (Pick<SchematicDocument, 'name'> | null)[];

@@ -1,5 +1,6 @@
 import type { SchematicQueryJSON } from '@/interfaces/json';
-import { SchematicDocument, SchematicSchema } from '@/server/mongo';
+import { SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FilterQuery } from 'mongoose';
 type QueryMode = 'creator' | 'name';

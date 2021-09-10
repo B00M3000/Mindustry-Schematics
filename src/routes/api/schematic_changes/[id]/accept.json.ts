@@ -1,10 +1,7 @@
 import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import {
-  SchematicChangeSchema,
-  SchematicDocument,
-  SchematicSchema,
-} from '@/server/mongo';
+import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 

@@ -1,11 +1,8 @@
 import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
-import {
-  SchematicChangeSchema,
-  SchematicDocument,
-  SchematicSchema,
-} from '@/server/mongo';
+import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic, arc, mindustry } from 'mindustry-schematic-parser';
 const { Item, Liquid } = mindustry;
