@@ -1,8 +1,10 @@
-import type { BaseBody } from '@sveltejs/kit/types/helper';
+import type { ParameterizedBody } from '@sveltejs/kit/types/app';
 
-export function parseForm<T = Record<string, unknown>>(body: BaseBody): Partial<T> {
-  if (body instanceof Buffer || body instanceof Uint8Array)
-    throw new Error('Cannot convert buffer to record');
+export function parseForm<T = Record<string, unknown>>(
+  body: ParameterizedBody,
+): Partial<T> {
+  if (body instanceof Buffer || body instanceof Uint8Array || !body)
+    throw new Error('Invalid body type');
   if (typeof body === 'string') {
     return JSON.parse(body);
   }
