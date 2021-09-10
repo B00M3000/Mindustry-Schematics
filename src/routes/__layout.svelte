@@ -1,3 +1,16 @@
+<script context="module" lang="ts">
+  import type { Load } from '@sveltejs/kit';
+
+  export const load: Load = async ({ fetch }) => {
+    console.log('fetching bgs');
+    const backgrounds: string[] = await (await fetch('/api/backgrounds')).json();
+
+    return {
+      props: { backgrounds },
+    };
+  };
+</script>
+
 <script lang="ts">
   import Nav from '@/client/components/Nav.svelte';
   import { SvelteToast } from '@zerodevx/svelte-toast';
@@ -6,6 +19,8 @@
   import { navigating } from '$app/stores';
   import { BarLoader } from 'svelte-loading-spinners';
   import Background from './_background.svelte';
+
+  export let backgrounds: string[];
   $paths;
 </script>
 
@@ -16,9 +31,10 @@
     +if("$navigating")
       div.loader
         BarLoader(size=100 unit="vw" duration="30s" color="#ffc933")
+  Background({backgrounds})
   slot
-  Background
 </template>
+
 
 <style>
   :root {

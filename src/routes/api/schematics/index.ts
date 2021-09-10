@@ -44,6 +44,9 @@ export const get: RequestHandler = async (req) => {
     };
     return {
       status: 200,
+      headers: {
+        'cache-control': 'max-age=120',
+      },
       body: body as never,
     };
   } catch (e) {
