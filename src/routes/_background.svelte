@@ -1,26 +1,20 @@
-<script context="module" lang="ts">
-  // eslint-disable-next-line no-undef
-  let intervalId: NodeJS.Timeout;
-</script>
-
 <script lang="ts">
+  import { browser } from '$app/env';
+  import { navigating } from '$app/stores';
   import { onMount } from 'svelte';
 
-  let backgrounds: string[];
+  export let backgrounds: string[];
   let html: HTMLElement;
   const duration = 30000;
+
+  $: if (browser && $navigating) {
+    updateBackground();
+  }
+
   onMount(() => {
     html = document.documentElement;
-    async function load() {
-      const response = await fetch('/api/backgrounds');
-      backgrounds = (await response.json()) as string[];
-      if (intervalId) clearInterval(intervalId);
-      intervalId = setInterval(() => {
-        updateBackground();
-      }, duration);
-    }
-    load();
   });
+
   function nextBackground(current: string) {
     let background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     while (current == `url(${background})`) {
