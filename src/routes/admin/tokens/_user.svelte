@@ -32,11 +32,9 @@
       body: data,
     });
 
-    if ($auth.token == user.token) {
-      $auth.name = data.get('username') as string;
-      $auth.token = data.get('token') as string;
+    if ($auth.token == user.token || response.status == 403) {
+      await auth.sync();
     }
-    if (response.status == 403) await auth.sync();
   }
 </script>
 
