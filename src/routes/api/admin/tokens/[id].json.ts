@@ -9,7 +9,8 @@ interface Data {
   token: string;
   access: string;
 }
-export const post: RequestHandler<Locals> = async (req) => {
+type PostOutput = { message: string } | { error: string };
+export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
   const currentAccess = UserAccess.from(req.locals.access);
   if (!currentAccess.can({ schematics: { update: 'all' } }))
     return {
@@ -17,14 +18,16 @@ export const post: RequestHandler<Locals> = async (req) => {
       headers: {
         location: '/',
       },
-      body: 'Forbidden',
+      body: { error: 'Forbidden' },
     };
 
   const { username, token, access } = parseForm<Data>(req.body);
   if (!(username && token && access))
     return {
       status: 400,
-      body: 'Missing required fields',
+      body: {
+        error: 'Missing required fields',
+      },
     };
   await UserTokenSchema.findOneAndUpdate(
     {
@@ -47,10 +50,11 @@ export const post: RequestHandler<Locals> = async (req) => {
   return {
     status: 200,
     headers,
-    body: 'Ok',
+    body: { message: 'Ok' },
   };
 };
-export const del: RequestHandler<Locals> = async (req) => {
+type DelOutput = { message: string } | { error: string };
+export const del: RequestHandler<Locals, unknown, DelOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: { delete: 'all' } }))
     return {
@@ -58,7 +62,7 @@ export const del: RequestHandler<Locals> = async (req) => {
       headers: {
         location: '/',
       },
-      body: 'Forbidden',
+      body: { error: 'Forbidden' },
     };
 
   const _token = req.params.id;
@@ -73,6 +77,6 @@ export const del: RequestHandler<Locals> = async (req) => {
   return {
     status: 200,
     headers,
-    body: 'Token deleted',
+    body: { message: 'Token deleted' },
   };
 };

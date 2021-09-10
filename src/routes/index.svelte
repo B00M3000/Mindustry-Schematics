@@ -2,7 +2,7 @@
   export const load: Load = async ({ page, fetch }) => {
     const { query } = page;
     const params = new URLSearchParams(query);
-    const response = await fetch(`/api/schematics?${params}`);
+    const response = await fetch(`/api/schematics.json?${params}`);
     const data: SchematicQueryJSON = await response.json();
     return {
       props: { data },

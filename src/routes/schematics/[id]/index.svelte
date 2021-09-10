@@ -3,7 +3,7 @@
     const { id } = page.params;
     const query = new URLSearchParams();
     query.append('increment', 'true');
-    const response = await fetch(`/api/schematics/${id}?${query}`);
+    const response = await fetch(`/api/schematics/${id}.json?${query}`);
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -25,7 +25,7 @@
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
-  const imgUrl = `/api/schematics/${schematic._id}/image`;
+  const imgUrl = `/api/schematics/${schematic._id}/image.png`;
   const description = safeDescription(schematic.description);
   const tags = parseTags(schematic.tags);
   const items: ItemName[] = [

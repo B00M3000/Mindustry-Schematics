@@ -13,13 +13,22 @@ type Body = {
   description: string;
   tags: string;
 };
-export const post: RequestHandler = async (req) => {
+type GetOutput =
+  | {
+      message: string;
+    }
+  | {
+      error: string;
+    };
+export const post: RequestHandler<unknown, Body, GetOutput> = async (req) => {
   // eslint-disable-next-line prefer-const
   let { name, creator, text, description, tags: rawTags } = parseForm<Body>(req.body);
   if (!name || !creator || !text || !description || !rawTags)
     return {
       status: 400,
-      body: 'Missing required fields',
+      body: {
+        error: 'Missing required fields',
+      },
     };
   try {
     const schematic = Schematic.decode(text);
@@ -65,7 +74,9 @@ export const post: RequestHandler = async (req) => {
       headers: {
         location: `/schematics/${id}`,
       },
-      body: 'Success',
+      body: {
+        message: 'Success',
+      },
     };
   } catch (error) {
     return {
@@ -73,7 +84,9 @@ export const post: RequestHandler = async (req) => {
       headers: {
         location: '/schematics',
       },
-      body: '',
+      body: {
+        error: 'Could not create schematic',
+      },
     };
   }
 };
