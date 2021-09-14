@@ -15,6 +15,8 @@
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
+  export let method = 'POST';
+
   // rendering controls
   type Mode = 'text' | 'file';
   let mode: Mode = 'text';
@@ -33,7 +35,7 @@
   let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
 
-  let image = initialData ? `/api/schematics/${initialData._id}/image.png` : undefined;
+  let image = initialData ? `/api/schematics/${initialData._id}.png` : undefined;
 
   function isValidSchematic(base64Code: string) {
     try {
@@ -68,7 +70,7 @@
     }
     data.append('tags', JSON.stringify(currentTags));
     const response = await fetch(action, {
-      method: 'POST',
+      method,
       body: data,
     });
     const url = response.headers.get('location');

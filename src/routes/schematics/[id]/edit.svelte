@@ -21,7 +21,7 @@
   svelte:head
     meta(property="og:title" content="Request a Change on a Existing Schematic. ")
     meta(property="og:description" content="Submit a request to modify a schematic.")
-    meta(property="og:image" content="/api/schematics/{schematic.id}/image.png")
+    meta(property="og:image" content="/api/schematics/{schematic.id}.png")
     meta(property="og:type" content="website")
     title Edit a Schematic
 

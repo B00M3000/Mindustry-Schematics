@@ -49,7 +49,7 @@
     on:submit!="{submit}"
   )
     h2.title [Schematic] {schematic.name}
-    img(src="/api/schematics/{schematic._id}/image.png" alt="schematic preview")
+    img(src="/api/schematics/{schematic._id}.png" alt="schematic preview")
     h3.creator by {schematic.creator}
     h4.description 
       +html("safeDescription(schematic.description)")

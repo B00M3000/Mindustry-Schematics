@@ -48,7 +48,7 @@
             h2
               span(class!="{change.mode}") {change.mode} 
               span {change.name}
-            LazyImage(src="/api/schematics/{change.id}/image.png" alt="schematic preview")
+            LazyImage(src="/api/schematics/{change.id}.png" alt="schematic preview")
     footer
       BackButton(href="/user" smart)
 </template>

@@ -18,7 +18,7 @@ export const post: RequestHandler<Locals> = async (req) => {
       status: 404,
       body: 'Change not found',
     };
-  if (change.Delete != undefined) {
+  if (change.Delete) {
     const schematic = (await SchematicSchema.findOneAndDelete({
       _id: change.id,
     })) as SchematicDocument;

@@ -45,7 +45,7 @@ export class EventHandler {
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/schematics/${event.schematicId}/image.png`,
+        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
     });
   }
@@ -58,7 +58,7 @@ export class EventHandler {
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/schematics/${event.schematicId}/image.png`,
+        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
     });
   }
@@ -71,7 +71,7 @@ export class EventHandler {
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/schematics/${event.schematicId}/image.png`,
+        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
     });
   }
