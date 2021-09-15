@@ -9,6 +9,8 @@ export const post: RequestHandler = () => {
         path: '/',
       }),
     },
-    body: {},
+    body: {
+      message: 'Success',
+    },
   };
 };

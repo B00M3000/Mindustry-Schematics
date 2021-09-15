@@ -1,10 +1,7 @@
 import type { Locals } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import {
-  SchematicChangeSchema,
-  SchematicDocument,
-  SchematicSchema,
-} from '@/server/mongo';
+import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 
@@ -21,7 +18,7 @@ export const post: RequestHandler<Locals> = async (req) => {
       status: 404,
       body: 'Change not found',
     };
-  if (change.Delete != undefined) {
+  if (change.Delete) {
     const schematic = (await SchematicSchema.findOneAndDelete({
       _id: change.id,
     })) as SchematicDocument;
@@ -56,6 +53,8 @@ export const post: RequestHandler<Locals> = async (req) => {
     headers: {
       location: '/admin/schematic_changes',
     },
-    body: 'Success',
+    body: {
+      message: 'Success',
+    },
   };
 };

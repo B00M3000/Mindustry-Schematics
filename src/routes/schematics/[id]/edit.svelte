@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, page }) => {
     const { id } = page.params;
-    const response = await fetch(`/api/schematics/${id}`);
+    const response = await fetch(`/api/schematics/${id}.json`);
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -21,14 +21,14 @@
   svelte:head
     meta(property="og:title" content="Request a Change on a Existing Schematic. ")
     meta(property="og:description" content="Submit a request to modify a schematic.")
-    meta(property="og:image" content="/api/schematics/{schematic.id}/image")
+    meta(property="og:image" content="/api/schematics/{schematic.id}.png")
     meta(property="og:type" content="website")
     title Edit a Schematic
 
   h1 Edit a Schematic
   SchematicForm(
     variant="edit"
-    action="/api/schematics/{schematic._id}/edit"
+    action="/api/schematics/{schematic._id}/edit.json"
     initialData!="{schematic}"
   )
   footer

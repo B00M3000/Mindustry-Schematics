@@ -18,6 +18,8 @@ export const post: RequestHandler<Locals> = async (req) => {
     headers: {
       location: '/admin/schematic_changes',
     },
-    body: `Deleted change ${req.params.id}`,
+    body: {
+      message: `Deleted change ${req.params.id}`,
+    },
   };
 };

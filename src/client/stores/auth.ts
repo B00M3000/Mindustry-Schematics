@@ -1,7 +1,7 @@
 import { session } from '$app/stores';
 import type { Session } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import { Writable, writable } from 'svelte/store';
+import { get, Writable, writable } from 'svelte/store';
 interface AuthState {
   name?: string;
   uid?: string;
@@ -16,13 +16,11 @@ class Auth {
         access: UserAccess.from(undefined),
       },
       (set) => {
-        const s = session as Writable<Session>;
-        s.subscribe(($session) =>
-          set({
-            ...$session,
-            access: UserAccess.from($session.access),
-          }),
-        )();
+        const $session = get<Session>(session);
+        set({
+          ...$session,
+          access: UserAccess.from($session.access),
+        });
       },
     );
     this.subscribe = this.store.subscribe;
@@ -34,7 +32,7 @@ class Auth {
   }
 
   async login(uid: string): Promise<void> {
-    const response = await fetch('/api/user/login', {
+    const response = await fetch('/api/user/login.json', {
       method: 'POST',
       body: JSON.stringify({
         uid,
@@ -49,7 +47,7 @@ class Auth {
     });
   }
   async logout(): Promise<void> {
-    await fetch('/api/user/logout', {
+    await fetch('/api/user/logout.json', {
       method: 'POST',
     });
     this.set({

@@ -1,6 +1,7 @@
 import type { Locals } from '@/interfaces/app';
 import type { SchematicJSON } from '@/interfaces/json';
-import { SchematicDocument, SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
+import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 export const get: RequestHandler<Locals, never, SchematicJSON> = async (req) => {
   let schematic: SchematicDocument | null;

@@ -1,12 +1,8 @@
 import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
-import {
-  SchematicChangeDocument,
-  SchematicChangeSchema,
-  SchematicDocument,
-  SchematicSchema,
-} from '@/server/mongo';
+import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicChangeDocument, SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 type Changes = Pick<SchematicChangeDocument, 'id' | '_id' | 'Delete'>[];
 type Originals = (Pick<SchematicDocument, 'name'> | null)[];
@@ -20,7 +16,7 @@ async function findOriginals(changes: Changes): Promise<Originals> {
 export const get: RequestHandler<Locals> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
-    return { status: 403, body: 'Forbidden' };
+    return { status: 403, body: { message: 'Forbidden' } };
   }
   const changes: Changes = await SchematicChangeSchema.find({}, 'id _id Delete', {
     sort: {

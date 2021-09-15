@@ -2,8 +2,7 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch }) => {
-    console.log('fetching bgs');
-    const backgrounds: string[] = await (await fetch('/api/backgrounds')).json();
+    const backgrounds: string[] = await (await fetch('/api/backgrounds.json')).json();
 
     return {
       props: { backgrounds },
@@ -34,7 +33,6 @@
   Background({backgrounds})
   slot
 </template>
-
 
 <style>
   :root {

@@ -8,7 +8,7 @@
         },
       };
     }
-    const response = await fetch('schematic_changes/changes');
+    const response = await fetch('schematic_changes/changes.json');
     const changes = await response.json();
     return {
       props: {
@@ -48,7 +48,7 @@
             h2
               span(class!="{change.mode}") {change.mode} 
               span {change.name}
-            LazyImage(src="/api/schematics/{change.id}/image" alt="schematic preview")
+            LazyImage(src="/api/schematics/{change.id}.png" alt="schematic preview")
     footer
       BackButton(href="/user" smart)
 </template>

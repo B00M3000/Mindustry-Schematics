@@ -4,7 +4,7 @@
     title: string;
   }
   export const load: Load = async ({ fetch }) => {
-    const response = await fetch('/api/tutorials');
+    const response = await fetch('/api/tutorials.json');
     const data = (await response.json()) as TutorialInfo[];
     return {
       props: {
