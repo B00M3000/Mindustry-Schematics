@@ -25,7 +25,7 @@
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
-  const imgUrl = `/api/schematics/${schematic._id}/image.png`;
+  const imgUrl = `/api/schematics/${schematic._id}.png`;
   const description = safeDescription(schematic.description);
   const tags = parseTags(schematic.tags);
   const items: ItemName[] = [
