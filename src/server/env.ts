@@ -29,7 +29,7 @@ function configEnv(): RawEnv {
         }).parsed || {}
       );
   }
-  throw new Error('No .env files found');
+  return process.env;
 }
 
 // the raw env has all its values contained as strings
