@@ -29,6 +29,7 @@ function configEnv(): RawEnv {
         }).parsed || {}
       );
   }
+  dotenv.config();
   return process.env;
 }
 
