@@ -34,10 +34,14 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 
     return response;
   } catch (error) {
+    console.error(error);
     webhooks.unhandledError({
       message: String(error),
       triggeredAt: new Date().getTime(),
     });
-    throw error;
+    return {
+      headers: {},
+      status: 500,
+    };
   }
 };
