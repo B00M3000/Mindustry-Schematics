@@ -29,13 +29,14 @@ interface DiscordWebhookRequest {
 }
 
 export class DiscordWebhookHandler {
-  constructor(url: string) {
-    this.url = url;
+  constructor(privateUrl: string, publicUrl: string) {
+    this.privateUrl = privateUrl;
+    this.publicUrl = publicUrl;
   }
 
   readonly url: string;
 
-  send(body: DiscordWebhookBody): number {
+  send(body: DiscordWebhookBody, isPrivate: boolean): number {
     const headers: DiscordWebhookRequestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -46,24 +47,24 @@ export class DiscordWebhookHandler {
       body: JSON.stringify(body),
     };
 
-    fetch(this.url, data as never);
+    fetch(isPrivate ? this.privateUrl : this.publicUrl, data as never);
 
     return 200;
   }
 
-  sendMessage(message: string): number {
+  sendMessage(message: string, isPrivate: boolean): number {
     const body: DiscordWebhookBody = {
       content: message,
     };
 
-    return this.send(body);
+    return this.send(body, isPrivate);
   }
 
-  sendEmbed(embed: DiscordWebhookEmbed): number {
+  sendEmbed(embed: DiscordWebhookEmbed, isPrivate: boolean): number {
     const body: DiscordWebhookBody = {
       embeds: [embed],
     };
 
-    return this.send(body);
+    return this.send(body, isPrivate);
   }
 }
