@@ -1,11 +1,11 @@
 import type { Locals } from '@/interfaces/app';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler<Locals> = async (req) => {
   const access = UserAccess.from(req.locals.access);
-  if (!access.can({ schematics: { delete: 'all', update: 'all' } }))
+  if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {
       status: 403,
       body: 'Forbidden',

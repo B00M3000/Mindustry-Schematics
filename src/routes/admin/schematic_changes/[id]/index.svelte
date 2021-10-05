@@ -7,7 +7,7 @@
     const access = UserAccess.from((session as Session).access);
     if (
       !access.can({
-        schematics: { delete: 'all', update: 'all' },
+        schematics: Access.deleteAll | Access.updateAll,
       })
     )
       return {
@@ -32,10 +32,10 @@
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
   import type { Tag } from '@/interfaces/tag';
-  import Actions from './_actions.svelte';
+  import Accesss from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { parseTags } from '@/lib/tag';
-  import { UserAccess } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
@@ -82,7 +82,7 @@
             div.tag(style="--color: {tag.color};")
               div.layer
                 span {tag.name}
-        Actions({change})
+        Accesss({change})
       +elseif("diffs")
         h3.mode Modify
         h4.reason What and Why
@@ -108,7 +108,7 @@
                 div.tag(class!="{classOfDiff(diff)}" style="--color: {tag.color}")
                   div.layer
                     span {tag.name}
-          Actions({change})
+          Accesss({change})
   footer
     BackButton(href="/admin/schematic_changes" smart)
 </template>

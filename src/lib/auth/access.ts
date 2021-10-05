@@ -6,7 +6,7 @@ export type Resource = 'schematics' | 'userTokens';
 /**
  * Bitflags enum, defines actions that an user can execute on a resource
  */
-export enum Action {
+export enum Access {
   createOwn = 1 << 0,
   createAll = createOwn | (1 << 1),
 
@@ -26,11 +26,11 @@ export enum Action {
 }
 
 type Permission = {
-  [R in Resource]?: Action;
+  [R in Resource]?: Access;
 };
 
 type PermissionData = {
-  [R in Resource]?: Action;
+  [R in Resource]?: Access;
 };
 
 export class UserAccess {
@@ -99,7 +99,7 @@ export const accessLevels = {
       name: 'admin',
       extend: this.mod,
       permissions: {
-        userTokens: Action.crudAll,
+        userTokens: Access.crudAll,
       },
     });
   },
@@ -107,7 +107,7 @@ export const accessLevels = {
     return new UserAccess({
       name: 'mod',
       permissions: {
-        schematics: Action.crudAll,
+        schematics: Access.crudAll,
       },
     });
   },
@@ -115,7 +115,7 @@ export const accessLevels = {
     return new UserAccess({
       name: 'verifiedUser',
       permissions: {
-        schematics: Action.crudOwn | Action.readAll,
+        schematics: Access.crudOwn | Access.readAll,
       },
     });
   },
@@ -123,7 +123,7 @@ export const accessLevels = {
     return new UserAccess({
       name: 'user',
       permissions: {
-        schematics: Action.crudOwn | Action.readAll,
+        schematics: Access.crudOwn | Access.readAll,
       },
     });
   },
@@ -132,7 +132,7 @@ export const accessLevels = {
     return new UserAccess({
       name: 'none',
       permissions: {
-        schematics: Action.readAll | Action.createOwn,
+        schematics: Access.readAll | Access.createOwn,
       },
     });
   },

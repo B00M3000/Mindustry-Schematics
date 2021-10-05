@@ -17,6 +17,7 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
+  import { Access } from '@/lib/auth/access';
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
   let submitting = false;
@@ -29,7 +30,7 @@
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    if ($auth.access.can({ schematics: { delete: 'all' } })) {
+    if ($auth.access.can({ schematics: Access.deleteAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
