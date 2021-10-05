@@ -12,7 +12,7 @@ export const get: RequestHandler = async (req) => {
     headers: {
       'cache-control': 'max-age=1800',
       'content-disposition': `inline; filename="${filename}.msch"`,
-      'content-type': 'image/png',
+      'content-type': 'application/octet-stream',
       'content-length': body.length.toString(),
     },
     body,
