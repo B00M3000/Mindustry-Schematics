@@ -92,11 +92,11 @@
           div.layer {tag.name}
     div.actions
       IconButton(src="/assets/copy.svg" alt="copy schematic" on:click!="{copySchematic}")
-      IconButton(
-        src="/assets/download.svg"
-        alt="download schematic"
-        href="/api/schematics/{schematic._id}.msch"
-      )
+      a(href="/api/schematics/{schematic._id}.msch" download)
+        IconButton(
+          src="/assets/download.svg"
+          alt="download schematic"
+        )
       IconButton(
       src="/assets/share.svg"
       alt="share schematic"
