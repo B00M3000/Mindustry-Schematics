@@ -1,6 +1,6 @@
 import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeJSON } from '@/interfaces/json';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -51,7 +51,7 @@ export const get: RequestHandler<Locals, unknown> = async ({ params, locals }) =
   const access = UserAccess.from(locals.access);
   if (
     !access.can({
-      schematics: { delete: 'all', update: 'all' },
+      schematics: Access.deleteAll | Access.updateAll,
     })
   )
     return {

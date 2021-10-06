@@ -1,5 +1,5 @@
 import type { Locals } from '@/interfaces/app';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -12,7 +12,7 @@ interface Data {
 type PostOutput = { message: string } | { error: string };
 export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
   const currentAccess = UserAccess.from(req.locals.access);
-  if (!currentAccess.can({ schematics: { update: 'all' } }))
+  if (!currentAccess.can({ schematics: Access.updateAll }))
     return {
       status: 403,
       headers: {
@@ -56,7 +56,7 @@ export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
 type DelOutput = { message: string } | { error: string };
 export const del: RequestHandler<Locals, unknown, DelOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
-  if (!access.can({ schematics: { delete: 'all' } }))
+  if (!access.can({ schematics: Access.deleteAll }))
     return {
       status: 403,
       headers: {

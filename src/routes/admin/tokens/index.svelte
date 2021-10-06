@@ -5,16 +5,7 @@
 
   export const load: Load = async ({ fetch, session }) => {
     const access = UserAccess.from((session as Session).access);
-    if (
-      !access.can({
-        userTokens: {
-          create: 'all',
-          delete: 'all',
-          read: 'all',
-          update: 'all',
-        },
-      })
-    )
+    if (!access.can({ userTokens: Access.crudAll }))
       return {
         props: {
           redirect: '/user',
@@ -38,7 +29,7 @@
   import User from './_user.svelte';
   import { auth } from '@/client/stores/auth';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
-  import { UserAccess } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   export let redirect: string | null = null;
   export let users: UserTokenJSON[] = [];
   const allowed = redirect == null;

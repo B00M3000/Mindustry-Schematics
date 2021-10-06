@@ -1,11 +1,11 @@
 import type { Locals } from '@/interfaces/app';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const get: RequestHandler<Locals> = async (req) => {
   const access = UserAccess.from(req.locals.access);
-  if (!access.can({ userTokens: { read: 'all' } }))
+  if (!access.can({ userTokens: Access.readAll }))
     return {
       status: 403,
       headers: {
