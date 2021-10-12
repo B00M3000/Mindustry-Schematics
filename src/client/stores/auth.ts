@@ -1,7 +1,12 @@
 import { session } from '$app/stores';
 import type { Session } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
+<<<<<<< HEAD
 import { Writable, writable } from 'svelte/store';
+=======
+import { writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 interface AuthStore {
   name?: string;
   token?: string;
@@ -33,7 +38,11 @@ function write(value: AuthStore) {
 export const auth = {
   subscribe,
   async login(token: string): Promise<void> {
+<<<<<<< HEAD
     const response = await fetch('/api/user/login', {
+=======
+    const response = await fetch('/api/user/login.json', {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'POST',
       body: JSON.stringify({
         token,
@@ -48,7 +57,11 @@ export const auth = {
     });
   },
   async logout(): Promise<void> {
+<<<<<<< HEAD
     await fetch('/api/user/logout', {
+=======
+    await fetch('/api/user/logout.json', {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'POST',
     });
     write({

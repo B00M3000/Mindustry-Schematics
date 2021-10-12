@@ -30,7 +30,11 @@ div.schematic
   div.view
     div.name
       h2 {schematic.name}
+<<<<<<< HEAD
     LazyImage(src="/api/schematics/{schematic._id}/image" alt="Schematic Preview")
+=======
+    LazyImage(src="/api/schematics/{schematic._id}.png" alt="Schematic Preview")
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 </template>
 
 <style>

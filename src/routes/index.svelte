@@ -2,7 +2,11 @@
   export const load: Load = async ({ page, fetch }) => {
     const { query } = page;
     const params = new URLSearchParams(query);
+<<<<<<< HEAD
     const response = await fetch(`/api/schematics?${params}`);
+=======
+    const response = await fetch(`/api/schematics.json?${params}`);
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const data: SchematicQueryJSON = await response.json();
     return {
       props: { data },
@@ -56,7 +60,11 @@
     div.controls
       select#mode(name="mode")
         option(value="name" selected!="{data.mode == 'name'}") Name
+<<<<<<< HEAD
         option(value="creatior" selected!="{data.mode == 'creator'}") Creator
+=======
+        option(value="creator" selected!="{data.mode == 'creator'}") Creator
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       div.buttons
         button(type="submit")
           img(src="/assets/check-mark.svg" alt="Search")

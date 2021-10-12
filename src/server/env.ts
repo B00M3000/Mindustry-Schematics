@@ -29,7 +29,12 @@ function configEnv(): RawEnv {
         }).parsed || {}
       );
   }
+<<<<<<< HEAD
   throw new Error('No .env files found');
+=======
+  dotenv.config();
+  return process.env;
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 }
 
 // the raw env has all its values contained as strings

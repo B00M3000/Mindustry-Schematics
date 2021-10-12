@@ -12,6 +12,7 @@ const path = env.MONGO_PATH.replace('<username>', username)
   .replace('<database>', database);
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+<<<<<<< HEAD
 export default async () => {
   await mongoose.connect(path, {
     useNewUrlParser: true,
@@ -22,6 +23,10 @@ export default async () => {
 
   return mongoose;
 };
+=======
+export default () => mongoose.connect(path);
+
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 export * from './schemas/schematic';
 export * from './schemas/schematic_change';
 export * from './schemas/user_token';

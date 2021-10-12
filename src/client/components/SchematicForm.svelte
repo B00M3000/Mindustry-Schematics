@@ -12,9 +12,18 @@
   import { auth } from '../stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
+<<<<<<< HEAD
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
+=======
+  import { Access } from '@/lib/auth/access';
+  export let variant: 'create' | 'edit';
+  export let action: string;
+  export let initialData: SchematicJSON | undefined = undefined;
+  export let method = 'POST';
+
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   // rendering controls
   type Mode = 'text' | 'file';
   let mode: Mode = 'text';
@@ -33,7 +42,11 @@
   let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
 
+<<<<<<< HEAD
   let image = initialData ? `/api/schematics/${initialData._id}/image` : undefined;
+=======
+  let image = initialData ? `/api/schematics/${initialData._id}.png` : undefined;
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 
   function isValidSchematic(base64Code: string) {
     try {
@@ -68,12 +81,20 @@
     }
     data.append('tags', JSON.stringify(currentTags));
     const response = await fetch(action, {
+<<<<<<< HEAD
       method: 'POST',
+=======
+      method,
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       body: data,
     });
     const url = response.headers.get('location');
     await goto(url || '/');
+<<<<<<< HEAD
     if (variant == 'edit' && $auth.access.can({ schematics: { update: 'all' } })) {
+=======
+    if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
@@ -99,7 +120,11 @@
     invalid = false;
     const data = new FormData();
     data.append('text', text.trim());
+<<<<<<< HEAD
     const response = await fetch('/api/schematics/parse', {
+=======
+    const response = await fetch('/api/schematics/parse.json', {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'POST',
       body: data,
     });
@@ -165,9 +190,15 @@ div.wrapper(class!="{parseState}")
         value!="{description}"
         required
       )
+<<<<<<< HEAD
       label(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
       +if("mode =='text'")
         input(
+=======
+      label.fixed(for!="{mode}") {mode == 'text' ? 'Schematic' : 'File'}:
+      +if("mode =='text'")
+        input.fixed(
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
           name="text"
           id="text"
           placeholder="Paste the schematic text here"
@@ -177,7 +208,11 @@ div.wrapper(class!="{parseState}")
           on:change!="{parseSchematic}"
         )
         +else
+<<<<<<< HEAD
           input(
+=======
+          input.fixed(
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
             type="file"
             name="file"
             id="file"
@@ -187,7 +222,11 @@ div.wrapper(class!="{parseState}")
             on:change!="{parseSchematic}"
           )
       +if("error")
+<<<<<<< HEAD
         span.error {error}
+=======
+        span.error.fixed {error}
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       label(for="tags") Tags:
       TagInput(bind:currentTags)
       +if("variant == 'edit'")
@@ -250,9 +289,13 @@ div.wrapper(class!="{parseState}")
     opacity: 0;
     pointer-events: none;
   }
+<<<<<<< HEAD
   form.locked
     > div.inputs
     > :global(*:not(input#text, label[for='text'], input#file, label[for='file'], span.error)) {
+=======
+  form.locked > div.inputs > :global(*:not(.fixed)) {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     opacity: 0;
     pointer-events: none;
   }

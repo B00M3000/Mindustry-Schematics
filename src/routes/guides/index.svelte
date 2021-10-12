@@ -4,7 +4,11 @@
     title: string;
   }
   export const load: Load = async ({ fetch }) => {
+<<<<<<< HEAD
     const response = await fetch('/api/tutorials');
+=======
+    const response = await fetch('/api/tutorials.json');
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const data = (await response.json()) as TutorialInfo[];
     return {
       props: {

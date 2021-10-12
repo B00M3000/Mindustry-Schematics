@@ -1,7 +1,13 @@
 <script lang="ts">
   import { auth } from '@/client/stores/auth';
+<<<<<<< HEAD
   $: allowTokens = $auth.access.can({ userTokens: { read: 'all', update: 'all' } });
   $: allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
+=======
+  import { Access } from '@/lib/auth/access';
+  $: allowTokens = $auth.access.can({ userTokens: Access.readAll | Access.updateAll });
+  $: allowChanges = $auth.access.can({ schematics: Access.deleteAll | Access.updateAll });
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   let error: string | undefined;
   type FormSubmitEvent = Event & {
     currentTarget: EventTarget & HTMLFormElement;

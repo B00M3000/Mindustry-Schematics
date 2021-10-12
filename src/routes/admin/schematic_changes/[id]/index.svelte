@@ -7,14 +7,24 @@
     const access = UserAccess.from((session as Session).access);
     if (
       !access.can({
+<<<<<<< HEAD
         schematics: { delete: 'all', update: 'all' },
+=======
+        schematics: Access.deleteAll | Access.updateAll,
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       })
     )
       return {
         status: 403,
         error: new Error('Forbidden'),
       };
+<<<<<<< HEAD
     const response = await fetch(`/admin/schematic_changes/${page.params.id}/change`);
+=======
+    const response = await fetch(
+      `/admin/schematic_changes/${page.params.id}/change.json`,
+    );
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const json = await response.json();
     return {
       props: {
@@ -30,10 +40,17 @@
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
   import type { Tag } from '@/interfaces/tag';
+<<<<<<< HEAD
   import Actions from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { parseTags } from '@/lib/tag';
   import { UserAccess } from '@/lib/auth/access';
+=======
+  import Accesss from './_actions.svelte';
+  import BackButton from '@/client/components/buttons/BackButton.svelte';
+  import { parseTags } from '@/lib/tag';
+  import { Access, UserAccess } from '@/lib/auth/access';
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
@@ -72,7 +89,11 @@
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
+<<<<<<< HEAD
         img.preview(src="/api/schematics/{change.id}/image" alt="schematic preview")
+=======
+        img.preview(src="/api/schematics/{change.id}.png" alt="schematic preview")
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
         h3.creator by {original.creator}
         h4.description: +html("safeDescription(original.description)")
         div.tags
@@ -80,7 +101,11 @@
             div.tag(style="--color: {tag.color};")
               div.layer
                 span {tag.name}
+<<<<<<< HEAD
         Actions({change})
+=======
+        Accesss({change})
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       +elseif("diffs")
         h3.mode Modify
         h4.reason What and Why
@@ -90,10 +115,17 @@
               span(class!="{classOfDiff(diff)}") {diff.value}
           div.preview
             figure(class!="{differentImages ? 'removed' : 'unmodified'}")
+<<<<<<< HEAD
               img(src="/api/schematics/{change.id}/image" alt="old preview")
             +if("differentImages")
               figure.added
                 img(src="/api/schematic_changes/{change._id}/image" alt="new preview")
+=======
+              img(src="/api/schematics/{change.id}.png" alt="old preview")
+            +if("differentImages")
+              figure.added
+                img(src="/api/schematic_changes/{change._id}.png" alt="new preview")
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
           div.creator by 
             +each("diffs.creator as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}
@@ -106,7 +138,11 @@
                 div.tag(class!="{classOfDiff(diff)}" style="--color: {tag.color}")
                   div.layer
                     span {tag.name}
+<<<<<<< HEAD
           Actions({change})
+=======
+          Accesss({change})
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   footer
     BackButton(href="/admin/schematic_changes" smart)
 </template>

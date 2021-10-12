@@ -3,7 +3,11 @@
     const { id } = page.params;
     const query = new URLSearchParams();
     query.append('increment', 'true');
+<<<<<<< HEAD
     const response = await fetch(`/api/schematics/${id}?${query}`);
+=======
+    const response = await fetch(`/api/schematics/${id}.json?${query}`);
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -25,7 +29,11 @@
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
+<<<<<<< HEAD
   const imgUrl = `/api/schematics/${schematic._id}/image`;
+=======
+  const imgUrl = `/api/schematics/${schematic._id}.png`;
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   const description = safeDescription(schematic.description);
   const tags = parseTags(schematic.tags);
   const items: ItemName[] = [
@@ -92,6 +100,14 @@
           div.layer {tag.name}
     div.actions
       IconButton(src="/assets/copy.svg" alt="copy schematic" on:click!="{copySchematic}")
+<<<<<<< HEAD
+=======
+      a(href="/api/schematics/{schematic._id}.msch" download)
+        IconButton(
+          src="/assets/download.svg"
+          alt="download schematic"
+        )
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       IconButton(
       src="/assets/share.svg"
       alt="share schematic"

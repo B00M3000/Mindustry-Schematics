@@ -5,6 +5,7 @@
 
   export const load: Load = async ({ fetch, session }) => {
     const access = UserAccess.from((session as Session).access);
+<<<<<<< HEAD
     if (
       !access.can({
         userTokens: {
@@ -15,12 +16,19 @@
         },
       })
     )
+=======
+    if (!access.can({ userTokens: Access.crudAll }))
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       return {
         props: {
           redirect: '/user',
         },
       };
+<<<<<<< HEAD
     const response = await fetch('/api/admin/tokens');
+=======
+    const response = await fetch('/api/admin/tokens.json');
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const users = await response.json();
 
     return {
@@ -38,7 +46,11 @@
   import User from './_user.svelte';
   import { auth } from '@/client/stores/auth';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
+<<<<<<< HEAD
   import { UserAccess } from '@/lib/auth/access';
+=======
+  import { Access, UserAccess } from '@/lib/auth/access';
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   export let redirect: string | null = null;
   export let users: UserTokenJSON[] = [];
   const allowed = redirect == null;
@@ -46,6 +58,7 @@
     if (redirect) goto(redirect);
   });
   async function createToken() {
+<<<<<<< HEAD
     users = [
       {
         access: 'mod',
@@ -56,6 +69,16 @@
             })
           ).json()
         ).token,
+=======
+    const response = await fetch('/api/admin/tokens/regenerate.json', {
+      method: 'POST',
+    });
+    const { token } = await response.json();
+    users = [
+      {
+        access: 'mod',
+        token,
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
         username: '',
       },
       ...users,

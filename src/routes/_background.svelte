@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script context="module" lang="ts">
   // eslint-disable-next-line no-undef
   let intervalId: NodeJS.Timeout;
@@ -21,6 +22,25 @@
     }
     load();
   });
+=======
+<script lang="ts">
+  import { browser } from '$app/env';
+  import { navigating } from '$app/stores';
+  import { onMount } from 'svelte';
+
+  export let backgrounds: string[];
+  let html: HTMLElement;
+  const duration = 30000;
+
+  $: if (browser && $navigating) {
+    updateBackground();
+  }
+
+  onMount(() => {
+    html = document.documentElement;
+  });
+
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   function nextBackground(current: string) {
     let background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     while (current == `url(${background})`) {

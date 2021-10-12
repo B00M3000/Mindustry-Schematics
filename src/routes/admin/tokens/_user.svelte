@@ -8,7 +8,11 @@
   let token = user.token;
   let form: HTMLFormElement;
   async function deleteToken() {
+<<<<<<< HEAD
     await fetch(`/api/admin/tokens/${user.token}`, {
+=======
+    await fetch(`/api/admin/tokens/${user.token}.json`, {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'DELETE',
     });
     if ($auth.token == user.token) {
@@ -19,7 +23,11 @@
     users = users;
   }
   async function regenerateToken() {
+<<<<<<< HEAD
     const response = await fetch('/api/admin/tokens/regenerate', {
+=======
+    const response = await fetch('/api/admin/tokens/regenerate.json', {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'POST',
     });
     ({ token } = await response.json());
@@ -27,16 +35,26 @@
   async function save(e: Event) {
     e.preventDefault();
     const data = new FormData(form);
+<<<<<<< HEAD
     const response = await fetch(`/api/admin/tokens/${user.token}`, {
+=======
+    const response = await fetch(`/api/admin/tokens/${user.token}.json`, {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       method: 'POST',
       body: data,
     });
 
+<<<<<<< HEAD
     if ($auth.token == user.token) {
       $auth.name = data.get('username') as string;
       $auth.token = data.get('token') as string;
     }
     if (response.status == 403) await auth.sync();
+=======
+    if ($auth.token == user.token || response.status == 403) {
+      await auth.sync();
+    }
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   }
 </script>
 

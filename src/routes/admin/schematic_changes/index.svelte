@@ -1,14 +1,22 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
     const access = UserAccess.from((session as Session).access);
+<<<<<<< HEAD
     if (!access.can({ schematics: { delete: 'all', update: 'all' } })) {
+=======
+    if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
       return {
         props: {
           redirect: true,
         },
       };
     }
+<<<<<<< HEAD
     const response = await fetch('schematic_changes/changes');
+=======
+    const response = await fetch('schematic_changes/changes.json');
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     const changes = await response.json();
     return {
       props: {
@@ -27,7 +35,11 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import LazyImage from '@/client/components/LazyImage.svelte';
   import { auth } from '@/client/stores/auth';
+<<<<<<< HEAD
   import { UserAccess } from '@/lib/auth/access';
+=======
+  import { Access, UserAccess } from '@/lib/auth/access';
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
   export let redirect = false;
   export let changes: SchematicChangeInfoJSON[] = [];
   const allowed = !redirect;
@@ -48,7 +60,11 @@
             h2
               span(class!="{change.mode}") {change.mode} 
               span {change.name}
+<<<<<<< HEAD
             LazyImage(src="/api/schematics/{change.id}/image" alt="schematic preview")
+=======
+            LazyImage(src="/api/schematics/{change.id}.png" alt="schematic preview")
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
     footer
       BackButton(href="/user" smart)
 </template>

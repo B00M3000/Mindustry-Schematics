@@ -1,6 +1,10 @@
 .DS_Store
 node_modules
 /.svelte
+<<<<<<< HEAD
+=======
+/.svelte-kit
+>>>>>>> cb8a27bdf582bbd579d9194b97b2cadb7427de96
 /build
 /functions
 .env
