@@ -81,9 +81,9 @@ export class EventHandler {
       color: colors.get('red'),
       title: 'Unhandled Error',
       description: event.message,
-    });
+    }, true);
   }
 }
-const discordHandler = new DiscordWebhookHandler(env.WEBHOOK_URL as string);
+const discordHandler = new DiscordWebhookHandler(env.PRIVATE_WEBHOOK_URL as string, env.PUBLIC_WEBHOOK_URL as string);
 const webhooks = new EventHandler(discordHandler, env.WEBSITE_URL as string);
 export default webhooks;
