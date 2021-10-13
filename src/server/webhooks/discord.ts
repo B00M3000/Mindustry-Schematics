@@ -34,7 +34,8 @@ export class DiscordWebhookHandler {
     this.publicUrl = publicUrl;
   }
 
-  readonly url: string;
+  readonly privateUrl: string;
+  readonly publicUrl: string;
 
   send(body: DiscordWebhookBody, isPrivate: boolean): number {
     const headers: DiscordWebhookRequestHeaders = {
