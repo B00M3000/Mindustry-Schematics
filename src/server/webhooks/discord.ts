@@ -37,7 +37,7 @@ export class DiscordWebhookHandler {
   readonly privateUrl: string;
   readonly publicUrl: string;
 
-  send(body: DiscordWebhookBody, isPrivate: boolean): number {
+  send(body: DiscordWebhookBody, isPrivate = false): number {
     const headers: DiscordWebhookRequestHeaders = {
       'Content-Type': 'application/json',
     };
@@ -53,7 +53,7 @@ export class DiscordWebhookHandler {
     return 200;
   }
 
-  sendMessage(message: string, isPrivate: boolean): number {
+  sendMessage(message: string, isPrivate?: boolean): number {
     const body: DiscordWebhookBody = {
       content: message,
     };
@@ -61,7 +61,7 @@ export class DiscordWebhookHandler {
     return this.send(body, isPrivate);
   }
 
-  sendEmbed(embed: DiscordWebhookEmbed, isPrivate: boolean): number {
+  sendEmbed(embed: DiscordWebhookEmbed, isPrivate?: boolean): number {
     const body: DiscordWebhookBody = {
       embeds: [embed],
     };

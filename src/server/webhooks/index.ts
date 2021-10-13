@@ -40,49 +40,40 @@ export class EventHandler {
 
   createSchematic(event: CreateSchematicEvent): void {
     if (!env.ENABLE_WEBHOOKS) return;
-    this.webhookHandler.sendEmbed(
-      {
-        color: colors.get('green'),
-        title: `New Schematic: ${event.schematicName}`,
-        url: `${this.websiteURL}/schematics/${event.schematicId}`,
-        image: {
-          url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
-        },
+    this.webhookHandler.sendEmbed({
+      color: colors.get('green'),
+      title: `New Schematic: ${event.schematicName}`,
+      url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
-      true,
-    );
+    });
   }
 
   editSchematic(event: EditSchematicEvent): void {
     if (!env.ENABLE_WEBHOOKS) return;
-    this.webhookHandler.sendEmbed(
-      {
-        color: colors.get('yellow'),
-        title: `Changed: ${event.schematicName}`,
-        description: event.changes,
-        url: `${this.websiteURL}/schematics/${event.schematicId}`,
-        image: {
-          url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
-        },
+    this.webhookHandler.sendEmbed({
+      color: colors.get('yellow'),
+      title: `Changed: ${event.schematicName}`,
+      description: event.changes,
+      url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
       },
-      true,
-    );
+    });
   }
 
   deleteSchematic(event: DeleteSchematicEvent): void {
     if (!env.ENABLE_WEBHOOKS) return;
-    this.webhookHandler.sendEmbed(
-      {
-        color: colors.get('red'),
-        title: `Deleted: ${event.schematicName}`,
-        description: event.reason,
-        url: `${this.websiteURL}/schematics/${event.schematicId}`,
-        image: {
-          url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
-        },
+    this.webhookHandler.sendEmbed({
+      color: colors.get('red'),
+      title: `Deleted: ${event.schematicName}`,
+      description: event.reason,
+      url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      image: {
+        url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
       },
-      true,
-    );
+    });
   }
   unhandledError(event: UnhandledErrorEvent): void {
     // TODO: send error logs on a different discord channel
