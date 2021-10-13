@@ -62,7 +62,7 @@ export class EventHandler {
         description: event.changes,
         url: `${this.websiteURL}/schematics/${event.schematicId}`,
         image: {
-          url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
+          url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
         },
       },
       true,
@@ -78,7 +78,7 @@ export class EventHandler {
         description: event.reason,
         url: `${this.websiteURL}/schematics/${event.schematicId}`,
         image: {
-          url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
+          url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
         },
       },
       true,
