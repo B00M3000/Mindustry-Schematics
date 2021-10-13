@@ -58,7 +58,7 @@ export class EventHandler {
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
+        url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
       },
     });
   }
@@ -71,19 +71,25 @@ export class EventHandler {
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
-        url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
+        url: `${this.websiteURL}/api/schematics/${event.schematicId}.png`,
       },
     });
   }
   unhandledError(event: UnhandledErrorEvent): void {
     // TODO: send error logs on a different discord channel
-    this.webhookHandler.sendEmbed({
-      color: colors.get('red'),
-      title: 'Unhandled Error',
-      description: event.message,
-    });
+    this.webhookHandler.sendEmbed(
+      {
+        color: colors.get('red'),
+        title: 'Unhandled Error',
+        description: event.message,
+      },
+      true,
+    );
   }
 }
-const discordHandler = new DiscordWebhookHandler(env.WEBHOOK_URL as string);
+const discordHandler = new DiscordWebhookHandler(
+  env.PRIVATE_WEBHOOK_URL as string,
+  env.PUBLIC_WEBHOOK_URL as string,
+);
 const webhooks = new EventHandler(discordHandler, env.WEBSITE_URL as string);
 export default webhooks;
