@@ -36,7 +36,7 @@
   let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
 
-  let image = initialData ? `/api/schematics/${initialData._id}.png` : undefined;
+  let image = initialData ? `/schematics/${initialData._id}.png` : undefined;
 
   function isValidSchematic(base64Code: string) {
     try {
@@ -102,7 +102,7 @@
     invalid = false;
     const data = new FormData();
     data.append('text', text.trim());
-    const response = await fetch('/api/schematics/parse.json', {
+    const response = await fetch('/schematics/parse.json', {
       method: 'POST',
       body: data,
     });

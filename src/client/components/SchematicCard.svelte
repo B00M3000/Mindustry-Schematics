@@ -30,7 +30,7 @@ div.schematic
   div.view
     div.name
       h2 {schematic.name}
-    LazyImage(src="/api/schematics/{schematic._id}.png" alt="Schematic Preview")
+    LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
 </template>
 
 <style>

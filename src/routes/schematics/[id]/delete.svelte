@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, page }) => {
     const { id } = page.params;
-    const response = await fetch(`/api/schematics/${id}.json`);
+    const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -44,13 +44,13 @@
 
   h1 Delete a Schematic
   form(  
-    action="/api/schematics/{schematic._id}/delete.json"
+    action="/schematics/{schematic._id}/delete.json"
     method="POST"
     bind:this!="{form}"
     on:submit!="{submit}"
   )
     h2.title [Schematic] {schematic.name}
-    img(src="/api/schematics/{schematic._id}.png" alt="schematic preview")
+    img(src="/schematics/{schematic._id}.png" alt="schematic preview")
     h3.creator by {schematic.creator}
     h4.description 
       +html("safeDescription(schematic.description)")
