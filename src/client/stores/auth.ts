@@ -34,7 +34,7 @@ function write(value: AuthStore) {
 export const auth = {
   subscribe,
   async login(token: string): Promise<void> {
-    const response = await fetch('/api/user/login.json', {
+    const response = await fetch('/user/login.json', {
       method: 'POST',
       body: JSON.stringify({
         token,
@@ -49,7 +49,7 @@ export const auth = {
     });
   },
   async logout(): Promise<void> {
-    await fetch('/api/user/logout.json', {
+    await fetch('/user/logout.json', {
       method: 'POST',
     });
     write({
