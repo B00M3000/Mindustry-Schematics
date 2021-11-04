@@ -74,7 +74,7 @@
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
-        img.preview(src="/api/schematics/{change.id}.png" alt="schematic preview")
+        img.preview(src="/schematics/{change.id}.png" alt="schematic preview")
         h3.creator by {original.creator}
         h4.description: +html("safeDescription(original.description)")
         div.tags
@@ -92,10 +92,10 @@
               span(class!="{classOfDiff(diff)}") {diff.value}
           div.preview
             figure(class!="{differentImages ? 'removed' : 'unmodified'}")
-              img(src="/api/schematics/{change.id}.png" alt="old preview")
+              img(src="/schematics/{change.id}.png" alt="old preview")
             +if("differentImages")
               figure.added
-                img(src="/api/schematic_changes/{change._id}.png" alt="new preview")
+                img(src="{change._id}.png" alt="new preview")
           div.creator by 
             +each("diffs.creator as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}

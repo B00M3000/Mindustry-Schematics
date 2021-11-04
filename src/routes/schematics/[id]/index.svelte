@@ -3,7 +3,7 @@
     const { id } = page.params;
     const query = new URLSearchParams();
     query.append('increment', 'true');
-    const response = await fetch(`/api/schematics/${id}.json?${query}`);
+    const response = await fetch(`/schematics/${id}.json?${query}`);
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -25,7 +25,7 @@
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
-  const imgUrl = `/api/schematics/${schematic._id}.png`;
+  const imgUrl = `/schematics/${schematic._id}.png`;
   const description = safeDescription(schematic.description);
   const tags = parseTags(schematic.tags);
   const items: ItemName[] = [
@@ -92,7 +92,7 @@
           div.layer {tag.name}
     div.actions
       IconButton(src="/assets/copy.svg" alt="copy schematic" on:click!="{copySchematic}")
-      a(href="/api/schematics/{schematic._id}.msch" download)
+      a(href="/schematics/{schematic._id}.msch" download)
         IconButton(
           src="/assets/download.svg"
           alt="download schematic"

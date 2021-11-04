@@ -2,10 +2,11 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch }) => {
-    const backgrounds: string[] = await (await fetch('/api/backgrounds.json')).json();
+    const backgrounds: string[] = await (await fetch('/backgrounds.json')).json();
 
     return {
       props: { backgrounds },
+      maxage: 1000,
     };
   };
 </script>
