@@ -47,7 +47,7 @@
     'pyratite',
   ];
   async function copySchematic() {
-    copy(schematic.text);
+    await copy(schematic.text);
     toast.push('Copied to Clipboard!');
   }
 </script>
