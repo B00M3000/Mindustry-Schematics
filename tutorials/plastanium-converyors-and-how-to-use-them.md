@@ -1,4 +1,4 @@
-## How plastanium conveyors work.
+# How plastanium conveyors work.
 
 This is a guide on how to use plastanium conveyors to improve the efficiency of your base. Plastanium conveyors are very useful to have around, but only if you know how to use them. If you were to place one plastanium conveyor by itself it would be useless. But if you were to place a straight line of them you would see that one end would have a dot on it and the other end would have an X on it. 
 
