@@ -13,7 +13,7 @@ export async function share(
         url,
       });
     } else {
-      copy(url);
+      await copy(url);
     }
     // eslint-disable-next-line no-empty
   } catch (e) {}

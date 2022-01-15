@@ -5,8 +5,8 @@
   import IconButton from './buttons/IconButton.svelte';
   import { toast } from '@zerodevx/svelte-toast';
   export let schematic: BasicSchematicJSON;
-  function copySchematic() {
-    copy(schematic.text);
+  async function copySchematic() {
+    await copy(schematic.text);
     toast.push('Copied to clipboard!');
   }
 </script>
