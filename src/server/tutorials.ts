@@ -4,23 +4,28 @@ import path from 'path';
 
 const converter = new showdown.Converter();
 export class Tutorial {
-  constructor(path: string) {
-    this.path = path;
-  }
+  constructor(public readonly path: string) {}
 
-  readonly path: string;
+  private _text?: string;
+  private _html?: string;
+  private _title?: string;
 
   get text(): string {
-    return fs.readFileSync(this.path, 'utf-8');
+    this._text ??= fs.readFileSync(this.path, 'utf-8');
+    return this._text;
   }
 
   get title(): string {
-    const searchRegex = /^#[^#\n\r][^\n\r]+$/m;
-    return searchRegex.exec(this.text)?.[0].replace('#', '') ?? '';
+    if (this._title === undefined) {
+      const searchRegex = /^#[^#\n\r][^\n\r]+$/m;
+      this._title = searchRegex.exec(this.text)?.[0].replace('#', '') ?? '';
+    }
+    return this._title;
   }
 
   get html(): string {
-    return converter.makeHtml(this.text);
+    this._html ??= converter.makeHtml(this.text);
+    return this._html;
   }
 }
 let tutorials: Map<string, Tutorial>;
