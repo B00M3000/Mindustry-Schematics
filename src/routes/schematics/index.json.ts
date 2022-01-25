@@ -88,9 +88,7 @@ export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) =
   try {
     const schematic = Schematic.decode(text);
 
-    const tags = (JSON.parse(rawTags) as Tag[])
-      .filter(Tag.isValid)
-      .map((tag) => tag.name);
+    const tags = Tag.parse(JSON.parse(rawTags) as string[]).map((tag) => tag.name);
 
     const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
     const data = await schematic.toImageBuffer();

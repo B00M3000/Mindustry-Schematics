@@ -1,6 +1,6 @@
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import Tags, { Tag } from '@/lib/tags';
+import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseForm } from '@/server/parse_body';
 import type { Locals } from '@/interfaces/app';
@@ -36,9 +36,7 @@ export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => 
   }
   let tags: string[] | undefined;
   try {
-    tags = (JSON.parse(stringTags) as Tag[])
-      .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name.toLowerCase() === n.toLowerCase()));
+    tags = Tag.parse(JSON.parse(stringTags) as string[]).map((tag) => tag.name);
   } catch (error) {
     tags = undefined;
   }

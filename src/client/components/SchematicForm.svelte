@@ -68,7 +68,7 @@
       data.append('text', await fileToText(data.get('file') as File));
       data.delete('file');
     }
-    data.append('tags', JSON.stringify(currentTags));
+    data.append('tags', JSON.stringify(currentTags.map((tag) => tag.name)));
     const response = await fetch(action, {
       method,
       body: data,
