@@ -6,7 +6,7 @@ import type { FilterQuery } from 'mongoose';
 import { parseForm } from '@/server/parse_body';
 import { Schematic } from 'mindustry-schematic-parser';
 import type { Tag } from '@/interfaces/tag';
-import Tags from '@/../tags.json';
+import Tags from '@/lib/tags';
 import webhooks from '@/server/webhooks';
 type QueryMode = 'creator' | 'name';
 
