@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Tag } from '@/interfaces/tag';
-  import Tags from '@/lib/tags';
+  import Tags, { Tag } from '@/lib/tags';
 
   export let currentTags: Tag[] = [];
 

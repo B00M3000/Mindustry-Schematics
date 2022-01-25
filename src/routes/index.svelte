@@ -16,10 +16,10 @@
   import IconButton from '@/client/components/buttons/IconButton.svelte';
   import { goto } from '$app/navigation';
   import type { Load } from '@sveltejs/kit';
-  import { parseTags } from '@/lib/tag';
+  import { Tag } from '@/lib/tags';
   export let data: SchematicQueryJSON;
   let form: HTMLFormElement;
-  let currentTags = parseTags(data.tags.split(' '));
+  let currentTags = Tag.parse(data.tags.split(' '));
   async function search(e: Event) {
     e.preventDefault();
     const formData = new FormData(form);

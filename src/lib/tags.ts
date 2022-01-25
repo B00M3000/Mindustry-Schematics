@@ -6,13 +6,17 @@ export class Tag {
   }
 
   static from(name: string): Tag | undefined {
-    return registry.get(name);
+    return registry.get(name.toLowerCase());
   }
 
   static parse(names: string[]): Tag[] {
     return names
       .map((name) => Tag.from(name.toLowerCase()))
       .filter((tag) => tag) as Tag[];
+  }
+
+  static isValid(value: Tag): boolean {
+    return registry.has(value.name.toLowerCase());
   }
 }
 

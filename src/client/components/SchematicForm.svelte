@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { Tag } from '@/interfaces/tag';
   import type {
     SchematicJSON,
     SchematicParseErrorJSON,
@@ -8,11 +7,11 @@
   import TagInput from './TagInput.svelte';
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
-  import { parseTags } from '@/lib/tag';
   import { auth } from '../stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
   import { Access } from '@/lib/auth/access';
+  import { Tag } from '@/lib/tags';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -34,7 +33,7 @@
   let description = initialData?.description || '';
   let text = initialData?.text || '';
   let creator = initialData?.creator || '';
-  let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
+  let currentTags: Tag[] = initialData ? Tag.parse(initialData.tags) : [];
 
   let image = initialData ? `/schematics/${initialData._id}.png` : undefined;
 

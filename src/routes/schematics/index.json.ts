@@ -5,8 +5,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import type { FilterQuery } from 'mongoose';
 import { parseForm } from '@/server/parse_body';
 import { Schematic } from 'mindustry-schematic-parser';
-import type { Tag } from '@/interfaces/tag';
-import Tags from '@/lib/tags';
+import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
 type QueryMode = 'creator' | 'name';
 
@@ -90,8 +89,8 @@ export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) =
     const schematic = Schematic.decode(text);
 
     const tags = (JSON.parse(rawTags) as Tag[])
-      .map((tag) => tag.name)
-      .filter((n) => Tags.find((t) => t.name.toLowerCase() === n.toLowerCase()));
+      .filter(Tag.isValid)
+      .map((tag) => tag.name);
 
     const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
     const data = await schematic.toImageBuffer();

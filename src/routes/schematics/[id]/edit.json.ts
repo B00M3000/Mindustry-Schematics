@@ -1,7 +1,6 @@
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
-import type { Tag } from '@/interfaces/tag';
 import type { RequestHandler } from '@sveltejs/kit';
-import Tags from '@/lib/tags';
+import Tags, { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseForm } from '@/server/parse_body';
 import type { Locals } from '@/interfaces/app';
