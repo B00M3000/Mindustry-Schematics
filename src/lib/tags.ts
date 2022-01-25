@@ -1,5 +1,19 @@
+const registry = new Map<string, Tag>();
+
 export class Tag {
-  constructor(public readonly name: string, public readonly color: string) {}
+  constructor(public readonly name: string, public readonly color: string) {
+    registry.set(name.toLowerCase(), this);
+  }
+
+  static from(name: string): Tag | undefined {
+    return registry.get(name);
+  }
+
+  static parse(names: string[]): Tag[] {
+    return names
+      .map((name) => Tag.from(name.toLowerCase()))
+      .filter((tag) => tag) as Tag[];
+  }
 }
 
 const Tags = [
