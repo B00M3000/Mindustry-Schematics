@@ -84,13 +84,15 @@ export const get: RequestHandler = async (req) => {
     }
   );
 
-  //const session = await SessionSchema.save();
+  let session = new SessionSchema({ user_id: user.id })
+
+  session = session.save()
 
   return {
     status: 308,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('session_id', user.id, {
+      'set-cookie': cookie.serialize('session_id', session.id, {
         path: '/',
       }),
     },
