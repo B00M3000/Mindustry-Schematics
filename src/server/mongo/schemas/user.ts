@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
-  id: { type: String, required: true },
+  username: { type: String, required: true },
+  verified: { type: Boolean },
+  access: { type: String, required: true, default: 'none' },
   discord_id: String
 });
 export interface UserDocument extends mongoose.Document {
-  id: string;
+  username: string;
+  verified?: boolean;
+  access: string;
   discord_id?: string;
 }
 

@@ -3,7 +3,7 @@ import cookie from 'cookie';
 import type { GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
 import type { Locals, Session } from './interfaces/app';
-import { User } from './server/auth/user';
+import { User, Session } from './server/auth/user';
 import webhooks from './server/webhooks';
 import { dev } from '$app/env';
 
@@ -21,7 +21,8 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
   try {
     await dbPromise;
     const cookies = cookie.parse(request.headers.cookie || '');
-    const user = await User.get(cookies.token);
+    const user_id = await Session.get(cookies.session_id);
+    const user = await User.get(user_id);
     request.locals = {
       uid: user?.uid,
       access: user?.access.name,
