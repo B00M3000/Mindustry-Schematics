@@ -3,7 +3,8 @@ import cookie from 'cookie';
 import type { GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
 import type { Locals, Session } from './interfaces/app';
-import { User, Session } from './server/auth/user';
+import { User } from './server/auth/user';
+import { Session } from './server/auth/session';
 import webhooks from './server/webhooks';
 import { dev } from '$app/env';
 

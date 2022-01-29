@@ -5,7 +5,7 @@ export const post: RequestHandler = () => {
     status: 200,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('uid', '', {
+      'set-cookie': cookie.serialize('session_id', '', {
         path: '/',
       }),
     },

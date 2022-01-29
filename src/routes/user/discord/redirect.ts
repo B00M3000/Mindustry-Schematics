@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 
-import { DiscordSchema, UserSchema } from '@/server/mongo';
+import { DiscordSchema, UserSchema, SessionSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import env from '@/server/env';
 import * as cookie from 'cookie';
@@ -50,21 +50,21 @@ export const get: RequestHandler = async (req) => {
 
   const { token_type, access_token } = data;
 
-  const user = await get_user(token_type, access_token);
+  const discord_user = await get_user(token_type, access_token);
 
   const discord = await DiscordSchema.findOneAndUpdate(
     {
-      id: user.id,
+      id: discord_user.id,
     },
     {
-      id: user.id,
-      username: user.username,
-      discriminator: user.discriminator,
-      avatar_hash: user.avatar,
-      avatar_url: user.avatar
-        ? `/avatars/${user.id}/${user.avatar}.png`
-        : `/embed/avatars/${user.discriminator}.png`,
-      tag: `${user.username}#${user.discriminator}`,
+      id: discord_user.id,
+      username: discord_user.username,
+      discriminator: discord_user.discriminator,
+      avatar_hash: discord_user.avatar,
+      avatar_url: discord_user.avatar
+        ? `/avatars/${discord_user.id}/${discord_user.avatar}.png`
+        : `/embed/avatars/${discord_user.discriminator}.png`,
+      tag: `${discord_user.username}#${discord_user.discriminator}`,
     },
     {
       upsert: true,
@@ -72,45 +72,25 @@ export const get: RequestHandler = async (req) => {
     },
   );
 
-  const existingUser = await UserSchema.findOne(
+  const user = await UserSchema.findOneAndUpdate(
     {
-      discord_id: user.id
+      discord_id: discord_user.id
+    }, {
+      discord_id: discord_user.id,
+      username: discord_user.username
+    }, {
+      upsert: true,
+      new: true,
     }
   );
 
-  if(!existingUser){
-    const newUser = await UserSchema.findOneAndUpdate(
-      {
-        discord_id: user.id
-      },
-      {
-        discord_id: user.id
-      },
-      {
-        upsert: true,
-        new: true,
-      },
-    );
-
-    return {
-      status: 308,
-      headers: {
-        location: '/user',
-        'set-cookie': cookie.serialize('uid', newUser._id, {
-          path: '/',
-        }),
-      },
-      body: {
-        message: 'Redirect to User Dashboard',
-      },
-    };
-  }
+  //const session = await SessionSchema.save();
 
   return {
     status: 308,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('uid', existingUser.id, {
+      'set-cookie': cookie.serialize('session_id', user.id, {
         path: '/',
       }),
     },
