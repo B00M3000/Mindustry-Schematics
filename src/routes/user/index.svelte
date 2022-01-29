@@ -1,8 +1,9 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
-  $: allowUsers = $auth.access.can({ users: { read: 'all', update: 'all' } });
-  $: allowChanges = $auth.access.can({ schematics: { delete: 'all', update: 'all' } });
+  import { Access } from '@/lib/auth/access';
+  $: allowUsers = $auth.access.can({ users: Access.readAll | Access.updateAll });
+  $: allowChanges = $auth.access.can({ schematics: Access.deleteAll | Access.updateAll });
   let error: string | undefined;
 
   type FormSubmitEvent = Event & {

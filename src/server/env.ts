@@ -11,6 +11,8 @@ interface Env {
   WEBHOOK_URL?: string;
   WEBSITE_URL?: string;
   ENABLE_WEBHOOKS: boolean;
+  PRIVATE_WEBHOOK_URL?: string;
+  PUBLIC_WEBHOOK_URL?: string;
 }
 
 type RawEnv = {
@@ -29,7 +31,8 @@ function configEnv(): RawEnv {
         }).parsed || {}
       );
   }
-  throw new Error('No .env files found');
+  dotenv.config();
+  return process.env;
 }
 
 // the raw env has all its values contained as strings

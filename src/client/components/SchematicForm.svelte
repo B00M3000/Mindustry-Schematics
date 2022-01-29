@@ -12,6 +12,7 @@
   import { auth } from '../stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
+  import { Access } from '@/lib/auth/access';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -35,7 +36,7 @@
   let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? parseTags(initialData.tags) : [];
 
-  let image = initialData ? `/api/schematics/${initialData._id}.png` : undefined;
+  let image = initialData ? `/schematics/${initialData._id}.png` : undefined;
 
   function isValidSchematic(base64Code: string) {
     try {
@@ -75,7 +76,7 @@
     });
     const url = response.headers.get('location');
     await goto(url || '/');
-    if (variant == 'edit' && $auth.access.can({ schematics: { update: 'all' } })) {
+    if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
@@ -101,7 +102,7 @@
     invalid = false;
     const data = new FormData();
     data.append('text', text.trim());
-    const response = await fetch('/api/schematics/parse.json', {
+    const response = await fetch('/schematics/parse.json', {
       method: 'POST',
       body: data,
     });

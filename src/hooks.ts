@@ -5,6 +5,7 @@ import mongo from '@/server/mongo';
 import type { Locals, Session } from './interfaces/app';
 import { User } from './server/auth/user';
 import webhooks from './server/webhooks';
+import { dev } from '$app/env';
 
 const dbPromise = mongo();
 
@@ -34,10 +35,17 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
 
     return response;
   } catch (error) {
+    // makes debugging easier
+    if (dev) throw error;
+
+    console.error(error);
     webhooks.unhandledError({
       message: String(error),
       triggeredAt: new Date().getTime(),
     });
-    throw error;
+    return {
+      headers: {},
+      status: 500,
+    };
   }
 };

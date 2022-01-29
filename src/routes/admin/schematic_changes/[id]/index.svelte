@@ -7,7 +7,7 @@
     const access = UserAccess.from((session as Session).access);
     if (
       !access.can({
-        schematics: { delete: 'all', update: 'all' },
+        schematics: Access.deleteAll | Access.updateAll,
       })
     )
       return {
@@ -32,10 +32,10 @@
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
   import type { Tag } from '@/interfaces/tag';
-  import Actions from './_actions.svelte';
+  import Accesss from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { parseTags } from '@/lib/tag';
-  import { UserAccess } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
@@ -74,7 +74,7 @@
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
-        img.preview(src="/api/schematics/{change.id}.png" alt="schematic preview")
+        img.preview(src="/schematics/{change.id}.png" alt="schematic preview")
         h3.creator by {original.creator}
         h4.description: +html("safeDescription(original.description)")
         div.tags
@@ -82,7 +82,7 @@
             div.tag(style="--color: {tag.color};")
               div.layer
                 span {tag.name}
-        Actions({change})
+        Accesss({change})
       +elseif("diffs")
         h3.mode Modify
         h4.reason What and Why
@@ -92,10 +92,10 @@
               span(class!="{classOfDiff(diff)}") {diff.value}
           div.preview
             figure(class!="{differentImages ? 'removed' : 'unmodified'}")
-              img(src="/api/schematics/{change.id}.png" alt="old preview")
+              img(src="/schematics/{change.id}.png" alt="old preview")
             +if("differentImages")
               figure.added
-                img(src="/api/schematic_changes/{change._id}.png" alt="new preview")
+                img(src="{change._id}.png" alt="new preview")
           div.creator by 
             +each("diffs.creator as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}
@@ -108,7 +108,7 @@
                 div.tag(class!="{classOfDiff(diff)}" style="--color: {tag.color}")
                   div.layer
                     span {tag.name}
-          Actions({change})
+          Accesss({change})
   footer
     BackButton(href="/admin/schematic_changes" smart)
 </template>

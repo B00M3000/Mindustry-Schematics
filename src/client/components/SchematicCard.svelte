@@ -5,8 +5,8 @@
   import IconButton from './buttons/IconButton.svelte';
   import { toast } from '@zerodevx/svelte-toast';
   export let schematic: BasicSchematicJSON;
-  function copySchematic() {
-    copy(schematic.text);
+  async function copySchematic() {
+    await copy(schematic.text);
     toast.push('Copied to clipboard!');
   }
 </script>
@@ -30,7 +30,7 @@ div.schematic
   div.view
     div.name
       h2 {schematic.name}
-    LazyImage(src="/api/schematics/{schematic._id}.png" alt="Schematic Preview")
+    LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
 </template>
 
 <style>

@@ -1,13 +1,13 @@
 import type { Context } from '@/interfaces/app';
 import type { UserSearchJSON } from '@/interfaces/json';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { escapeRegexString } from '@/lib/string';
 import { UserDocument, UserSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FilterQuery } from 'mongoose';
 export const get: RequestHandler<Context> = async ({ context, query }) => {
   const access = UserAccess.from(context.access);
-  if (!access.can({ users: { read: 'all' } }))
+  if (!access.can({ users: Access.readAll }))
     return {
       status: 403,
       body: {

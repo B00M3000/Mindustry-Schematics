@@ -3,14 +3,18 @@
  * @param text The text to be copied
  * @returns `true` if the operation was successful, else returns `false`
  */
-export function copy(text: string): boolean {
+export async function copy(text: string): Promise<boolean> {
+  if ('clipboard' in navigator) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      return false;
+    }
+  }
   const textArea = document.createElement('textarea');
+  textArea.style.display = 'none';
   textArea.value = text;
-
-  // Avoid scrolling to bottom
-  textArea.style.top = '0';
-  textArea.style.left = '0';
-  textArea.style.position = 'fixed';
 
   document.body.appendChild(textArea);
 

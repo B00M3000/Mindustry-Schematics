@@ -1,5 +1,5 @@
 import type { Context } from '@/interfaces/app';
-import { UserAccess } from '@/lib/auth/access';
+import { Access, UserAccess } from '@/lib/auth/access';
 import { UserSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -10,7 +10,7 @@ interface Params {
 export const post: RequestHandler<Context> = async ({ context, body, params }) => {
   const { verified, access } = parseForm<Params>(body);
   const userAccess = UserAccess.from(context.access);
-  if (!userAccess.can({ users: { read: 'all', update: 'all' } }))
+  if (!userAccess.can({ users: Access.readAll | Access.updateAll }))
     return {
       status: 403,
       body: {

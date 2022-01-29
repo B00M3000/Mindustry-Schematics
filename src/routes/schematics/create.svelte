@@ -5,7 +5,7 @@
 
 <template lang="pug">
   h1 Create Schematic
-  SchematicForm(variant="create" action="/api/schematics.json")
+  SchematicForm(variant="create" action="/schematics.json")
   footer
     BackButton(href="/" smart)
 </template>

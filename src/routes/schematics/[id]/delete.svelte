@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, page }) => {
     const { id } = page.params;
-    const response = await fetch(`/api/schematics/${id}.json`);
+    const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     return {
       props: { schematic },
@@ -17,6 +17,7 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
+  import { Access } from '@/lib/auth/access';
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
   let submitting = false;
@@ -29,7 +30,7 @@
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    if ($auth.access.can({ schematics: { delete: 'all' } })) {
+    if ($auth.access.can({ schematics: Access.deleteAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
@@ -43,13 +44,13 @@
 
   h1 Delete a Schematic
   form(  
-    action="/api/schematics/{schematic._id}/delete.json"
+    action="/schematics/{schematic._id}/delete.json"
     method="POST"
     bind:this!="{form}"
     on:submit!="{submit}"
   )
     h2.title [Schematic] {schematic.name}
-    img(src="/api/schematics/{schematic._id}.png" alt="schematic preview")
+    img(src="/schematics/{schematic._id}.png" alt="schematic preview")
     h3.creator by {schematic.creator}
     h4.description 
       +html("safeDescription(schematic.description)")

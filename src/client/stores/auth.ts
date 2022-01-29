@@ -1,15 +1,15 @@
 import { session } from '$app/stores';
 import type { Session } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import { get, writable } from 'svelte/store';
+import { get, Writable, writable } from 'svelte/store';
 interface AuthState {
   name?: string;
   uid?: string;
   access: UserAccess;
 }
 class Auth {
-  private readonly store: writable<AuthState>;
-  readonly subscribe: writable<AuthState>['subscribe'];
+  private readonly store: Writable<AuthState>;
+  readonly subscribe: Writable<AuthState>['subscribe'];
   constructor() {
     this.store = writable(
       {
@@ -47,7 +47,7 @@ class Auth {
     });
   }
   async logout(): Promise<void> {
-    await fetch('/api/user/logout.json', {
+    await fetch('/user/logout.json', {
       method: 'POST',
     });
     this.set({

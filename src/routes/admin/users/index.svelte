@@ -1,13 +1,13 @@
 <script context="module" lang="ts">
   import type { Session } from '@/interfaces/app';
   import type { UserSearchJSON } from '@/interfaces/json';
-  import { UserAccess } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ context, fetch, session, page }) => {
     const s = session as Session;
     const access = UserAccess.from(s.access);
-    if (!access.can({ users: { read: 'all', update: 'all', delete: 'all' } }))
+    if (!access.can({ users: Access.readAll | Access.updateAll | Access.deleteAll }))
       return {
         status: 303,
         redirect: '/user',
