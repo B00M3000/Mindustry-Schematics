@@ -3,7 +3,7 @@ export interface Locals {
   uid?: string;
   access?: string;
 }
-export interface Session {
+export interface ClientSession {
   name?: string;
   uid?: string;
   access?: string;

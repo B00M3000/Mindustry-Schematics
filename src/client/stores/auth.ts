@@ -1,5 +1,5 @@
 import { session } from '$app/stores';
-import type { Session } from '@/interfaces/app';
+import type { ClientSession } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import { get, Writable, writable } from 'svelte/store';
 interface AuthState {
@@ -16,7 +16,7 @@ class Auth {
         access: UserAccess.from(undefined),
       },
       (set) => {
-        const $session = get<Session>(session);
+        const $session = get<ClientSession>(session);
         set({
           ...$session,
           access: UserAccess.from($session.access),

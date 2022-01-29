@@ -2,7 +2,7 @@ import cookie from 'cookie';
 // import { v4 as uuid } from "@lukeed/uuid";
 import type { GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
-import type { Locals, Session } from './interfaces/app';
+import type { Locals, ClientSession } from './interfaces/app';
 import { User } from './server/auth/user';
 import { Session } from './server/auth/session';
 import webhooks from './server/webhooks';
@@ -10,7 +10,7 @@ import { dev } from '$app/env';
 
 const dbPromise = mongo();
 
-export const getSession: GetSession<Locals, Session> = async ({ locals }) => {
+export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) => {
   return {
     name: locals.name,
     uid: locals.uid,
