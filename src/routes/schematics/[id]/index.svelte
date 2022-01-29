@@ -21,13 +21,13 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
   import { toast } from '@zerodevx/svelte-toast';
-  import { parseTags } from '@/lib/tag';
+  import { Tag } from '@/lib/tags';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/schematics/${schematic._id}.png`;
   const description = safeDescription(schematic.description);
-  const tags = parseTags(schematic.tags);
+  const tags = Tag.parse(schematic.tags);
   const items: ItemName[] = [
     'copper',
     'lead',

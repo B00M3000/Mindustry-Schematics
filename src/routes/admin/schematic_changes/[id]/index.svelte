@@ -31,17 +31,16 @@
   import { safeDescription } from '@/lib/safe_description';
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
-  import type { Tag } from '@/interfaces/tag';
   import Accesss from './_actions.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
-  import { parseTags } from '@/lib/tag';
   import { Access, UserAccess } from '@/lib/auth/access';
+  import { Tag } from '@/lib/tags';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
   let differentImages = data.differentImages;
-  let originalTags = original ? parseTags(original.tags) : [];
-  let changedTags = change.Changed ? parseTags(change.Changed.tags) : [];
+  let originalTags = original ? Tag.parse(original.tags) : [];
+  let changedTags = change.Changed ? Tag.parse(change.Changed.tags) : [];
   let diffs:
     | undefined
     | {
