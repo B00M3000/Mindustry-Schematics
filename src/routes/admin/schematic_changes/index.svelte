@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
-    const access = UserAccess.from((session as Session).access);
+    const access = UserAccess.from((session as ClientSession).access);
     if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
       return {
         props: {
@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import type { Session } from '@/interfaces/app';
+  import type { ClientSession } from '@/interfaces/app';
   import type { SchematicChangeInfoJSON } from '@/interfaces/json';
   import type { Load } from '@sveltejs/kit';
   import { onMount } from 'svelte';

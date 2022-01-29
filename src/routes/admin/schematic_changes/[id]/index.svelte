@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-  import type { Session } from '@/interfaces/app';
+  import type { ClientSession } from '@/interfaces/app';
 
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, page, session }) => {
-    const access = UserAccess.from((session as Session).access);
+    const access = UserAccess.from((session as ClientSession).access);
     if (
       !access.can({
         schematics: Access.deleteAll | Access.updateAll,
