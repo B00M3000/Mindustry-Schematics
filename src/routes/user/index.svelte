@@ -2,7 +2,6 @@
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
   import { Access } from '@/lib/auth/access';
-  $: allowUsers = $auth.access.can({ users: Access.readAll | Access.updateAll });
   $: allowChanges = $auth.access.can({ schematics: Access.deleteAll | Access.updateAll });
   let error: string | undefined;
 
@@ -34,9 +33,6 @@
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
-      +if("allowUsers")
-        a.link(href="/admin/users")
-          button User Panel
     +else
       div.logins        
         DiscordLogin
