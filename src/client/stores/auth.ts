@@ -1,7 +1,8 @@
 import { session } from '$app/stores';
 import type { ClientSession } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import { get, Writable, writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 interface AuthState {
   name?: string;
   uid?: string;
