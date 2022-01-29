@@ -35,6 +35,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@types/form-data": "^2.5.0",
+    "@types/node-fetch": "^3.0.3",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "diff": "^5.0.0",
