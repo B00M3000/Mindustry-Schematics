@@ -18,4 +18,4 @@ export interface DiscordDocument extends mongoose.Document {
 }
 
 export const DiscordSchema: mongoose.Model<DiscordDocument> =
-  mongoose.models.Discord || mongoose.model('Discords', schema);
+  mongoose.models.Discords || mongoose.model('Discords', schema);
