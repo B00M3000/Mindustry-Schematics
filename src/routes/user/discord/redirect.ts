@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 
-import { UserSchema } from '@/server/mongo';
+import { DiscordSchema, UserSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import env from '@/server/env';
 import * as cookie from 'cookie';
@@ -52,7 +52,7 @@ export const get: RequestHandler = async (req) => {
 
   const user = await get_user(token_type, access_token);
 
-  const result = await UserSchema.findOneAndUpdate(
+  const discord = await DiscordSchema.findOneAndUpdate(
     {
       id: user.id,
     },
@@ -72,11 +72,45 @@ export const get: RequestHandler = async (req) => {
     },
   );
 
+  const existingUser = await UserSchema.findOne(
+    {
+      discord_id: user.id
+    }
+  );
+
+  if(!existingUser){
+    const newUser = await UserSchema.findOneAndUpdate(
+      {
+        discord_id: user.id
+      },
+      {
+        discord_id: user.id
+      },
+      {
+        upsert: true,
+        new: true,
+      },
+    );
+
+    return {
+      status: 308,
+      headers: {
+        location: '/user',
+        'set-cookie': cookie.serialize('uid', newUser._id, {
+          path: '/',
+        }),
+      },
+      body: {
+        message: 'Redirect to User Dashboard',
+      },
+    };
+  }
+
   return {
     status: 308,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('uid', result.id, {
+      'set-cookie': cookie.serialize('uid', existingUser.id, {
         path: '/',
       }),
     },
