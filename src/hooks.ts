@@ -12,7 +12,7 @@ const dbPromise = mongo();
 export const getSession: GetSession<Locals, Session> = async ({ locals }) => {
   return {
     name: locals.name,
-    token: locals.token,
+    uid: locals.uid,
     access: locals.access,
   };
 };
@@ -23,7 +23,7 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
     const cookies = cookie.parse(request.headers.cookie || '');
     const user = await User.get(cookies.token);
     request.locals = {
-      token: user?.token,
+      uid: user?.uid,
       access: user?.access.name,
       name: user?.name,
     };

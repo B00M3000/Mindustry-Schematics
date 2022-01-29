@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const username = env.MONGO_USER || '';
 const password = env.MONGO_PASS || '';
-const database = env.MONGO_DATABASE_NAME || 'Schematics';
+const database = env.MONGO_DATABASE_NAME || 'Active-v6';
 
 if (!env.MONGO_PATH) throw new Error('Mongo db path is not defined');
 
@@ -16,4 +16,4 @@ export default () => mongoose.connect(path);
 
 export * from './schemas/schematic';
 export * from './schemas/schematic_change';
-export * from './schemas/user_token';
+export * from './schemas/user';

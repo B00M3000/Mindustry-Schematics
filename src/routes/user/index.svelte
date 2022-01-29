@@ -1,29 +1,22 @@
 <script lang="ts">
+  import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
   import { Access } from '@/lib/auth/access';
-  $: allowTokens = $auth.access.can({ userTokens: Access.readAll | Access.updateAll });
+  $: allowUsers = $auth.access.can({ users: Access.readAll | Access.updateAll });
   $: allowChanges = $auth.access.can({ schematics: Access.deleteAll | Access.updateAll });
   let error: string | undefined;
+
   type FormSubmitEvent = Event & {
     currentTarget: EventTarget & HTMLFormElement;
   };
+
   function getErrorMessage(e: unknown) {
     if (e instanceof Error) {
       if (e.message.includes('registered')) return 'Token not registered';
     }
     return 'Error during login, try again later';
   }
-  async function login(e: FormSubmitEvent) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data = new FormData(form);
-    try {
-      error = undefined;
-      await auth.login(data.get('token') as string);
-    } catch (e) {
-      error = getErrorMessage(e);
-    }
-  }
+
   async function logout(e: FormSubmitEvent) {
     e.preventDefault();
     await auth.logout();
@@ -33,23 +26,22 @@
 <template lang="pug">
   svelte:head
     title User Login
-  +if("$auth.token")
+  +if("$auth.uid")
     main
       div.info
         h2 Welcome Back {$auth.name}
         button(on:click!="{logout}") Logout
-      +if("allowTokens")
-        a.link(href="/admin/tokens")
-          button User Tokens
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+      +if("allowUsers")
+        a.link(href="/admin/users")
+          button User Panel
     +else
-      form.login(on:submit!="{login}")
-        +if("error")
-          span.error {error}
-        input(name="token" type="password" placeholder="Enter your token here..." required)
-        button Login
+      div.logins        
+        DiscordLogin
+        
+
 </template>
 
 <style>
@@ -69,31 +61,10 @@
   a.link {
     align-self: center;
   }
-  form.login {
-    place-items: center;
-    display: grid;
-    padding: 1rem;
-    gap: 1rem;
-    grid-template-columns: 1fr 1fr max-content 1fr;
-    grid-template-areas:
-      '. error error .'
-      '. input button .';
-  }
-  form.login input {
-    grid-area: input;
-    background-color: var(--surface);
-    border-radius: 0.5em;
-    padding: 0.5em;
-    border: 2px solid #888888;
-    color: var(--on-surface);
-    max-width: 50vw;
-    width: 15rem;
-  }
-  form.login button {
-    grid-area: button;
-  }
-  form.login span.error {
-    grid-area: error;
-    color: hsl(0, 100%, 65%);
+  .logins {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
 </style>

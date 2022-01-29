@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { hasBitFlag } from '../bit';
 
-export type Resource = 'schematics' | 'userTokens';
+export type Resource = 'schematics' | 'users';
 
 /**
  * Bitflags enum, defines actions that an user can execute on a resource
@@ -91,15 +91,15 @@ export class UserAccess {
     return this.name;
   }
 }
+
 // the names must be camelCase
-// the lower the level of the role, the higher its privileges
 export const accessLevels = {
   get admin() {
     return new UserAccess({
       name: 'admin',
       extend: this.mod,
       permissions: {
-        userTokens: Access.crudAll,
+        users: Access.crudAll,
       },
     });
   },
