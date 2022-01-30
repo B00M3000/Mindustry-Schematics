@@ -11,7 +11,7 @@ export class Tutorial {
   private _title?: string;
 
   get text(): string {
-    this._text ??= fs.readFileSync(this.path, 'utf-8');
+    if (this._text === undefined) this._text = fs.readFileSync(this.path, 'utf-8');
     return this._text;
   }
 
@@ -24,7 +24,7 @@ export class Tutorial {
   }
 
   get html(): string {
-    this._html ??= converter.makeHtml(this.text);
+    if (this._html === undefined) this._html = converter.makeHtml(this.text);
     return this._html;
   }
 }
