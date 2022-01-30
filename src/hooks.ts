@@ -4,7 +4,7 @@ import type { GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
 import type { Locals, ClientSession } from './interfaces/app';
 import { User } from './server/auth/user';
-import { Session } from './server/auth/session';
+import { ServerSession } from './server/auth/session';
 import webhooks from './server/webhooks';
 import { dev } from '$app/env';
 
@@ -23,7 +23,7 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
   try {
     await dbPromise;
     const cookies = cookie.parse(request.headers.cookie || '');
-    const session = await Session.get(cookies.session_id);
+    const session = await ServerSession.get(cookies.session_id);
     const user = session ? await User.get(session.user_id) : undefined;
     request.locals = {
       session_id: session?.session_id,
