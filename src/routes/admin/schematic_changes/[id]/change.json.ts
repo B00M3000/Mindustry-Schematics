@@ -48,7 +48,7 @@ function renderAsSame(...schematics: [string, string]): boolean {
   return true;
 }
 export const get: RequestHandler<Locals, unknown> = async ({ params, locals }) => {
-  const access = UserAccess.from(locals.access);
+  const access = locals.user?.access || UserAccess.from(undefined);
   if (
     !access.can({
       schematics: Access.deleteAll | Access.updateAll,

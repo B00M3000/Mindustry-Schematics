@@ -6,7 +6,7 @@ import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const post: RequestHandler<Locals> = async (req) => {
-  const access = UserAccess.from(req.locals.access);
+  const access = req.locals.user?.access || UserAccess.from(undefined);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {
       status: 403,
