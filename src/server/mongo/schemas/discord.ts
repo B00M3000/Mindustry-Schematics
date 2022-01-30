@@ -5,7 +5,6 @@ const schema = new mongoose.Schema({
   username: { type: String, required: true },
   discriminator: { type: String, required: true },
   avatar_hash: { type: String },
-  avatar_url: { type: String },
   tag: { type: String, required: true },
 }, { timestamps: true });
 export interface DiscordDocument extends mongoose.Document {
@@ -14,7 +13,6 @@ export interface DiscordDocument extends mongoose.Document {
   discriminator: string;
   tag: string;
   avatar_hash?: string;
-  avatar_url?: string;
 }
 
 export const DiscordSchema: mongoose.Model<DiscordDocument> =

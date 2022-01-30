@@ -61,9 +61,6 @@ export const get: RequestHandler = async (req) => {
       username: discord_user.username,
       discriminator: discord_user.discriminator,
       avatar_hash: discord_user.avatar,
-      avatar_url: discord_user.avatar
-        ? `/avatars/${discord_user.id}/${discord_user.avatar}.png`
-        : `/embed/avatars/${discord_user.discriminator}.png`,
       tag: `${discord_user.username}#${discord_user.discriminator}`,
     },
     {
