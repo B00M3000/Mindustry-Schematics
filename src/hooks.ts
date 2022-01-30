@@ -12,7 +12,7 @@ const dbPromise = mongo();
 
 export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) => {
   return {
-    name: locals.user?.username,
+    name: locals.user?.name,
     id: locals.user?._id,
     access: locals.user?.access,
     avatar: locals.user?.avatar,
