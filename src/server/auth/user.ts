@@ -3,18 +3,18 @@ import { UserAccess } from '@/lib/auth/access';
 
 interface UserOptions {
   access: UserAccess | string;
-  _id: string;
+  id: string;
   name: string;
   avatar: string;
 }
 export class User {
   avatar: string;
   access: UserAccess;
-  _id: string;
+  id: string;
   name: string;
 
   constructor(options: UserOptions) {
-    ({ _id: this._id, name: this.name, avatar: this.avatar } = options);
+    ({ id: this.id, name: this.name, avatar: this.avatar } = options);
 
     if (typeof options.access === 'string') {
       this.access = UserAccess.from(options.access);
@@ -23,16 +23,16 @@ export class User {
     }
   }
 
-  static async get(_id?: string): Promise<User | undefined> {
-    if (!_id) return;
+  static async get(id?: string): Promise<User | undefined> {
+    if (!id) return;
     const userDoc = await UserSchema.findOne({
-      _id,
+      _id: id,
     });
     if (!userDoc) return;
     const user = new User({
       name: userDoc.username,
       access: UserAccess.from(userDoc.access),
-      _id,
+      id,
       avatar: userDoc.avatar,
     });
     return user;
