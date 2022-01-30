@@ -4,7 +4,8 @@ const schema = new mongoose.Schema({
   username: { type: String, required: true },
   verified: { type: Boolean },
   access: { type: String, required: true, default: 'none' },
-  discord_id: { type: String }
+  discord_id: { type: String },
+  avatar: String
 }, { timestamps: true });
 export interface UserDocument extends mongoose.Document {
   username: string;

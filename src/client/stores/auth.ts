@@ -7,6 +7,7 @@ interface AuthState {
   name?: string;
   id?: string;
   access: UserAccess;
+  avatar?: string;
 }
 class Auth {
   private readonly store: Writable<AuthState>;

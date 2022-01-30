@@ -12,9 +12,10 @@ const dbPromise = mongo();
 
 export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) => {
   return {
-    name: locals.name,
+    name: locals.username,
     id: locals.id,
     access: locals.access,
+    avatar: locals.avatar
   };
 };
 
@@ -29,6 +30,7 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
       id: user?._id,
       access: user?.access.name,
       name: user?.username,
+      avatar: user?.avatar
     };
     // TODO https://github.com/sveltejs/kit/issues/1046
     const response = await resolve({
