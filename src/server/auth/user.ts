@@ -1,5 +1,5 @@
 import { UserSchema } from '@/server/mongo';
-import { UserAccess, accessLevels } from '@/lib/auth/access';
+import { UserAccess } from '@/lib/auth/access';
 
 interface UserOptions {
   access: UserAccess | string;
@@ -36,20 +36,5 @@ export class User {
       avatar: userDoc.avatar,
     });
     return user;
-  }
-
-  /**
-   *
-   * @deprecated This method should not be used, consider using the new permission check as the following
-   * @example  user.access.can({ schematics: Access.readAll | Access.updateAll })
-   * @param user
-   * @returns
-   */
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  static levels(user: User | undefined) {
-    return {
-      isAdmin: user ? user.access >= accessLevels.admin : false,
-      isMod: user ? user.access >= accessLevels.mod : false,
-    };
   }
 }
