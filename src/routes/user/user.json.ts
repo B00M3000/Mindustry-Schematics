@@ -1,27 +1,31 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { SessionSchema, UserSchema } from '@/server/mongo';
-import * as cookie from 'cookie';
+import { UserSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 
-export const post: RequestHandler = (req) => {
-  const parsedForm = parseForm<Body>(req.body);
-  let { username } = parsedForm;
-  let { id } = req.locals
+interface PostBody {
+  username: string;
+}
+export const post: RequestHandler = async (req) => {
+  const parsedForm = parseForm<PostBody>(req.body);
+  const { username } = parsedForm;
+  const { id } = req.locals;
 
-  if(!id) return {
-    status: 308,
-    headers: { location: '/user' },
-    body: { message: 'User is not Authenticated' },
-  };
+  if (!id)
+    return {
+      status: 308,
+      headers: { location: '/user' },
+      body: { message: 'User is not Authenticated' },
+    };
 
-  if(!username) return {
-    status: 308,
-    headers: { location: '/user' },
-    body: { message: 'Invalid Body' },
-  };
+  if (!username)
+    return {
+      status: 308,
+      headers: { location: '/user' },
+      body: { message: 'Invalid Body' },
+    };
 
-  const result = await UserSchema.findOneAndUpdate({ _id: id }, { username })
-  
+  await UserSchema.findOneAndUpdate({ _id: id }, { username });
+
   return {
     status: 308,
     headers: { location: '/user' },
