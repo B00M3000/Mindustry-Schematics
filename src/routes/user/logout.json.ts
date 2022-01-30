@@ -1,9 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { SessionSchema } from '@/server/mongo';
 import * as cookie from 'cookie';
-export const post: RequestHandler = (req) => {
-
-  const sucess = await SessionSchema.deleteOne({ _id: req.locals.session_id })
+export const post: RequestHandler = async (req) => {
+  await SessionSchema.deleteOne({ _id: req.locals.session_id });
 
   return {
     status: 308,
