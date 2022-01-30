@@ -3,7 +3,6 @@ import cookie from 'cookie';
 import type { GetSession, Handle } from '@sveltejs/kit';
 import mongo from '@/server/mongo';
 import type { Locals, ClientSession } from './interfaces/app';
-import { User } from './server/auth/user';
 import { ServerSession } from './server/auth/session';
 import webhooks from './server/webhooks';
 import { dev } from '$app/env';
@@ -13,18 +12,20 @@ const dbPromise = mongo();
 export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) => {
   let session = {};
 
-  const { user } = locals;
+  const { session: serverSession } = locals;
 
-  if (user)
+  if (serverSession) {
+    const { user } = serverSession;
     session = {
       ...session,
       user: {
         name: user.name,
-        id: user._id,
+        id: user.id,
         access: user.access.toJSON(),
         avatar: user.avatar,
       },
     };
+  }
 
   return session;
 };
@@ -34,10 +35,8 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
     await dbPromise;
     const cookies = cookie.parse(request.headers.cookie || '');
     const session = await ServerSession.get(cookies.session_id);
-    const user = session ? await User.get(session.user_id) : undefined;
     request.locals = {
-      session_id: session?.session_id,
-      user,
+      session,
     };
     // TODO https://github.com/sveltejs/kit/issues/1046
     const response = await resolve({

@@ -14,7 +14,8 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   return originals;
 }
 export const get: RequestHandler<Locals> = async (req) => {
-  const access = req.locals.user?.access || UserAccess.from(undefined);
+  const { session } = req.locals;
+  const access = session?.user.access || UserAccess.from(undefined);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
     return { status: 403, body: { message: 'Forbidden' } };
   }

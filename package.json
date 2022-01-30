@@ -16,6 +16,8 @@
     "@types/bcrypt": "^5.0.0",
     "@types/cookie": "^0.4.1",
     "@types/diff": "^5.0.1",
+    "@types/form-data": "^2.5.0",
+    "@types/node-fetch": "^3.0.3",
     "@types/showdown": "^1.9.4",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
@@ -35,8 +37,6 @@
   },
   "type": "module",
   "dependencies": {
-    "@types/form-data": "^2.5.0",
-    "@types/node-fetch": "^3.0.3",
     "bcrypt": "^5.0.1",
     "cookie": "^0.4.1",
     "diff": "^5.0.0",
