@@ -11,12 +11,21 @@ import { dev } from '$app/env';
 const dbPromise = mongo();
 
 export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) => {
-  return {
-    name: locals.user?.name,
-    id: locals.user?._id,
-    access: locals.user?.access,
-    avatar: locals.user?.avatar,
+  let session = {};
+
+  const { user } = locals;
+
+  if(user) session = { 
+    ...session, 
+    user: {
+      name: user.name,
+      id: user.id,
+      access: user.access,
+      avatar: user.avatar
+    } 
   };
+  
+  return session;
 };
 
 export const handle: Handle<Locals> = async ({ request, resolve }) => {
