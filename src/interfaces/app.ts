@@ -1,8 +1,9 @@
+import type { ServerSession } from '@/server/auth/session';
 import type { User } from '@/server/auth/user';
 
 export interface Locals {
   user?: User;
-  session_id?: string;
+  session?: ServerSession;
 }
 export interface ClientSession {
   name?: string;

@@ -36,7 +36,7 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
     const session = await ServerSession.get(cookies.session_id);
     const user = session ? await User.get(session.user_id) : undefined;
     request.locals = {
-      session_id: session?.session_id,
+      session,
       user,
     };
     // TODO https://github.com/sveltejs/kit/issues/1046
