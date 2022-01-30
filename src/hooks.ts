@@ -21,7 +21,7 @@ export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) 
       user: {
         name: user.name,
         id: user._id,
-        access: user.access,
+        access: user.access.toJSON(),
         avatar: user.avatar,
       },
     };
