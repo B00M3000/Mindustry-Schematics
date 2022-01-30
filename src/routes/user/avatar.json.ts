@@ -1,31 +1,40 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { SessionSchema, UserSchema } from '@/server/mongo';
-import * as cookie from 'cookie';
+import { UserSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 
-export const post: RequestHandler = (req) => {
-  const parsedForm = parseForm<Body>(req.body);
-  let { content_type, data } = parsedForm;
-  let { id } = req.locals
+interface PostBody {
+  content_type: string;
+  data: string;
+}
 
-  if(!id) return {
-    status: 308,
-    headers: { location: '/user' },
-    body: { message: 'User is not Authenticated' },
-  };
+export const post: RequestHandler = async (req) => {
+  const parsedForm = parseForm<PostBody>(req.body);
+  const { content_type, data } = parsedForm;
+  const { id } = req.locals;
 
-  if(!content_type || !data) return {
-    status: 308,
-    headers: { location: '/user' },
-    body: { message: 'Invalid Body' },
-  };
+  if (!id)
+    return {
+      status: 308,
+      headers: { location: '/user' },
+      body: { message: 'User is not Authenticated' },
+    };
 
-  const base64 = Buffer.from(data, "base64");
+  if (!content_type || !data)
+    return {
+      status: 308,
+      headers: { location: '/user' },
+      body: { message: 'Invalid Body' },
+    };
 
-  const result = await UserSchema.findOneAndUpdate({ _id: id }, {
-    avatar: `data:${content_type};base64,${base64}`
-  })
-  
+  const base64 = Buffer.from(data, 'base64');
+
+  await UserSchema.findOneAndUpdate(
+    { _id: id },
+    {
+      avatar: `data:${content_type};base64,${base64}`,
+    },
+  );
+
   return {
     status: 308,
     headers: { location: '/user' },
