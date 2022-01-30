@@ -3,16 +3,16 @@ import { UserAccess, accessLevels } from '@/lib/auth/access';
 
 interface UserOptions {
   access: UserAccess | string;
-  uid: string;
-  name: string;
+  _id: string;
+  username: string;
 }
 export class User {
   access: UserAccess;
-  uid: string;
-  name: string;
+  _id: string;
+  username: string;
 
   constructor(options: UserOptions) {
-    ({ uid: this.uid, name: this.name } = options);
+    ({ _id: this._id, username: this.username } = options);
 
     if (typeof options.access === 'string') {
       this.access = UserAccess.from(options.access);
@@ -21,16 +21,16 @@ export class User {
     }
   }
 
-  static async get(uid?: string): Promise<User | undefined> {
-    if (!uid) return;
+  static async get(_id?: string): Promise<User | undefined> {
+    if (!_id) return;
     const userDoc = await UserSchema.findOne({
-      id: uid,
+      _id,
     });
     if (!userDoc) return;
     const user = new User({
-      name: userDoc.username,
+      username: userDoc.username,
       access: UserAccess.from(userDoc.access),
-      uid,
+      _id,
     });
     return user;
   }

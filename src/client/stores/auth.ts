@@ -5,7 +5,7 @@ import { get, writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 interface AuthState {
   name?: string;
-  uid?: string;
+  id?: string;
   access: UserAccess;
 }
 class Auth {

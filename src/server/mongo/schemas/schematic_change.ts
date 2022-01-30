@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
   Description: String,
 
   Delete: String,
-});
+}, { timestamps: true });
 export interface SchematicChangeDocument extends mongoose.Document {
   id: string;
   Changed?: Omit<mongoose.LeanDocument<SchematicDocument>, '__v' | 'id' | '_id'>;

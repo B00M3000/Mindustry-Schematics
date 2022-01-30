@@ -16,23 +16,20 @@
     return 'Error during login, try again later';
   }
 
-  async function logout(e: FormSubmitEvent) {
-    e.preventDefault();
-    await auth.logout();
-  }
 </script>
 
 <template lang="pug">
   svelte:head
     title User Login
-  +if("$auth.uid")
+  +if("$auth.id")
     main
       div.info
         h2 Welcome Back {$auth.name}
-        button(on:click!="{logout}") Logout
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+      a.link(href="/user/logout")
+        button Logout 
     +else
       div.logins        
         DiscordLogin

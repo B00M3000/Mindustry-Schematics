@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
   avatar_hash: { type: String },
   avatar_url: { type: String },
   tag: { type: String, required: true },
-});
+}, { timestamps: true });
 export interface DiscordDocument extends mongoose.Document {
   id: string;
   username: string;

@@ -22,12 +22,13 @@ export const handle: Handle<Locals> = async ({ request, resolve }) => {
   try {
     await dbPromise;
     const cookies = cookie.parse(request.headers.cookie || '');
-    const user_id = await Session.get(cookies.session_id);
-    const user = await User.get(user_id);
+    const session = await Session.get(cookies.session_id);
+    const user = session ? await User.get(session.user_id) : undefined;
     request.locals = {
-      uid: user?.uid,
+      session_id: session?.session_id,
+      id: user?._id,
       access: user?.access.name,
-      name: user?.name,
+      name: user?.username,
     };
     // TODO https://github.com/sveltejs/kit/issues/1046
     const response = await resolve({

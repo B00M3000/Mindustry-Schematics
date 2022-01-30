@@ -1,10 +1,10 @@
 export interface Locals {
   name?: string;
-  uid?: string;
+  id?: string;
   access?: string;
 }
 export interface ClientSession {
   name?: string;
-  uid?: string;
+  id?: string;
   access?: string;
 }

@@ -17,7 +17,7 @@ export class Session {
   static async get(session_id?: string): Promise<Session | undefined> {
     if (!session_id) return;
     const sessionDoc = await SessionSchema.findOne({
-      id: session_id,
+      _id: session_id.session_id,
     });
     if (!sessionDoc) return;
     const session = new Session({

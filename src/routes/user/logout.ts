@@ -1,8 +1,14 @@
 import type { RequestHandler } from '@sveltejs/kit';
+import { SessionSchema } from '@/server/mongo';
 import * as cookie from 'cookie';
-export const post: RequestHandler = () => {
+export const get: RequestHandler = (req) => {
+
+  const sucess = await SessionSchema.deleteOne({ _id: req.locals.session_id })
+
+  console.log(sucess)
+
   return {
-    status: 200,
+    status: 308,
     headers: {
       location: '/user',
       'set-cookie': cookie.serialize('session_id', '', {
@@ -10,7 +16,7 @@ export const post: RequestHandler = () => {
       }),
     },
     body: {
-      message: 'Success',
+      message: 'Logged out Successfully!',
     },
   };
 };
