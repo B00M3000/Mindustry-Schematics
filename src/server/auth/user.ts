@@ -5,14 +5,16 @@ interface UserOptions {
   access: UserAccess | string;
   _id: string;
   username: string;
+  avatar: string;
 }
 export class User {
+  avatar: string;
   access: UserAccess;
   _id: string;
   username: string;
 
   constructor(options: UserOptions) {
-    ({ _id: this._id, username: this.username } = options);
+    ({ _id: this._id, username: this.username, avatar: this.avatar } = options);
 
     if (typeof options.access === 'string') {
       this.access = UserAccess.from(options.access);
@@ -31,6 +33,7 @@ export class User {
       username: userDoc.username,
       access: UserAccess.from(userDoc.access),
       _id,
+      avatar: userDoc.avatar,
     });
     return user;
   }
