@@ -1,21 +1,8 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
   import { auth } from '@/client/stores/auth';
-  import { Access } from '@/lib/auth/access';
-  $: allowChanges = $auth.access.can({ schematics: Access.deleteAll | Access.updateAll });
-  let error: string | undefined;
-
-  type FormSubmitEvent = Event & {
-    currentTarget: EventTarget & HTMLFormElement;
-  };
-
-  function getErrorMessage(e: unknown) {
-    if (e instanceof Error) {
-      if (e.message.includes('registered')) return 'Token not registered';
-    }
-    return 'Error during login, try again later';
-  }
-
+  import { UserAccess } from '@/lib/auth/access';
+  $: allowChanges = $auth.access.can({ schematics: UserAccess.deleteAll | UserAccess.updateAll });
 </script>
 
 <template lang="pug">
