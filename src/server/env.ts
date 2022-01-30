@@ -13,6 +13,8 @@ interface Env {
   ENABLE_WEBHOOKS: boolean;
   PRIVATE_WEBHOOK_URL?: string;
   PUBLIC_WEBHOOK_URL?: string;
+  DISCORD_APPLICATION_ID?: string;
+  DISCORD_APPLICATION_SECRET?: string;
 }
 
 type RawEnv = {
