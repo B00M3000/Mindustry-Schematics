@@ -15,16 +15,17 @@ export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) 
 
   const { user } = locals;
 
-  if(user) session = { 
-    ...session, 
-    user: {
-      name: user.name,
-      id: user.id,
-      access: user.access,
-      avatar: user.avatar
-    } 
-  };
-  
+  if (user)
+    session = {
+      ...session,
+      user: {
+        name: user.name,
+        id: user._id,
+        access: user.access,
+        avatar: user.avatar,
+      },
+    };
+
   return session;
 };
 
