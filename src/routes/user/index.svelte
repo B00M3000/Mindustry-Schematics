@@ -1,26 +1,31 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
-  import { auth } from '@/client/stores/auth';
-  import { UserAccess } from '@/lib/auth/access';
-  $: allowChanges = $auth.access.can({ schematics: UserAccess.deleteAll | UserAccess.updateAll });
+  import { user } from '@/client/stores/user';
+  import { Access } from '@/lib/auth/access';
+  import { onDestroy } from 'svelte';
+
+  $: allowChanges = $user.access.can({ schematics: Access.deleteAll | Access.updateAll });
+
 </script>
 
 <template lang="pug">
   svelte:head
     title User Login
-  +if("$auth.id")
+  +if("$user.id")
     main
       div.info
-        h2 Welcome Back {$auth.name}
+        h2 Welcome Back {$user.name}
+        img(src="{$user.avatar}")
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
-      a.link(href="/user/logout")
+      a.link(on:click="{user.avatar}")
+        button Reset Avatar 
+      a.link(on:click="{user.logout}")
         button Logout 
     +else
       div.logins        
         DiscordLogin
-        
 
 </template>
 

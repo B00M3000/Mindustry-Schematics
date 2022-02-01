@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
-    const access = UserAccess.from((session as ClientSession).access);
+    const _access = session.user ? session.user.access : undefined
+    const access = UserAccess.from(_access);
     if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
       return {
         props: {
@@ -26,7 +27,6 @@
   import { onMount } from 'svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import LazyImage from '@/client/components/LazyImage.svelte';
-  import { auth } from '@/client/stores/auth';
   import { Access, UserAccess } from '@/lib/auth/access';
   export let redirect = false;
   export let changes: SchematicChangeInfoJSON[] = [];
