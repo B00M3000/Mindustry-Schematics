@@ -1,9 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { SessionSchema } from '@/server/mongo';
-import { ServerSession } from './server/auth/session';
+import { ServerSession } from '@/server/auth/session';
 import * as cookie from 'cookie';
 export const get: RequestHandler = async (req) => {
-  const session = await ServerSession.get(cookies.session_id);
+  const session = await ServerSession.get(req.locals.session_id);
 
   if(!session){
     return {

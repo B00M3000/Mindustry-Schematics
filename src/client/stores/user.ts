@@ -1,8 +1,8 @@
 import { session } from '$app/stores';
-import { ClientSession } from '@/interfaces/app';
+import type { ClientSession } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
-import { Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 
 class User {
   private readonly store: Writable<ClientSession>;

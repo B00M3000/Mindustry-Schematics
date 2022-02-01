@@ -1,4 +1,4 @@
-import type { ServerSession } from '@/server/auth/session';
+import { ServerSession } from '@/server/auth/session';
 
 export interface Locals {
   session?: ServerSession;
