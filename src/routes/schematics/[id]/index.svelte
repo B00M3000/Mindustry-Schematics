@@ -55,7 +55,7 @@
 <template lang="pug">
   svelte:head
     meta( property="og:title" content!="{schematic.name}" )
-    meta( property="og:description" content="" )
+    meta( property="og:description" content="{schematic.description}" )
     meta( property="og:image" content!="{imgUrl}" )
     meta( property="og:type" content="website" )
     meta( property="og:url" content="url" )
