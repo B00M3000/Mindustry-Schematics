@@ -15,9 +15,12 @@
     main
       div.info
         h2 Welcome Back {$user.name}
+        img(src="{$user.avatar}")
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+      a.link(on:click="{user.avatar}")
+        button Reset Avatar 
       a.link(on:click="{user.logout}")
         button Logout 
     +else
