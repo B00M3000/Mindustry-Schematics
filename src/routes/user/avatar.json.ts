@@ -39,30 +39,30 @@ export const post: RequestHandler = async (req) => {
 
     const imageBuffer = await response.arrayBuffer();
 
-    await UserSchema.findOneAndUpdate(
+    const returnUser = await UserSchema.findOneAndUpdate(
       { _id: id },
       {
         avatar: imageToDataURL('image/png', imageBuffer),
-      },
+      }, { new: true }
     );
 
     return {
       status: 200,
       headers: { location: '/user' },
-      body: { message: 'Reset Avatar to Discord Avatar' },
+      body: { message: 'Reset Avatar to Discord Avatar', user: returnUser },
     };
   }
 
-  await UserSchema.findOneAndUpdate(
+  const returnUser = await UserSchema.findOneAndUpdate(
     { _id: id },
     {
       avatar: imageToDataURL(content_type, data),
-    },
+    }, { new: true }
   );
 
   return {
     status: 200,
-    body: { message: 'Avatar Updated Successfully' },
+    body: { message: 'Avatar Updated Successfully', user: returnUser },
   };
 };
 

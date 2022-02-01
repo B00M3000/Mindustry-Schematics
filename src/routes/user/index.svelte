@@ -3,15 +3,10 @@
   import { user } from '@/client/stores/user';
   import { Access } from '@/lib/auth/access';
   import { onDestroy } from 'svelte';
-  
-  user.subscribe(value => {
-    user = {
-      ...user,
-      ...value
-    }
-  })
 
-  $: allowChanges = user.access ? user.access.can({ schematic: Access.deleteAll | Access.updateAll }) : false;
+  console.log($user)
+
+  $: allowChanges = $user.access.can({ schematic: Access.deleteAll | Access.updateAll });
 </script>
 
 <template lang="pug">
@@ -24,7 +19,7 @@
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
-      a.link(href="/user/logout")
+      a.link(on:click="{user.logout}")
         button Logout 
     +else
       div.logins        

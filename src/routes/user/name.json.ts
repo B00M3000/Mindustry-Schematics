@@ -12,23 +12,20 @@ export const post: RequestHandler = async (req) => {
 
   if (!id)
     return {
-      status: 308,
-      headers: { location: '/user' },
+      status: 401,
       body: { message: 'User is not Authenticated' },
     };
 
   if (!username)
     return {
-      status: 308,
-      headers: { location: '/user' },
+      status: 400,
       body: { message: 'Invalid Body' },
     };
 
-  await UserSchema.findOneAndUpdate({ _id: id }, { username });
+  const returnUser = await UserSchema.findOneAndUpdate({ _id: id }, { username });
 
   return {
-    status: 308,
-    headers: { location: '/user' },
-    body: { message: 'Username Updated Successfully' },
+    status: 200,
+    body: { message: 'Username Updated Successfully', user: returnUser },
   };
 };

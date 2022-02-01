@@ -1,25 +1,35 @@
 import { session } from '$app/stores';
 import type { ClientSession } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 
 class User {
   private readonly store: Writable<ClientSession>;
   readonly subscribe: Writable<ClientSession>['subscribe'];
   constructor() {
-    this.store = writable( this.sync(false) );
+    this.store = writable(
+      {
+        access: UserAccess.from(undefined),
+      },
+      (set) => {
+        const $session = get<ClientSession>(session);
+        set(serializeUser($session.user ?? {}));
+      });
     this.subscribe = this.store.subscribe;
+  }
+
+  private set(value: ClientSession) {
+    this.store.set(value);
+    session.set(value);
   }
 
   async logout(): Promise<boolean> {
     const response = await fetch('/user/logout.json', {
       method: 'POST',
     });
-    
-    this.store.update({
-      access: UserAccess.from(null)
-    })
+
+    this.set(serializeUser({}))
 
     if(response.status == 200) return true
     else return false
@@ -34,27 +44,19 @@ class User {
       })
     });
 
-    //sync()
+    const responseJSON = response.json();
+
+    this.set(serializeUser(responseJSON.user))
 
     if(response.status == 200) return true
     else return false
   }
+}
 
-  async sync(update: boolean = true): Promise<ClientSession> {
-    const response = await fetch('/user.json')
-    if(response.status == 404){
-      const value = { access: UserAccess.from(null) }
-      if(update) this.store.update(value)
-      return value
-    } else if(response.status == 200){
-      const user: ClientSession = response.json()
-      const value = {
-        ...user,
-        access: UserAccess.from(user.access)
-      }
-      if(update) this.store.update(value)
-      return value
-    }
+function serializeUser(user){
+  return {
+    ...user,
+    access: UserAccess.from(user.access)
   }
 }
 
