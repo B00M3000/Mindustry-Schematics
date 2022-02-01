@@ -10,13 +10,12 @@ interface PostBody {
 
 export const post: RequestHandler = async (req) => {
   const parsedForm = parseForm<PostBody>(req.body);
-  const { content_type, data, id } = parsedForm;
-  //const { id } = req.locals;
+  const { content_type, data } = parsedForm;
+  const { id } = req.locals;
 
   if (!id)
     return {
-      status: 308,
-      headers: { location: '/user' },
+      status: 401,
       body: { message: 'User is not Authenticated' },
     };
 
@@ -31,8 +30,6 @@ export const post: RequestHandler = async (req) => {
       (discord_user.avatar_hash
         ? `${discord_user.id}/${discord_user.avatar_hash}.png`
         : `${getRandomInt(5)}.png`);
-
-    console.log(avatar_url);
 
     const response = await fetch(avatar_url, {
       headers: {
@@ -50,7 +47,7 @@ export const post: RequestHandler = async (req) => {
     );
 
     return {
-      status: 308,
+      status: 200,
       headers: { location: '/user' },
       body: { message: 'Reset Avatar to Discord Avatar' },
     };
@@ -64,8 +61,7 @@ export const post: RequestHandler = async (req) => {
   );
 
   return {
-    status: 308,
-    headers: { location: '/user' },
+    status: 200,
     body: { message: 'Avatar Updated Successfully' },
   };
 };

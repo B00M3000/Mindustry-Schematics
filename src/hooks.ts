@@ -15,6 +15,7 @@ export const getSession: GetSession<Locals, ClientSession> = async ({ locals }) 
   const { session: serverSession } = locals;
 
   if (serverSession) {
+    //todo: make dynamic, so each get session yields the current correct info.
     const { user } = serverSession;
     session = {
       ...session,
