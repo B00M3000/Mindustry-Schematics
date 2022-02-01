@@ -4,9 +4,8 @@
   import { Access } from '@/lib/auth/access';
   import { onDestroy } from 'svelte';
 
-  console.log($user)
+  $: allowChanges = $user.access.can({ schematics: Access.deleteAll | Access.updateAll });
 
-  $: allowChanges = $user.access.can({ schematic: Access.deleteAll | Access.updateAll });
 </script>
 
 <template lang="pug">
