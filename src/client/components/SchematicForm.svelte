@@ -9,7 +9,7 @@
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
   import { parseTags } from '@/lib/tag';
-  import { auth } from '../stores/auth';
+  import { user } from '@/client/stores/user';
   import { toast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
   import { Access } from '@/lib/auth/access';
@@ -76,7 +76,7 @@
     });
     const url = response.headers.get('location');
     await goto(url || '/');
-    if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
+    if (variant == 'edit' && $user.access.can({ schematics: Access.updateAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);

@@ -10,9 +10,6 @@ export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
   if (!schematic)
     return {
       status: 404,
-      headers: {
-        location: '/',
-      },
       body: { error: 'Schematic not found' },
     };
   const { reason } = parseForm<Body>(req.body);
@@ -24,9 +21,6 @@ export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
 
   return {
     status: 200,
-    headers: {
-      location: `/schematics/${schematic._id}`,
-    },
     body: {
       change: change._id,
     },
