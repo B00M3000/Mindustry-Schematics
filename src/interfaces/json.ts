@@ -39,3 +39,8 @@ export interface SchematicChangeJSON {
   original?: SchematicJSON | null;
   differentImages: boolean;
 }
+
+export interface SchematicVote {
+  upvote: boolean;
+  user_id: string;
+}
