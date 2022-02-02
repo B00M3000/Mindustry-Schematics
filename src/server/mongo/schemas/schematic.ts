@@ -17,6 +17,10 @@ const schema = new mongoose.Schema({
   views: { type: Number, required: true, default: 0 },
 
   encoding_version: { type: String, required: true },
+
+  upvotes: {
+    
+  }
 }, { timestamps: true });
 export interface SchematicDocument extends mongoose.Document {
   creator: string;
