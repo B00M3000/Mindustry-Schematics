@@ -4,7 +4,8 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, page, session }) => {
-    const access = UserAccess.from((session as ClientSession).access);
+    const _access = session.user ? session.user.access : undefined
+    const access = UserAccess.from(_access);
     if (
       !access.can({
         schematics: Access.deleteAll | Access.updateAll,
