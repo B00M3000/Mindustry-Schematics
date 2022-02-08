@@ -50,8 +50,8 @@ html {
   min-height: 100vh;
   color: white;
   background-color: var(--background);
-  --top-image: url('/assets/backgrounds/cursed-impact-on-water.png');
-  --bottom-image: url('/assets/backgrounds/cursed-impact-on-water.png');
+  --top-image: url('/assets/backgrounds/Jaggard_1.png');
+  --bottom-image: url('/assets/backgrounds/Jaggard_1.png');
   scroll-behavior: smooth;
 }
 html::before, html::after{
