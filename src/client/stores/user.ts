@@ -1,5 +1,6 @@
 import { session } from '$app/stores';
 import type { ClientSession } from '@/interfaces/app';
+import type { UserDocument } from '@/server/mongo'
 import { UserAccess } from '@/lib/auth/access';
 import { get, writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
@@ -14,7 +15,7 @@ class User {
       },
       (set) => {
         const $session = get<ClientSession>(session);
-        set(serializeUser($session.user ?? {}));
+        set(serializeUser($session.user || {}));
       });
     this.subscribe = this.store.subscribe;
   }
@@ -44,7 +45,7 @@ class User {
       })
     });
 
-    const responseJSON = response.json();
+    const responseJSON = await response.json();
 
     this.set(serializeUser(responseJSON.user))
 
@@ -53,10 +54,12 @@ class User {
   }
 }
 
-function serializeUser(user){
+function serializeUser(user: UserDocument | ClientSession){
   return {
-    ...user,
-    access: UserAccess.from(user.access)
+    name: user.name || user.username,
+    id: user.id || user._id,
+    access: UserAccess.from(user?.access),
+    avatar: user.avatar
   }
 }
 

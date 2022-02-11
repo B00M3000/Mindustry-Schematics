@@ -125,6 +125,7 @@ export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) =
       schematicId: id,
       schematicName: newSchematic.name,
     });
+    
     return {
       status: 200,
       headers: {

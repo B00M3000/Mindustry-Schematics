@@ -11,7 +11,7 @@ interface PostBody {
 export const post: RequestHandler = async (req) => {
   const parsedForm = parseForm<PostBody>(req.body);
   const { content_type, data } = parsedForm;
-  const { id } = req.locals;
+  const { id } = req.locals?.session.user;
 
   if (!id)
     return {

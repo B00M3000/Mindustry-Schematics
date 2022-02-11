@@ -2,9 +2,11 @@ import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
 import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
-import type { SchematicChangeDocument, SchematicDocument } from '@/server/mongo';
+import type { SchematicModifyRequestDocument, SchematicDeleteRequestDocument, SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-type Changes = Pick<SchematicChangeDocument, 'id' | '_id' | 'Delete'>[];
+type Modify = Pick<SchematicModifyRequestDocument, 'schematic_id' | '_id'>;
+type Delete = Pick<SchematicDeleteRequestDocument, 'schematic_id' | '_id'>;
+
 type Originals = (Pick<SchematicDocument, 'name'> | null)[];
 async function findOriginals(changes: Changes): Promise<Originals> {
   const promises = [];
@@ -24,6 +26,7 @@ export const get: RequestHandler<Locals> = async (req) => {
       _id: -1,
     },
   });
+
   const originals = await findOriginals(changes);
 
   const body: SchematicChangeInfoJSON[] = [];

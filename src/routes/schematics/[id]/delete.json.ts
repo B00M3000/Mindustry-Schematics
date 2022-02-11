@@ -1,4 +1,4 @@
-import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import { SchematicDeleteRequestSchema, SchematicSchema } from '@/server/mongo';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 interface Body {
@@ -14,9 +14,9 @@ export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
     };
   const { reason } = parseForm<Body>(req.body);
 
-  const change = await SchematicChangeSchema.create({
-    id: schematic._id,
-    Delete: reason,
+  const change = await SchematicDeleteRequestSchema.create({
+    schematic_id: schematic._id,
+    reason,
   });
 
   return {

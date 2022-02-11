@@ -14,8 +14,9 @@ const path = env.MONGO_PATH.replace('<username>', username)
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default () => mongoose.connect(path);
 
+export * from './schemas/schematic_delete_request';
+export * from './schemas/schematic_modify_request';
 export * from './schemas/schematic';
-export * from './schemas/schematic_change';
 export * from './schemas/user';
 export * from './schemas/session';
 export * from './schemas/discord';

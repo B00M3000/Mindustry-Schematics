@@ -1,11 +1,13 @@
 <script lang="ts">
   import DiscordLogin from '@/client/components/buttons/DiscordLogin.svelte';
+  import User from '@/client/components/user/User.svelte';
   import { user } from '@/client/stores/user';
   import { Access } from '@/lib/auth/access';
   import { onDestroy } from 'svelte';
 
-  $: allowChanges = $user.access.can({ schematics: Access.deleteAll | Access.updateAll });
+  $: console.log($user)
 
+  $: allowChanges = $user.access.can({ schematics: Access.deleteAll | Access.updateAll });
 </script>
 
 <template lang="pug">
@@ -14,13 +16,12 @@
   +if("$user.id")
     main
       div.info
-        h2 Welcome Back {$user.name}
+        h2 Welcome Back {$user.name}!
         img(src="{$user.avatar}")
+        User({user} data="{$user}")
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
-      a.link(on:click="{user.avatar}")
-        button Reset Avatar 
       a.link(on:click="{user.logout}")
         button Logout 
     +else

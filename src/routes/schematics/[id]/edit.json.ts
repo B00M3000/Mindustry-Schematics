@@ -1,4 +1,4 @@
-import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import { SchematicModifyRequestSchema, SchematicSchema } from '@/server/mongo';
 import type { Tag } from '@/interfaces/tag';
 import type { RequestHandler } from '@sveltejs/kit';
 import Tags from '@/../tags.json';
@@ -71,10 +71,10 @@ export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => 
     },
   };
 
-  const change = await SchematicChangeSchema.create({
-    id: originalSchematic._id,
-    Changed: changedSchematic,
-    Description: cDescription,
+  const change = await SchematicModifyRequestSchema.create({
+    schematic_id: originalSchematic._id,
+    changed: changedSchematic,
+    changes: cDescription,
   });
 
   return {
