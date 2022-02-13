@@ -17,7 +17,7 @@
     main
       div.info
         h2 Welcome Back {$user.name}!
-        img(src="{$user.avatar}")
+        br
         User({user} data="{$user}")
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")

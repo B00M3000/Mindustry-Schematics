@@ -17,13 +17,14 @@
 
   async function save(e: Event) {
     e.preventDefault();
-    const data = new FormData(e.target);
+    const data = new FormData(form);
     console.log(data)
   }
 </script>
 
 <template lang="pug">
   form(bind:this!="{form}" on:submit!="{save}")
+    img(src="{$data.avatar}")
     input(type="text" name="username" value!="{data.name}") 
     +if("adminAccess")
       select(name="access")
@@ -31,7 +32,7 @@
         option(value="mod" selected!="{data?.access.name == 'mod'}") Mod
         option(value="admin" selected!="{data?.access.name == 'admin'}") Admin
     button Save
-  button(type="button" on:click!="{syncAvatar}") Sync Avatar with Discord
+  //- button(type="button" on:click!="{syncAvatar}") Sync Avatar with Discord //- Only Syncs after Login
   span User ID: {$user.id}
 </template>
 
