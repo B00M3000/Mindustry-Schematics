@@ -3,7 +3,6 @@ import { SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FilterQuery } from 'mongoose';
-import { parseForm } from '@/server/parse_body';
 import { Schematic } from 'mindustry-schematic-parser';
 import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
@@ -76,14 +75,13 @@ export const get: RequestHandler = async ({ url }) => {
 };
 
 export const post: RequestHandler<unknown, PostOutput> = async (req) => {
-  // eslint-disable-next-line prefer-const
   const {
     name,
     creator,
     text,
     description,
     tags: rawTags,
-  } = parseForm<PostBody>(await req.request.json());
+  }: Partial<PostBody> = await req.request.json();
   if (!name || !creator || !text || !description || !rawTags)
     return {
       status: 400,

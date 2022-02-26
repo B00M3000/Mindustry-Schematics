@@ -1,6 +1,5 @@
 import { Access, UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
-import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 
@@ -28,7 +27,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({
       body: { error: 'Forbidden' },
     };
 
-  const { username, token, access } = parseForm<Data>(await request.json());
+  const { username, token, access }: Partial<Data> = await request.json();
   if (!(username && token && access))
     return {
       status: 400,

@@ -2,13 +2,12 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
-import { parseForm } from '@/server/parse_body';
 
 interface Params {
   id: string;
 }
 
-interface Body {
+interface PostBody {
   name: string;
   creator: string;
   text: string;
@@ -29,9 +28,16 @@ export const post: RequestHandler<Params, PostOutput> = async ({ params, request
       },
       body: { error: 'Not found' },
     };
-  const parsedForm = parseForm<Body>(await request.json());
-  let { text } = parsedForm;
-  const { name, creator, description, cDescription, tags: stringTags } = parsedForm;
+
+  const {
+    name,
+    text,
+    creator,
+    description,
+    cDescription,
+    tags: stringTags,
+  }: Partial<PostBody> = await request.json();
+
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {
       status: 400,
@@ -53,13 +59,11 @@ export const post: RequestHandler<Params, PostOutput> = async ({ params, request
   schematic.name = name;
   schematic.description = description;
 
-  text = schematic.encode();
-
   const changedSchematic = {
     name,
     creator: creator,
     tags: tags,
-    text,
+    text: schematic.encode(),
     description,
     encoding_version: schematic.version,
     powerBalance,

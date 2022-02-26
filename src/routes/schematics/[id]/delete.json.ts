@@ -1,12 +1,11 @@
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
-import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 
 interface Params {
   id: string;
 }
 
-interface Body {
+interface PostBody {
   reason: string;
 }
 
@@ -21,7 +20,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({ params, request
       },
       body: { error: 'Schematic not found' },
     };
-  const { reason } = parseForm<Body>(await request.json());
+  const { reason }: Partial<PostBody> = await request.json();
 
   const change = await SchematicChangeSchema.create({
     id: schematic._id,

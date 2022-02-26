@@ -1,9 +1,8 @@
 import { User } from '@/server/auth/user';
-import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 
-interface BodyJSON {
+interface PostBody {
   token: string;
 }
 interface PostInput {
@@ -18,7 +17,7 @@ type PostOutput =
       access: string;
     };
 export const post: RequestHandler<PostInput, PostOutput> = async (req) => {
-  const { token } = parseForm<BodyJSON>(await req.request.json());
+  const { token }: Partial<PostBody> = await req.request.json();
   if (!token)
     return {
       status: 400,
