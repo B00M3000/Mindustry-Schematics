@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, page }) => {
-    const { params } = page;
+  export const load: Load = async ({ fetch, params }) => {
     const { name } = params;
     const content = await (await fetch(`/guides/${name}.json`)).json();
     return {

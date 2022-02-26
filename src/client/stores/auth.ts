@@ -1,8 +1,6 @@
 import { session } from '$app/stores';
-import type { Session } from '@/interfaces/app';
 import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
-import type { Writable } from 'svelte/store';
 interface AuthStore {
   name?: string;
   token?: string;
@@ -13,8 +11,7 @@ const { set, subscribe } = writable<AuthStore>(
     access: UserAccess.from(undefined),
   },
   (set) => {
-    const s = session as Writable<Session>;
-    s.subscribe(($session) => {
+    session.subscribe(($session) => {
       set({
         name: $session.name,
         token: $session.token,
@@ -25,7 +22,7 @@ const { set, subscribe } = writable<AuthStore>(
 );
 function write(value: AuthStore) {
   set(value);
-  (session as Writable<Session>).set({
+  session.set({
     access: value.access.name,
     name: value.name,
     token: value.token,

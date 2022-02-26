@@ -1,4 +1,3 @@
-import type { Locals } from '@/interfaces/app';
 import { Access, UserAccess } from '@/lib/auth/access';
 import type { RequestHandler } from '@sveltejs/kit';
 type GetOutput =
@@ -8,7 +7,7 @@ type GetOutput =
   | {
       token: string;
     };
-export const post: RequestHandler<Locals, unknown, GetOutput> = async (req) => {
+export const post: RequestHandler<unknown, GetOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: Access.readAll | Access.updateAll }))
     return {

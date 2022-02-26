@@ -20,12 +20,12 @@ interface PostBody {
 type PostOutput = { message: string } | { error: string };
 
 const limitPerPage = 20;
-export const get: RequestHandler = async (req) => {
-  let page = Number(req.query.get('page')) || 1;
+export const get: RequestHandler = async ({ url }) => {
+  let page = Number(url.searchParams.get('page')) || 1;
   if (page < 1) page = 1;
-  const mode: QueryMode = req.query.get('mode') == 'creator' ? 'creator' : 'name';
-  const query = req.query.get('query') || '';
-  const tags = req.query.get('tags') || '';
+  const mode: QueryMode = url.searchParams.get('mode') == 'creator' ? 'creator' : 'name';
+  const query = url.searchParams.get('query') || '';
+  const tags = url.searchParams.get('tags') || '';
   const skip = limitPerPage * (page - 1);
 
   const dbQuery: FilterQuery<SchematicDocument> = {};
@@ -75,9 +75,15 @@ export const get: RequestHandler = async (req) => {
   }
 };
 
-export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) => {
+export const post: RequestHandler<unknown, PostOutput> = async (req) => {
   // eslint-disable-next-line prefer-const
-  let { name, creator, text, description, tags: rawTags } = parseForm<PostBody>(req.body);
+  const {
+    name,
+    creator,
+    text,
+    description,
+    tags: rawTags,
+  } = parseForm<PostBody>(await req.request.json());
   if (!name || !creator || !text || !description || !rawTags)
     return {
       status: 400,
@@ -97,13 +103,13 @@ export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) =
     schematic.name = name;
     schematic.description = description;
 
-    text = schematic.encode();
+    const newText = schematic.encode();
 
     const newSchematic = {
       name,
       creator: creator,
       tags: tags,
-      text,
+      text: newText,
       description,
       encoding_version: schematic.version,
       powerBalance,

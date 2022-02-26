@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, page }) => {
-    const { id } = page.params;
+  export const load: Load = async ({ fetch, params }) => {
+    const { id } = params;
     const query = new URLSearchParams();
     query.append('increment', 'true');
     const response = await fetch(`/schematics/${id}.json?${query}`);

@@ -1,4 +1,3 @@
-import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
 import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
@@ -14,7 +13,7 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   const originals = await Promise.all(promises);
   return originals;
 }
-export const get: RequestHandler<Locals> = async (req) => {
+export const get: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
     return { status: 403, body: { message: 'Forbidden' } };

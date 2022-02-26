@@ -1,10 +1,8 @@
 <script context="module" lang="ts">
-  import type { Session } from '@/interfaces/app';
-
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, session }) => {
-    const access = UserAccess.from((session as Session).access);
+    const access = UserAccess.from(session.access);
     if (!access.can({ userTokens: Access.crudAll }))
       return {
         props: {

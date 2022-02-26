@@ -1,4 +1,3 @@
-import type { Locals } from '@/interfaces/app';
 import { User } from '@/server/auth/user';
 import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -18,8 +17,8 @@ type PostOutput =
       name: string;
       access: string;
     };
-export const post: RequestHandler<Locals, PostInput, PostOutput> = async (req) => {
-  const { token } = parseForm<BodyJSON>(req.body);
+export const post: RequestHandler<PostInput, PostOutput> = async (req) => {
+  const { token } = parseForm<BodyJSON>(await req.request.json());
   if (!token)
     return {
       status: 400,

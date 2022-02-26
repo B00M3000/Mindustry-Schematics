@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ page, fetch }) => {
-    const response = await fetch(`/schematics.json?${page.query}`);
+  export const load: Load = async ({ url, fetch }) => {
+    const response = await fetch(`/schematics.json?${url.search}`);
     const data: SchematicQueryJSON = await response.json();
     return {
       props: { data },

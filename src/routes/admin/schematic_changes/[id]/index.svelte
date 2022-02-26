@@ -1,10 +1,8 @@
 <script context="module" lang="ts">
-  import type { Session } from '@/interfaces/app';
-
   import type { Load } from '@sveltejs/kit';
 
-  export const load: Load = async ({ fetch, page, session }) => {
-    const access = UserAccess.from((session as Session).access);
+  export const load: Load = async ({ fetch, url, session, params }) => {
+    const access = UserAccess.from(session.access);
     if (
       !access.can({
         schematics: Access.deleteAll | Access.updateAll,
@@ -14,9 +12,7 @@
         status: 403,
         error: new Error('Forbidden'),
       };
-    const response = await fetch(
-      `/admin/schematic_changes/${page.params.id}/change.json`,
-    );
+    const response = await fetch(`/admin/schematic_changes/${params.id}/change.json`);
     const json = await response.json();
     return {
       props: {

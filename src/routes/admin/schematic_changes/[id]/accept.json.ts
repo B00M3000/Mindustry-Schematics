@@ -1,11 +1,10 @@
-import type { Locals } from '@/interfaces/app';
 import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const post: RequestHandler<Locals> = async (req) => {
+export const post: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {

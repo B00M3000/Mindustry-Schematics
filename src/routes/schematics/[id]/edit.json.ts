@@ -3,7 +3,11 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseForm } from '@/server/parse_body';
-import type { Locals } from '@/interfaces/app';
+
+interface Params {
+  id: string;
+}
+
 interface Body {
   name: string;
   creator: string;
@@ -13,9 +17,9 @@ interface Body {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => {
+export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
   const originalSchematic = await SchematicSchema.findOne({
-    _id: req.params.id,
+    _id: params.id,
   });
   if (!originalSchematic)
     return {
@@ -25,7 +29,7 @@ export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => 
       },
       body: { error: 'Not found' },
     };
-  const parsedForm = parseForm<Body>(req.body);
+  const parsedForm = parseForm<Body>(await request.json());
   let { text } = parsedForm;
   const { name, creator, description, cDescription, tags: stringTags } = parsedForm;
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
