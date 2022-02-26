@@ -23,7 +23,7 @@
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-svelte3": "^3.4.1",
     "prettier": "^2.5.1",
-    "prettier-plugin-svelte": "^2.4.0",
+    "prettier-plugin-svelte": "^2.6.0",
     "pug": "^3.0.2",
     "svelte": "^3.42.6",
     "svelte-loading-spinners": "^0.1.7",
