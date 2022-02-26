@@ -36,7 +36,7 @@
   "type": "module",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "cookie": "^0.4.1",
+    "cookie": "^0.4.2",
     "diff": "^5.0.0",
     "dotenv": "^10.0.0",
     "mindustry-schematic-parser": "^4.0.4",
