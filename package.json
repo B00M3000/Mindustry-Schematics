@@ -39,6 +39,6 @@
     "dotenv": "^10.0.0",
     "mindustry-schematic-parser": "^4.0.4",
     "mongoose": "^6.0.7",
-    "showdown": "^1.9.1"
+    "showdown": "^2.0.0"
   }
 }
