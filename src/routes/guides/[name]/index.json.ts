@@ -1,10 +1,15 @@
 import { getTutorials } from '@/server/tutorials';
 import type { RequestHandler } from '@sveltejs/kit';
+
+interface Params {
+  name: string;
+}
+
 type GetOutput = {
   title: string;
   html: string;
 };
-export const get: RequestHandler<unknown, unknown, GetOutput> = async (req) => {
+export const get: RequestHandler<Params, GetOutput> = async (req) => {
   const { name } = req.params;
   const tutorials = getTutorials();
   const tutorial = tutorials.get(name);

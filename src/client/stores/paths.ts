@@ -6,9 +6,9 @@ interface PathsStore {
 }
 export const paths = writable<PathsStore>({}, () => {
   page.subscribe((value) => {
-    const query = value.query.toString();
-    let path = value.path;
-    if (query) path += `?${query}`;
+    const query = value.url.search;
+    let path = value.url.pathname;
+    if (query) path += query;
     paths.update((latest) => ({
       current: path,
       previous: latest.current,

@@ -1,12 +1,18 @@
+import { parseFormData } from '@/server/body_parsing';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
-import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
-interface Body {
+
+interface Params {
+  id: string;
+}
+
+interface PostBody {
   reason: string;
 }
+
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
-  const schematic = await SchematicSchema.findOne({ _id: req.params.id });
+export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
+  const schematic = await SchematicSchema.findOne({ _id: params.id });
   if (!schematic)
     return {
       status: 404,
@@ -15,7 +21,8 @@ export const post: RequestHandler<unknown, Body, PostOutput> = async (req) => {
       },
       body: { error: 'Schematic not found' },
     };
-  const { reason } = parseForm<Body>(req.body);
+  const { reason }: Partial<PostBody> =
+    (await parseFormData(request)) ?? (await request.json());
 
   const change = await SchematicChangeSchema.create({
     id: schematic._id,

@@ -1,11 +1,15 @@
-import type { Locals } from '@/interfaces/app';
 import type { SchematicJSON } from '@/interfaces/json';
 import type { SchematicDocument } from '@/server/mongo';
 import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-export const get: RequestHandler<Locals, never, SchematicJSON> = async (req) => {
+
+interface Params {
+  id: string;
+}
+
+export const get: RequestHandler<Params, SchematicJSON> = async (req) => {
   let schematic: SchematicDocument | null;
-  if (req.query.get('increment')) {
+  if (req.url.searchParams.get('increment')) {
     schematic = await SchematicSchema.findOneAndUpdate(
       { _id: req.params.id },
       {

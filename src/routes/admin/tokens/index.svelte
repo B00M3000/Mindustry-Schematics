@@ -1,17 +1,15 @@
 <script context="module" lang="ts">
-  import type { Session } from '@/interfaces/app';
-
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, session }) => {
-    const access = UserAccess.from((session as Session).access);
+    const access = UserAccess.from(session.access);
     if (!access.can({ userTokens: Access.crudAll }))
       return {
         props: {
           redirect: '/user',
         },
       };
-    const response = await fetch('tokens.json');
+    const response = await fetch('/admin/tokens.json');
     const users = await response.json();
 
     return {
@@ -37,7 +35,7 @@
     if (redirect) goto(redirect);
   });
   async function createToken() {
-    const response = await fetch('regenerate.json', {
+    const response = await fetch('/admin/tokens/regenerate.json', {
       method: 'POST',
     });
     const { token } = await response.json();

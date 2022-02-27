@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   let ul: HTMLUListElement;
-  $: current = $page?.path.split('/')[1];
+  $: current = $page?.url.pathname.split('/')[1];
 </script>
 
 <template lang="pug">

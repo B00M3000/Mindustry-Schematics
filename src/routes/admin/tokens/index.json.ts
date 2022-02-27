@@ -1,9 +1,8 @@
-import type { Locals } from '@/interfaces/app';
 import { Access, UserAccess } from '@/lib/auth/access';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const get: RequestHandler<Locals> = async (req) => {
+export const get: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: Access.readAll }))
     return {

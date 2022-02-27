@@ -1,4 +1,3 @@
-import type { Locals } from '@/interfaces/app';
 import type { SchematicChangeJSON } from '@/interfaces/json';
 import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
@@ -47,7 +46,7 @@ function renderAsSame(...schematics: [string, string]): boolean {
   }
   return true;
 }
-export const get: RequestHandler<Locals, unknown> = async ({ params, locals }) => {
+export const get: RequestHandler = async ({ params, locals }) => {
   const access = UserAccess.from(locals.access);
   if (
     !access.can({

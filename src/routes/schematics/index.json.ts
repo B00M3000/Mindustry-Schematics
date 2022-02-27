@@ -3,10 +3,10 @@ import { SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FilterQuery } from 'mongoose';
-import { parseForm } from '@/server/parse_body';
 import { Schematic } from 'mindustry-schematic-parser';
 import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
+import { parseFormData } from '@/server/body_parsing';
 type QueryMode = 'creator' | 'name';
 
 interface PostBody {
@@ -20,12 +20,12 @@ interface PostBody {
 type PostOutput = { message: string } | { error: string };
 
 const limitPerPage = 20;
-export const get: RequestHandler = async (req) => {
-  let page = Number(req.query.get('page')) || 1;
+export const get: RequestHandler = async ({ url }) => {
+  let page = Number(url.searchParams.get('page')) || 1;
   if (page < 1) page = 1;
-  const mode: QueryMode = req.query.get('mode') == 'creator' ? 'creator' : 'name';
-  const query = req.query.get('query') || '';
-  const tags = req.query.get('tags') || '';
+  const mode: QueryMode = url.searchParams.get('mode') == 'creator' ? 'creator' : 'name';
+  const query = url.searchParams.get('query') || '';
+  const tags = url.searchParams.get('tags') || '';
   const skip = limitPerPage * (page - 1);
 
   const dbQuery: FilterQuery<SchematicDocument> = {};
@@ -75,9 +75,14 @@ export const get: RequestHandler = async (req) => {
   }
 };
 
-export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) => {
-  // eslint-disable-next-line prefer-const
-  let { name, creator, text, description, tags: rawTags } = parseForm<PostBody>(req.body);
+export const post: RequestHandler<unknown, PostOutput> = async (req) => {
+  const {
+    name,
+    creator,
+    text,
+    description,
+    tags: rawTags,
+  }: Partial<PostBody> = (await parseFormData(req.request)) ?? (await req.request.json());
   if (!name || !creator || !text || !description || !rawTags)
     return {
       status: 400,
@@ -91,19 +96,19 @@ export const post: RequestHandler<unknown, PostBody, PostOutput> = async (req) =
     const tags = Tag.parse(JSON.parse(rawTags) as string[]).map((tag) => tag.name);
 
     const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
-    const data = await schematic.toImageBuffer();
+    const data = await (await schematic.render()).toBuffer();
     const mimetype = 'image/png';
 
     schematic.name = name;
     schematic.description = description;
 
-    text = schematic.encode();
+    const newText = schematic.encode();
 
     const newSchematic = {
       name,
       creator: creator,
       tags: tags,
-      text,
+      text: newText,
       description,
       encoding_version: schematic.version,
       powerBalance,

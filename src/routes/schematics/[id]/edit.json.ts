@@ -2,9 +2,13 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
-import { parseForm } from '@/server/parse_body';
-import type { Locals } from '@/interfaces/app';
-interface Body {
+import { parseFormData } from '@/server/body_parsing';
+
+interface Params {
+  id: string;
+}
+
+interface PostBody {
   name: string;
   creator: string;
   text: string;
@@ -13,9 +17,9 @@ interface Body {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => {
+export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
   const originalSchematic = await SchematicSchema.findOne({
-    _id: req.params.id,
+    _id: params.id,
   });
   if (!originalSchematic)
     return {
@@ -25,9 +29,16 @@ export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => 
       },
       body: { error: 'Not found' },
     };
-  const parsedForm = parseForm<Body>(req.body);
-  let { text } = parsedForm;
-  const { name, creator, description, cDescription, tags: stringTags } = parsedForm;
+
+  const {
+    name,
+    text,
+    creator,
+    description,
+    cDescription,
+    tags: stringTags,
+  }: Partial<PostBody> = (await parseFormData(request)) ?? (await request.json());
+
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {
       status: 400,
@@ -43,19 +54,17 @@ export const post: RequestHandler<Locals, unknown, PostOutput> = async (req) => 
 
   const schematic = Schematic.decode(text);
   const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
-  const data = await schematic.toImageBuffer();
+  const data = await (await schematic.render()).toBuffer();
   const mimetype = 'image/png';
 
   schematic.name = name;
   schematic.description = description;
 
-  text = schematic.encode();
-
   const changedSchematic = {
     name,
     creator: creator,
     tags: tags,
-    text,
+    text: schematic.encode(),
     description,
     encoding_version: schematic.version,
     powerBalance,

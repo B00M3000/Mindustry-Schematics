@@ -1,17 +1,24 @@
-import type { Locals } from '@/interfaces/app';
 import { Access, UserAccess } from '@/lib/auth/access';
+import { parseFormData } from '@/server/body_parsing';
 import { UserTokenSchema } from '@/server/mongo';
-import { parseForm } from '@/server/parse_body';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
+
+interface Params {
+  id: string;
+}
 interface Data {
   username: string;
   token: string;
   access: string;
 }
 type PostOutput = { message: string } | { error: string };
-export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
-  const currentAccess = UserAccess.from(req.locals.access);
+export const post: RequestHandler<Params, PostOutput> = async ({
+  locals,
+  request,
+  params,
+}) => {
+  const currentAccess = UserAccess.from(locals.access);
   if (!currentAccess.can({ schematics: Access.updateAll }))
     return {
       status: 403,
@@ -21,7 +28,8 @@ export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
       body: { error: 'Forbidden' },
     };
 
-  const { username, token, access } = parseForm<Data>(req.body);
+  const { username, token, access }: Partial<Data> =
+    (await parseFormData(request)) ?? (await request.json());
   if (!(username && token && access))
     return {
       status: 400,
@@ -31,7 +39,7 @@ export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
     };
   await UserTokenSchema.findOneAndUpdate(
     {
-      token: req.params.id,
+      token: params.id,
     },
     {
       username,
@@ -43,7 +51,7 @@ export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
     },
   );
   const headers: Record<string, string> = {};
-  if (req.locals.token == req.params.id)
+  if (locals.token == params.id)
     headers['set-cookie'] = cookie.serialize('token', token, {
       path: '/',
     });
@@ -54,7 +62,7 @@ export const post: RequestHandler<Locals, Data, PostOutput> = async (req) => {
   };
 };
 type DelOutput = { message: string } | { error: string };
-export const del: RequestHandler<Locals, unknown, DelOutput> = async (req) => {
+export const del: RequestHandler<Params, DelOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll }))
     return {
