@@ -101,9 +101,10 @@
     invalid = false;
     const response = await fetch('/schematics/parse.json', {
       method: 'POST',
-      body: JSON.stringify({
-        text: text.trim(),
-      }),
+      headers: {
+        'content-type': 'text/plain',
+      },
+      body: text.trim(),
     });
     parseState = 'parsed';
     switch (response.status) {
