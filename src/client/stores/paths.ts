@@ -1,3 +1,4 @@
+import { prerendering } from '$app/env';
 import { page } from '$app/stores';
 import { writable } from 'svelte/store';
 interface PathsStore {
@@ -5,6 +6,7 @@ interface PathsStore {
   previous?: string;
 }
 export const paths = writable<PathsStore>({}, () => {
+  if (prerendering) return;
   page.subscribe((value) => {
     const query = value.url.search;
     let path = value.url.pathname;
