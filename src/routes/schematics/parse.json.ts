@@ -28,7 +28,7 @@ export const post: RequestHandler = async ({ request }) => {
     const body: SchematicParseJSON = {
       name: schematic.name,
       description: schematic.description,
-      image: (await schematic.toImageBuffer()).toString('base64'),
+      image: (await schematic.render()).toBuffer().toString('base64'),
     };
     return {
       status: 200,

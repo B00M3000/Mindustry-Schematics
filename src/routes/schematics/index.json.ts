@@ -96,7 +96,7 @@ export const post: RequestHandler<unknown, PostOutput> = async (req) => {
     const tags = Tag.parse(JSON.parse(rawTags) as string[]).map((tag) => tag.name);
 
     const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
-    const data = await schematic.toImageBuffer();
+    const data = await (await schematic.render()).toBuffer();
     const mimetype = 'image/png';
 
     schematic.name = name;
