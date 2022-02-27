@@ -53,7 +53,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({ params, request
 
   const schematic = Schematic.decode(text);
   const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
-  const data = (await schematic.render()).toBuffer();
+  const data = await schematic.toImageBuffer();
   const mimetype = 'image/png';
 
   schematic.name = name;
