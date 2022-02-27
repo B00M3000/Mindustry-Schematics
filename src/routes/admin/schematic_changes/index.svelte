@@ -3,12 +3,11 @@
     const access = UserAccess.from(session.access);
     if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
       return {
-        props: {
-          redirect: true,
-        },
+        redirect: '/user',
+        status: 302,
       };
     }
-    const response = await fetch('schematic_changes/changes.json');
+    const response = await fetch('/admin/schematic_changes/changes.json');
     const changes = await response.json();
     return {
       props: {
@@ -27,27 +26,21 @@
   import LazyImage from '@/client/components/LazyImage.svelte';
   import { auth } from '@/client/stores/auth';
   import { Access, UserAccess } from '@/lib/auth/access';
-  export let redirect = false;
   export let changes: SchematicChangeInfoJSON[] = [];
-  const allowed = !redirect;
-  onMount(() => {
-    if (redirect) goto('/user');
-  });
 </script>
 
 <template lang="pug">
   svelte:head
     title Schematic Changes
-  +if("allowed")
-    h1.changes Schematic Changes
-    div.changes
-      +each("changes as change")
-        a(href="schematic_changes/{change._id}")
-          div.schematic
-            h2
-              span(class!="{change.mode}") {change.mode} 
-              span {change.name}
-            LazyImage(src="/schematics/{change.id}.png" alt="schematic preview")
+  h1.changes Schematic Changes
+  div.changes
+    +each("changes as change")
+      a(href="schematic_changes/{change._id}")
+        div.schematic
+          h2
+            span(class!="{change.mode}") {change.mode} 
+            span {change.name}
+          LazyImage(src="/schematics/{change.id}.png" alt="schematic preview")
     footer
       BackButton(href="/user" smart)
 </template>

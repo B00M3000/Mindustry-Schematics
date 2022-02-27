@@ -25,7 +25,6 @@ export const handle: Handle = async ({ event, resolve }) => {
       access: user?.access.name,
       name: user?.name,
     };
-    // TODO https://github.com/sveltejs/kit/issues/1046
     const response = await resolve(event);
 
     return response;

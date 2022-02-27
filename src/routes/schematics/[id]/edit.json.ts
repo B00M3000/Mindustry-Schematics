@@ -2,6 +2,7 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
+import { parseFormData } from '@/server/body_parsing';
 
 interface Params {
   id: string;
@@ -36,7 +37,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({ params, request
     description,
     cDescription,
     tags: stringTags,
-  }: Partial<PostBody> = await request.json();
+  }: Partial<PostBody> = (await parseFormData(request)) ?? (await request.json());
 
   if (!text || !name || !creator || !description || !cDescription || !stringTags) {
     return {

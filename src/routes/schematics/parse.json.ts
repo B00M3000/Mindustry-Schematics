@@ -1,13 +1,11 @@
 import type { SchematicParseErrorJSON, SchematicParseJSON } from '@/interfaces/json';
+import { parseText } from '@/server/body_parsing';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic } from 'mindustry-schematic-parser';
 
 class SchematicSizeError extends Error {}
 export const post: RequestHandler = async ({ request }) => {
-  const text: string =
-    request.headers.get('content-type') === 'application/json'
-      ? (await request.json()).text
-      : await request.text();
+  const text: string = (await parseText(request)) ?? (await request.json()).text;
 
   if (!text || text === '') {
     return {

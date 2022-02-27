@@ -99,11 +99,11 @@
     parseState = 'parsing';
     error = undefined;
     invalid = false;
-    const data = new FormData();
-    data.append('text', text.trim());
     const response = await fetch('/schematics/parse.json', {
       method: 'POST',
-      body: data,
+      body: JSON.stringify({
+        text: text.trim(),
+      }),
     });
     parseState = 'parsed';
     switch (response.status) {
@@ -130,7 +130,7 @@
 <template lang="pug">
 
 div.wrapper(class!="{parseState}")
-  form({action} class:locked data-variant!="{variant}" on:submit!="{submit}" bind:this!="{form}")
+  form({action} class:locked data-variant!="{variant}" on:submit!="{submit}" bind:this!="{form}" enctype="multipart/form-data")
     div.mode
       button(
         type="button"

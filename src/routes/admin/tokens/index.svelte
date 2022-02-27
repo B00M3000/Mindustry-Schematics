@@ -9,7 +9,7 @@
           redirect: '/user',
         },
       };
-    const response = await fetch('tokens.json');
+    const response = await fetch('/admin/tokens.json');
     const users = await response.json();
 
     return {
@@ -35,7 +35,7 @@
     if (redirect) goto(redirect);
   });
   async function createToken() {
-    const response = await fetch('regenerate.json', {
+    const response = await fetch('/admin/tokens/regenerate.json', {
       method: 'POST',
     });
     const { token } = await response.json();

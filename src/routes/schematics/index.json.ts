@@ -6,6 +6,7 @@ import type { FilterQuery } from 'mongoose';
 import { Schematic } from 'mindustry-schematic-parser';
 import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
+import { parseFormData } from '@/server/body_parsing';
 type QueryMode = 'creator' | 'name';
 
 interface PostBody {
@@ -81,7 +82,7 @@ export const post: RequestHandler<unknown, PostOutput> = async (req) => {
     text,
     description,
     tags: rawTags,
-  }: Partial<PostBody> = await req.request.json();
+  }: Partial<PostBody> = (await parseFormData(req.request)) ?? (await req.request.json());
   if (!name || !creator || !text || !description || !rawTags)
     return {
       status: 400,
