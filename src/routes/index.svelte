@@ -13,6 +13,7 @@
   import TagInput from '@/client/components/TagInput.svelte';
   import type { SchematicQueryJSON } from '@/interfaces/json';
   import SchematicCard from '@/client/components/SchematicCard.svelte';
+  import AdCard from '@/client/components/AdCard.svelte';
   import IconButton from '@/client/components/buttons/IconButton.svelte';
   import { goto } from '$app/navigation';
   import type { Load } from '@sveltejs/kit';
@@ -40,6 +41,7 @@
     if (data.mode) params.set('mode', data.mode);
     return `/?${params}`;
   }
+  data.schematics.splice(Math.random() * 19, 0, { ad: true })
 </script>
 
 <template lang="pug">
@@ -66,8 +68,12 @@
   main
     ul#schematics_result
       +each("data.schematics as schematic")
-        li.schematic
-          SchematicCard({schematic})
+        +if("schematic.ad")
+          li.schematic
+            AdCard
+          +else
+            li.schematic
+            SchematicCard({schematic})
   footer
     IconButton(
       href!="{pageLink(1)}"

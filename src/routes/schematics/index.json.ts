@@ -19,7 +19,7 @@ interface PostBody {
 
 type PostOutput = { message: string } | { error: string };
 
-const limitPerPage = 20;
+const limitPerPage = 19;
 export const get: RequestHandler = async (req) => {
   let page = Number(req.query.get('page')) || 1;
   if (page < 1) page = 1;
