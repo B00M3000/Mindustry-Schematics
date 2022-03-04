@@ -1,7 +1,14 @@
 import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
+import { isValidObjectId } from 'mongoose';
 
 export const get: RequestHandler = async (req) => {
+  if (!isValidObjectId(req.params.id)) {
+    return {
+      status: 400,
+      body: { error: 'Invalid schematic id' },
+    };
+  }
   const schematic = await SchematicSchema.findOne({ _id: req.params.id }, 'name text');
 
   if (!schematic) return { status: 404, body: 'Not found' };

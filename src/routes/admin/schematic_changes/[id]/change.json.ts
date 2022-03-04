@@ -4,6 +4,7 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic, arc, mindustry } from 'mindustry-schematic-parser';
+import { isValidObjectId } from 'mongoose';
 const { Item, Liquid } = mindustry;
 const { Point2 } = arc;
 
@@ -57,6 +58,13 @@ export const get: RequestHandler = async ({ params, locals }) => {
       status: 403,
       body: { message: 'Forbidden' },
     };
+
+  if (!isValidObjectId(params.id)) {
+    return {
+      status: 400,
+      body: 'Invalid change id',
+    };
+  }
   const change = await SchematicChangeSchema.findOne(
     { _id: params.id },
     {

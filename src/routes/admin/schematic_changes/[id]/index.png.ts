@@ -1,7 +1,14 @@
 import { SchematicChangeSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
+import { isValidObjectId } from 'mongoose';
 
 export const get: RequestHandler = async (req) => {
+  if (!isValidObjectId(req.params.id)) {
+    return {
+      status: 400,
+      body: 'Invalid change id',
+    };
+  }
   const schematic = await SchematicChangeSchema.findOne(
     { _id: req.params.id },
     {
