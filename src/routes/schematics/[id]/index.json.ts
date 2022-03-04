@@ -2,7 +2,7 @@ import type { SchematicJSON } from '@/interfaces/json';
 import type { SchematicDocument } from '@/server/mongo';
 import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { isValidObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 interface Params {
   id: string;
@@ -11,7 +11,7 @@ interface Params {
 export const get: RequestHandler<Params, SchematicJSON | { error: string }> = async (
   req,
 ) => {
-  if (!isValidObjectId(req.params.id)) {
+  if (!mongoose.isValidObjectId(req.params.id)) {
     return {
       status: 400,
       body: { error: 'Invalid schematic id' },

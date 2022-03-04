@@ -3,7 +3,7 @@ import { parseFormData } from '@/server/body_parsing';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import { isValidObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 interface Params {
   id: string;
@@ -28,7 +28,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({
       },
       body: { error: 'Forbidden' },
     };
-  if (!isValidObjectId(params.id)) {
+  if (!mongoose.isValidObjectId(params.id)) {
     return {
       status: 400,
       body: { error: 'Invalid token' },

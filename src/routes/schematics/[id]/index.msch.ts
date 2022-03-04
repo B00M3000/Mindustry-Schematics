@@ -1,9 +1,9 @@
 import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { isValidObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 export const get: RequestHandler = async (req) => {
-  if (!isValidObjectId(req.params.id)) {
+  if (!mongoose.isValidObjectId(req.params.id)) {
     return {
       status: 400,
       body: { error: 'Invalid schematic id' },

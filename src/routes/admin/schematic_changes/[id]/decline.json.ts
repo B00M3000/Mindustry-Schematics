@@ -1,7 +1,7 @@
 import { Access, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { isValidObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 export const post: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
@@ -10,7 +10,7 @@ export const post: RequestHandler = async (req) => {
       status: 403,
       body: 'Forbidden',
     };
-  if (!isValidObjectId(req.params.id)) {
+  if (!mongoose.isValidObjectId(req.params.id)) {
     return {
       status: 400,
       body: 'Invalid change id',
