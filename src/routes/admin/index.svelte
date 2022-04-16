@@ -41,14 +41,28 @@
     title Schematic Changes
   +if("allowed")
     h1.changes Schematic Changes
-    div.changes
-      +each("changes as change")
-        a(href="schematic_changes/{change._id}")
-          div.schematic
-            h2
-              span(class!="{change.mode}") {change.mode} 
-              span {change.name}
-            LazyImage(src="/schematics/{change.id}.png" alt="schematic preview")
+    div.wrapper(class!="{parseState}")
+      form({action} class:locked data-variant!="{variant}" on:submit!="{submit}")
+        div.mode
+          button(
+            type="button"
+            class:selected!="{mode == 'changes'}"
+            on:click!="{() => changeMode('text')}"
+          ) Text
+          button(
+            type!="button"
+            class:selected!="{mode == 'deletes'}"
+            on:click!="{() => changeMode('file')}"
+          ) File
+  
+      div.changes
+        +each("changes as change")
+          a(href="schematic_changes/{change._id}")
+            div.schematic
+              h2
+                span(class!="{change.mode}") {change.mode} 
+                span {change.name}
+              LazyImage(src="/schematics/{change.id}.png" alt="schematic preview")
     footer
       BackButton(href="/user" smart)
 </template>

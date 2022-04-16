@@ -1,14 +1,19 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { user } from '@/client/stores/user';
   let ul: HTMLUListElement;
   $: current = $page?.path.split('/')[1];
+  
 </script>
 
 <template lang="pug">
   nav
     ul(bind:this!="{ul}" style="--items {ul?.chidren?.length || 1}")
       a(href="/user" class:selected!="{(/(user)|(admin)/).test(current)}")
-        li User Login
+        +if("$user.name")
+          li User Dashboard
+          +else
+            li User Login
       a(href="/" class:selected!="{current== '' || current == 'schematics'}")
         li Schematics
       a(href="https://logic.mindustryschematics.com")

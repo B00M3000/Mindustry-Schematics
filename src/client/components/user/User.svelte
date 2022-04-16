@@ -24,7 +24,7 @@
 
 <template lang="pug">
   form(bind:this!="{form}" on:submit!="{save}")
-    img(src="{$data.avatar}")
+    img(src="{data.avatar}")
     input(type="text" name="username" value!="{data.name}") 
     +if("adminAccess")
       select(name="access")
