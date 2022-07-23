@@ -3,9 +3,9 @@ import type { SchematicDocument } from '@/server/mongo';
 import { SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
 
 export const GET: RequestHandler<Params, SchematicJSON | { error: string }> = async (
   req,

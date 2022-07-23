@@ -32,7 +32,7 @@ function configEnv(): RawEnv {
       );
   }
   dotenv.config();
-  return process.env;
+  return process.env as RawEnv;
 }
 
 // the raw env has all its values contained as strings

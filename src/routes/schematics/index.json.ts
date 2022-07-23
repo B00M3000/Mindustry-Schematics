@@ -75,7 +75,7 @@ export const GET: RequestHandler = async ({ url }) => {
   }
 };
 
-export const POST: RequestHandler<unknown, PostOutput> = async (req) => {
+export const POST: RequestHandler<never, PostOutput> = async (req) => {
   const {
     name,
     creator,

@@ -4,9 +4,10 @@ import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
+
 interface Data {
   username: string;
   token: string;

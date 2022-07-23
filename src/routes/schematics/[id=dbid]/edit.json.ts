@@ -4,9 +4,9 @@ import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseFormData } from '@/server/body_parsing';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
 
 interface PostBody {
   name: string;

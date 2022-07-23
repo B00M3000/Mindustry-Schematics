@@ -7,7 +7,7 @@ type GetOutput =
   | {
       token: string;
     };
-export const POST: RequestHandler<unknown, GetOutput> = async (req) => {
+export const POST: RequestHandler<never, GetOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ userTokens: Access.readAll | Access.updateAll }))
     return {

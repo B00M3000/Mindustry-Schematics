@@ -2,9 +2,9 @@ import { parseFormData } from '@/server/body_parsing';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
 
 interface PostBody {
   reason: string;

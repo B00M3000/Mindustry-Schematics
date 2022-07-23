@@ -1,9 +1,9 @@
 import { getTutorials } from '@/server/tutorials';
 import type { RequestHandler } from '@sveltejs/kit';
 
-interface Params {
+type Params = {
   name: string;
-}
+};
 
 type GetOutput = {
   title: string;
