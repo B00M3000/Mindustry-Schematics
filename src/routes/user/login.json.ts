@@ -16,7 +16,7 @@ type PostOutput =
       name: string;
       access: string;
     };
-export const post: RequestHandler<PostInput, PostOutput> = async (req) => {
+export const POST: RequestHandler<PostInput, PostOutput> = async (req) => {
   const { token }: Partial<PostBody> = await req.request.json();
   if (!token)
     return {

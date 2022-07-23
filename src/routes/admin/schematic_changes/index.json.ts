@@ -12,7 +12,7 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   const originals = await Promise.all(promises);
   return originals;
 }
-export const get: RequestHandler = async (req) => {
+export const GET: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
     return { status: 403, body: { message: 'Forbidden' } };

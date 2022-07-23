@@ -47,7 +47,7 @@ function renderAsSame(...schematics: [string, string]): boolean {
   }
   return true;
 }
-export const get: RequestHandler = async ({ params, locals }) => {
+export const GET: RequestHandler = async ({ params, locals }) => {
   const access = UserAccess.from(locals.access);
   if (
     !access.can({

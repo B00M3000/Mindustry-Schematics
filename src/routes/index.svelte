@@ -4,7 +4,9 @@
     const data: SchematicQueryJSON = await response.json();
     return {
       props: { data },
-      maxage: 60,
+      cache: {
+        maxage: 60,
+      },
     };
   };
 </script>

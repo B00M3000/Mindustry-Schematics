@@ -14,7 +14,7 @@ interface Data {
   access: string;
 }
 type PostOutput = { message: string } | { error: string };
-export const post: RequestHandler<Params, PostOutput> = async ({
+export const POST: RequestHandler<Params, PostOutput> = async ({
   locals,
   request,
   params,
@@ -68,7 +68,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({
   };
 };
 type DelOutput = { message: string } | { error: string };
-export const del: RequestHandler<Params, DelOutput> = async (req) => {
+export const DELETE: RequestHandler<Params, DelOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll }))
     return {

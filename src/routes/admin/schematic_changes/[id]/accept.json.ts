@@ -5,7 +5,7 @@ import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 import mongoose from 'mongoose';
 
-export const post: RequestHandler = async (req) => {
+export const POST: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {

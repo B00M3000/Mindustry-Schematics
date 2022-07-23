@@ -18,7 +18,7 @@ interface PostBody {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
   if (!mongoose.isValidObjectId(params.id)) {
     return {
       status: 400,

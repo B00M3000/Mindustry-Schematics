@@ -8,7 +8,7 @@ interface Params {
   id: string;
 }
 
-export const get: RequestHandler<Params, SchematicJSON | { error: string }> = async (
+export const GET: RequestHandler<Params, SchematicJSON | { error: string }> = async (
   req,
 ) => {
   if (!mongoose.isValidObjectId(req.params.id)) {

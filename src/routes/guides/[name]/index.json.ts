@@ -9,7 +9,7 @@ type GetOutput = {
   title: string;
   html: string;
 };
-export const get: RequestHandler<Params, GetOutput> = async (req) => {
+export const GET: RequestHandler<Params, GetOutput> = async (req) => {
   const { name } = req.params;
   const tutorials = getTutorials();
   const tutorial = tutorials.get(name);
