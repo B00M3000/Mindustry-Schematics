@@ -3,7 +3,6 @@ import { parseFormData } from '@/server/body_parsing';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import mongoose from 'mongoose';
 
 interface Params {
   id: string;
@@ -28,12 +27,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
       },
       body: { error: 'Forbidden' },
     };
-  if (!mongoose.isValidObjectId(params.id)) {
-    return {
-      status: 400,
-      body: { error: 'Invalid token' },
-    };
-  }
+
   const { username, token, access }: Partial<Data> =
     (await parseFormData(request)) ?? (await request.json());
   if (!(username && token && access))

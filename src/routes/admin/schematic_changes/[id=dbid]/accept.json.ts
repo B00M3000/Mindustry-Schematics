@@ -3,7 +3,6 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
-import mongoose from 'mongoose';
 
 export const POST: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
@@ -12,12 +11,6 @@ export const POST: RequestHandler = async (req) => {
       status: 403,
       body: 'Forbidden',
     };
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    return {
-      status: 400,
-      body: 'Invalid change id',
-    };
-  }
   const change = await SchematicChangeSchema.findOne({ _id: req.params.id });
   if (!change)
     return {
