@@ -13,32 +13,32 @@
   "devDependencies": {
     "@sveltejs/adapter-node": "^1.0.0-next.70",
     "@sveltejs/kit": "^1.0.0-next.287",
-    "@types/cookie": "^0.4.1",
+    "@types/cookie": "^0.5.1",
     "@types/diff": "^5.0.2",
-    "@types/showdown": "^1.9.4",
+    "@types/showdown": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "@zerodevx/svelte-toast": "^0.7.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.4.0",
-    "eslint-plugin-svelte3": "^3.4.1",
+    "eslint-plugin-svelte3": "^4.0.0",
     "prettier": "^2.5.1",
     "prettier-plugin-svelte": "^2.6.0",
     "pug": "^3.0.2",
-    "svelte": "^3.46.4",
+    "svelte": "^3.49.0",
     "svelte-loading-spinners": "^0.1.7",
-    "svelte-preprocess": "^4.10.4",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5",
-    "vite": "^2.8.4"
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.2"
   },
   "type": "module",
   "dependencies": {
-    "cookie": "^0.4.2",
+    "cookie": "^0.5.0",
     "diff": "^5.0.0",
     "dotenv": "^16.0.0",
     "mindustry-schematic-parser": "^4.2.0-alpha.0",
-    "mongoose": "^6.2.3",
-    "showdown": "^2.0.0"
+    "mongoose": "^6.4.6",
+    "showdown": "^2.1.0"
   }
 }
