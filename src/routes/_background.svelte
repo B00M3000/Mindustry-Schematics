@@ -13,7 +13,7 @@
 
   onMount(() => {
     html = document.documentElement;
-    updateBackground()
+    updateBackground();
   });
 
   function nextBackground(current: string) {
