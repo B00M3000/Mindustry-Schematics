@@ -71,7 +71,7 @@
         h1.name {original.name}
         img.preview(src="/schematics/{change.id}.png" alt="schematic preview")
         h3.creator by {original.creator}
-        h4.description: +html("safeDescription(original.description)")
+        h4.description: +html("safeDescription(original.description ?? '')")
         div.tags
           +each("originalTags as tag")
             div.tag(style="--color: {tag.color};")

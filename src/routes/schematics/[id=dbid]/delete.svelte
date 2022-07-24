@@ -53,7 +53,7 @@
     img(src="/schematics/{schematic._id}.png" alt="schematic preview")
     h3.creator by {schematic.creator}
     h4.description 
-      +html("safeDescription(schematic.description)")
+      +html("safeDescription(schematic.description ?? '')")
     div.inputs
       label(for="reason")
       textarea#reason(
