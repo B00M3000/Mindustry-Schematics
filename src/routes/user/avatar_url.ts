@@ -1,5 +1,4 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import type { RequestHandler } from '@server/kit';
 import { UserSchema } from '@/server/mongo'
 import * as cookie from 'cookie';
 

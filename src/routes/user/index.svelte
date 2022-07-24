@@ -20,6 +20,7 @@
           button Schematic Changes
       a.link(on:click="{user.logout}")
         button Logout 
+      p This authentication system is currently in development and serves no functionality other than for mods and admins.
     +else
       div.logins        
         DiscordLogin

@@ -6,7 +6,7 @@ interface UserStore {
   id?: string,
   username?: string,
   verified?: boolean,
-  uaccess?: UserAccess,
+  uaccess: UserAccess,
   avatar_url?: string,
 }
 
