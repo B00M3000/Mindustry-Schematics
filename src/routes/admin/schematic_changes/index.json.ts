@@ -1,5 +1,5 @@
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
-import { Access, UserAccess } from '@/lib/auth/access';
+import { Access, accessLevels, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicChangeDocument, SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -13,7 +13,7 @@ async function findOriginals(changes: Changes): Promise<Originals> {
   return originals;
 }
 export const GET: RequestHandler = async (req) => {
-  const access = UserAccess.from(req.locals.access);
+  const access = req.locals.user?.access ?? accessLevels.none;
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
     return { status: 403, body: { message: 'Forbidden' } };
   }

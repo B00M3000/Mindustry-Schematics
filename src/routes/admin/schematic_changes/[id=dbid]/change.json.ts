@@ -1,5 +1,5 @@
 import type { SchematicChangeJSON } from '@/interfaces/json';
-import { Access, UserAccess } from '@/lib/auth/access';
+import { Access, accessLevels, UserAccess } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -48,7 +48,7 @@ function renderAsSame(...schematics: [string, string]): boolean {
   return true;
 }
 export const GET: RequestHandler = async ({ params, locals }) => {
-  const access = UserAccess.from(locals.access);
+  const access = locals.user?.access ?? accessLevels.none;
   if (
     !access.can({
       schematics: Access.deleteAll | Access.updateAll,
