@@ -3,10 +3,10 @@ import type { RequestHandler } from '@sveltejs/kit';
 import env from '@/server/env';
 import * as cookie from 'cookie';
 
-async function get_tokens(code: string | null) {
+async function get_tokens(code: string) {
   const data = new URLSearchParams();
-  data.append('client_id', env.DISCORD_APPLICATION_ID);
-  data.append('client_secret', env.DISCORD_APPLICATION_SECRET);
+  data.append('client_id', env.DISCORD_APPLICATION_ID!);
+  data.append('client_secret', env.DISCORD_APPLICATION_SECRET!);
   data.append('grant_type', 'authorization_code');
   data.append('redirect_uri', `${env.WEBSITE_URL}/user/redirect`);
   data.append('scope', 'identify');
@@ -32,6 +32,14 @@ async function get_user(token_type: unknown, access_token: unknown) {
 export const GET: RequestHandler = async (req) => {
   const code = req.url.searchParams.get('code');
 
+  if (!code)
+    return {
+      status: 400,
+      body: {
+        message: 'missing code',
+      },
+    };
+
   const data = await get_tokens(code);
   if (!data.access_token) {
     return {
@@ -52,18 +60,22 @@ export const GET: RequestHandler = async (req) => {
 
   const user = await UserSchema.findOneAndUpdate(
     {
-        id: discord_user.id,
+      id: discord_user.id,
     },
     {
-        id: discord_user.id,
-        username: discord_user.username,
-        discriminator: discord_user.discriminator,
-        discord_id: discord_user.id,
-        avatar_url: 'https://cdn.discordapp.com/avatars/' + (discord_user.avatar_hash ? `${discord_user.id}/${discord_user.avatar_hash}.png` : `${getRandomInt(5)}.png`)
+      id: discord_user.id,
+      username: discord_user.username,
+      discriminator: discord_user.discriminator,
+      discord_id: discord_user.id,
+      avatar_url:
+        'https://cdn.discordapp.com/avatars/' +
+        (discord_user.avatar_hash
+          ? `${discord_user.id}/${discord_user.avatar_hash}.png`
+          : `${getRandomInt(5)}.png`),
     },
     {
-        upsert: true,
-        new: true
+      upsert: true,
+      new: true,
     },
   );
 
@@ -83,7 +95,6 @@ export const GET: RequestHandler = async (req) => {
   };
 };
 
-
 function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-}  
+  return Math.floor(Math.random() * max);
+}
