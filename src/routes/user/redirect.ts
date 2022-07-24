@@ -67,8 +67,8 @@ export const GET: RequestHandler = async (req) => {
         username: discord_user.username,
         discriminator: discord_user.discriminator,
         discord_id: discord_user.id,
-        avatar_url: discord_user.avatar_hash
-          ? 'https://cdn.discordapp.com/avatars/' + `${discord_user.id}/${discord_user.avatar_hash}.webp`
+        avatar_url: discord_user.avatar
+          ? 'https://cdn.discordapp.com/avatars/' + `${discord_user.id}/${discord_user.avatar}.webp`
           : `/assets/discord_default_avatar.png`
     },
     {
