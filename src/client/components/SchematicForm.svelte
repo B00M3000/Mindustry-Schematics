@@ -124,6 +124,12 @@
       case 431:
         error = 'The schematic is too big';
         break;
+      case 500: {
+        invalid = true;
+        const json: SchematicParseErrorJSON = await response.json();
+        error = `Internal error while parsing: '${json.error.message}'`;
+        break;
+      }
     }
   }
 </script>
