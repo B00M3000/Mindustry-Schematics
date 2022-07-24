@@ -2,7 +2,7 @@
   "name": "mindustry-schematics",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --host",
     "build": "vite build",
     "package": "svelte-kit package",
     "preview": "vite preview",
