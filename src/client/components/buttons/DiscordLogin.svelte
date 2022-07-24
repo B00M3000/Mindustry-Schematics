@@ -2,10 +2,10 @@
 </script>
 
 <template lang="pug">
-  a(href="/user/login")
-    button
-      img(src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo")
-      p Login with Discord
+    a(href="/user/login")
+      button
+        img(src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo")
+        p Login with Discord
 </template>
 
 <style>
