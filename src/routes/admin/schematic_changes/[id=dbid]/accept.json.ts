@@ -1,11 +1,11 @@
-import { Access, UserAccess } from '@/lib/auth/access';
+import { Access, accessLevels } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async (req) => {
-  const access = UserAccess.from(req.locals.access);
+  const access = req.locals.user?.access ?? accessLevels.none;
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {
       status: 403,
