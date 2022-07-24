@@ -4,30 +4,36 @@ import mongo from '@/server/mongo';
 import { SessionSchema, UserSchema } from './server/mongo';
 import webhooks from './server/webhooks';
 import { dev } from '$app/env';
-import { User } from './server/auth/user';
+import { UserAccess } from './lib/auth/access';
 
 const dbPromise = mongo();
 
 export const getSession: GetSession = async ({ locals }) => {
-  return locals.user
+  if (locals.user) {
+    return {
+      ...locals.user,
+      access: locals.user.access.toString(),
+    };
+  }
+  return {};
 };
 
 export const handle: Handle = async ({ event, resolve }) => {
   try {
     await dbPromise;
     const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-    const session_id = cookies.session_id
-    if(session_id){
-      const session = await SessionSchema.findOne({_id: session_id})
-      if(session){
-        const user = await UserSchema.findOne({ _id: session.user_id })
-        if(user){
+    const session_id = cookies.session_id;
+    if (session_id) {
+      const session = await SessionSchema.findOne({ _id: session_id });
+      if (session) {
+        const user = await UserSchema.findOne({ _id: session.user_id });
+        if (user) {
           event.locals.user = {
             id: user._id.toString(),
             username: user?.username,
-            access: user?.access,
-            verified: user?.verified,
-            avatar_url: user?.avatar_url
+            access: UserAccess.from(user?.access),
+            verified: user?.verified ?? false,
+            avatar_url: user?.avatar_url,
           };
         }
       } else {
