@@ -10,6 +10,7 @@ const schema = new mongoose.Schema({
 }, { timestamps: true });
 
 export interface UserDocument extends mongoose.Document {
+  _id: string;
   id: string;
   username: string;
   discriminator: string;

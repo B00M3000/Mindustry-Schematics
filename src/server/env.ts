@@ -4,15 +4,18 @@ import fs from 'fs';
 
 /** The server side environment variables of this project*/
 interface Env {
+  PORT?: string;
   MONGO_DATABASE_NAME?: string;
   MONGO_USER?: string;
   MONGO_PASS?: string;
   MONGO_PATH?: string;
   WEBHOOK_URL?: string;
   WEBSITE_URL?: string;
-  ENABLE_WEBHOOKS: boolean;
+  ENABLE_WEBHOOKS: string;
   PRIVATE_WEBHOOK_URL?: string;
   PUBLIC_WEBHOOK_URL?: string;
+  DISCORD_APPLICATION_ID?: string;
+  DISCORD_APPLICATION_SECRET?: string;
 }
 
 type RawEnv = {

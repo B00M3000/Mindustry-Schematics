@@ -16,4 +16,5 @@ export default () => mongoose.connect(path);
 
 export * from './schemas/schematic';
 export * from './schemas/schematic_change';
-export * from './schemas/user_token';
+export * from './schemas/user';
+export * from './schemas/session';
