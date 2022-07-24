@@ -3,7 +3,7 @@ import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
 interface AuthStore {
   name?: string;
-  token?: string;
+  id?: string;
   access: UserAccess;
 }
 const { set, subscribe } = writable<AuthStore>(
@@ -13,8 +13,8 @@ const { set, subscribe } = writable<AuthStore>(
   (set) => {
     session.subscribe(($session) => {
       set({
-        name: $session.name,
-        token: $session.token,
+        name: $session.username,
+        id: $session.id,
         access: UserAccess.from($session.access),
       });
     })();
@@ -24,8 +24,8 @@ function write(value: AuthStore) {
   set(value);
   session.set({
     access: value.access.name,
-    name: value.name,
-    token: value.token,
+    username: value.name,
+    id: value.id,
   });
 }
 export const auth = {
@@ -55,7 +55,7 @@ export const auth = {
   },
   async sync(): Promise<void> {
     let token: string | undefined;
-    this.subscribe(($auth) => (token = $auth.token))();
+    this.subscribe(($auth) => (token = $auth.id))();
     if (token) await this.login(token);
   },
 };
