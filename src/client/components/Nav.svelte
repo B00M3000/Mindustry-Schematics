@@ -19,8 +19,13 @@
         li Guides
       a(href="/info" class:selected!="{current== 'info'}")
         li Info
+    
     button.icon.menu
       img(src="/assets/menu.svg" alt="menu")
+
+    div
+      span Mindustry Schematics (Unofficial)
+      img(src='/assets/logo.png' width='64px')
 </template>
 
 <style>
