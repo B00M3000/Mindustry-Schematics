@@ -8,6 +8,7 @@ export const GET: RequestHandler = async () => {
     response_type: 'code',
     prompt: 'none',
   });
+  console.log("Appid: " + env.DISCORD_APPLICATION_ID) // debug
   return {
     status: 308,
     headers: {
@@ -18,5 +19,3 @@ export const GET: RequestHandler = async () => {
     },
   };
 };
-
-console.log(env.DISCORD_APPLICATION_ID) // debug
