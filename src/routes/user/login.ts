@@ -18,3 +18,5 @@ export const GET: RequestHandler = async () => {
     },
   };
 };
+
+console.log(env.DISCORD_APPLICATION_ID) // debug
