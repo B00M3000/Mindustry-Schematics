@@ -5,9 +5,6 @@ import * as cookie from 'cookie';
 interface PostBody {
   token: string;
 }
-interface PostInput {
-  token: string;
-}
 type PostOutput =
   | {
       message: string;
@@ -16,7 +13,7 @@ type PostOutput =
       name: string;
       access: string;
     };
-export const post: RequestHandler<PostInput, PostOutput> = async (req) => {
+export const POST: RequestHandler<never, PostOutput> = async (req) => {
   const { token }: Partial<PostBody> = await req.request.json();
   if (!token)
     return {

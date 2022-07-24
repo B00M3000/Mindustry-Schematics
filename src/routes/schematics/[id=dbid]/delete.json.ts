@@ -1,24 +1,17 @@
 import { parseFormData } from '@/server/body_parsing';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import mongoose from 'mongoose';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
 
 interface PostBody {
   reason: string;
 }
 
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
-  if (!mongoose.isValidObjectId(params.id)) {
-    return {
-      status: 400,
-      body: { error: 'Invalid schematic id' },
-    };
-  }
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
   const schematic = await SchematicSchema.findOne({ _id: params.id });
   if (!schematic)
     return {

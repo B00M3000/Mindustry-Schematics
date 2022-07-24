@@ -3,11 +3,10 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseFormData } from '@/server/body_parsing';
-import mongoose from 'mongoose';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
 
 interface PostBody {
   name: string;
@@ -18,13 +17,7 @@ interface PostBody {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const post: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
-  if (!mongoose.isValidObjectId(params.id)) {
-    return {
-      status: 400,
-      body: { error: 'Invalid schematic id' },
-    };
-  }
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
   const originalSchematic = await SchematicSchema.findOne({
     _id: params.id,
   });

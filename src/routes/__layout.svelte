@@ -6,7 +6,9 @@
 
     return {
       props: { backgrounds },
-      maxage: 1000,
+      cache: {
+        maxage: 1000,
+      },
     };
   };
 </script>

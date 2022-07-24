@@ -1,6 +1,5 @@
+import adapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
-import path from 'path';
-import node from '@sveltejs/adapter-node';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,16 +8,13 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
-    adapter: node({
+    adapter: adapter({
       out: 'build',
     }),
-    vite: {
-      resolve: {
-        alias: {
-          '@': path.resolve('src'),
-          '@static': path.resolve('static'),
-        },
-      },
+
+    // Override http methods in the Todo forms
+    methodOverride: {
+      allowed: ['PATCH', 'DELETE'],
     },
   },
 };

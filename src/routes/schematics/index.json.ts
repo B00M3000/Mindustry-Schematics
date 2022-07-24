@@ -20,7 +20,7 @@ interface PostBody {
 type PostOutput = { message: string } | { error: string };
 
 const limitPerPage = 20;
-export const get: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url }) => {
   let page = Number(url.searchParams.get('page')) || 1;
   if (page < 1) page = 1;
   const mode: QueryMode = url.searchParams.get('mode') == 'creator' ? 'creator' : 'name';
@@ -75,7 +75,7 @@ export const get: RequestHandler = async ({ url }) => {
   }
 };
 
-export const post: RequestHandler<unknown, PostOutput> = async (req) => {
+export const POST: RequestHandler<never, PostOutput> = async (req) => {
   const {
     name,
     creator,

@@ -3,18 +3,18 @@ import { parseFormData } from '@/server/body_parsing';
 import { UserTokenSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import * as cookie from 'cookie';
-import mongoose from 'mongoose';
 
-interface Params {
+type Params = {
   id: string;
-}
+};
+
 interface Data {
   username: string;
   token: string;
   access: string;
 }
 type PostOutput = { message: string } | { error: string };
-export const post: RequestHandler<Params, PostOutput> = async ({
+export const POST: RequestHandler<Params, PostOutput> = async ({
   locals,
   request,
   params,
@@ -28,12 +28,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({
       },
       body: { error: 'Forbidden' },
     };
-  if (!mongoose.isValidObjectId(params.id)) {
-    return {
-      status: 400,
-      body: { error: 'Invalid token' },
-    };
-  }
+
   const { username, token, access }: Partial<Data> =
     (await parseFormData(request)) ?? (await request.json());
   if (!(username && token && access))
@@ -68,7 +63,7 @@ export const post: RequestHandler<Params, PostOutput> = async ({
   };
 };
 type DelOutput = { message: string } | { error: string };
-export const del: RequestHandler<Params, DelOutput> = async (req) => {
+export const DELETE: RequestHandler<Params, DelOutput> = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll }))
     return {

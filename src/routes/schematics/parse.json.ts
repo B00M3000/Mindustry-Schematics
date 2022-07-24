@@ -4,7 +4,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic } from 'mindustry-schematic-parser';
 
 class SchematicSizeError extends Error {}
-export const post: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request }) => {
   const text: string = (await parseText(request)) ?? (await request.json()).text;
 
   if (!text || text === '') {

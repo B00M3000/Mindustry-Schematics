@@ -3,21 +3,14 @@ import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicDocument } from '@/server/mongo';
 import webhooks from '@/server/webhooks';
 import type { RequestHandler } from '@sveltejs/kit';
-import mongoose from 'mongoose';
 
-export const post: RequestHandler = async (req) => {
+export const POST: RequestHandler = async (req) => {
   const access = UserAccess.from(req.locals.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll }))
     return {
       status: 403,
       body: 'Forbidden',
     };
-  if (!mongoose.isValidObjectId(req.params.id)) {
-    return {
-      status: 400,
-      body: 'Invalid change id',
-    };
-  }
   const change = await SchematicChangeSchema.findOne({ _id: req.params.id });
   if (!change)
     return {

@@ -4,7 +4,7 @@ type TutorialInfo = {
   title: string;
   name: string;
 };
-export const get: RequestHandler<unknown, TutorialInfo[]> = async () => {
+export const GET: RequestHandler<never, TutorialInfo[]> = async () => {
   const tutorials = getTutorials();
   const body: TutorialInfo[] = [];
   tutorials.forEach((value, key) => {

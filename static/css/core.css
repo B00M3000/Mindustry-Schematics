@@ -31,30 +31,19 @@ a {
   text-decoration: none;
   color: inherit;
 }
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+
 html {
   position: relative;
   min-height: 100vh;
   color: white;
   background-color: var(--background);
-  --top-image: url('/assets/backgrounds/Jaggard_1.png');
-  --bottom-image: url('/assets/backgrounds/Jaggard_1.png');
   scroll-behavior: smooth;
+  --temp-image: url('/assets/backgrounds/Jaggard_1.png');
+  --solid-image: url('/assets/backgrounds/Jaggard_1.png');
+  --temp-opacity: 0;
 }
-html::before, html::after{
+html::before,
+html::after {
   content: '';
   position: absolute;
   top: 0;
@@ -66,21 +55,14 @@ html::before, html::after{
   padding-bottom: 5rem;
 }
 html::before {
-  background-image: var(--top-image);
+  background-image: var(--temp-image);
   z-index: -1;
-  opacity: 0;
-}
-html::after {
-  background-image: var(--bottom-image);
-  z-index: -2;
-}
-
-html.top::before, html.bottom::before{
+  opacity: var(--temp-opacity);
   transition: opacity 0.5s ease;
 }
-
-html.top::before{
-  opacity: 1;
+html::after {
+  background-image: var(--solid-image);
+  z-index: -2;
 }
 
 footer {
