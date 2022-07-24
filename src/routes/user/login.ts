@@ -8,7 +8,7 @@ export const GET: RequestHandler = async () => {
     response_type: 'code',
     prompt: 'none',
   });
-  console.log("Appid: " + params.get('client_id')) // debug
+  console.log("Appid: " + params) // debug
   return {
     status: 308,
     headers: {
