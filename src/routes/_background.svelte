@@ -20,7 +20,7 @@
 
   function nextBackground(current: string) {
     let background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-    while (current == `url(${background})`) {
+    while (current == `url("${background}"")`) {
       background = backgrounds[Math.floor(Math.random() * backgrounds.length)];
     }
     return background;
