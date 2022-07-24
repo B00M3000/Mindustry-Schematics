@@ -14,7 +14,7 @@
     main
       div.info
         h2 Welcome Back {$user.username}
-        img(src="{user.avatar_url}")
+        img.avatar(src="{$user.avatar_url}" alt="pfp" width="64px" height="64px")
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
@@ -49,5 +49,8 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+  }
+  .avatar {
+    border-radius: 50%;
   }
 </style>

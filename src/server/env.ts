@@ -11,7 +11,7 @@ interface Env {
   MONGO_PATH?: string;
   WEBHOOK_URL?: string;
   WEBSITE_URL?: string;
-  ENABLE_WEBHOOKS: string;
+  ENABLE_WEBHOOKS: boolean;
   PRIVATE_WEBHOOK_URL?: string;
   PUBLIC_WEBHOOK_URL?: string;
   DISCORD_APPLICATION_ID?: string;
