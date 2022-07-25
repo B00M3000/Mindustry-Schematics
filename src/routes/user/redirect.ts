@@ -39,7 +39,7 @@ async function join_discord_server(
   const response = await fetch(
     `https://discordapp.com/api/guilds/${env.DISCORD_SERVER_ID}/members/${discord_id}`,
     {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
       },
