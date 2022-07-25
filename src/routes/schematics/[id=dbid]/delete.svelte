@@ -129,7 +129,7 @@
       grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
       grid-template-areas:
         'title'
-        'author'
+        'creator'
         'preview'
         'description'
         'input'
