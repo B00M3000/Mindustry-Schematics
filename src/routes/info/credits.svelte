@@ -3,6 +3,8 @@
 </script>
 
 <script lang="ts">
+  import BottomBar from '@/client/components/BottomBar.svelte';
+
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import Person from './_person.svelte';
 </script>
@@ -88,7 +90,7 @@
                 li Discord/IGN: "undefined"
                 li Discord ID: "undefined"
           
-  footer
+  BottomBar
     BackButton(href="/info")
 </template>
 
@@ -99,6 +101,9 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
+  }
+  main {
+    margin-bottom: 2rem;
   }
   h1 {
     margin: 1em 0;

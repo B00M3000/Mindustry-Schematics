@@ -52,7 +52,7 @@ html::after {
   height: 100%;
   background-size: 100%;
   filter: brightness(0.3);
-  padding-bottom: 5rem;
+  padding: 0;
 }
 html::before {
   background-image: var(--temp-image);
@@ -65,20 +65,6 @@ html::after {
   z-index: -2;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-  color: var(--on-surface);
-  width: 100%;
-  padding: 0.5rem;
-  gap: 1em;
-  z-index: 10;
-  justify-content: center;
-  align-items: center;
-}
 button {
   border: 2px solid #808080;
   border-radius: 0.5rem;

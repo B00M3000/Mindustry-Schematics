@@ -18,6 +18,8 @@
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { Access } from '@/lib/auth/access';
+  import BottomBar from '@/client/components/BottomBar.svelte';
+
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
   let submitting = false;
@@ -62,7 +64,7 @@
         required
       )
     button(type="submit") Submit Deletion Request
-  footer
+  BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
@@ -127,7 +129,7 @@
       grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
       grid-template-areas:
         'title'
-        'author'
+        'creator'
         'preview'
         'description'
         'input'
