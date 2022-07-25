@@ -1,4 +1,6 @@
 <script context="module" lang="ts">
+  import { user } from '@/client/stores/user'
+
   export const load: Load = async ({ fetch, params }) => {
     const { id } = params;
     const query = new URLSearchParams();
@@ -22,6 +24,8 @@
   import type { Load } from '@sveltejs/kit';
   import { toast } from '@zerodevx/svelte-toast';
   import { Tag } from '@/lib/tags';
+
+  import AuthorCard from '@/client/components/AuthorCard.svelte';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
@@ -66,7 +70,8 @@
     h1.title {title}
     h5.views Views {schematic.views}
     img#preview(src!="{imgUrl}" alt="schematic preview")
-    h3.author by {schematic.creator}
+    div
+      AuthorCard(creator_id!="{schematic.creator_id}")
     h4.description
       +html("description")
     div.data

@@ -45,4 +45,11 @@ export const user = {
       uaccess: UserAccess.from(undefined),
     });
   },
+  async get(id: string): Promise<Session> {
+    const res = await fetch(`/user/${id}.json`, {
+      method: 'GET',
+    });
+    const data = await res.json()
+    return data
+  },
 };

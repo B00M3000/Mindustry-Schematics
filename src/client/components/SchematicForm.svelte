@@ -32,7 +32,6 @@
   let name = initialData?.name || '';
   let description = initialData?.description || '';
   let text = initialData?.text || '';
-  let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? Tag.parse(initialData.tags) : [];
 
   let image = initialData ? `/schematics/${initialData._id}.png` : undefined;
@@ -157,14 +156,6 @@ div.wrapper(class!="{parseState}")
         placeholder="Name of the schematic"
         required
         value!="{name}"
-      )
-      label(for="creator") Creator:
-      input(
-        name="creator"
-        id="creator"
-        placeholder="Creator of the schematic"
-        required
-        value!="{creator}"
       )
       label(for="description") Description:
       textarea(
