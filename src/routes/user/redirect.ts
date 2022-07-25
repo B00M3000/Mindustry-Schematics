@@ -12,6 +12,8 @@ async function get_tokens(code: string) {
   data.append('scope', 'identify');
   data.append('code', code);
 
+  console.log(`${env.WEBSITE_URL}/user/redirect`)
+
   const response = await fetch('https://discordapp.com/api/oauth2/token', {
     method: 'POST',
     body: data as never,
@@ -31,6 +33,7 @@ async function get_user(token_type: unknown, access_token: unknown) {
 
 async function join_discord_server(token_type: unknown, access_token: unknown, discord_id: unknown) {
   const response = await fetch(`https://discordapp.com/api/guilds/${env.DISCORD_SERVER_ID}/members/${discord_id}`, {
+    method: 'POST',
     headers: {
       authorization: `${token_type} ${access_token}`,
     },
@@ -54,6 +57,7 @@ export const GET: RequestHandler = async (req) => {
 
   const data = await get_tokens(code);
   if (!data.access_token) {
+    console.log(data)
     return {
       status: 308,
       headers: {
