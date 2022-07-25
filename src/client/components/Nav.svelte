@@ -23,7 +23,7 @@
     button.icon.menu
       img(src="/assets/menu.svg" alt="menu")
 
-    div
+    div.logo_container
       span Mindustry Schematics (Unofficial)
       img(src='/assets/logo.png' width='64px')
 </template>
@@ -39,6 +39,9 @@
     left: 0;
     margin-bottom: 0.5em;
     z-index: 20;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'buttons logo';
   }
   nav ul {
     --items: 5;
@@ -62,11 +65,20 @@
     background-color: transparent;
   }
 
+  .logo_container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    grid-area: logo;
+  }
+
   @media screen and (max-width: 600px) {
     nav {
       display: grid;
       grid-template-columns: 1fr 3em;
-      grid-template-areas: 'buttons menu';
+      grid-template-areas:
+        'buttons menu'
+        'logo logo';
     }
     nav button.menu {
       display: inline-flex;
@@ -97,6 +109,9 @@
     }
     nav:focus-within ul {
       height: calc(var(--items) * 3.5em);
+    }
+    .logo_container {
+      justify-self: center;
     }
   }
 </style>
