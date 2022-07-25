@@ -17,6 +17,7 @@ interface Env {
   DISCORD_APPLICATION_ID?: string;
   DISCORD_APPLICATION_SECRET?: string;
   DISCORD_SERVER_ID?: string;
+  DISCORD_BOT_TOKEN?: string;
 }
 
 type RawEnv = {

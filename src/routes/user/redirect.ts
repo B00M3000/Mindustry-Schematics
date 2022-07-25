@@ -35,10 +35,10 @@ async function join_discord_server(token_type: unknown, access_token: unknown, d
   const response = await fetch(`https://discordapp.com/api/guilds/${env.DISCORD_SERVER_ID}/members/${discord_id}`, {
     method: 'POST',
     headers: {
-      authorization: `${token_type} ${access_token}`,
+      authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
     },
     body: JSON.stringify({
-      access_token
+      access_token: `${token_type} ${access_token}`
     })
   });
   console.log(response)
