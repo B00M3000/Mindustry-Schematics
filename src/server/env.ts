@@ -16,6 +16,7 @@ interface Env {
   PUBLIC_WEBHOOK_URL?: string;
   DISCORD_APPLICATION_ID?: string;
   DISCORD_APPLICATION_SECRET?: string;
+  DISCORD_SERVER_ID?: string;
 }
 
 type RawEnv = {

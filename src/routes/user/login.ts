@@ -3,10 +3,10 @@ import env from '@/server/env';
 export const GET: RequestHandler = async () => {
   const params = new URLSearchParams({
     client_id: env.DISCORD_APPLICATION_ID!,
-    scope: 'identify',
+    scope: 'identify guilds.join',
     redirect_uri: `${env.WEBSITE_URL}/user/redirect`,
     response_type: 'code',
-    prompt: 'none',
+    //prompt: 'none',
   });
   
   return {
@@ -16,6 +16,7 @@ export const GET: RequestHandler = async () => {
     },
     body: {
       message: 'Redirect to Discord Oauth',
+      location: `https://discord.com/api/oauth2/authorize?${params}`
     },
   };
 };

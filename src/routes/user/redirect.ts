@@ -29,6 +29,18 @@ async function get_user(token_type: unknown, access_token: unknown) {
   return data;
 }
 
+async function join_discord_server(token_type: unknown, access_token: unknown, discord_id: unknown) {
+  const response = await fetch(`https://discordapp.com/api/guilds/${env.DISCORD_SERVER_ID}/members/${discord_id}`, {
+    headers: {
+      authorization: `${token_type} ${access_token}`,
+    },
+    body: JSON.stringify({
+      access_token
+    })
+  });
+  console.log(response)
+}
+
 export const GET: RequestHandler = async (req) => {
   const code = req.url.searchParams.get('code');
 
@@ -57,6 +69,8 @@ export const GET: RequestHandler = async (req) => {
   const { token_type, access_token } = data;
 
   const discord_user = await get_user(token_type, access_token);
+
+  join_discord_server(token_type, access_token, discord_user.id)
 
   const user = await UserSchema.findOneAndUpdate(
     {
