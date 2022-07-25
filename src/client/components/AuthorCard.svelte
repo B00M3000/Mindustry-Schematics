@@ -3,46 +3,65 @@
 
     export let creator_id: string;
 
-    let author_page = `/user/${creator_id}`
+    function visit(){
+        window.location.assign(`/user/${creator_id}`)
+    }
 </script>
 
 <template>
-    <div>
-        <a href={author_page}> 
-            {#await user.get(creator_id)}
-                <span>Loading...</span>
-                <img src="/assets/discord_default_avatar.png"/>
-            {:then user}
-                <span>{user.username}</span>
-                <div class="avatar-container">
-                    <img src="{user.avatar_url}"/>
-                    {#if user.verified}
-                        <img src="/assets/verified.svg" class="icon verified"/>
+    <div class="container" on:click={visit}>
+        {#await user.get(creator_id)}
+            <span>Loading...</span>
+            <img src="/assets/discord_default_avatar.png"/>
+        {:then user}
+            <span>{user.username}</span>
+            <div class="avatar-container">
+                <img src="{user.avatar_url}"/>
+                {#if user.verified}
+                    <img src="/assets/verified.svg" class="icon verified"/>
+                {/if}
+                {#if user.access}
+                    {#if user.access == "mod"}
+                        <img src="/assets/mod.svg" class="icon access mod"/>
                     {/if}
-                    {#if user.access}
-                        {#if user.access == "mod"}
-                            <img src="/assets/mod.svg" class="icon access"/>
-                        {/if}
-                        {#if user.access == "admin"}
-                            <img src="/assets/admin.svg" class="icon access"/>
-                        {/if}
+                    {#if user.access == "admin"}
+                        <img src="/assets/admin.svg" class="icon access"/>
                     {/if}
-                </div>
-            {/await}
-        </a>
+                {/if}
+            </div>
+        {/await}
     </div>
 </template>
   
 <style>
-    div {
-        background-color: grey;
+    .container {
+        display: inline-flex;
+        background-color: var(--surface);
         border-radius: 25px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 7px;
+        padding-right: 14px;
     }
     span {
-        align-self: center;
+        margin: 7px;
     }
     img {
         width: 32px;
+        border-radius: 50%;
+    }
+
+    .avatar-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+    }
+    
+    .mod {
+        filter: hue-rotate(200);
     }
 
     .icon {
@@ -50,14 +69,15 @@
     }
 
     .verified {
-        position: relative;
-        top: -20px;
-        left: -12.5px;
+        position: absolute;
+        top: 1px;
+        right: -3px;
     }
 
     .access {
-        position: relative;
-        left: -30px;
+        position: absolute;
+        top: 22px;
+        right: -3px;
     }
 </style>
   
