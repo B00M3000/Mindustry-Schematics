@@ -14,7 +14,20 @@
                 <img src="/assets/discord_default_avatar.png"/>
             {:then user}
                 <span>{user.username}</span>
-                <img src="{user.avatar_url}"/>
+                <div class="avatar-container">
+                    <img src="{user.avatar_url}"/>
+                    {#if user.verified}
+                        <img src="/assets/verified.svg" class="icon verified"/>
+                    {/if}
+                    {#if user.access}
+                        {#if user.access == "mod"}
+                            <img src="/assets/mod.svg" class="icon access"/>
+                        {/if}
+                        {#if user.access == "admin"}
+                            <img src="/assets/admin.svg" class="icon access"/>
+                        {/if}
+                    {/if}
+                </div>
             {/await}
         </a>
     </div>
@@ -30,6 +43,21 @@
     }
     img {
         width: 32px;
+    }
+
+    .icon {
+        width: 12px;
+    }
+
+    .verified {
+        position: relative;
+        top: -20px;
+        left: -12.5px;
+    }
+
+    .access {
+        position: relative;
+        left: -30px;
     }
 </style>
   

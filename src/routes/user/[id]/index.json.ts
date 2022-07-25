@@ -9,11 +9,10 @@ export const GET: RequestHandler = async (req) => {
     if(!user) return { status: 400, body: { message: "Invalid User ID " } }
 
     return {
-        status: 400,
+        status: 200,
         body: {
-            id: user.id,
-            username: user.username,
-            avatar_url: user.avatar_url
+            ...user._doc,
+            id: user._id
         },
     };
 };

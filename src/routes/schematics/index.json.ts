@@ -145,10 +145,11 @@ export const POST: RequestHandler<never, PostOutput> = async (req) => {
     return {
       status: 422,
       headers: {
-        location: '/schematics',
+        location: '/',
       },
       body: {
-        error: 'Could not create schematic',
+        message: 'Could not create schematic',
+        error
       },
     };
   }
