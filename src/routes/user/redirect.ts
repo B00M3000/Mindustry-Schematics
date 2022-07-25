@@ -12,8 +12,6 @@ async function get_tokens(code: string) {
   data.append('scope', 'identify');
   data.append('code', code);
 
-  console.log(`${env.WEBSITE_URL}/user/redirect`);
-
   const response = await fetch('https://discordapp.com/api/oauth2/token', {
     method: 'POST',
     body: data as never,
@@ -41,14 +39,16 @@ async function join_discord_server(
     {
       method: 'PUT',
       headers: {
-        authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+        Authorization: `Bot ${env.DISCORD_BOT_TOKEN}`,
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         access_token: `${token_type} ${access_token}`,
       }),
     },
   );
-  console.log(response);
+  const data = await response.json()
+  console.log(data);
 }
 
 export const GET: RequestHandler = async (req) => {
@@ -64,7 +64,6 @@ export const GET: RequestHandler = async (req) => {
 
   const data = await get_tokens(code);
   if (!data.access_token) {
-    console.log(data);
     return {
       status: 307,
       headers: {
