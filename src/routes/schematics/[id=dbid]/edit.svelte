@@ -14,6 +14,8 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
+  import BottomBar from '@/client/components/BottomBar.svelte';
+
   export let schematic: SchematicJSON;
 </script>
 
@@ -26,12 +28,13 @@
     title Edit a Schematic
 
   h1 Edit a Schematic
-  SchematicForm(
-    variant="edit"
-    action="/schematics/{schematic._id}/edit.json"
-    initialData!="{schematic}"
-  )
-  footer
+  div
+    SchematicForm(
+      variant="edit"
+      action="/schematics/{schematic._id}/edit.json"
+      initialData!="{schematic}"
+    )
+  BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
@@ -39,5 +42,8 @@
   h1 {
     text-align: center;
     margin: 1.5rem 0;
+  }
+  div {
+    margin-bottom: 2rem;
   }
 </style>

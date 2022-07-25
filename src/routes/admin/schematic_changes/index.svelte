@@ -26,6 +26,7 @@
   import LazyImage from '@/client/components/LazyImage.svelte';
   import { auth } from '@/client/stores/auth';
   import { Access, UserAccess } from '@/lib/auth/access';
+  import BottomBar from '@/client/components/BottomBar.svelte';
   export let changes: SchematicChangeInfoJSON[] = [];
 </script>
 
@@ -41,8 +42,8 @@
             span(class!="{change.mode}") {change.mode} 
             span {change.name}
           LazyImage(src="/schematics/{change.id}.png" alt="schematic preview")
-    footer
-      BackButton(href="/user" smart)
+  BottomBar
+    BackButton(href="/user" smart)
 </template>
 
 <style>

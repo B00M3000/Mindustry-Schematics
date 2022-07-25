@@ -22,11 +22,12 @@
   import type { Load } from '@sveltejs/kit';
   import { toast } from '@zerodevx/svelte-toast';
   import { Tag } from '@/lib/tags';
+  import BottomBar from '@/client/components/BottomBar.svelte';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/schematics/${schematic._id}.png`;
-  const description = safeDescription(schematic.description ?? ''); 
+  const description = safeDescription(schematic.description ?? '');
   const tags = Tag.parse(schematic.tags);
   const items: ItemName[] = [
     'copper',
@@ -112,7 +113,7 @@
         src="/assets/trash.svg"
         alt="delete schematic"
       )
-  footer
+  BottomBar
     BackButton(href="/" smart)
 </template>
 
