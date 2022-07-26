@@ -1,8 +1,11 @@
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
+import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseFormData } from '@/server/body_parsing';
+import { UserAccess, Access } from '@/lib/auth/access'
+import webhooks from '@/server/webhooks'
 
 type Params = {
   id: string;
@@ -17,7 +20,7 @@ interface PostBody {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, url, locals }) => {
   const originalSchematic = await SchematicSchema.findOne({
     _id: params.id,
   });
@@ -29,7 +32,6 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       },
       body: { error: 'Not found' },
     };
-
   const {
     name,
     text,
@@ -45,6 +47,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       body: { error: 'Missing required data' },
     };
   }
+
   let tags: string[] | undefined;
   try {
     tags = Tag.parse(JSON.parse(stringTags) as string[]).map((tag) => tag.name);
@@ -77,17 +80,51 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
     },
   };
 
-  const change = await SchematicChangeSchema.create({
-    id: originalSchematic._id,
-    Changed: changedSchematic,
-    Description: cDescription,
-  });
+  if(url.searchParams.get("direct")){
+    if(UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
+      const schematic = (await SchematicSchema.findOneAndUpdate(
+        {
+          _id: params.id,
+        },
+        changedSchematic,
+      )) as SchematicDocument;
+      await SchematicChangeSchema.deleteOne({
+        _id: params.id,
+      });
+      webhooks.editSchematic({
+        changes: `Direct Edit by ${locals.user.username}\n${cDescription}`,
+        schematicId: schematic._id,
+        schematicName: schematic.name,
+        triggeredAt: new Date().getTime(),
+      });
+      return {
+        status: 200,
+        headers: {
+          location: `/schematics/${params.id}`,
+        },
+      };
+    } else {
+      return {
+        status: 403,
+        body: {
+          message: "Unauthorized"
+        },
+      };
+    }
+    
+  } else {
+    const change = await SchematicChangeSchema.create({
+      id: originalSchematic._id,
+      Changed: changedSchematic,
+      Description: cDescription,
+    });
 
-  return {
-    status: 200,
-    headers: {
-      location: `/schematics/${originalSchematic._id}`,
-    },
-    body: { change: change._id },
-  };
+    return {
+      status: 200,
+      headers: {
+        location: `/schematics/${originalSchematic._id}`,
+      },
+      body: { change: change._id },
+    };
+  }
 };

@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, params }) => {
+  export const load: Load = async ({ fetch, params, session }) => {
     const { id } = params;
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
+    const access = UserAccess.from(session.access);
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
     return {
-      props: { schematic },
+      props: { schematic, directActions },
     };
   };
 </script>
@@ -15,8 +17,10 @@
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
   import BottomBar from '@/client/components/BottomBar.svelte';
+  import { UserAccess, Access } from '@/lib/auth/access';
 
   export let schematic: SchematicJSON;
+  export let directActions: boolean;
 </script>
 
 <template lang="pug">
@@ -33,6 +37,7 @@
       variant="edit"
       action="/schematics/{schematic._id}/edit.json"
       initialData!="{schematic}"
+      directActions
     )
   BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)

@@ -36,25 +36,20 @@
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    // if ($auth.access.can({ schematics: Access.deleteAll })) {
-    //   const { change } = await response.json();
-    //   const changeUrl = `/admin/schematic_changes/${change}`;
-    //   toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
-    // }
+    if ($auth.access.can({ schematics: Access.deleteAll })) {
+      const { change } = await response.json();
+      const changeUrl = `/admin/schematic_changes/${change}`;
+      toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
+    }
   }
   async function direct() {
-    console.log("HEllO!")
+    submitting = true
     const data = new FormData(form);
     const response = await fetch(`/schematics/${schematic._id}/delete.json?direct=true`, {
       method: 'POST',
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    // if ($auth.access.can({ schematics: Access.deleteAll })) {
-    //   const { change } = await response.json();
-    //   const changeUrl = `/admin/schematic_changes/${change}`;
-    //   toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
-    // }
   }
 </script>
 
@@ -82,8 +77,8 @@
         required
       )
     div
-      button(type="submit") Submit Deletion Request
-      button(type="button" on:click!="{direct}") Direct Deletion
+      button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
+      button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
   BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>

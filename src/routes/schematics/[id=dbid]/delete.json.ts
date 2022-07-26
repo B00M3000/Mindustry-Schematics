@@ -15,6 +15,8 @@ interface PostBody {
 
 type PostOutput = { error: string } | { change: string };
 export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, url, locals }) => {
+  const { reason }: Partial<PostBody> =
+      (await parseFormData(request)) ?? (await request.json());
   if(url.searchParams.get('direct')){
     if(UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
       const schematic = (await SchematicSchema.findOneAndDelete({
@@ -23,8 +25,6 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       await SchematicChangeSchema.deleteMany({
         id: params.id,
       });
-      const { reason }: Partial<PostBody> =
-      (await parseFormData(request)) ?? (await request.json());
       webhooks.deleteSchematic({
         triggeredAt: new Date().getTime(),
         reason: "Direct Deletion by " + locals.user.username + "\n" + reason,
@@ -45,7 +45,6 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
         },
       };
     }
-    
   } else {
     const schematic = await SchematicSchema.findOne({ _id: params.id });
     if (!schematic)

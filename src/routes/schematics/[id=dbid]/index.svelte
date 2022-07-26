@@ -5,6 +5,7 @@
     query.append('increment', 'true');
     const response = await fetch(`/schematics/${id}.json?${query}`);
     const schematic = await response.json();
+    if(!Object.keys(schematic).length) return { status: 307, redirect: "/" }
     return {
       props: { schematic },
     };
@@ -23,6 +24,7 @@
   import { toast } from '@zerodevx/svelte-toast';
   import { Tag } from '@/lib/tags';
   import BottomBar from '@/client/components/BottomBar.svelte';
+  import { goto } from '$app/navigation';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
