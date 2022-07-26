@@ -5,6 +5,7 @@
     query.append('increment', 'true');
     const response = await fetch(`/schematics/${id}.json?${query}`);
     const schematic = await response.json();
+    if(!Object.keys(schematic).length) return { status: 307, redirect: "/" }
     return {
       props: { schematic },
     };
@@ -23,6 +24,7 @@
   import { toast } from '@zerodevx/svelte-toast';
   import { Tag } from '@/lib/tags';
   import BottomBar from '@/client/components/BottomBar.svelte';
+  import { goto } from '$app/navigation';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
@@ -92,16 +94,20 @@
         div.tag(style="--color: {tag.color}")
           div.layer {tag.name}
     div.actions
-      IconButton(src="/assets/copy.svg" alt="copy schematic" on:click!="{copySchematic}")
+      IconButton(
+        src="/assets/copy.svg" 
+        alt="copy schematic" 
+        on:click!="{copySchematic}"
+      )
       a(href="/schematics/{schematic._id}.msch" download)
         IconButton(
           src="/assets/download.svg"
           alt="download schematic"
         )
       IconButton(
-      src="/assets/share.svg"
-      alt="share schematic"
-      on:click!="{() => share(schematic.name, window.location.href)}"
+        src="/assets/share.svg"
+        alt="share schematic"
+        on:click!="{() => share(schematic.name, window.location.href)}"
       )
       IconButton(
         href="/schematics/{schematic._id}/edit"
