@@ -25,12 +25,12 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       });
       const { reason }: Partial<PostBody> =
       (await parseFormData(request)) ?? (await request.json());
-      // webhooks.deleteSchematic({
-      //   triggeredAt: new Date().getTime(),
-      //   reason: "Direct Deletion by " + locals.user.username + "\n" + reason,
-      //   schematicId: params.id,
-      //   schematicName: schematic.name,
-      // });
+      webhooks.deleteSchematic({
+        triggeredAt: new Date().getTime(),
+        reason: "Direct Deletion by " + locals.user.username + "\n" + reason,
+        schematicId: params.id,
+        schematicName: schematic.name,
+      });
       return {
         status: 200,
         headers: {
