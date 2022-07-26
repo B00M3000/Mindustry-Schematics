@@ -37,7 +37,7 @@
       variant="edit"
       action="/schematics/{schematic._id}/edit.json"
       initialData!="{schematic}"
-      directActions
+      directActions!="{directActions}"
     )
   BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)

@@ -81,7 +81,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
   };
 
   if(url.searchParams.get("direct")){
-    if(UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
+    if(locals.user && UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
       const schematic = (await SchematicSchema.findOneAndUpdate(
         {
           _id: params.id,

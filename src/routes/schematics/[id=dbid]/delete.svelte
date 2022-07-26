@@ -78,7 +78,8 @@
       )
     div
       button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
-      button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
+      +if("directActions")
+        button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
   BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>

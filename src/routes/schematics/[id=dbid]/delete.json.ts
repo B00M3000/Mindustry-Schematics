@@ -18,7 +18,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
   const { reason }: Partial<PostBody> =
       (await parseFormData(request)) ?? (await request.json());
   if(url.searchParams.get('direct')){
-    if(UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
+    if(locals.user && UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
       const schematic = (await SchematicSchema.findOneAndDelete({
         _id: params.id,
       })) as SchematicDocument;
