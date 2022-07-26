@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, params }) => {
+  export const load: Load = async ({ fetch, params, session }) => {
     const { id } = params;
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
+    const access = UserAccess.from(session.access);
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
     return {
-      props: { schematic },
+      props: { schematic, directActions },
     };
   };
 </script>
@@ -17,8 +19,10 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
-  import { Access } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   import BottomBar from '@/client/components/BottomBar.svelte';
+
+  export let directActions: boolean;
 
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
@@ -32,11 +36,25 @@
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    if ($auth.access.can({ schematics: Access.deleteAll })) {
-      const { change } = await response.json();
-      const changeUrl = `/admin/schematic_changes/${change}`;
-      toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
-    }
+    // if ($auth.access.can({ schematics: Access.deleteAll })) {
+    //   const { change } = await response.json();
+    //   const changeUrl = `/admin/schematic_changes/${change}`;
+    //   toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
+    // }
+  }
+  async function direct() {
+    console.log("HEllO!")
+    const data = new FormData(form);
+    const response = await fetch(`/schematics/${schematic._id}/delete.json?direct=true`, {
+      method: 'POST',
+      body: data,
+    });
+    await goto(response.headers.get('location') as string);
+    // if ($auth.access.can({ schematics: Access.deleteAll })) {
+    //   const { change } = await response.json();
+    //   const changeUrl = `/admin/schematic_changes/${change}`;
+    //   toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
+    // }
   }
 </script>
 
@@ -63,12 +81,17 @@
         placeholder="Why should this schematic be removed?"
         required
       )
-    button(type="submit") Submit Deletion Request
+    div
+      button(type="submit") Submit Deletion Request
+      button(type="button" on:click!="{direct}") Direct Deletion
   BottomBar
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
 <style>
+  button {
+    margin: 5px;
+  }
   h1 {
     text-align: center;
     margin-top: 1.5rem;
