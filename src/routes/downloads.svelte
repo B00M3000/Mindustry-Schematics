@@ -17,12 +17,14 @@
   main
     ul.downloads
       li
-        a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar")
-          li
-            button Download Foo's AG Client
-      li
         a(href="https://github.com/Anuken/Mindustry/releases/latest/download/Mindustry.jar")
-          button Download Official Mindustry Client
+          button Download Latest Stable Official Mindustry Client
+      li
+        a(href="https://github.com/Anuken/Mindustry/releases")
+            button Latest Official Mindustry Client Releases
+      li
+        a(href="https://github.com/blahblahbloopster/mindustry-client-v6/releases/latest/download/desktop.jar")
+            button Download Foo's AG Client
 </template>
 
 <style>

@@ -42,18 +42,21 @@ export class EventHandler {
     if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('green'),
+      type: "rich",
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
       image: {
         url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
     });
+    console.log(`${this.websiteURL}/schematics/${event.schematicId}.png`)
   }
 
   editSchematic(event: EditSchematicEvent): void {
     if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('yellow'),
+      type: "rich",
       title: `Changed: ${event.schematicName}`,
       description: event.changes,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
@@ -67,6 +70,7 @@ export class EventHandler {
     if (!env.ENABLE_WEBHOOKS) return;
     this.webhookHandler.sendEmbed({
       color: colors.get('red'),
+      type: "rich",
       title: `Deleted: ${event.schematicName}`,
       description: event.reason,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
@@ -75,17 +79,18 @@ export class EventHandler {
       },
     });
   }
-  unhandledError(event: UnhandledErrorEvent): void {
-    // TODO: send error logs on a different discord channel
-    this.webhookHandler.sendEmbed(
-      {
-        color: colors.get('red'),
-        title: 'Unhandled Error',
-        description: event.message,
-      },
-      true,
-    );
-  }
+  
+  // unhandledError(event: UnhandledErrorEvent): void {
+  //   // TODO: send error logs on a different discord channel
+  //   this.webhookHandler.sendEmbed(
+  //     {
+  //       color: colors.get('red'),
+  //       title: 'Unhandled Error',
+  //       description: event.message,
+  //     },
+  //     true,
+  //   );
+  // }
 }
 const discordHandler = new DiscordWebhookHandler(
   env.PRIVATE_WEBHOOK_URL as string,

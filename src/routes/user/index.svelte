@@ -20,7 +20,7 @@
           button Schematic Changes
       a.link(on:click="{user.logout}")
         button Logout 
-      p This authentication system is currently in development and serves no functionality other than for mods and admins.
+      p This authentication system is currently in development and serves no functionality other than for mods and admins at the moment.
     +else
       div.logins        
         DiscordLogin
