@@ -24,12 +24,12 @@ export const POST: RequestHandler = async (req) => {
     await SchematicChangeSchema.deleteMany({
       id: change.id,
     });
-    webhooks.deleteSchematic({
-      triggeredAt: new Date().getTime(),
-      reason: change.Description || '',
-      schematicId: schematic._id,
-      schematicName: schematic.name,
-    });
+    // webhooks.deleteSchematic({
+    //   triggeredAt: new Date().getTime(),
+    //   reason: change.Description || '',
+    //   schematicId: schematic._id,
+    //   schematicName: schematic.name,
+    // });
   } else {
     const schematic = (await SchematicSchema.findOneAndUpdate(
       {
@@ -40,12 +40,12 @@ export const POST: RequestHandler = async (req) => {
     await SchematicChangeSchema.deleteOne({
       _id: change._id,
     });
-    webhooks.editSchematic({
-      changes: change.Description || '',
-      schematicId: schematic._id,
-      schematicName: schematic.name,
-      triggeredAt: new Date().getTime(),
-    });
+    // webhooks.editSchematic({
+    //   changes: change.Description || '',
+    //   schematicId: schematic._id,
+    //   schematicName: schematic.name,
+    //   triggeredAt: new Date().getTime(),
+    // });
   }
   return {
     status: 200,
