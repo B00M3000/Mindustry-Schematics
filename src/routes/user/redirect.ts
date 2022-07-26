@@ -4,18 +4,20 @@ import env from '@/server/env';
 import * as cookie from 'cookie';
 
 async function get_tokens(code: string) {
-  const data = new URLSearchParams();
-  data.append('client_id', env.DISCORD_APPLICATION_ID!);
-  data.append('client_secret', env.DISCORD_APPLICATION_SECRET!);
-  data.append('grant_type', 'authorization_code');
-  data.append('redirect_uri', `${env.WEBSITE_URL}/user/redirect`);
-  data.append('scope', 'identify');
-  data.append('code', code);
+  const data = new URLSearchParams({
+    'client_id': env.DISCORD_APPLICATION_ID!,
+    'client_secret': env.DISCORD_APPLICATION_SECRET!,
+    'grant_type': 'authorization_code',
+    'redirect_uri': `${env.WEBSITE_URL}/user/redirect`,
+    'scope': 'identify',
+    'code': code
+  });
 
   const response = await fetch('https://discordapp.com/api/oauth2/token', {
     method: 'POST',
     body: data as never,
   });
+
   return response.json();
 }
 
