@@ -32,8 +32,8 @@
                 </div>
             {/await}
         {:else}
-        <span>Not Found</span>
-        <img src="/assets/discord_default_avatar.png"/>
+            <span>Not Found</span>
+            <img src="/assets/discord_default_avatar.png"/>
         {/if}
     </div>
 </template>
