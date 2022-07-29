@@ -10,7 +10,7 @@ export const GET: RequestHandler = async () => {
   });
   
   return {
-    status: 307,
+    status: 300,
     headers: {
       location: `https://discord.com/api/oauth2/authorize?${params}`,
     },
