@@ -4,7 +4,7 @@
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     const access = UserAccess.from(session.access);
-    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll })  || session.id == schematic.creator_id;
     return {
       props: { schematic, directActions },
     };

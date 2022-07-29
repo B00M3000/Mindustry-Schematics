@@ -33,7 +33,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
   const { reason }: Partial<PostBody> =
       (await parseFormData(request)) ?? (await request.json());
   if(url.searchParams.get('direct')){
-    if(locals.user && UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
+    if(locals.user && ( UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) || locals.user.id == schematic.creator_id)){
       const schematic = (await SchematicSchema.deleteOne({
         _id: params.id,
       }));
