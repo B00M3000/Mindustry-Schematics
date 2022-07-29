@@ -17,7 +17,13 @@ interface PostBody {
   cDescription: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, locals }) => {
+  if(!locals.user) return {
+    status: 403,
+      body: {
+        error: 'Unauthorized, please login before trying agian.',
+      },
+  }
   const originalSchematic = await SchematicSchema.findOne({
     _id: params.id,
   });
@@ -39,7 +45,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
     tags: stringTags,
   }: Partial<PostBody> = (await parseFormData(request)) ?? (await request.json());
 
-  if (!text || !name || !creator || !description || !cDescription || !stringTags) {
+  if (!text || !name || !description || !cDescription || !stringTags) {
     return {
       status: 400,
       body: { error: 'Missing required data' },
@@ -81,6 +87,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
     id: originalSchematic._id,
     Changed: changedSchematic,
     Description: cDescription,
+    creator_id: locals.user.id
   });
 
   return {

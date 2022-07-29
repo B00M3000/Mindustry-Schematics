@@ -36,6 +36,7 @@ export type SchematicChangeInfoJSON = Pick<SchematicChangeDocument, 'id' | '_id'
 export interface SchematicChangeJSON {
   change: LeanDocument<SchematicChangeDocument>;
   mode: ChangeMode;
+  creator_id: string;
   original?: SchematicJSON | null;
   differentImages: boolean;
 }

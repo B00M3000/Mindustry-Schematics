@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, params }) => {
+  export const load: Load = async ({ fetch, params, session }) => {
     const { id } = params;
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
@@ -18,6 +18,7 @@
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { Access } from '@/lib/auth/access';
+  import { user } from '@/client/stores/user'
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
   let submitting = false;
@@ -42,26 +43,29 @@
   svelte:head
     title Delete a Schematic
 
-  h1 Delete a Schematic
-  form(  
-    action="/schematics/{schematic._id}/delete.json"
-    method="POST"
-    bind:this!="{form}"
-    on:submit!="{submit}"
-  )
-    h2.title [Schematic] {schematic.name}
-    img(src="/schematics/{schematic._id}.png" alt="schematic preview")
-    h3.creator by {schematic.creator}
-    h4.description 
-      +html("safeDescription(schematic.description ?? '')")
-    div.inputs
-      label(for="reason")
-      textarea#reason(
-        name="reason"
-        placeholder="Why should this schematic be removed?"
-        required
-      )
-    button(type="submit") Submit Deletion Request
+  +if("$user.id")
+    h1 Delete a Schematic
+    form(  
+      action="/schematics/{schematic._id}/delete.json"
+      method="POST"
+      bind:this!="{form}"
+      on:submit!="{submit}"
+    )
+      h2.title [Schematic] {schematic.name}
+      img(src="/schematics/{schematic._id}.png" alt="schematic preview")
+      h3.creator by {schematic.creator}
+      h4.description 
+        +html("safeDescription(schematic.description ?? '')")
+      div.inputs
+        label(for="reason")
+        textarea#reason(
+          name="reason"
+          placeholder="Why should this schematic be removed?"
+          required
+        )
+      button(type="submit") Submit Deletion Request
+    +else
+      p You need an account to submit deletion requests
   footer
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>

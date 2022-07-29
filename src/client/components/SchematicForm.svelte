@@ -76,7 +76,7 @@
     await goto(url || '/');
     if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
       const { change } = await response.json();
-      const changeUrl = `/admin/schematic_changes/${change}`;
+      const changeUrl = `/admin/schematic_changes/${change._id}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
     }
   }

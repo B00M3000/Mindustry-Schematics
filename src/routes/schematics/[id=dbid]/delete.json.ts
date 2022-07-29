@@ -11,7 +11,13 @@ interface PostBody {
 }
 
 type PostOutput = { error: string } | { change: string };
-export const POST: RequestHandler<Params, PostOutput> = async ({ params, request }) => {
+export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, locals }) => {
+  if(!locals.user) return {
+    status: 403,
+      body: {
+        error: 'Unauthorized, please login before trying agian.',
+      },
+  }
   const schematic = await SchematicSchema.findOne({ _id: params.id });
   if (!schematic)
     return {
@@ -27,6 +33,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
   const change = await SchematicChangeSchema.create({
     id: schematic._id,
     Delete: reason,
+    creator_id: locals.user.id
   });
 
   return {

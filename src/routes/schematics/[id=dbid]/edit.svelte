@@ -14,6 +14,7 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
+  import { user } from '@/client/stores/user'
   export let schematic: SchematicJSON;
 </script>
 
@@ -25,12 +26,15 @@
     meta(property="og:type" content="website")
     title Edit a Schematic
 
-  h1 Edit a Schematic
-  SchematicForm(
-    variant="edit"
-    action="/schematics/{schematic._id}/edit.json"
-    initialData!="{schematic}"
-  )
+  +if("$user.id")
+    h1 Edit a Schematic
+    SchematicForm(
+      variant="edit"
+      action="/schematics/{schematic._id}/edit.json"
+      initialData!="{schematic}"
+    )
+    +else
+      p you need to be logged in to edit schematics
   footer
     BackButton(href="/schematics/{schematic._id}" smart)
 </template>
