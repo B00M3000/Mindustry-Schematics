@@ -12,6 +12,7 @@
   import { onMount } from 'svelte';
   import { Access } from '@/lib/auth/access';
   import { Tag } from '@/lib/tags';
+  import AuthorCard from './AuthorCard.svelte';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -174,6 +175,10 @@ div.wrapper(class!="{parseState}")
         required
         value!="{name}"
       )
+      +if('variant == "edit"')
+        div
+          span by 
+          AuthorCard(creator_id!="{initialData.creator_id}")  
       label(for="description") Description:
       textarea(
         name="description"

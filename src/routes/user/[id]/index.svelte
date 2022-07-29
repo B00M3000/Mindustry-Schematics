@@ -21,12 +21,12 @@
   </svelte:head>
   
   <main>
-    <div class="container">
+    <div class="user-card">
       {#await user.get(user_id)}
           <span>Loading...</span>
-          <img src="/assets/discord_default_avatar.png"/>
+          <img class="avatar" src="/assets/discord_default_avatar.png"/>
       {:then user}
-          <span>{user.username}</span>
+          <span class="card-username">{user.username}</span>
           <div class="avatar-container">
               <img src="{user.avatar_url}"/>
               {#if user.verified}
@@ -43,6 +43,7 @@
           </div>
       {/await}
     </div>
+    <p>Additional information will be added at a future time!</p>
   </main>
   <!-- AuthorCard(creator_id!="{user_id}") -->
 </template>
@@ -52,8 +53,9 @@
     padding: 20%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
-  .container {
+  .user-card {
       display: inline-flex;
       background-color: var(--surface);
       border-radius: 25px;
@@ -63,11 +65,11 @@
       padding: 21px;
       padding-right: 42px;
   }
-  span {
+  .card-username {
       font-size: 36px;
       margin: 21px;
   }
-  img {
+  .avatar {
       width: 128px;
       border-radius: 50%;
   }

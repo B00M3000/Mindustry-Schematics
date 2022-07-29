@@ -73,7 +73,7 @@
     h1.title {title}
     h5.views Views {schematic.views}
     img#preview(src!="{imgUrl}" alt="schematic preview")
-    div
+    div by 
       AuthorCard(creator_id!="{schematic.creator_id}")
     h4.description
       +html("description")

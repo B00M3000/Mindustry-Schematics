@@ -18,9 +18,10 @@
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+      a.link(href="/user/{$user.id}")
+        button Public Profile 
       a.link(on:click="{user.logout}")
         button Logout 
-      p This authentication system is currently in development and serves no functionality other than for mods and admins at the moment.
     +else
       div.logins        
         DiscordLogin
