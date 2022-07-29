@@ -10,7 +10,7 @@
   h1 Create Schematic
   p.
     Policy: When adding schematics created by other's please give credit in comments. 
-    If you find that someone has posted a schematic that you created, please join the discord server and ping @NoobMan13.
+    If you find that someone has posted a schematic that you created, please join the discord server in the info tab and ping @NoobMan13.
   +if("$user.id")
     SchematicForm(variant="create" action="/schematics.json")
     +else
