@@ -16,7 +16,7 @@ specifiers:
   eslint: ^8.20.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
-  mindustry-schematic-parser: ^4.2.0-alpha.0
+  mindustry-schematic-parser: 4.2.0-alpha.1
   mongoose: ^6.4.6
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.7.0
@@ -34,7 +34,7 @@ dependencies:
   cookie: 0.5.0
   diff: 5.1.0
   dotenv: 16.0.1
-  mindustry-schematic-parser: 4.2.0-alpha.0
+  mindustry-schematic-parser: 4.2.0-alpha.1
   mongoose: 6.4.6
   showdown: 2.1.0
 
@@ -1496,8 +1496,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /mindustry-schematic-parser/4.2.0-alpha.0:
-    resolution: {integrity: sha512-HrS1pLm6KIupMWoysmIVTZ1EDWi4RVHARRi4njJ4Hl14txXiR9h9Ujbe2pRJL3JUCDC659QWAmM0AtwNFcgJVw==}
+  /mindustry-schematic-parser/4.2.0-alpha.1:
+    resolution: {integrity: sha512-oFAnREVG5gTG7YIcB3gMDlepYm8tfXXwF11zFVyC6Edszn/l9ibYDUVr1y9s2dH3ZXri9pQYkAldf6P+c1csJA==}
     engines: {node: '>=12'}
     dependencies:
       canvas: 2.9.3
