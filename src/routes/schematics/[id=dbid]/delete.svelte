@@ -3,8 +3,10 @@
     const { id } = params;
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
+    const access = UserAccess.from(session.access);
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
     return {
-      props: { schematic },
+      props: { schematic, directActions },
     };
   };
 </script>
@@ -17,8 +19,13 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
-  import { Access } from '@/lib/auth/access';
   import { user } from '@/client/stores/user'
+  import { Access, UserAccess } from '@/lib/auth/access';
+  import BottomBar from '@/client/components/BottomBar.svelte';
+  import AuthorCard from '@/client/components/AuthorCard.svelte';
+
+  export let directActions: boolean;
+
   export let schematic: SchematicJSON;
   let form: HTMLFormElement;
   let submitting = false;
@@ -37,6 +44,15 @@
       toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);
     }
   }
+  async function direct() {
+    submitting = true
+    const data = new FormData(form);
+    const response = await fetch(`/schematics/${schematic._id}/delete.json?direct=true`, {
+      method: 'POST',
+      body: data,
+    });
+    await goto(response.headers.get('location') as string);
+  }
 </script>
 
 <template lang="pug">
@@ -52,8 +68,9 @@
       on:submit!="{submit}"
     )
       h2.title [Schematic] {schematic.name}
+      div by 
+        AuthorCard(creator_id!="{schematic.creator_id}")
       img(src="/schematics/{schematic._id}.png" alt="schematic preview")
-      h3.creator by {schematic.creator}
       h4.description 
         +html("safeDescription(schematic.description ?? '')")
       div.inputs
@@ -63,14 +80,21 @@
           placeholder="Why should this schematic be removed?"
           required
         )
-      button(type="submit") Submit Deletion Request
+      div
+        button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
+        +if("directActions")
+          button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
     +else
       p You need an account to submit deletion requests
   footer
-    BackButton(href="/schematics/{schematic._id}" smart)
+    BottomBar
+      BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
 <style>
+  button {
+    margin: 5px;
+  }
   h1 {
     text-align: center;
     margin-top: 1.5rem;
@@ -131,7 +155,7 @@
       grid-template-rows: min-content min-content auto min-content min-content min-content min-content min-content;
       grid-template-areas:
         'title'
-        'author'
+        'creator'
         'preview'
         'description'
         'input'

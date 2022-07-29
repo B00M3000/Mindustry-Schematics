@@ -11,6 +11,8 @@
 </script>
 
 <script lang="ts">
+  import BottomBar from '@/client/components/BottomBar.svelte';
+
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import type { Load } from '@sveltejs/kit';
 
@@ -29,7 +31,7 @@
   main
     article
       +html("content.html")
-  footer
+  BottomBar
     BackButton(href="/guides")
 </template>
 
@@ -38,6 +40,9 @@
     color: var(--on-background);
     text-align: center;
     padding: 0 2em;
+  }
+  main {
+    margin-bottom: 2rem;
   }
   main :global(article h1) {
     margin: 1em 0;

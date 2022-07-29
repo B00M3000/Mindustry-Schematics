@@ -19,6 +19,7 @@
   import { goto } from '$app/navigation';
   import type { Load } from '@sveltejs/kit';
   import { Tag } from '@/lib/tags';
+  import BottomBar from '@/client/components/BottomBar.svelte';
   export let data: SchematicQueryJSON;
   let form: HTMLFormElement;
   let currentTags = Tag.parse(data.tags.split(' '));
@@ -70,43 +71,45 @@
       +each("data.schematics as schematic")
         li.schematic
           SchematicCard({schematic})
-  footer
-    IconButton(
-      href!="{pageLink(1)}"
+  
+  div.bottom
+    BottomBar
+      IconButton(
+        href!="{pageLink(1)}"      
       src="/assets/double_chevron.svg"
       alt="first page"
-      class!="{data.page < 3 ? 'hidden' : ''}"
-      border
-    )
-    IconButton(
-      href!="{pageLink(data.page - 1 || 1)}"
-      src="/assets/chevron.svg"
-      alt="previous page"
-      class!="{data.page < 2 ? 'hidden' : ''}"
-      border
-    )
-    IconButton(
-      href="/schematics/create"
-      src="/assets/add.svg"
-      alt="add schematic"
-      class="add"
-      border
-    )
-      span Add Schematic
-    IconButton.right(
-      href!="{pageLink(data.page + 1)}"
-      src="/assets/chevron.svg"
-      alt="next page"
-      class!="{data.page > data.pages - 1 ? 'hidden' : ''}"
-      border
-    )
-    IconButton.right(
-      href!="{pageLink(data.pages)}"
-      src="/assets/double_chevron.svg"
-      alt="last page"
-      class!="{data.page > data.pages - 2 ? 'hidden' : ''}"
-      border
-    )
+        class!="{data.page < 3 ? 'hidden' : ''}"
+        border
+      )
+      IconButton(
+        href!="{pageLink(data.page - 1 || 1)}"
+        src="/assets/chevron.svg"
+        alt="previous page"
+        class!="{data.page < 2 ? 'hidden' : ''}"
+        border
+      )
+      IconButton(
+        href="/schematics/create"
+        src="/assets/add.svg"
+        alt="add schematic"
+        class="add"
+        border
+      )
+        span Add Schematic
+      IconButton.right(
+        href!="{pageLink(data.page + 1)}"
+        src="/assets/chevron.svg"
+        alt="next page"
+        class!="{data.page > data.pages - 1 ? 'hidden' : ''}"
+        border
+      )
+      IconButton.right(
+        href!="{pageLink(data.pages)}"
+        src="/assets/double_chevron.svg"
+        alt="last page"
+        class!="{data.page > data.pages - 2 ? 'hidden' : ''}"
+        border
+      )
 </template>
 
 <style>
@@ -201,10 +204,13 @@
     justify-content: center;
     list-style: none;
   }
-  footer :global(.right img) {
+  .bottom {
+    display: contents;
+  }
+  .bottom :global(.right img) {
     transform: scaleX(-1);
   }
-  footer :global(a.hidden) {
+  .bottom :global(a.hidden) {
     visibility: hidden;
     pointer-events: none;
   }
@@ -214,11 +220,11 @@
       padding: 1em 5%;
     }
 
-    footer :global(.add span) {
+    .bottom :global(.add span) {
       display: none;
     }
 
-    footer {
+    .bottom {
       justify-content: space-evenly;
     }
   }

@@ -17,6 +17,8 @@
   export let initialData: SchematicJSON | undefined = undefined;
   export let method = 'POST';
 
+  export let directActions: boolean | undefined = false;
+
   // rendering controls
   type Mode = 'text' | 'file';
   let mode: Mode = 'text';
@@ -79,6 +81,21 @@
       const changeUrl = `/admin/schematic_changes/${change._id}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
     }
+  }
+  async function direct() {
+    submitting = true
+    const data = new FormData(form);
+    if (data.has('file')) {
+      data.append('text', await fileToText(data.get('file') as File));
+      data.delete('file');
+    }
+    data.append('tags', JSON.stringify(currentTags.map((tag) => tag.name)));
+    const response = await fetch(action + "?direct=true", {
+      method,
+      body: data,
+    });
+    const url = response.headers.get('location');
+    await goto(url || '/');
   }
   function changeMode(newMode: Mode) {
     if (parseState == 'parsing') return;
@@ -203,7 +220,10 @@ div.wrapper(class!="{parseState}")
       figcaption Schematic preview
       img(src!="{image}" alt="schematic preview")
     
-    button(disabled!="{submitting}") {submitting ? 'Please wait...' : 'Submit'}
+    div.submits
+      button(disabled!="{submitting}") {submitting ? 'Please wait...' : 'Submit'}
+      +if("directActions && variant == 'edit'")
+        button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Edit'}
   
   div(id="parse-animation")
     h2 Parsing schematic...
@@ -212,6 +232,10 @@ div.wrapper(class!="{parseState}")
 </template>
 
 <style>
+  .submits button {
+    margin: 5px;
+  }
+
   form {
     display: flex;
     flex-direction: column;

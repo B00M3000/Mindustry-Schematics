@@ -8,6 +8,7 @@ interface DiscordWebhookEmbed {
   description?: string;
   color?: string;
   image?: DiscordWebhookEmbedImage;
+  type?: string;
 }
 
 interface DiscordWebhookBody {

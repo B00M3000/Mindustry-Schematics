@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
-  export const load: Load = async ({ fetch, params }) => {
+  export const load: Load = async ({ fetch, params, session }) => {
     const { id } = params;
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
+    const access = UserAccess.from(session.access);
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
     return {
-      props: { schematic },
+      props: { schematic, directActions },
     };
   };
 </script>
@@ -15,7 +17,11 @@
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
   import { user } from '@/client/stores/user'
+  import BottomBar from '@/client/components/BottomBar.svelte';
+  import { UserAccess, Access } from '@/lib/auth/access';
+
   export let schematic: SchematicJSON;
+  export let directActions: boolean;
 </script>
 
 <template lang="pug">
@@ -28,20 +34,26 @@
 
   +if("$user.id")
     h1 Edit a Schematic
-    SchematicForm(
-      variant="edit"
-      action="/schematics/{schematic._id}/edit.json"
-      initialData!="{schematic}"
-    )
+    div
+      SchematicForm(
+        variant="edit"
+        action="/schematics/{schematic._id}/edit.json"
+        initialData!="{schematic}"
+        directActions!="{directActions}"
+      )
     +else
       p you need to be logged in to edit schematics
   footer
-    BackButton(href="/schematics/{schematic._id}" smart)
+    BottomBar
+      BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
 <style>
   h1 {
     text-align: center;
     margin: 1.5rem 0;
+  }
+  div {
+    margin-bottom: 2rem;
   }
 </style>

@@ -32,6 +32,7 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { Access, UserAccess } from '@/lib/auth/access';
   import { Tag } from '@/lib/tags';
+  import BottomBar from '@/client/components/BottomBar.svelte';
   export let data: SchematicChangeJSON;
   let change = data.change;
   let original = data.original;
@@ -108,7 +109,7 @@
                   div.layer
                     span {tag.name}
           Accesss({change})
-  footer
+  BottomBar
     BackButton(href="/admin/schematic_changes" smart)
 </template>
 
