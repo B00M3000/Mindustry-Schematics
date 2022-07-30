@@ -175,9 +175,10 @@ div.wrapper(class!="{parseState}")
         required
         value!="{name}"
       )
+      
       +if('variant == "edit"')
+        label By:
         div
-          span by 
           AuthorCard(creator_id!="{initialData.creator_id}")  
       label(for="description") Description:
       textarea(
