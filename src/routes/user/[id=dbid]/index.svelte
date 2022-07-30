@@ -14,10 +14,9 @@
 
   export let user_id: string;
 
-  const response = async () => {
+  async function fetch_schematics(){
     let res = await fetch(`/user/${user_id}/schematics.json`)
-    let data = res.json()
-    return data
+    return await res.json()
   }
 </script>
 
@@ -49,7 +48,7 @@
           </div>
       {/await}
     </div>
-    {#await response()}
+    {#await fetch_schematics()}
       <p>Retriving schematics...</p>
     {:then data}
       {#if data.schematics}
@@ -69,7 +68,13 @@
 </template>
 
 <style>
-  
+  ul#schematics_result {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 0.5rem;
+    justify-content: center;
+    list-style: none;
+  }
   main {
     padding: 20%;
     display: flex;
