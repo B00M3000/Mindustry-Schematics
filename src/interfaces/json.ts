@@ -3,7 +3,7 @@ import type { SchematicChangeDocument, SchematicDocument } from '../server/mongo
 export type SchematicJSON = Omit<LeanDocument<SchematicDocument>, 'image'>;
 export type BasicSchematicJSON = Pick<
   LeanDocument<SchematicDocument>,
-  '_id' | 'creator' | 'name' | 'text'
+  '_id' | 'creator_id' | 'name' | 'text'
 >;
 export interface SchematicQueryJSON {
   skip: number;

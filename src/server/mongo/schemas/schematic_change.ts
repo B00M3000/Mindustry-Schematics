@@ -1,7 +1,15 @@
 import mongoose from 'mongoose';
-import type { SchematicDocument } from './schematic';
+import type { SchematicDocData } from './schematic';
 
-const schema = new mongoose.Schema(
+export interface SchematicChangeDocData {
+  id: string;
+  Changed?: SchematicDocData;
+  Description?: string;
+  Delete?: string;
+  creator_id: string;
+}
+
+const schema = new mongoose.Schema<SchematicChangeDocData>(
   {
     id: {
       type: String,
@@ -22,13 +30,8 @@ const schema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-export interface SchematicChangeDocument extends mongoose.Document {
-  id: string;
-  Changed?: Omit<mongoose.LeanDocument<SchematicDocument>, '__v' | 'id' | '_id'>;
-  Description?: string;
-  Delete?: string;
-  creator_id: string;
-}
 
-export const SchematicChangeSchema: mongoose.Model<SchematicChangeDocument> =
+export type SchematicChangeDocument = mongoose.HydratedDocument<SchematicChangeDocData>;
+
+export const SchematicChangeSchema: mongoose.Model<SchematicChangeDocData> =
   mongoose.models.SchematicChanges || mongoose.model('SchematicChanges', schema);
