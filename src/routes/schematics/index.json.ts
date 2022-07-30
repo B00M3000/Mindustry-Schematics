@@ -76,14 +76,19 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler<never, PostOutput> = async (req) => {
+  if(!req.locals.user) return {
+    status: 403,
+      body: {
+        error: 'Unauthorized, please login before trying agian.',
+      },
+  }
   const {
     name,
-    creator,
     text,
     description,
     tags: rawTags,
   }: Partial<PostBody> = (await parseFormData(req.request)) ?? (await req.request.json());
-  if (!name || !creator || !text || !description || !rawTags)
+  if (!name || !text || !description || !rawTags)
     return {
       status: 400,
       body: {
@@ -106,7 +111,7 @@ export const POST: RequestHandler<never, PostOutput> = async (req) => {
 
     const newSchematic = {
       name,
-      creator: creator,
+      creator_id: req.locals.user.id,
       tags: tags,
       text: newText,
       description,
@@ -140,10 +145,11 @@ export const POST: RequestHandler<never, PostOutput> = async (req) => {
     return {
       status: 422,
       headers: {
-        location: '/schematics',
+        location: '/',
       },
       body: {
-        error: 'Could not create schematic',
+        message: 'Could not create schematic',
+        error
       },
     };
   }

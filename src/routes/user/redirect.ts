@@ -63,13 +63,13 @@ export const GET: RequestHandler = async (req) => {
       id: discord_user.id,
     },
     {
-        id: discord_user.id,
-        username: discord_user.username,
-        discriminator: discord_user.discriminator,
-        discord_id: discord_user.id,
-        avatar_url: discord_user.avatar
-          ? 'https://cdn.discordapp.com/avatars/' + `${discord_user.id}/${discord_user.avatar}.webp`
-          : `/assets/discord_default_avatar.png`
+      id: discord_user.id,
+      username: discord_user.username,
+      discriminator: discord_user.discriminator,
+      discord_id: discord_user.id,
+      avatar_url: discord_user.avatar
+        ? 'https://cdn.discordapp.com/avatars/' + `${discord_user.id}/${discord_user.avatar}.webp`
+        : `/assets/discord_default_avatar.png`
     },
     {
       upsert: true,

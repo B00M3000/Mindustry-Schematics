@@ -28,6 +28,7 @@
   import { diffArrays, diffSentences } from 'diff';
   import type { ArrayChange, Change } from 'diff';
   import Accesss from './_actions.svelte';
+  import AuthorCard from '@/client/components/AuthorCard.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import { Access, UserAccess } from '@/lib/auth/access';
   import { Tag } from '@/lib/tags';
@@ -42,15 +43,12 @@
     | undefined
     | {
         name: Change[];
-        creator: Change[];
         description: Change[];
         tags: ArrayChange<Tag>[];
       };
-
   if (original && change.Changed) {
     diffs = {
       name: diffSentences(original.name, change.Changed.name),
-      creator: diffSentences(original.creator, change.Changed.creator),
       description: diffSentences(original.description, change.Changed.description),
       tags: diffArrays(originalTags, changedTags),
     };
@@ -67,11 +65,15 @@
   main
     +if("change.Delete != undefined && original")
       h3.mode.delete Delete
+      span Request Creator 
+      AuthorCard(creator_id!="{change.creator_id}")
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
         img.preview(src="/schematics/{change.id}.png" alt="schematic preview")
-        h3.creator by {original.creator}
+        div.creator
+          span.creator by 
+          AuthorCard(creator_id!="{original.creator_id}")
         h4.description: +html("safeDescription(original.description ?? '')")
         div.tags
           +each("originalTags as tag")
@@ -82,6 +84,8 @@
       +elseif("diffs")
         h3.mode Modify
         h4.reason What and Why
+        span Request Creator 
+        AuthorCard(creator_id!="{change.creator_id}")
         div.schematic.modify
           h1.name
             +each("diffs.name as diff")
@@ -92,9 +96,9 @@
             +if("differentImages")
               figure.added
                 img(src="{change._id}.png" alt="new preview")
-          div.creator by 
-            +each("diffs.creator as diff")
-              span(class!="{classOfDiff(diff)}") {diff.value}
+          div.creator
+            span.creator by 
+            AuthorCard(creator_id!="{original.creator_id}")
           div.description
             +each("diffs.description as diff")
               span(class!="{classOfDiff(diff)}") {diff.value}

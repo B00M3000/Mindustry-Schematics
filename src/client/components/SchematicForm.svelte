@@ -12,6 +12,7 @@
   import { onMount } from 'svelte';
   import { Access } from '@/lib/auth/access';
   import { Tag } from '@/lib/tags';
+  import AuthorCard from './AuthorCard.svelte';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -34,7 +35,6 @@
   let name = initialData?.name || '';
   let description = initialData?.description || '';
   let text = initialData?.text || '';
-  let creator = initialData?.creator || '';
   let currentTags: Tag[] = initialData ? Tag.parse(initialData.tags) : [];
 
   let image = initialData ? `/schematics/${initialData._id}.png` : undefined;
@@ -79,7 +79,7 @@
     await goto(url || '/');
     if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
       const { change } = await response.json();
-      const changeUrl = `/admin/schematic_changes/${change}`;
+      const changeUrl = `/admin/schematic_changes/${change._id}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);
     }
   }
@@ -175,14 +175,10 @@ div.wrapper(class!="{parseState}")
         required
         value!="{name}"
       )
-      label(for="creator") Creator:
-      input(
-        name="creator"
-        id="creator"
-        placeholder="Creator of the schematic"
-        required
-        value!="{creator}"
-      )
+      +if('variant == "edit"')
+        div
+          span by 
+          AuthorCard(creator_id!="{initialData.creator_id}")  
       label(for="description") Description:
       textarea(
         name="description"

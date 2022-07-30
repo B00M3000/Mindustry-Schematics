@@ -64,10 +64,11 @@ export const GET: RequestHandler = async ({ params, locals }) => {
     {
       _id: true,
       id: true,
+      creator_id: true,
       Delete: true,
       Changed: {
         name: true,
-        creator: true,
+        creator_id: true,
         tags: true,
         description: true,
         image: true,
@@ -82,7 +83,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
     { _id: change.id },
     {
       name: true,
-      creator: true,
+      creator_id: true,
       tags: true,
       description: true,
       image: true,
@@ -101,6 +102,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
   // 		: false;
   const body: SchematicChangeJSON = {
     change,
+    creator_id: change.creator_id,
     mode,
     original,
     differentImages,

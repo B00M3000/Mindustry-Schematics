@@ -4,7 +4,7 @@
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     const access = UserAccess.from(session.access);
-    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll });
+    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll }) || session.id == schematic.creator_id;
     return {
       props: { schematic, directActions },
     };
@@ -19,8 +19,10 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
+  import { user } from '@/client/stores/user'
   import { Access, UserAccess } from '@/lib/auth/access';
   import BottomBar from '@/client/components/BottomBar.svelte';
+  import AuthorCard from '@/client/components/AuthorCard.svelte';
 
   export let directActions: boolean;
 
@@ -57,31 +59,36 @@
   svelte:head
     title Delete a Schematic
 
-  h1 Delete a Schematic
-  form(  
-    action="/schematics/{schematic._id}/delete.json"
-    method="POST"
-    bind:this!="{form}"
-    on:submit!="{submit}"
-  )
-    h2.title [Schematic] {schematic.name}
-    img(src="/schematics/{schematic._id}.png" alt="schematic preview")
-    h3.creator by {schematic.creator}
-    h4.description 
-      +html("safeDescription(schematic.description ?? '')")
-    div.inputs
-      label(for="reason")
-      textarea#reason(
-        name="reason"
-        placeholder="Why should this schematic be removed?"
-        required
-      )
-    div
-      button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
-      +if("directActions")
-        button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
-  BottomBar
-    BackButton(href="/schematics/{schematic._id}" smart)
+  +if("$user.id")
+    h1 Delete a Schematic
+    form(  
+      action="/schematics/{schematic._id}/delete.json"
+      method="POST"
+      bind:this!="{form}"
+      on:submit!="{submit}"
+    )
+      h2.title [Schematic] {schematic.name}
+      div by 
+        AuthorCard(creator_id!="{schematic.creator_id}")
+      img(src="/schematics/{schematic._id}.png" alt="schematic preview")
+      h4.description 
+        +html("safeDescription(schematic.description ?? '')")
+      div.inputs
+        label(for="reason")
+        textarea#reason(
+          name="reason"
+          placeholder="Why should this schematic be removed?"
+          required
+        )
+      div
+        button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
+        +if("directActions")
+          button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
+    +else
+      p You need an account to submit deletion requests
+  footer
+    BottomBar
+      BackButton(href="/schematics/{schematic._id}" smart)
 </template>
 
 <style>
