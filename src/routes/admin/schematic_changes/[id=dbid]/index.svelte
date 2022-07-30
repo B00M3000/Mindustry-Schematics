@@ -64,9 +64,10 @@
   
   main
     +if("change.Delete != undefined && original")
-      h3.mode.delete Delete
-      span Request Creator 
-      AuthorCard(creator_id!="{change.creator_id}")
+      h3.mode.delete Delete Request
+      div.requester
+          span Requester: 
+          AuthorCard(creator_id!="{change.creator_id}")
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
@@ -80,12 +81,15 @@
             div.tag(style="--color: {tag.color};")
               div.layer
                 span {tag.name}
+      div.options
         Accesss({change})
       +elseif("diffs")
-        h3.mode Modify
-        h4.reason What and Why
-        span Request Creator 
-        AuthorCard(creator_id!="{change.creator_id}")
+        h2.mode Modify Request
+        div.requester
+          span Requester: 
+          AuthorCard(creator_id!="{change.creator_id}")
+        h4.reason Changes: {change.Description}
+        
         div.schematic.modify
           h1.name
             +each("diffs.name as diff")
@@ -108,6 +112,7 @@
                 div.tag(class!="{classOfDiff(diff)}" style="--color: {tag.color}")
                   div.layer
                     span {tag.name}
+        div.options
           Accesss({change})
   BottomBar
     BackButton(href="/admin/schematic_changes" smart)
@@ -143,12 +148,17 @@
   }
   .mode,
   .title,
-  .reason {
+  .reason,
+  .requester {
     text-align: center;
+    margin: 10px;
   }
   .schematic {
-    padding: 2em;
-    display: grid;
+    margin: 1em 1em;
+    padding: 2em 2em;
+    border-color: #BBB;
+    border-style: solid;
+    display: grid;  
     grid-template-columns: 1fr 2fr;
     grid-template-rows: min-content min-content min-content min-content min-content;
     grid-template-areas:
@@ -163,6 +173,7 @@
     word-break: break-all;
     word-break: break-word;
     hyphens: auto;
+
   }
   .preview {
     width: 100%;
@@ -238,6 +249,10 @@
     left: -0.5em;
     height: calc(100% + 1em);
     width: calc(100% + 1em);
+  }
+  .options {
+    display: flex;
+    justify-content: center;
   }
   @media screen and (max-width: 600px) {
     .schematic {
