@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-
   export const load: Load = async ({ fetch, params }) => {
     return {
       props: { user_id: params.id },
@@ -11,8 +10,15 @@
 <script lang="ts">
   import AuthorCard from '@/client/components/AuthorCard.svelte';
   import { user } from '@/client/stores/user';
+  import SchematicCard from '@/client/components/SchematicCard.svelte';
 
   export let user_id: string;
+
+  const response = async () => {
+    let res = await fetch(`/user/${user_id}/schematics.json`)
+    let data = res.json()
+    return data
+  }
 </script>
 
 <template>
@@ -43,12 +49,27 @@
           </div>
       {/await}
     </div>
+    {#await response()}
+      <p>Retriving schematics...</p>
+    {:then data}
+      {#if data.schematics}
+        <ul id="schematic_result">
+          {#each data.schematics as schematic}
+            <li>
+              <SchematicCard {schematic}/>
+            </li>
+          {/each}
+        </ul>      
+      {:else}
+        <p>No schematics found for this user.</p>
+      {/if}
+    {/await}
     <p>Additional information will be added at a future time!</p>
   </main>
-  <!-- AuthorCard(creator_id!="{user_id}") -->
 </template>
 
 <style>
+  
   main {
     padding: 20%;
     display: flex;
