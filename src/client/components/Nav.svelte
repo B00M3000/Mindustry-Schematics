@@ -11,6 +11,8 @@
         li User Login
       a(href="/" class:selected!="{current== '' || current == 'schematics'}")
         li Schematics
+      a(href="https://old.mindustryschematics.com")
+        li Old Database
       a(href="https://logic.mindustryschematics.com")
         li Logic Emulator
       a(href="/downloads" class:selected!="{current== 'downloads'}")
