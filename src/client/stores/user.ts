@@ -3,19 +3,19 @@ import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
 
 interface UserStore {
-  id?: string,
-  username?: string,
-  verified?: boolean,
-  uaccess: UserAccess,
-  avatar_url?: string,
+  id?: string;
+  username?: string;
+  verified?: boolean;
+  uaccess: UserAccess;
+  avatar_url?: string;
 }
 
 interface Session {
-  id?: string,
-  username?: string,
-  verified?: boolean,
-  access?: string,
-  avatar_url?: string,
+  id?: string;
+  username?: string;
+  verified?: boolean;
+  access?: string;
+  avatar_url?: string;
 }
 
 const { set, subscribe } = writable<UserStore>(
@@ -29,7 +29,7 @@ const { set, subscribe } = writable<UserStore>(
         username: $session.username,
         verified: $session.verified,
         uaccess: UserAccess.from($session.access),
-        avatar_url: $session.avatar_url
+        avatar_url: $session.avatar_url,
       });
     })();
   },
@@ -49,8 +49,8 @@ export const user = {
     const res = await fetch(`/user/${id}.json`, {
       method: 'GET',
     });
-    const data = await res.json()
-    console.log(data)
-    return data
+    const data = await res.json();
+    console.log(data);
+    return data;
   },
 };

@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import { user } from '@/client/stores/user'
+  import { user } from '@/client/stores/user';
 
   export const load: Load = async ({ fetch, params }) => {
     const { id } = params;
@@ -7,7 +7,7 @@
     query.append('increment', 'true');
     const response = await fetch(`/schematics/${id}.json?${query}`);
     const schematic = await response.json();
-    if(!Object.keys(schematic).length) return { status: 307, redirect: "/" }
+    if (!Object.keys(schematic).length) return { status: 307, redirect: '/' };
     return {
       props: { schematic },
     };

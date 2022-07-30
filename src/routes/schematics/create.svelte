@@ -3,7 +3,7 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
 
-  import { user } from '@/client/stores/user'
+  import { user } from '@/client/stores/user';
 </script>
 
 <template lang="pug">

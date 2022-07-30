@@ -4,7 +4,9 @@
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     const access = UserAccess.from(session.access);
-    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll }) || session.id == schematic.creator_id;
+    const directActions =
+      access.can({ schematics: Access.deleteAll | Access.updateAll }) ||
+      session.id == schematic.creator_id;
     return {
       props: { schematic, directActions },
     };
@@ -19,7 +21,7 @@
   import type { Load } from '@sveltejs/kit';
   import { auth } from '@/client/stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
-  import { user } from '@/client/stores/user'
+  import { user } from '@/client/stores/user';
   import { Access, UserAccess } from '@/lib/auth/access';
   import BottomBar from '@/client/components/BottomBar.svelte';
   import AuthorCard from '@/client/components/AuthorCard.svelte';
@@ -45,7 +47,7 @@
     }
   }
   async function direct() {
-    submitting = true
+    submitting = true;
     const data = new FormData(form);
     const response = await fetch(`/schematics/${schematic._id}/delete.json?direct=true`, {
       method: 'POST',

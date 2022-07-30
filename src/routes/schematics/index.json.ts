@@ -76,12 +76,13 @@ export const GET: RequestHandler = async ({ url }) => {
 };
 
 export const POST: RequestHandler<never, PostOutput> = async (req) => {
-  if(!req.locals.user) return {
-    status: 403,
+  if (!req.locals.user)
+    return {
+      status: 403,
       body: {
         error: 'Unauthorized, please login before trying agian.',
       },
-  }
+    };
   const {
     name,
     text,
@@ -149,7 +150,7 @@ export const POST: RequestHandler<never, PostOutput> = async (req) => {
       },
       body: {
         message: 'Could not create schematic',
-        error
+        error,
       },
     };
   }

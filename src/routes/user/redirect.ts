@@ -68,8 +68,9 @@ export const GET: RequestHandler = async (req) => {
       discriminator: discord_user.discriminator,
       discord_id: discord_user.id,
       avatar_url: discord_user.avatar
-        ? 'https://cdn.discordapp.com/avatars/' + `${discord_user.id}/${discord_user.avatar}.webp`
-        : `/assets/discord_default_avatar.png`
+        ? 'https://cdn.discordapp.com/avatars/' +
+          `${discord_user.id}/${discord_user.avatar}.webp`
+        : `/assets/discord_default_avatar.png`,
     },
     {
       upsert: true,

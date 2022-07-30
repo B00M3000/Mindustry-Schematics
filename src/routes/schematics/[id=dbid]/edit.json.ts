@@ -4,8 +4,8 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseFormData } from '@/server/body_parsing';
-import { UserAccess, Access } from '@/lib/auth/access'
-import webhooks from '@/server/webhooks'
+import { UserAccess, Access } from '@/lib/auth/access';
+import webhooks from '@/server/webhooks';
 
 type Params = {
   id: string;
@@ -20,13 +20,19 @@ interface PostBody {
   cDescription?: string;
 }
 type PostOutput = { error: string } | { change: string };
-export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, url, locals }) => {
-  if(!locals.user) return {
-    status: 403,
+export const POST: RequestHandler<Params, PostOutput> = async ({
+  params,
+  request,
+  url,
+  locals,
+}) => {
+  if (!locals.user)
+    return {
+      status: 403,
       body: {
         error: 'Unauthorized, please login before trying agian.',
       },
-  }
+    };
   const originalSchematic = await SchematicSchema.findOne({
     _id: params.id,
   });
@@ -86,8 +92,12 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
     },
   };
 
-  if(url.searchParams.get("direct")){
-    if(locals.user && ( UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) || locals.user.id == originalSchematic.creator_id)){
+  if (url.searchParams.get('direct')) {
+    if (
+      locals.user &&
+      (UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) ||
+        locals.user.id == originalSchematic.creator_id)
+    ) {
       const schematic = (await SchematicSchema.findOneAndUpdate(
         {
           _id: params.id,
@@ -113,17 +123,16 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       return {
         status: 403,
         body: {
-          message: "Unauthorized"
+          message: 'Unauthorized',
         },
       };
     }
-    
   } else {
     const change = await SchematicChangeSchema.create({
       id: originalSchematic._id,
       Changed: changedSchematic,
       Description: cDescription,
-      creator_id: locals.user.id
+      creator_id: locals.user.id,
     });
 
     return {

@@ -4,7 +4,9 @@
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     const access = UserAccess.from(session.access);
-    const directActions = access.can({ schematics: Access.deleteAll | Access.updateAll })  || session.id == schematic.creator_id;
+    const directActions =
+      access.can({ schematics: Access.deleteAll | Access.updateAll }) ||
+      session.id == schematic.creator_id;
     return {
       props: { schematic, directActions },
     };
@@ -16,7 +18,7 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
-  import { user } from '@/client/stores/user'
+  import { user } from '@/client/stores/user';
   import BottomBar from '@/client/components/BottomBar.svelte';
   import { UserAccess, Access } from '@/lib/auth/access';
 

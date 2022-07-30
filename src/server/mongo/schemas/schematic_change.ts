@@ -1,24 +1,27 @@
 import mongoose from 'mongoose';
 import type { SchematicDocument } from './schematic';
 
-const schema = new mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
-  Changed: {
-    type: Object,
-  },
+const schema = new mongoose.Schema(
+  {
+    id: {
+      type: String,
+      required: true,
+    },
+    Changed: {
+      type: Object,
+    },
 
-  Description: String,
+    Description: String,
 
-  creator_id: {
-    type: String,
-    required: true
+    creator_id: {
+      type: String,
+      required: true,
+    },
+
+    Delete: String,
   },
-
-  Delete: String,
-}, { timestamps: true });
+  { timestamps: true },
+);
 export interface SchematicChangeDocument extends mongoose.Document {
   id: string;
   Changed?: Omit<mongoose.LeanDocument<SchematicDocument>, '__v' | 'id' | '_id'>;

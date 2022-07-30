@@ -8,7 +8,7 @@ export const GET: RequestHandler = async () => {
     response_type: 'code',
     prompt: 'none',
   });
-  
+
   return {
     status: 307,
     headers: {

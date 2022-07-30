@@ -84,14 +84,14 @@
     }
   }
   async function direct() {
-    submitting = true
+    submitting = true;
     const data = new FormData(form);
     if (data.has('file')) {
       data.append('text', await fileToText(data.get('file') as File));
       data.delete('file');
     }
     data.append('tags', JSON.stringify(currentTags.map((tag) => tag.name)));
-    const response = await fetch(action + "?direct=true", {
+    const response = await fetch(action + '?direct=true', {
       method,
       body: data,
     });
