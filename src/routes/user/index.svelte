@@ -9,6 +9,7 @@
   });
 </script>
 
+<!-- svelte-ignore a11y-missing-attribute -->
 <template lang="pug">
   svelte:head
     title User Login

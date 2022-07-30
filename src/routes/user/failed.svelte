@@ -10,7 +10,7 @@
   h1 {
     text-align: center;
   }
-  pre {
+  /*   pre {
     overflow-x: auto;
     background-color: hsla(0, 0%, 0%, 0.5);
     padding: 1rem;
@@ -25,7 +25,7 @@
   pre::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 0.5rem;
-  }
+  } */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }

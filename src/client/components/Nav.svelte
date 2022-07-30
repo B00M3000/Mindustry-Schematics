@@ -6,6 +6,7 @@
   $: current = $page?.url.pathname.split('/')[1];
 </script>
 
+<!-- svelte-ignore a11y-missing-attribute -->
 <template lang="pug">
   nav
     ul(bind:this!="{ul}" style="--items {ul?.chidren?.length || 1}")

@@ -48,4 +48,6 @@ export interface SchematicChangeJSON {
 export type BasicUserJSON = Pick<
   LeanDocument<UserDocument>,
   'access' | 'avatar_url' | 'verified' | 'id' | 'username'
->;
+> & {
+  id: string;
+};

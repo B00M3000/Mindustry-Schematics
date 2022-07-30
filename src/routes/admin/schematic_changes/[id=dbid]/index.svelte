@@ -156,9 +156,9 @@
   .schematic {
     margin: 1em 1em;
     padding: 2em 2em;
-    border-color: #BBB;
+    border-color: #bbb;
     border-style: solid;
-    display: grid;  
+    display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: min-content min-content min-content min-content min-content;
     grid-template-areas:
@@ -173,7 +173,6 @@
     word-break: break-all;
     word-break: break-word;
     hyphens: auto;
-
   }
   .preview {
     width: 100%;
@@ -280,7 +279,7 @@
     h1.name {
       font-size: 1.2em;
     }
-    h3.creator {
+    .creator {
       font-size: 0.8em;
     }
     .title {

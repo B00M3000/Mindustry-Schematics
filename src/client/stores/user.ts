@@ -1,4 +1,5 @@
 import { session } from '$app/stores';
+import type { BasicUserJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
 
@@ -10,20 +11,12 @@ interface UserStore {
   avatar_url?: string;
 }
 
-interface Session {
-  id?: string;
-  username?: string;
-  verified?: boolean;
-  access?: string;
-  avatar_url?: string;
-}
-
 const { set, subscribe } = writable<UserStore>(
   {
     uaccess: UserAccess.from(undefined),
   },
   (set) => {
-    session.subscribe(($session: Session) => {
+    session.subscribe(($session) => {
       set({
         id: $session.id,
         username: $session.username,
@@ -45,12 +38,12 @@ export const user = {
       uaccess: UserAccess.from(undefined),
     });
   },
-  async get(id: string): Promise<Session> {
+  async get(id: string): Promise<BasicUserJSON | null> {
     const res = await fetch(`/user/${id}.json`, {
       method: 'GET',
     });
     const data = await res.json();
     console.log(data);
-    return data;
+    return res.status === 200 ? data : null;
   },
 };

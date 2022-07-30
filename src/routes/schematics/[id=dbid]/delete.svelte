@@ -70,7 +70,7 @@
       on:submit!="{submit}"
     )
       h2.title [Schematic] {schematic.name}
-      div by 
+      div.creator by 
         AuthorCard(creator_id!="{schematic.creator_id}")
       img(src="/schematics/{schematic._id}.png" alt="schematic preview")
       h4.description 

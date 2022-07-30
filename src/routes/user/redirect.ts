@@ -5,7 +5,9 @@ import * as cookie from 'cookie';
 
 async function get_tokens(code: string) {
   const data = new URLSearchParams();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   data.append('client_id', env.DISCORD_APPLICATION_ID!);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   data.append('client_secret', env.DISCORD_APPLICATION_SECRET!);
   data.append('grant_type', 'authorization_code');
   data.append('redirect_uri', `${env.WEBSITE_URL}/user/redirect`);
@@ -93,7 +95,3 @@ export const GET: RequestHandler = async (req) => {
     },
   };
 };
-
-function getRandomInt(max: number) {
-  return Math.floor(Math.random() * max);
-}

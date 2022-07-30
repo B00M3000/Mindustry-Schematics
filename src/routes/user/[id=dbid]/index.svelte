@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-  import AuthorCard from '@/client/components/AuthorCard.svelte';
+  import UserAvatar from '@/client/components/UserAvatar.svelte';
   import { user } from '@/client/stores/user';
 
   export let user_id: string;
@@ -24,23 +24,12 @@
     <div class="user-card">
       {#await user.get(user_id)}
         <span>Loading...</span>
-        <img class="avatar" src="/assets/discord_default_avatar.png" />
+        <img class="avatar" src="/assets/discord_default_avatar.png" alt="user avatar" />
       {:then user}
-        <span class="card-username">{user.username}</span>
-        <div class="avatar-container">
-          <img src={user.avatar_url} />
-          {#if user.verified}
-            <img src="/assets/verified.svg" class="icon verified" />
-          {/if}
-          {#if user.access}
-            {#if user.access == 'mod'}
-              <img src="/assets/mod.svg" class="icon access mod" />
-            {/if}
-            {#if user.access == 'admin'}
-              <img src="/assets/admin.svg" class="icon access" />
-            {/if}
-          {/if}
-        </div>
+        {#if user}
+          <span class="card-username">{user.username}</span>
+          <UserAvatar {...user} --image-size="128px" />
+        {/if}
       {/await}
     </div>
     <p>Additional information will be added at a future time!</p>
@@ -72,33 +61,5 @@
   .avatar {
     width: 128px;
     border-radius: 50%;
-  }
-
-  .avatar-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 128px;
-  }
-
-  .mod {
-    filter: hue-rotate(200);
-  }
-
-  .icon {
-    width: 36px;
-  }
-
-  .verified {
-    position: absolute;
-    top: 3px;
-    right: 0px;
-  }
-
-  .access {
-    position: absolute;
-    top: 100px;
-    right: 0px;
   }
 </style>

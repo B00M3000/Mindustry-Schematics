@@ -1,45 +1,31 @@
 <script lang="ts">
   import { user } from '@/client/stores/user';
-  import { match } from '@/params/dbid';
+  import UserAvatar from './UserAvatar.svelte';
 
   export let creator_id: string;
-
-  function visit() {
-    window.location.assign(`/user/${creator_id}`);
-  }
 </script>
 
-<template>
-  <div class="container" on:click={visit}>
-    {#if match(creator_id)}
-      {#await user.get(creator_id)}
-        <span>Loading...</span>
-        <img src="/assets/discord_default_avatar.png" />
-      {:then user}
+<a href="/user/{creator_id}">
+  <div class="container">
+    {#await user.get(creator_id)}
+      <span>Loading...</span>
+      <img src="/assets/discord_default_avatar.png" alt="user avatar" />
+    {:then user}
+      {#if user}
         <span>{user.username}</span>
-        <div class="avatar-container">
-          <img src={user.avatar_url} />
-          {#if user.verified}
-            <img src="/assets/verified.svg" class="icon verified" />
-          {/if}
-          {#if user.access}
-            {#if user.access == 'mod'}
-              <img src="/assets/mod.svg" class="icon access mod" />
-            {/if}
-            {#if user.access == 'admin'}
-              <img src="/assets/admin.svg" class="icon access" />
-            {/if}
-          {/if}
-        </div>
-      {/await}
-    {:else}
-      <span>Not Found</span>
-      <img src="/assets/discord_default_avatar.png" />
-    {/if}
+        <UserAvatar {...user} />
+      {:else}
+        <span>Not Found</span>
+        <img src="/assets/discord_default_avatar.png" alt="user avatar" />
+      {/if}
+    {/await}
   </div>
-</template>
+</a>
 
 <style>
+  a {
+    display: contents;
+  }
   .container {
     display: inline-flex;
     background-color: var(--surface);
@@ -56,33 +42,5 @@
   img {
     width: 32px;
     border-radius: 50%;
-  }
-
-  .avatar-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-  }
-
-  .mod {
-    filter: hue-rotate(200);
-  }
-
-  .icon {
-    width: 12px;
-  }
-
-  .verified {
-    position: absolute;
-    top: 1px;
-    right: -3px;
-  }
-
-  .access {
-    position: absolute;
-    top: 22px;
-    right: -3px;
   }
 </style>
