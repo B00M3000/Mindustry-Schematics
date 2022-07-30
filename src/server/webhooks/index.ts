@@ -80,17 +80,17 @@ export class EventHandler {
     });
   }
   
-  // unhandledError(event: UnhandledErrorEvent): void {
-  //   // TODO: send error logs on a different discord channel
-  //   this.webhookHandler.sendEmbed(
-  //     {
-  //       color: colors.get('red'),
-  //       title: 'Unhandled Error',
-  //       description: event.message,
-  //     },
-  //     true,
-  //   );
-  // }
+  unhandledError(event: UnhandledErrorEvent): void {
+    // TODO: send error logs on a different discord channel
+    this.webhookHandler.sendEmbed(
+      {
+        color: colors.get('red'),
+        title: 'Unhandled Error',
+        description: event.message,
+      },
+      true,
+    );
+  }
 }
 const discordHandler = new DiscordWebhookHandler(
   env.PRIVATE_WEBHOOK_URL as string,

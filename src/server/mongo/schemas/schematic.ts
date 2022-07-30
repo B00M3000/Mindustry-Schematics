@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
-  creator: { type: String, required: true },
+  creator_id: { type: String, required: true },
   description: { type: String, required: true },
   tags: { type: [String], required: true, default: [] },
 
@@ -17,9 +17,9 @@ const schema = new mongoose.Schema({
   views: { type: Number, required: true, default: 0 },
 
   encoding_version: { type: String, required: true },
-});
+}, { timestamps: true });
 export interface SchematicDocument extends mongoose.Document {
-  creator: string;
+  creator_id: string;
   description: string;
   // eslint-disable-next-line camelcase
   encoding_version: string;

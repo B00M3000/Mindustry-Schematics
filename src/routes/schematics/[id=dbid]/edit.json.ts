@@ -17,10 +17,16 @@ interface PostBody {
   text: string;
   description: string;
   tags: string;
-  cDescription: string;
+  cDescription?: string;
 }
 type PostOutput = { error: string } | { change: string };
 export const POST: RequestHandler<Params, PostOutput> = async ({ params, request, url, locals }) => {
+  if(!locals.user) return {
+    status: 403,
+      body: {
+        error: 'Unauthorized, please login before trying agian.',
+      },
+  }
   const originalSchematic = await SchematicSchema.findOne({
     _id: params.id,
   });
@@ -41,7 +47,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
     tags: stringTags,
   }: Partial<PostBody> = (await parseFormData(request)) ?? (await request.json());
 
-  if (!text || !name || !creator || !description || !cDescription || !stringTags) {
+  if (!text || !name || !description || !stringTags) {
     return {
       status: 400,
       body: { error: 'Missing required data' },
@@ -81,7 +87,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
   };
 
   if(url.searchParams.get("direct")){
-    if(locals.user && UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll })){
+    if(locals.user && ( UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) || locals.user.id == originalSchematic.creator_id)){
       const schematic = (await SchematicSchema.findOneAndUpdate(
         {
           _id: params.id,
@@ -117,6 +123,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({ params, request
       id: originalSchematic._id,
       Changed: changedSchematic,
       Description: cDescription,
+      creator_id: locals.user.id
     });
 
     return {

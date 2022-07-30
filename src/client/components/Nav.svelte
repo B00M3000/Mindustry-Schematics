@@ -1,5 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { user } from '@/client/stores/user';
+  import AuthorCard from '@/client/components/AuthorCard.svelte';
   let ul: HTMLUListElement;
   $: current = $page?.url.pathname.split('/')[1];
 </script>
@@ -26,7 +28,10 @@
       img(src="/assets/menu.svg" alt="menu")
 
     div.logo_container
-      span Mindustry Schematics (Unofficial)
+      +if("$user.id")
+        AuthorCard(creator_id!="{$user.id}")
+        +else
+          span Mindustry Schematics (Unofficial)
       img(src='/assets/logo.png' width='64px')
 </template>
 
