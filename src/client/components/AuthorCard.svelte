@@ -1,5 +1,6 @@
 <script lang="ts">
     import { user } from '@/client/stores/user';
+    import { match } from '@/params/dbid';
 
     export let creator_id: string;
 
@@ -10,7 +11,7 @@
 
 <template>
     <div class="container" on:click={visit}>
-        {#if creator_id}
+        {#if match(creator_id)}
             {#await user.get(creator_id)}
                 <span>Loading...</span>
                 <img src="/assets/discord_default_avatar.png"/>
