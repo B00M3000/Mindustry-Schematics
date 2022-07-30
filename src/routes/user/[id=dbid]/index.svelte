@@ -28,7 +28,7 @@
       {:then user}
           <span class="card-username">{user.username}</span>
           <div class="avatar-container">
-              <img src="{user.avatar_url}"/>
+              <img class="avatar" src="{user.avatar_url}"/>
               {#if user.verified}
                   <img src="/assets/verified.svg" class="icon verified"/>
               {/if}
