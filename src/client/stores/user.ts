@@ -43,7 +43,6 @@ export const user = {
       method: 'GET',
     });
     const data = await res.json();
-    console.log(data);
     return res.status === 200 ? data : null;
   },
 };
