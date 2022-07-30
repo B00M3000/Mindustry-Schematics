@@ -4,7 +4,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { Tag } from '@/lib/tags';
 import { Schematic } from 'mindustry-schematic-parser';
 import { parseFormData } from '@/server/body_parsing';
-import { UserAccess, Access } from '@/lib/auth/access';
+import { Access } from '@/lib/auth/access';
 import webhooks from '@/server/webhooks';
 
 type Params = {
@@ -19,7 +19,7 @@ interface PostBody {
   tags: string;
   cDescription?: string;
 }
-type PostOutput = { error: string } | { change: string };
+type PostOutput = { error: string } | { change: string } | { message: string };
 export const POST: RequestHandler<Params, PostOutput> = async ({
   params,
   request,
@@ -69,7 +69,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
 
   const schematic = Schematic.decode(text);
   const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
-  const data = await (await schematic.render()).toBuffer();
+  const data = (await schematic.render()).toBuffer();
   const mimetype = 'image/png';
 
   schematic.name = name;
@@ -95,7 +95,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
   if (url.searchParams.get('direct')) {
     if (
       locals.user &&
-      (UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) ||
+      (locals.user.access.can({ schematics: Access.deleteAll }) ||
         locals.user.id == originalSchematic.creator_id)
     ) {
       const schematic = (await SchematicSchema.findOneAndUpdate(
@@ -109,7 +109,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
       });
       webhooks.editSchematic({
         changes: `Direct Edit by ${locals.user.username}\n${cDescription}`,
-        schematicId: schematic._id,
+        schematicId: schematic._id.toString(),
         schematicName: schematic.name,
         triggeredAt: new Date().getTime(),
       });
@@ -140,7 +140,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
       headers: {
         location: `/schematics/${originalSchematic._id}`,
       },
-      body: { change: change._id },
+      body: { change: change._id.toString() },
     };
   }
 };

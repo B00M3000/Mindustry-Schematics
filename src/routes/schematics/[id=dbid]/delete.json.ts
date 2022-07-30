@@ -1,8 +1,7 @@
 import { parseFormData } from '@/server/body_parsing';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
-import type { SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
-import { UserAccess, Access } from '@/lib/auth/access';
+import { Access, accessLevels } from '@/lib/auth/access';
 import webhooks from '@/server/webhooks';
 
 type Params = {
@@ -13,7 +12,7 @@ interface PostBody {
   reason: string;
 }
 
-type PostOutput = { error: string } | { change: string };
+type PostOutput = { error: string } | { change: string } | { message: string };
 export const POST: RequestHandler<Params, PostOutput> = async ({
   params,
   request,
@@ -41,10 +40,10 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
   if (url.searchParams.get('direct')) {
     if (
       locals.user &&
-      (UserAccess.from(locals.user.access).can({ schematics: Access.deleteAll }) ||
+      ((locals.user.access ?? accessLevels.none).can({ schematics: Access.deleteAll }) ||
         locals.user.id == schematic.creator_id)
     ) {
-      const schematic = await SchematicSchema.deleteOne({
+      await SchematicSchema.deleteOne({
         _id: params.id,
       });
       await SchematicChangeSchema.deleteMany({
@@ -83,7 +82,7 @@ export const POST: RequestHandler<Params, PostOutput> = async ({
         location: `/schematics/${schematic._id}`,
       },
       body: {
-        change: change._id,
+        change: change._id.toString(),
       },
     };
   }

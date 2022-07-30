@@ -81,10 +81,10 @@ export const GET: RequestHandler = async (req) => {
   const session = await SessionSchema.create({ user_id: user._id });
 
   return {
-    status: 308,
+    status: 307,
     headers: {
       location: '/user',
-      'set-cookie': cookie.serialize('session_id', session._id, {
+      'set-cookie': cookie.serialize('session_id', session._id.toString(), {
         path: '/',
       }),
     },

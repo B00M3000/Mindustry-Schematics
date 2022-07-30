@@ -27,7 +27,7 @@ export const POST: RequestHandler = async (req) => {
     webhooks.deleteSchematic({
       triggeredAt: new Date().getTime(),
       reason: change.Description || '',
-      schematicId: schematic._id,
+      schematicId: schematic._id.toString(),
       schematicName: schematic.name,
     });
   } else {
@@ -42,7 +42,7 @@ export const POST: RequestHandler = async (req) => {
     });
     webhooks.editSchematic({
       changes: change.Description || '',
-      schematicId: schematic._id,
+      schematicId: schematic._id.toString(),
       schematicName: schematic.name,
       triggeredAt: new Date().getTime(),
     });

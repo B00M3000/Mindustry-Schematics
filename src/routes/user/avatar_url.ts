@@ -1,6 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { UserSchema } from '@/server/mongo';
-import * as cookie from 'cookie';
 
 export const get: RequestHandler<never> = async ({ locals, url }) => {
   const user_id = url.searchParams.get('user');
@@ -10,10 +9,10 @@ export const get: RequestHandler<never> = async ({ locals, url }) => {
     if (user) {
       return { body: user.avatar_url };
     }
-    return { status: 400, body: 'Invalid User Id' };
+    return { status: 404, body: 'User not found' };
   }
 
   if (locals.user) return { body: locals.user?.avatar_url };
 
-  return { status: 404, body: 'Missing user id' };
+  return { status: 400, body: 'Missing user id' };
 };

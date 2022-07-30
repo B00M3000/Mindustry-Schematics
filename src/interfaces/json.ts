@@ -1,5 +1,9 @@
 import type { LeanDocument } from 'mongoose';
-import type { SchematicChangeDocument, SchematicDocument } from '../server/mongo';
+import type {
+  SchematicChangeDocument,
+  SchematicDocument,
+  UserDocument,
+} from '../server/mongo';
 export type SchematicJSON = Omit<LeanDocument<SchematicDocument>, 'image'>;
 export type BasicSchematicJSON = Pick<
   LeanDocument<SchematicDocument>,
@@ -40,3 +44,8 @@ export interface SchematicChangeJSON {
   original?: SchematicJSON | null;
   differentImages: boolean;
 }
+
+export type BasicUserJSON = Pick<
+  LeanDocument<UserDocument>,
+  'access' | 'avatar_url' | 'verified' | 'id' | 'username'
+>;
