@@ -22,6 +22,9 @@
 </template>
 
 <style>
+  p {
+    margin: 30px 50px;
+  }
   h1 {
     text-align: center;
     margin: 1.5rem 0;
