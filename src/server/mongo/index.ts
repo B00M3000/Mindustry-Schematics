@@ -12,7 +12,12 @@ const path = env.MONGO_PATH.replace('<username>', username)
   .replace('<database>', database);
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default () => mongoose.connect(path);
+export default async () => {
+  if (mongoose.connections.length > 0) {
+    await mongoose.disconnect();
+  }
+  await mongoose.connect(path);
+};
 
 export * from './schemas/schematic';
 export * from './schemas/schematic_change';
