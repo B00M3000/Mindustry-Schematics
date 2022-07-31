@@ -29,7 +29,9 @@
     <div class="user-card">
       {#await user.get(user_id)}
           <span>Loading...</span>
-          <img class="avatar" src="/assets/discord_default_avatar.png"/>
+          <div class="avatar-container">
+            <img class="avatar" src="/assets/discord_default_avatar.png"/>
+          </div>
       {:then user}
           <span class="card-username">{user.username}</span>
           <div class="avatar-container">
@@ -52,7 +54,7 @@
       <p>Retriving schematics...</p>
     {:then data}
       {#if data.schematics}
-        <ul id="schematic_result">
+        <ul id="schematics_result">
           {#each data.schematics as schematic}
             <li>
               <SchematicCard {schematic}/>
@@ -63,7 +65,6 @@
         <p>No schematics found for this user.</p>
       {/if}
     {/await}
-    <p>Additional information will be added at a future time!</p>
   </main>
 </template>
 
@@ -76,7 +77,7 @@
     list-style: none;
   }
   main {
-    padding: 20%;
+    padding: 0 5%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -90,6 +91,7 @@
       align-items: center;
       padding: 21px;
       padding-right: 42px;
+      margin: 25px;
   }
   .card-username {
       font-size: 36px;
@@ -126,5 +128,37 @@
       position: absolute;
       top: 100px;
       right: 0px;
+  }
+  @media screen and (max-width: 600px) {
+    .user-card {
+      display: inline-flex;
+      background-color: var(--surface);
+      border-radius: 15px;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10.5px;
+      padding-right: 21px;
+      margin: 15px;
+    }
+    .verified {
+      position: absolute;
+      top: 3px;
+    }
+    .access {
+      position: absolute;
+      top: 50px;
+    }
+    .icon {
+      width: 18px;
+    }
+    .avatar-container {
+      width: 64px;
+    }
+    .card-username {
+      font-size: 18px;
+      margin: 21px;
+    }
+    .avatar { width: 128px; }
   }
 </style>
