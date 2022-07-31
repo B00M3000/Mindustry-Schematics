@@ -17,7 +17,6 @@ export interface SchematicQueryJSON {
   documents: number;
   schematics: BasicSchematicJSON[];
   tags: string;
-  mode: 'creator' | 'name';
 }
 
 export interface SchematicParseJSON {
