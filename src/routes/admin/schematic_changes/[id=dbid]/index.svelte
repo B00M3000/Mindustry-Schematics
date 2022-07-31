@@ -2,16 +2,6 @@
   import type { Load } from '@sveltejs/kit';
 
   export const load: Load = async ({ fetch, url, session, params }) => {
-    const access = UserAccess.from(session.access);
-    if (
-      !access.can({
-        schematics: Access.deleteAll | Access.updateAll,
-      })
-    )
-      return {
-        status: 403,
-        error: new Error('Forbidden'),
-      };
     const response = await fetch(`/admin/schematic_changes/${params.id}/change.json`);
     const json = await response.json();
     if(!json) 
