@@ -32,17 +32,15 @@
     meta(property="og:type" content="website")
     title Edit a Schematic
 
-  +if("$user.id")
-    h1 Edit a Schematic
-    div
-      SchematicForm(
-        variant="edit"
-        action="/schematics/{schematic._id}/edit.json"
-        initialData!="{schematic}"
-        directActions!="{directActions}"
-      )
-    +else
-      p you need to be logged in to edit schematics
+  h1 Edit a Schematic
+  div
+    SchematicForm(
+      variant="edit"
+      action="/schematics/{schematic._id}/edit.json"
+      initialData!="{schematic}"
+      directActions!="{directActions}"
+    )
+    
   footer
     BottomBar
       BackButton(href="/schematics/{schematic._id}" smart)

@@ -1,12 +1,5 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, session }) => {
-    const access = UserAccess.from(session.access);
-    if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
-      return {
-        redirect: '/user',
-        status: 302,
-      };
-    }
     const response = await fetch('/admin/schematic_changes/changes.json');
     const changes = await response.json();
     return {

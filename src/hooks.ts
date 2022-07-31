@@ -21,8 +21,10 @@ export const getSession: GetSession = async ({ locals }) => {
 export const handle: Handle = async ({ event, resolve }) => {
   try {
     await dbPromise;
+
     const cookies = cookie.parse(event.request.headers.get('cookie') || '');
     const session_id = cookies.session_id;
+
     if (session_id) {
       const session = await SessionSchema.findOne({ _id: session_id });
       if (session) {
@@ -37,24 +39,32 @@ export const handle: Handle = async ({ event, resolve }) => {
           };
         }
       } else {
-        //TBA: clear session cookie
+        //TBA: Rest session_id cookie
       }
     }
 
-    const response = await resolve(event);
-
-    return response;
+    return await resolve(event);;
   } catch (error) {
-    // makes debugging easier
     if (dev) throw error;
 
     console.error(error);
+
     webhooks.unhandledError({
       message: String(error),
       triggeredAt: new Date().getTime(),
     });
+
     return new Response(null, {
       status: 500,
     });
   }
 };
+
+export async function handleError({ error, event }) {
+  if (dev) throw error;
+
+  webhooks.unhandledError({
+    message: `${event.request.url.pathname}\n${String(error)}`,
+    triggeredAt: new Date().getTime(),
+  });
+}

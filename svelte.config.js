@@ -17,6 +17,7 @@ const config = {
       allowed: ['PATCH', 'DELETE'],
     },
   },
+  router: false
 };
 
 export default config;

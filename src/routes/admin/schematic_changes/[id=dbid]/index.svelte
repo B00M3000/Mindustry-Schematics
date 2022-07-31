@@ -14,6 +14,11 @@
       };
     const response = await fetch(`/admin/schematic_changes/${params.id}/change.json`);
     const json = await response.json();
+    if(!json) 
+      return {
+        status: 307,
+        redirect: "/admin/schematic_changes"
+      };
     return {
       props: {
         data: json,

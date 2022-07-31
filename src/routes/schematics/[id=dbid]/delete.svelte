@@ -59,33 +59,31 @@
   svelte:head
     title Delete a Schematic
 
-  +if("$user.id")
-    h1 Delete a Schematic
-    form(  
-      action="/schematics/{schematic._id}/delete.json"
-      method="POST"
-      bind:this!="{form}"
-      on:submit!="{submit}"
-    )
-      h2.title [Schematic] {schematic.name}
-      div by 
-        AuthorCard(creator_id!="{schematic.creator_id}")
-      img(src="/schematics/{schematic._id}.png" alt="schematic preview")
-      h4.description 
-        +html("safeDescription(schematic.description ?? '')")
-      div.inputs
-        label(for="reason")
-        textarea#reason(
-          name="reason"
-          placeholder="Why should this schematic be removed?"
-          required
-        )
-      div
-        button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
-        +if("directActions")
-          button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
-    +else
-      p You need an account to submit deletion requests
+  h1 Delete a Schematic
+  form(  
+    action="/schematics/{schematic._id}/delete.json"
+    method="POST"
+    bind:this!="{form}"
+    on:submit!="{submit}"
+  )
+    h2.title [Schematic] {schematic.name}
+    div by 
+      AuthorCard(creator_id!="{schematic.creator_id}")
+    img(src="/schematics/{schematic._id}.png" alt="schematic preview")
+    h4.description 
+      +html("safeDescription(schematic.description ?? '')")
+    div.inputs
+      label(for="reason")
+      textarea#reason(
+        name="reason"
+        placeholder="Why should this schematic be removed?"
+        required
+      )
+    div
+      button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
+      +if("directActions")
+        button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
+        
   footer
     BottomBar
       BackButton(href="/schematics/{schematic._id}" smart)
