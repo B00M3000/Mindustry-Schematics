@@ -4,9 +4,12 @@
   import { Access } from '@/lib/auth/access';
   import { onDestroy } from 'svelte';
 
-  $: allowChanges = $user.uaccess.can({ schematics: Access.deleteAll | Access.updateAll });
+  $: allowChanges = $user.uaccess.can({
+    schematics: Access.deleteAll | Access.updateAll,
+  });
 </script>
 
+<!-- svelte-ignore a11y-missing-attribute -->
 <template lang="pug">
   svelte:head
     title User Login

@@ -1,18 +1,20 @@
-import type { RequestHandler } from '@sveltejs/kit';
-import env from '@/server/env';
-
+import type { RequestHandler } from './__types/index.json';
 import { UserSchema } from '@/server/mongo';
+import type { BasicUserJSON } from '@/interfaces/json';
 
-export const GET: RequestHandler = async (req) => {
-    const user = await UserSchema.findOne({ _id: req.params.id })
+export const GET: RequestHandler<BasicUserJSON | { message: string }> = async (req) => {
+  const user = await UserSchema.findOne({ _id: req.params.id });
 
-    if(!user) return { status: 400, body: { message: "Invalid User ID " } }
+  if (!user) return { status: 404, body: { message: 'User not found' } };
 
-    return {
-        status: 200,
-        body: {
-            ...user._doc,
-            id: user._id
-        },
-    };
+  return {
+    status: 200,
+    body: {
+      id: user._id,
+      avatar_url: user.avatar_url,
+      username: user.username,
+      access: user.access,
+      verified: user.verified,
+    },
+  };
 };

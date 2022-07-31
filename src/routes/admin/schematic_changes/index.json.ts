@@ -1,5 +1,5 @@
 import type { SchematicChangeInfoJSON } from '@/interfaces/json';
-import { Access, accessLevels, UserAccess } from '@/lib/auth/access';
+import { Access, accessLevels } from '@/lib/auth/access';
 import { SchematicChangeSchema, SchematicSchema } from '@/server/mongo';
 import type { SchematicChangeDocument, SchematicDocument } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';

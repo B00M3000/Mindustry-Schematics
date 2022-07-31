@@ -8,46 +8,33 @@
 </script>
 
 <script lang="ts">
-  import AuthorCard from '@/client/components/AuthorCard.svelte';
+  import UserAvatar from '@/client/components/UserAvatar.svelte';
   import { user } from '@/client/stores/user';
   import SchematicCard from '@/client/components/SchematicCard.svelte';
 
   export let user_id: string;
 
-  async function fetch_schematics(){
-    let res = await fetch(`/user/${user_id}/schematics.json`)
-    return await res.json()
+  async function fetch_schematics() {
+    let res = await fetch(`/user/${user_id}/schematics.json`);
+    return await res.json();
   }
 </script>
 
+<svelte:head>
+  <title>User Profile</title>
+</svelte:head>
+
 <template>
-  <svelte:head>
-    <title>User Profile</title>
-  </svelte:head>
-  
   <main>
     <div class="user-card">
       {#await user.get(user_id)}
-          <span>Loading...</span>
-          <div class="avatar-container">
-            <img class="avatar" src="/assets/discord_default_avatar.png"/>
-          </div>
+        <span>Loading...</span>
+        <UserAvatar />
       {:then user}
+        {#if user}
           <span class="card-username">{user.username}</span>
-          <div class="avatar-container">
-              <img class="avatar" src="{user.avatar_url}"/>
-              {#if user.verified}
-                  <img src="/assets/verified.svg" class="icon verified"/>
-              {/if}
-              {#if user.access}
-                  {#if user.access == "mod"}
-                      <img src="/assets/mod.svg" class="icon access mod"/>
-                  {/if}
-                  {#if user.access == "admin"}
-                      <img src="/assets/admin.svg" class="icon access"/>
-                  {/if}
-              {/if}
-          </div>
+          <UserAvatar {...user} />
+        {/if}
       {/await}
     </div>
     {#await fetch_schematics()}
@@ -57,10 +44,10 @@
         <ul id="schematics_result">
           {#each data.schematics as schematic}
             <li>
-              <SchematicCard {schematic}/>
+              <SchematicCard {schematic} />
             </li>
           {/each}
-        </ul>      
+        </ul>
       {:else}
         <p>No schematics found for this user.</p>
       {/if}
@@ -83,64 +70,38 @@
     flex-direction: column;
   }
   .user-card {
-      display: inline-flex;
-      background-color: var(--surface);
-      border-radius: 25px;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding: 21px;
-      padding-right: 42px;
-      margin: 25px;
+    display: inline-flex;
+    background-color: var(--surface);
+    border-radius: 25px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 21px;
+    padding-right: 42px;
+    margin: 25px;
+
+    /* Used by the UserAvatar */
+    --image-size: 6em;
   }
   .card-username {
-      font-size: 36px;
-      margin: 21px;
-  }
-  .avatar {
-      width: 128px;
-      border-radius: 50%;
+    font-size: 36px;
+    margin: 21px;
   }
 
-  .avatar-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 128px;
-  }
-  
-  .mod {
-      filter: hue-rotate(200);
-  }
-
-  .icon {
-      width: 36px;
-  }
-
-  .verified {
-      position: absolute;
-      top: 3px;
-      right: 0px;
-  }
-
-  .access {
-      position: absolute;
-      top: 100px;
-      right: 0px;
-  }
   @media screen and (max-width: 600px) {
-    .verified { position: absolute; top: 3px; }
-    .access { position: absolute; top: 50px; }
-    .icon { width: 18px; }
-    .avatar-container { width: 64px; }
-    .card-username { font-size: 18px; margin: 21px; }
-    .avatar { width: 64px; }
+    .card-username {
+      font-size: 18px;
+      margin: 21px;
+    }
+
     .user-card {
       border-radius: 15px;
       padding: 10.5px;
       padding-right: 21px;
       margin: 15px;
+
+      /* Used by the UserAvatar */
+      --image-size: min(100%, 4em);
     }
   }
 </style>

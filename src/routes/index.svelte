@@ -180,16 +180,6 @@
     width: 100%;
     object-fit: contain;
   }
-  div.controls select {
-    padding: 0.3rem;
-    color: white;
-    display: flex;
-    align-items: center;
-    border: 2px solid #808080;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    background-color: var(--surface);
-  }
   form :global(ul.tags) {
     grid-area: tags;
     padding: 0;

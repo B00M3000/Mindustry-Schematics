@@ -1,4 +1,4 @@
-import { Access, accessLevels, UserAccess } from '@/lib/auth/access';
+import { Access, accessLevels } from '@/lib/auth/access';
 import { SchematicChangeSchema } from '@/server/mongo';
 import type { RequestHandler } from '@sveltejs/kit';
 

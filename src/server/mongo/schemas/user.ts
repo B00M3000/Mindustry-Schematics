@@ -1,15 +1,6 @@
 import mongoose from 'mongoose';
 
-const schema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true},
-  username: { type: String, required: true },
-  discriminator: { type: String, required: true },
-  avatar_url: { type: String, required: true },
-  verified: { type: Boolean },
-  access: { type: String },
-}, { timestamps: true });
-
-export interface UserDocument extends mongoose.Document {
+export interface UserDocData {
   _id: string;
   id: string;
   username: string;
@@ -19,5 +10,19 @@ export interface UserDocument extends mongoose.Document {
   access?: string;
 }
 
-export const UserSchema: mongoose.Model<UserDocument> =
+const schema = new mongoose.Schema<UserDocData>(
+  {
+    id: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
+    discriminator: { type: String, required: true },
+    avatar_url: { type: String, required: true },
+    verified: { type: Boolean },
+    access: { type: String },
+  },
+  { timestamps: true },
+);
+
+export type UserDocument = mongoose.HydratedDocument<UserDocData>;
+
+export const UserSchema: mongoose.Model<UserDocData> =
   mongoose.models.Users || mongoose.model('Users', schema);
