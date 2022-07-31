@@ -135,7 +135,7 @@
     .icon { width: 18px; }
     .avatar-container { width: 64px; }
     .card-username { font-size: 18px; margin: 21px; }
-    .avatar { width: 128px; }
+    .avatar { width: 64px; }
     .user-card {
       border-radius: 15px;
       padding: 10.5px;
