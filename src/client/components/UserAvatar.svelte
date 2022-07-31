@@ -7,7 +7,7 @@
 <script lang="ts">
   export let verified = false;
   export let access: string | undefined = undefined;
-  export let avatar_url: string;
+  export let avatar_url = '/assets/discord_default_avatar.png';
 </script>
 
 <div class="avatar-container">

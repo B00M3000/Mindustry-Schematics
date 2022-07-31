@@ -40,7 +40,6 @@
     const params = new URLSearchParams({ page: page.toString() });
     if (data.query) params.set('query', data.query);
     if (data.tags) params.set('tags', data.tags);
-    if (data.mode) params.set('mode', data.mode);
     return `/?${params}`;
   }
 </script>
@@ -56,9 +55,7 @@
       value!="{data.query}"
     )
     div.controls
-      select#mode(name="mode")
-        option(value="name" selected!="{data.mode == 'name'}") Name
-        option(value="creator" selected!="{data.mode == 'creator'}") Creator
+      div
       div.buttons
         button(type="submit")
           img(src="/assets/check-mark.svg" alt="Search")

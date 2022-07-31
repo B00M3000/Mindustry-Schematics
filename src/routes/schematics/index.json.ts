@@ -7,7 +7,6 @@ import { Schematic } from 'mindustry-schematic-parser';
 import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
 import { parseFormData } from '@/server/body_parsing';
-type QueryMode = 'creator' | 'name';
 
 interface PostBody {
   name: string;
@@ -23,14 +22,13 @@ const limitPerPage = 20;
 export const GET: RequestHandler = async ({ url }) => {
   let page = Number(url.searchParams.get('page')) || 1;
   if (page < 1) page = 1;
-  const mode: QueryMode = url.searchParams.get('mode') == 'creator' ? 'creator' : 'name';
   const query = url.searchParams.get('query') || '';
   const tags = url.searchParams.get('tags') || '';
   const skip = limitPerPage * (page - 1);
 
   const dbQuery: FilterQuery<SchematicDocument> = {};
   if (query) {
-    dbQuery[mode] = new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+    dbQuery.name = new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
   }
   if (tags) {
     dbQuery.tags = { $all: tags.split(' ').map((t) => t.replace(/_/g, ' ')) };
@@ -56,7 +54,6 @@ export const GET: RequestHandler = async ({ url }) => {
       documents,
       schematics,
       tags,
-      mode,
     };
     return {
       status: 200,
