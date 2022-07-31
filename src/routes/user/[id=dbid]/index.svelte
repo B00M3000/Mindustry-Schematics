@@ -130,35 +130,17 @@
       right: 0px;
   }
   @media screen and (max-width: 600px) {
+    .verified { position: absolute; top: 3px; }
+    .access { position: absolute; top: 50px; }
+    .icon { width: 18px; }
+    .avatar-container { width: 64px; }
+    .card-username { font-size: 18px; margin: 21px; }
+    .avatar { width: 128px; }
     .user-card {
-      display: inline-flex;
-      background-color: var(--surface);
       border-radius: 15px;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
       padding: 10.5px;
       padding-right: 21px;
       margin: 15px;
     }
-    .verified {
-      position: absolute;
-      top: 3px;
-    }
-    .access {
-      position: absolute;
-      top: 50px;
-    }
-    .icon {
-      width: 18px;
-    }
-    .avatar-container {
-      width: 64px;
-    }
-    .card-username {
-      font-size: 18px;
-      margin: 21px;
-    }
-    .avatar { width: 128px; }
   }
 </style>
