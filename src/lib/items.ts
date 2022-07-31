@@ -1,26 +1,29 @@
 import type { ItemName } from 'mindustry-schematic-parser';
 
+/**
+ * A constant array containing the names of all the mindustry items, it is sorted
+ * by their declaration order
+ */
 export const items: ItemName[] = [
-  'beryllium',
-  'blast-compound',
-  'carbide',
-  'coal',
   'copper',
-  'dormant-cyst',
-  'fissile-matter',
-  'graphite',
   'lead',
   'metaglass',
-  'metaglass',
-  'oxide',
-  'phase-fabric',
-  'plastanium',
-  'pyratite',
+  'graphite',
   'sand',
-  'scrap',
-  'spore-pod',
-  'surge-alloy',
-  'thorium',
+  'coal',
   'titanium',
+  'thorium',
+  'scrap',
+  'silicon',
+  'plastanium',
+  'phase-fabric',
+  'surge-alloy',
+  'blast-compound',
+  'pyratite',
+  'beryllium',
   'tungsten',
+  'oxide',
+  'carbide',
+  'fissile-matter',
+  'dormant-cyst',
 ];
