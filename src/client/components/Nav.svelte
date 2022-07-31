@@ -9,14 +9,15 @@
 <template lang="pug">
   nav
     ul(bind:this!="{ul}" style="--items {ul?.chidren?.length || 1}")
-      a(href="/user" class:selected!="{(/(user)|(admin)/).test(current)}")
-        li User Login
-      a(href="/" class:selected!="{current== '' || current == 'schematics'}")
+      a(href="/user" class:selected!="{current== 'user' || current== 'admin'}")
+        +if("$user.id")
+          li User
+          +else
+            li Login
+      a(href="/" class:selected!="{current== '' || current== 'schematics'}")
         li Schematics
-      a(href="https://old.mindustryschematics.com")
-        li Old Database
       a(href="https://logic.mindustryschematics.com")
-        li Logic Emulator
+        li Logic
       a(href="/downloads" class:selected!="{current== 'downloads'}")
         li Downloads
       a(href="/guides" class:selected!="{current== 'guides'}")
@@ -55,7 +56,7 @@
     display: flex;
     list-style: none;
     padding: 1rem;
-    gap: 1em;
+    gap: 0.5em;
   }
   nav ul li {
     padding: 0.5em;
