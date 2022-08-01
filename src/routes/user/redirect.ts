@@ -31,6 +31,8 @@ async function get_user(token_type: unknown, access_token: unknown) {
   return data;
 }
 
+const absolute = new RegExp('^(?:[a-z+]+:)?//', 'i');
+
 export const GET: RequestHandler = async (req) => {
   const code = req.url.searchParams.get('code');
   const redirect = req.url.searchParams.get('state');
@@ -86,7 +88,7 @@ export const GET: RequestHandler = async (req) => {
   return {
     status: 307,
     headers: {
-      location: redirect || '/user',
+      location: redirect ? absolute.test(redirect) ? '/user': redirect : '/user',
       'set-cookie': cookie.serialize('session_id', session._id.toString(), {
         path: '/',
       }),
