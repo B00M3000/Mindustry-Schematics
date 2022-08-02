@@ -37,7 +37,7 @@
     "cookie": "^0.4.2",
     "diff": "^5.0.0",
     "dotenv": "^16.0.0",
-    "mindustry-schematic-parser": "^4.2.0-alpha.0",
+    "mindustry-schematic-parser": "^4.2.0-alpha.1",
     "mongoose": "^6.2.3",
     "showdown": "^2.0.0"
   }
