@@ -17,16 +17,7 @@ div.schematic
   div.tools
     IconButton(href="/schematics/{schematic._id}" src="/assets/info.svg" alt="info")
     IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
-    IconButton(
-      href="/schematics/{schematic._id}/edit"
-      src="/assets/pencil.svg"
-      alt="edit"
-    )
-    IconButton(
-      href="/schematics/{schematic._id}/delete"
-      src="/assets/trash.svg"
-      alt="delete"
-    )
+
   div.view
     div.name
       h2 {schematic.name}

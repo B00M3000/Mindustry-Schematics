@@ -102,16 +102,7 @@
       alt="share schematic"
       on:click!="{() => share(schematic.name, window.location.href)}"
       )
-      IconButton(
-        href="/schematics/{schematic._id}/edit"
-        src="/assets/pencil.svg"
-        alt="edit schematic"
-      )
-      IconButton(
-        href="/schematics/{schematic._id}/delete"
-        src="/assets/trash.svg"
-        alt="delete schematic"
-      )
+
   footer
     BackButton(href="/" smart)
 </template>

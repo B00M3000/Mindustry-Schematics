@@ -83,14 +83,7 @@
       class!="{data.page < 2 ? 'hidden' : ''}"
       border
     )
-    IconButton(
-      href="/schematics/create"
-      src="/assets/add.svg"
-      alt="add schematic"
-      class="add"
-      border
-    )
-      span Add Schematic
+    div.bar_spacer
     IconButton.right(
       href!="{pageLink(data.page + 1)}"
       src="/assets/chevron.svg"
@@ -206,6 +199,11 @@
     visibility: hidden;
     pointer-events: none;
   }
+
+  .bar_spacer {
+    flex: 0.1;
+  }
+
   @media screen and (max-width: 600px) {
     form {
       width: 100%;
