@@ -29,30 +29,14 @@
   import { goto } from '$app/navigation';
 
   import AuthorCard from '@/client/components/AuthorCard.svelte';
+  import { items } from '@/lib/items';
 
   export let schematic: SchematicJSON;
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/schematics/${schematic._id}.png`;
   const description = safeDescription(schematic.description ?? '');
   const tags = Tag.parse(schematic.tags);
-  const items: ItemName[] = [
-    'copper',
-    'lead',
-    'metaglass',
-    'graphite',
-    'sand',
-    'coal',
-    'titanium',
-    'thorium',
-    'scrap',
-    'silicon',
-    'plastanium',
-    'phase-fabric',
-    'surge-alloy',
-    'spore-pod',
-    'blast-compound',
-    'pyratite',
-  ];
+
   async function copySchematic() {
     await copy(schematic.text);
     toast.push('Copied to Clipboard!');
