@@ -46,7 +46,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     const response = await resolve(event);
-
     return response;
   } catch (error) {
     // makes debugging easier

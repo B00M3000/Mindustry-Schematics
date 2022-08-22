@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   export const load: Load = async ({ fetch, params, session }) => {
     const { id } = params;
+    if(!session.id) return { status: 307, redirect: `/user?redirect=/schematics/${id}/edit`}
     const response = await fetch(`/schematics/${id}.json`);
     const schematic = await response.json();
     const access = UserAccess.from(session.access);
@@ -34,17 +35,14 @@
     meta(property="og:type" content="website")
     title Edit a Schematic
 
-  +if("$user.id")
-    h1 Edit a Schematic
-    div
-      SchematicForm(
-        variant="edit"
-        action="/schematics/{schematic._id}/edit.json"
-        initialData!="{schematic}"
-        directActions!="{directActions}"
-      )
-    +else
-      p you need to be logged in to edit schematics
+  h1 Edit a Schematic
+  div
+    SchematicForm(
+      variant="edit"
+      action="/schematics/{schematic._id}/edit.json"
+      initialData!="{schematic}"
+      directActions!="{directActions}"
+    )
   footer
     BottomBar
       BackButton(href="/schematics/{schematic._id}" smart)
