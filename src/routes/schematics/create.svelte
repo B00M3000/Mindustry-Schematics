@@ -1,4 +1,12 @@
+<script context="module" lang="ts">
+  export const load: Load = async ({ session }) => {
+    if(!session.id) return { status: 307, redirect: '/user?redirect=/schematics/create'}
+  }
+</script>
+
 <script lang="ts">
+  import type { Load } from '@sveltejs/kit';
+
   import BottomBar from '@/client/components/BottomBar.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
@@ -11,10 +19,8 @@
   p.
     Policy: When adding schematics created by other's please give credit in comments. 
     If you find that someone has posted a schematic that you created, please join the discord server in the info tab and ping @NoobMan13.
-  +if("$user.id")
-    SchematicForm(variant="create" action="/schematics.json")
-    +else
-      p You must have an account to create schematics
+  SchematicForm(variant="create" action="/schematics.json")
+
   footer
     div
       BottomBar
