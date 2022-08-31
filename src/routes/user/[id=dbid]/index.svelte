@@ -14,7 +14,7 @@
 
   export let user_id: string;
 
-  async function fetch_schematics() {
+  async function fetch_schematics(user_id) {
     let res = await fetch(`/user/${user_id}/schematics.json`);
     return await res.json();
   }
@@ -37,7 +37,7 @@
         {/if}
       {/await}
     </div>
-    {#await fetch_schematics()}
+    {#await fetch_schematics(user_id)}
       <p>Retriving schematics...</p>
     {:then data}
       {#if data.schematics}
