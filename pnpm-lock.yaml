@@ -16,7 +16,7 @@ specifiers:
   eslint: ^8.23.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
-  mindustry-schematic-parser: 4.2.0-alpha.1
+  mindustry-schematic-parser: 4.2.0-alpha.2
   mongoose: ^6.5.4
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.7.0
@@ -34,7 +34,7 @@ dependencies:
   cookie: 0.5.0
   diff: 5.1.0
   dotenv: 16.0.2
-  mindustry-schematic-parser: 4.2.0-alpha.1
+  mindustry-schematic-parser: 4.2.0-alpha.2
   mongoose: 6.5.4
   showdown: 2.1.0
 
@@ -142,8 +142,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@mapbox/node-pre-gyp/1.0.9:
-    resolution: {integrity: sha512-aDF3S3rK9Q2gey/WAttUlISduDItz5BU3306M9Eyv6/oS40aMprnopshtlKTykxRNIBEZuRMaZAnbrQ4QtKGyw==}
+  /@mapbox/node-pre-gyp/1.0.10:
+    resolution: {integrity: sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==}
     hasBin: true
     dependencies:
       detect-libc: 2.0.1
@@ -153,7 +153,7 @@ packages:
       nopt: 5.0.0
       npmlog: 5.0.1
       rimraf: 3.0.2
-      semver: 7.3.7
+      semver: 7.3.8
       tar: 6.1.11
     transitivePeerDependencies:
       - encoding
@@ -384,7 +384,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.7
+      semver: 7.3.8
       tsutils: 3.21.0_typescript@4.8.2
       typescript: 4.8.2
     transitivePeerDependencies:
@@ -573,13 +573,13 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /canvas/2.9.3:
-    resolution: {integrity: sha512-WOUM7ghii5TV2rbhaZkh1youv/vW1/Canev6Yx6BG2W+1S07w8jKZqKkPnbiPpQEDsnJdN8ouDd7OvQEGXDcUw==}
+  /canvas/2.10.1:
+    resolution: {integrity: sha512-29pIjn9uwTUsIgJUNd7GXxKk8sg4iyJwLm1wIilNIqX1mVzXSc2nUij9exW1LqNpis1d2ebMYfMqTWcokZ4pdA==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
-      '@mapbox/node-pre-gyp': 1.0.9
-      nan: 2.16.0
+      '@mapbox/node-pre-gyp': 1.0.10
+      nan: 2.17.0
       simple-get: 3.1.1
     transitivePeerDependencies:
       - encoding
@@ -1534,11 +1534,11 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /mindustry-schematic-parser/4.2.0-alpha.1:
-    resolution: {integrity: sha512-oFAnREVG5gTG7YIcB3gMDlepYm8tfXXwF11zFVyC6Edszn/l9ibYDUVr1y9s2dH3ZXri9pQYkAldf6P+c1csJA==}
+  /mindustry-schematic-parser/4.2.0-alpha.2:
+    resolution: {integrity: sha512-e5sgYJmq//NBMhVKtXjwlkZ5WrHaK1WQxNtJk+9PEq5QSuM0q8u43L1TjRtyWrfL7JZqDQsb05nbhatYK+awLw==}
     engines: {node: '>=12'}
     dependencies:
-      canvas: 2.9.3
+      canvas: 2.10.1
       pako: 2.0.4
       pkg-dir: 6.0.1
     transitivePeerDependencies:
@@ -1643,8 +1643,8 @@ packages:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
     dev: false
 
-  /nan/2.16.0:
-    resolution: {integrity: sha512-UdAqHyFngu7TfQKsCBgAA6pWDkT8MAO7d0jyOecVhN5354xbLqdn8mV9Tat9gepAupm0bt2DbeaSC8vS52MuFA==}
+  /nan/2.17.0:
+    resolution: {integrity: sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==}
     dev: false
 
   /nanoid/3.3.4:
@@ -2039,6 +2039,14 @@ packages:
 
   /semver/7.3.7:
     resolution: {integrity: sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      lru-cache: 6.0.0
+    dev: true
+
+  /semver/7.3.8:
+    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
