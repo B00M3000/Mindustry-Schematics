@@ -3,7 +3,14 @@ import { parseText } from '@/server/body_parsing';
 import type { RequestHandler } from '@sveltejs/kit';
 import { Schematic } from 'mindustry-schematic-parser';
 
-class SchematicSizeError extends Error {}
+interface SchematicParseJSON2 extends SchematicParseJSON {
+  powerBalance: number;
+  powerConsumption: number;
+  powerProduction: number;
+  requirements: object;
+}
+
+class SchematicSizeError extends Error { }
 export const POST: RequestHandler = async ({ request }) => {
   const text: string = (await parseText(request)) ?? (await request.json()).text;
 
@@ -25,9 +32,14 @@ export const POST: RequestHandler = async ({ request }) => {
         `The schematic size (${width}x${height}) is bigger than the allowed size (${maxSize}x${maxSize})`,
       );
     }
-    const body: SchematicParseJSON = {
+    const { powerBalance, powerConsumption, powerProduction, requirements } = schematic;
+    const body: SchematicParseJSON2 = {
       name: schematic.name,
       description: schematic.description,
+      powerBalance,
+      powerConsumption,
+      powerProduction,
+      requirements,
       image: (await schematic.render()).toBuffer().toString('base64'),
     };
     return {
