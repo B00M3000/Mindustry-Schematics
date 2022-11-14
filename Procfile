@@ -1,1 +1,1 @@
-web: node prepare && node build
+web: node build
