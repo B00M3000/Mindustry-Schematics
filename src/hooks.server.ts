@@ -4,7 +4,7 @@ import mongoose  from 'mongoose'
 import mongo from '@/server/mongo';
 import { SessionSchema, UserSchema } from './server/mongo';
 import webhooks from './server/webhooks';
-import { dev } from '$app/env';
+import { dev } from '$app/environment';
 import { UserAccess } from './lib/auth/access';
 import { session } from '$app/stores';
 
