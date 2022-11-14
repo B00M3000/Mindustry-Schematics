@@ -9,8 +9,8 @@
     "paths": {
       "@static/*": ["./static/*"],
       "@/*": ["./src/*"],
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"]
+      "$lib": ["./src/lib"],
+      "$lib/*": ["./src/lib/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
