@@ -16,7 +16,7 @@ specifiers:
   eslint: ^8.23.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
-  mindustry-schematic-parser: 4.2.0-alpha.2
+  mindustry-schematic-parser: 4.2.0
   mongoose: ^6.5.4
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.7.0
@@ -34,7 +34,7 @@ dependencies:
   cookie: 0.5.0
   diff: 5.1.0
   dotenv: 16.0.2
-  mindustry-schematic-parser: 4.2.0-alpha.2
+  mindustry-schematic-parser: 4.2.0
   mongoose: 6.5.4
   showdown: 2.1.0
 
@@ -154,7 +154,7 @@ packages:
       npmlog: 5.0.1
       rimraf: 3.0.2
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -573,8 +573,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /canvas/2.10.1:
-    resolution: {integrity: sha512-29pIjn9uwTUsIgJUNd7GXxKk8sg4iyJwLm1wIilNIqX1mVzXSc2nUij9exW1LqNpis1d2ebMYfMqTWcokZ4pdA==}
+  /canvas/2.10.2:
+    resolution: {integrity: sha512-FSmlsip0nZ0U4Zcfht0qBJqDhlfGuevTZKE8h+dBOYrJjGvY3iqMGSzzbvkaFhvMXiVxfcMaPHS/kge++T5SKg==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
@@ -1534,13 +1534,13 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /mindustry-schematic-parser/4.2.0-alpha.2:
-    resolution: {integrity: sha512-e5sgYJmq//NBMhVKtXjwlkZ5WrHaK1WQxNtJk+9PEq5QSuM0q8u43L1TjRtyWrfL7JZqDQsb05nbhatYK+awLw==}
+  /mindustry-schematic-parser/4.2.0:
+    resolution: {integrity: sha512-aZYrBiDkLtQnP9sXB/DqlEyzsAC0UuT9ffWmMdSgkFYxB9MYaYV1R3W0k1+MphlRm5IoSetgUBSbsaNXRhctAg==}
     engines: {node: '>=12'}
     dependencies:
-      canvas: 2.10.1
-      pako: 2.0.4
-      pkg-dir: 6.0.1
+      canvas: 2.10.2
+      pako: 2.1.0
+      pkg-dir: 7.0.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -1740,8 +1740,8 @@ packages:
       p-limit: 4.0.0
     dev: false
 
-  /pako/2.0.4:
-    resolution: {integrity: sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==}
+  /pako/2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
     dev: false
 
   /parent-module/1.0.1:
@@ -1788,9 +1788,9 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /pkg-dir/6.0.1:
-    resolution: {integrity: sha512-C9R+PTCKGA32HG0n5I4JMYkdLL58ZpayVuncQHQrGeKa8o26A4o2x0u6BKekHG+Au0jv5ZW7Xfq1Cj6lm9Ag4w==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+  /pkg-dir/7.0.0:
+    resolution: {integrity: sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==}
+    engines: {node: '>=14.16'}
     dependencies:
       find-up: 6.3.0
     dev: false
@@ -2282,9 +2282,9 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  /tar/6.1.11:
-    resolution: {integrity: sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==}
-    engines: {node: '>= 10'}
+  /tar/6.1.12:
+    resolution: {integrity: sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw==}
+    engines: {node: '>=10'}
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
