@@ -7,12 +7,12 @@
   import TagInput from './TagInput.svelte';
   import Scanning from './animated/Scanning.svelte';
   import { goto } from '$app/navigation';
-  import { auth } from '../stores/auth';
   import { toast } from '@zerodevx/svelte-toast';
   import { onMount } from 'svelte';
   import { Access } from '@/lib/auth/access';
   import { Tag } from '@/lib/tags';
   import AuthorCard from './AuthorCard.svelte';
+  import { user } from '../stores/user';
   export let variant: 'create' | 'edit';
   export let action: string;
   export let initialData: SchematicJSON | undefined = undefined;
@@ -77,7 +77,7 @@
     });
     const url = response.headers.get('location');
     await goto(url || '/');
-    if (variant == 'edit' && $auth.access.can({ schematics: Access.updateAll })) {
+    if (variant == 'edit' && $user.uaccess.can({ schematics: Access.updateAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change._id}`;
       toast.push(`<a href="${changeUrl}"><button>See edit request</button></a>`);

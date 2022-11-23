@@ -1,4 +1,4 @@
-import { session } from '$app/stores';
+import { page } from '$app/stores';
 import type { BasicUserJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
 import { writable } from 'svelte/store';
@@ -16,13 +16,14 @@ const { set, subscribe } = writable<UserStore>(
     uaccess: UserAccess.from(undefined),
   },
   (set) => {
-    session.subscribe(($session) => {
+    page.subscribe(($page) => {
+      const { session } = $page.data;
       set({
-        id: $session.id,
-        username: $session.username,
-        verified: $session.verified,
-        uaccess: UserAccess.from($session.access),
-        avatar_url: $session.avatar_url,
+        id: session?.id,
+        username: session?.username,
+        verified: session?.verified,
+        uaccess: UserAccess.from(session?.access),
+        avatar_url: session?.avatar_url,
       });
     })();
   },
