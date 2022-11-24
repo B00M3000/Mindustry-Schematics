@@ -7,7 +7,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
   const { id } = params;
 
   const { session } = await parent();
-  if (!session?.id) throw redirect(307, `/user?redirect=/schematics/${id}/edit`);
+  if (!session.id) throw redirect(307, `/user?redirect=/schematics/${id}/edit`);
 
   const response = await fetch(`/schematics/${id}.json`);
   const schematic: SchematicJSON = await response.json();

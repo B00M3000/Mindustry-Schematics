@@ -26,7 +26,7 @@ declare global {
     }
 
     interface PageData {
-      session?: Session;
+      session: Session | { [K in keyof Session]?: undefined };
     }
     interface Error {
       message: string;

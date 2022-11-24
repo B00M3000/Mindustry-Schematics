@@ -1,13 +1,13 @@
 <script lang="ts">
   import { user } from '@/client/stores/user';
-  import { Access } from '@/lib/auth/access';
+  import { Access, UserAccess } from '@/lib/auth/access';
   import type { PageData } from './$types';
 
   export let data: PageData;
 
   let url = `/user/login${data.redirect ? `?redirect=${data.redirect}` : ''}`;
 
-  $: allowChanges = $user.uaccess.can({
+  $: allowChanges = $user.access.can({
     schematics: Access.deleteAll | Access.updateAll,
   });
 </script>

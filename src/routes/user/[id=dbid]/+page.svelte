@@ -1,8 +1,8 @@
 <script lang="ts">
   import UserAvatar from '@/client/components/UserAvatar.svelte';
-  import { user } from '@/client/stores/user';
   import SchematicCard from '@/client/components/SchematicCard.svelte';
   import type { PageData } from './$types';
+  import { user } from '@/client/stores/user';
 
   export let data: PageData;
 

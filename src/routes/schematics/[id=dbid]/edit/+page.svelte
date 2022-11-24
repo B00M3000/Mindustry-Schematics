@@ -3,7 +3,6 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import SchematicForm from '@/client/components/SchematicForm.svelte';
   import type { Load } from '@sveltejs/kit';
-  import { user } from '@/client/stores/user';
   import BottomBar from '@/client/components/BottomBar.svelte';
   import { UserAccess, Access } from '@/lib/auth/access';
   import type { PageData } from './$types';

@@ -5,7 +5,7 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch, parent }) => {
   const { session } = await parent();
-  const access = UserAccess.from(session?.access);
+  const access = UserAccess.from(session.access);
   if (!access.can({ schematics: Access.deleteAll | Access.updateAll })) {
     throw redirect(302, '/user');
   }

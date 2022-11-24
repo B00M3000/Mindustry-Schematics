@@ -5,11 +5,12 @@
   import { goto } from '$app/navigation';
   import type { Load } from '@sveltejs/kit';
   import { toast } from '@zerodevx/svelte-toast';
-  import { user } from '@/client/stores/user';
   import { Access, UserAccess } from '@/lib/auth/access';
   import BottomBar from '@/client/components/BottomBar.svelte';
   import AuthorCard from '@/client/components/AuthorCard.svelte';
   import type { PageData } from './$types';
+  import { page } from '$app/stores';
+  import { user } from '@/client/stores/user';
 
   export let data: PageData;
 
@@ -27,7 +28,7 @@
       body: data,
     });
     await goto(response.headers.get('location') as string);
-    if ($user.uaccess.can({ schematics: Access.deleteAll })) {
+    if ($user.access.can({ schematics: Access.deleteAll })) {
       const { change } = await response.json();
       const changeUrl = `/admin/schematic_changes/${change}`;
       toast.push(`<a href="${changeUrl}"><button>See delete request</button></a>`);

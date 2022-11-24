@@ -1,12 +1,14 @@
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = ({ locals }) => {
-  const session = locals.user && {
-    ...locals.user,
-    access: locals.user?.access.toString(),
-  };
+export const load: LayoutServerLoad = ({ locals, depends }) => {
+  const session: App.PageData['session'] = locals.user
+    ? {
+        ...locals.user,
+        access: locals.user?.access.toString(),
+      }
+    : {};
 
-  return {
-    session,
-  };
+  depends('app:logout');
+
+  return { session };
 };

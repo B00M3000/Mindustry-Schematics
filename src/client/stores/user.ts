@@ -1,32 +1,23 @@
+import { invalidate } from '$app/navigation';
 import { page } from '$app/stores';
 import type { BasicUserJSON } from '@/interfaces/json';
 import { UserAccess } from '@/lib/auth/access';
-import { writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 
-interface UserStore {
-  id?: string;
-  username?: string;
-  verified?: boolean;
-  uaccess: UserAccess;
-  avatar_url?: string;
+interface Overrides {
+  access: UserAccess;
 }
 
-const { set, subscribe } = writable<UserStore>(
-  {
-    uaccess: UserAccess.from(undefined),
-  },
-  (set) => {
-    page.subscribe(($page) => {
-      const { session } = $page.data;
-      set({
-        id: session?.id,
-        username: session?.username,
-        verified: session?.verified,
-        uaccess: UserAccess.from(session?.access),
-        avatar_url: session?.avatar_url,
-      });
-    })();
-  },
+type UserStore =
+  | (Omit<App.Session, keyof Overrides> & Overrides)
+  | ({ [K in Exclude<keyof App.Session, keyof Overrides>]?: undefined } & Overrides);
+
+const { subscribe } = derived(
+  page,
+  ({ data: { session } }): UserStore => ({
+    ...session,
+    access: UserAccess.from(session.access),
+  }),
 );
 
 export const user = {
@@ -35,9 +26,7 @@ export const user = {
     await fetch('/user/logout.json', {
       method: 'POST',
     });
-    set({
-      uaccess: UserAccess.from(undefined),
-    });
+    await invalidate('app:logout');
   },
   async get(id: string): Promise<BasicUserJSON | null> {
     const res = await fetch(`/user/${id}.json`, {
