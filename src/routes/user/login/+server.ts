@@ -1,17 +1,19 @@
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import env from '@/server/env';
 export const GET: RequestHandler = async ({ url }) => {
   const redirect = url.searchParams.get('redirect');
+  const client_id = env.DISCORD_APPLICATION_ID;
+  if (!client_id) throw error(500, "The server doesn't have a discord application ID");
   const params = new URLSearchParams({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    client_id: env.DISCORD_APPLICATION_ID!,
+    client_id,
     scope: 'identify',
     redirect_uri: `${env.WEBSITE_URL}/user/redirect`,
     response_type: 'code',
     prompt: 'none',
-    state: redirect!,
   });
+
+  if (redirect) params.append('state', redirect);
 
   return json(
     {
