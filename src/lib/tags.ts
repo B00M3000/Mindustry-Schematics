@@ -61,7 +61,6 @@ const Tags = [
   new Tag('From Sand', '#f7cba4'),
   new Tag('Offence', '#fc6b03'),
   new Tag('Combustion Generator', '#403939'),
-  new Tag('Impact Reactor', '#e86e35'),
   new Tag('RTG Generator', '#7422a3'),
   new Tag('Thermal Generator', '#e86e35'),
   new Tag('Unit Control', '#8a37a6'),
