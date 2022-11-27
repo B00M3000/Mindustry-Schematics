@@ -11,6 +11,10 @@ const config = {
     adapter: adapter({
       out: 'build',
     }),
+    alias: {
+      '@static/*': 'static/*',
+      '@/*': 'src',
+    },
   },
 };
 

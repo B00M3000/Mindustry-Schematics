@@ -1,7 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { user } from '@/client/stores/user';
   import AuthorCard from '@/client/components/AuthorCard.svelte';
+  import { user } from '../stores/user';
+
   let ul: HTMLUListElement;
   $: current = $page?.url.pathname.split('/')[1];
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { user } from '@/client/stores/user';
+  import { user } from '../stores/user';
   import UserAvatar from './UserAvatar.svelte';
 
   export let creator_id: string;

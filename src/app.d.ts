@@ -3,9 +3,10 @@
 import type { UserAccess } from './lib/auth/access';
 
 declare global {
-  // See https://kit.svelte.dev/docs/types#the-app-namespace
-  // for information about these interfaces
-  namespace App {
+  declare namespace App {
+    // See https://kit.svelte.dev/docs/types#app
+    // for information about these interfaces
+    // and what to do when importing types  namespace App {
     interface Locals {
       user?: {
         id: string;
@@ -17,15 +18,19 @@ declare global {
     }
 
     interface Session {
-      id?: string;
-      username?: string;
-      access?: string;
-      verified?: boolean;
-      avatar_url?: string;
+      id: string;
+      username: string;
+      access: string;
+      verified: boolean;
+      avatar_url: string;
     }
 
+    interface PageData {
+      session: Session | { [K in keyof Session]?: undefined };
+    }
+    interface Error {
+      message: string;
+    }
     // interface Platform {}
-
-    // interface Stuff {}
   }
 }
