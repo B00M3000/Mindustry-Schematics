@@ -15,7 +15,11 @@
 
 div.schematic
   div.tools
-    IconButton(href="/schematics/{schematic._id}" src="/assets/info.svg" alt="info")
+    a(href="/schematics/{schematic._id}.msch" download)
+      IconButton(
+        src="/assets/download.svg"
+        alt="download schematic"
+      )
     IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
     IconButton(
       href="/schematics/{schematic._id}/edit"
@@ -27,7 +31,7 @@ div.schematic
       src="/assets/trash.svg"
       alt="delete"
     )
-  div.view
+  a.view(href="/schematics/{schematic._id}")
     div.name
       h2 {schematic.name}
     LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
@@ -58,17 +62,18 @@ div.schematic
     font-size: 10px;
     font-style: thin;
   }
-  .schematic div.view {
+  .schematic a.view {
+    display: block;
     position: relative;
     height: 166px;
     width: 166px;
   }
-  .schematic div.view > * {
+  .schematic a.view > * {
     position: absolute;
     top: 0;
     left: 0;
   }
-  .schematic div.view div.name {
+  .schematic a.view div.name {
     z-index: 2;
     word-wrap: normal;
     width: 100%;
@@ -89,7 +94,7 @@ div.schematic
   div.tools :global(a button) {
     width: 100%;
   }
-  .schematic :global(div.view img) {
+  .schematic :global(a.view img) {
     z-index: 1;
     height: 166px;
     width: 166px;
