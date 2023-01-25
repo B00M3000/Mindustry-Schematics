@@ -6,6 +6,7 @@
   import { Tag } from '@/lib/tags';
   import BottomBar from '@/client/components/BottomBar.svelte';
   import type { PageData } from './$types';
+  import PaginationBar from '@/client/components/PaginationBar.svelte';
   export let data: PageData;
   let form: HTMLFormElement;
   let currentTags = Tag.parse(data.tags.split(' '));
@@ -55,44 +56,19 @@
         li.schematic
           SchematicCard({schematic})
   
-  div.bottom
-    BottomBar
-      IconButton(
-        href!="{pageLink(1)}"      
-      src="/assets/double_chevron.svg"
-      alt="first page"
-        class!="{data.page < 3 ? 'hidden' : ''}"
-        border
-      )
-      IconButton(
-        href!="{pageLink(data.page - 1 || 1)}"
-        src="/assets/chevron.svg"
-        alt="previous page"
-        class!="{data.page < 2 ? 'hidden' : ''}"
-        border
-      )
-      IconButton(
-        href="/schematics/create"
-        src="/assets/add.svg"
-        alt="add schematic"
-        class="add"
-        border
-      )
-        span Add Schematic
-      IconButton.right(
-        href!="{pageLink(data.page + 1)}"
-        src="/assets/chevron.svg"
-        alt="next page"
-        class!="{data.page > data.pages - 1 ? 'hidden' : ''}"
-        border
-      )
-      IconButton.right(
-        href!="{pageLink(data.pages)}"
-        src="/assets/double_chevron.svg"
-        alt="last page"
-        class!="{data.page > data.pages - 2 ? 'hidden' : ''}"
-        border
-      )
+  PaginationBar(
+    page!="{data.page}"
+    pages!="{data.pages}"
+    pageLink!="{pageLink}"
+  )
+    IconButton(
+      slot="bottom_bar_middle"
+      href="/schematics/create"
+      src="/assets/add.svg"
+      alt="add schematic"
+      border
+    )
+      span.add_schematic Add Schematic
 </template>
 
 <style>
@@ -177,28 +153,15 @@
     justify-content: center;
     list-style: none;
   }
-  .bottom {
-    display: contents;
-  }
-  .bottom :global(.right img) {
-    transform: scaleX(-1);
-  }
-  .bottom :global(a.hidden) {
-    visibility: hidden;
-    pointer-events: none;
-  }
+
   @media screen and (max-width: 600px) {
     form {
       width: 100%;
       padding: 1em 5%;
     }
 
-    .bottom :global(.add span) {
+    span.add_schematic {
       display: none;
-    }
-
-    .bottom {
-      justify-content: space-evenly;
     }
   }
 </style>
