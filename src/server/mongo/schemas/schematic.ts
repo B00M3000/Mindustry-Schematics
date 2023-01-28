@@ -1,7 +1,7 @@
 import type { ItemCost } from 'mindustry-schematic-parser';
 import mongoose from 'mongoose';
 
-export type Votes = { [id: string]: -1 | 1 } 
+export type Votes = Record<string, -1 | 1>;
 
 export interface SchematicDocData {
   creator_id: string;
