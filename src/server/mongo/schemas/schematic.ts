@@ -1,6 +1,8 @@
 import type { ItemCost } from 'mindustry-schematic-parser';
 import mongoose from 'mongoose';
 
+export type Votes = { [id: string]: -1 | 1 } 
+
 export interface SchematicDocData {
   creator_id: string;
   description: string;
@@ -14,7 +16,9 @@ export interface SchematicDocData {
   tags: string[];
   text: string;
   views: number;
+  votes: Votes;
 }
+
 
 const schema = new mongoose.Schema<SchematicDocData>(
   {
@@ -33,6 +37,8 @@ const schema = new mongoose.Schema<SchematicDocData>(
     views: { type: Number, required: true, default: 0 },
 
     encoding_version: { type: String, required: true },
+
+    votes: { type: Object, required: true, default: {} }
   },
   { timestamps: true },
 );
