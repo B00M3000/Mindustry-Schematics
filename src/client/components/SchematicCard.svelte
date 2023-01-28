@@ -9,32 +9,40 @@
     await copy(schematic.text);
     toast.push('Copied to clipboard!');
   }
+  import Icon from 'svelte-icons-pack/Icon.svelte'
+  import AiFillCaretUp from "svelte-icons-pack/ai/AiFillCaretUp";
+  import AiFillCaretDown from "svelte-icons-pack/ai/AiFillCaretDown";
 </script>
 
 <template lang="pug">
-
-div.schematic
-  div.tools
-    a(href="/schematics/{schematic._id}.msch" download)
+  div.schematic
+    div.tools
+      a(href="/schematics/{schematic._id}.msch" download)
+        IconButton(
+          src="/assets/download.svg"
+          alt="download schematic"
+        )
+      IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
       IconButton(
-        src="/assets/download.svg"
-        alt="download schematic"
+        href="/schematics/{schematic._id}/edit"
+        src="/assets/pencil.svg"
+        alt="edit"
       )
-    IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
-    IconButton(
-      href="/schematics/{schematic._id}/edit"
-      src="/assets/pencil.svg"
-      alt="edit"
-    )
-    IconButton(
-      href="/schematics/{schematic._id}/delete"
-      src="/assets/trash.svg"
-      alt="delete"
-    )
-  a.view(href="/schematics/{schematic._id}")
-    div.name
-      h2 {schematic.name}
-    LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
+      IconButton(
+        href="/schematics/{schematic._id}/delete"
+        src="/assets/trash.svg"
+        alt="delete"
+      )
+    a.view(href="/schematics/{schematic._id}")
+      div.name
+        h2 {schematic.name}
+      LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
+    div.votes
+      div.vote-button
+        Icon(src!="{AiFillCaretUp}" size="2em" color="green")
+      span 135
+      div.vote-button
+        Icon(src!="{AiFillCaretDown}" size="2em" color="red")
 </template>
 
 <style>
@@ -105,5 +113,19 @@ div.schematic
   .schematic h2 {
     margin: 0.8em 0;
     text-align: center;
+  }
+  .votes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--surface);
+  }
+  .vote-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.7em;
   }
 </style>
