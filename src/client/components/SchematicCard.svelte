@@ -1,17 +1,37 @@
 <script lang="ts">
-  import { copy } from '@/client/copy';
-  import LazyImage from './LazyImage.svelte';
-  import type { BasicSchematicJSON } from '@/interfaces/json';
-  import IconButton from './buttons/IconButton.svelte';
+  import LazyImage from '@/client/components/LazyImage.svelte';
+  import IconButton from '@/client/components/buttons/IconButton.svelte';
+
   import { toast } from '@zerodevx/svelte-toast';
+  import { copy } from '@/client/copy';
+
+  import Icon from '@/client/components/Icon.svelte';
+  import CaretUp from '@/client/icons/CaretUp';
+  import CaretDown from '@/client/icons/CaretDown';
+
+  import type { BasicSchematicJSON } from '@/interfaces/json';
+
+  import { user } from '@/client/stores/user';
+
   export let schematic: BasicSchematicJSON;
+
   async function copySchematic() {
     await copy(schematic.text);
     toast.push('Copied to clipboard!');
   }
-  import Icon from 'svelte-icons-pack/Icon.svelte'
-  import AiFillCaretUp from "svelte-icons-pack/ai/AiFillCaretUp";
-  import AiFillCaretDown from "svelte-icons-pack/ai/AiFillCaretDown";
+
+  schematic.votes = {
+    "hi": 1,
+    "bye": -1,
+    "dd": 1,
+  } // test
+  const votes = Object.values(schematic.votes).reduce((a: number, b: number) => a + b, 0)
+  const logged_in = Boolean($user.id)
+  let local_vote = $user.id ? Object.keys(schematic.votes).includes($user.id) ? schematic.votes[$user.id] : 0 : 0
+
+  function vote(v: -1 | 1){
+
+  }
 </script>
 
 <template lang="pug">
@@ -38,14 +58,19 @@
         h2 {schematic.name}
       LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
     div.votes
-      div.vote-button
-        Icon(src!="{AiFillCaretUp}" size="2em" color="green")
-      span 135
-      div.vote-button
-        Icon(src!="{AiFillCaretDown}" size="2em" color="red")
+      div.vote-button.upvote(on:click!="{() => vote(1)}")
+        //- IconButton(src="/assets/caret-up.svg")
+        Icon(src!="{CaretUp}" color="green" size="1.5em")
+      span {votes}
+      div.vote-button.downvote(on:click!="{() => vote(-1)}")
+        Icon(src!="{CaretDown}" color="red" size="1.5em")
+        //- IconButton(src="/assets/caret-down.svg")
+        //- IconButton(src="/assets/put_litter_in_its_place.svg")
 </template>
 
 <style>
+  .upvote { color: green }
+  .downvote { color: red }
   .schematic {
     color: white;
     border: 3px solid #808080;
@@ -118,8 +143,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-
+    justify-content: space-evenly;
     background-color: var(--surface);
   }
   .vote-button {

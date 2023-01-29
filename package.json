@@ -41,7 +41,6 @@
     "dotenv": "^16.0.3",
     "mindustry-schematic-parser": "^4.2.1",
     "mongoose": "^6.8.3",
-    "showdown": "^2.1.0",
-    "svelte-icons-pack": "^2.0.0"
+    "showdown": "^2.1.0"
   }
 }
