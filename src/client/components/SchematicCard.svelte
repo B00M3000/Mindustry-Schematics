@@ -20,18 +20,29 @@
     toast.push('Copied to clipboard!');
   }
 
-  schematic.votes = {
-    "hi": 1,
-    "bye": -1,
-    "dd": 1,
-  } // test
-  const votes = Object.values(schematic.votes).reduce((a: number, b: number) => a + b, 0)
+  let local_vote = $user.id && schematic.votes ? Object.keys(schematic.votes).includes($user.id) ? schematic.votes[$user.id] : 0 : 0
+  const votes = schematic.votes ? Object.values(schematic.votes).reduce((a: number, b: number) => a + b, 0) - local_vote : 0
   const logged_in = Boolean($user.id)
-  let local_vote = $user.id ? Object.keys(schematic.votes).includes($user.id) ? schematic.votes[$user.id] : 0 : 0
 
-  function vote(v: -1 | 1){
-
+  function handleUpvote(){
+    if(local_vote == 1) vote(0)
+    else vote(1)
   }
+  function handleDownvote(){
+    if(local_vote == -1) vote(0)
+    else vote(-1)
+  }
+  function vote(v: number){
+    if(!logged_in) return toast.push("You must be logged in to vote.")
+    local_vote = v
+    //TBA: Send Result to Server
+  }
+
+  let upvoteColor: string;
+  let downvoteColor: string;
+
+  $: upvoteColor = local_vote == 1 ? "green" : "grey"
+  $: downvoteColor = local_vote == -1 ? "red" : "grey"
 </script>
 
 <template lang="pug">
@@ -58,14 +69,15 @@
         h2 {schematic.name}
       LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
     div.votes
-      div.vote-button.upvote(on:click!="{() => vote(1)}")
-        //- IconButton(src="/assets/caret-up.svg")
-        Icon(src!="{CaretUp}" color="green" size="1.5em")
-      span {votes}
-      div.vote-button.downvote(on:click!="{() => vote(-1)}")
-        Icon(src!="{CaretDown}" color="red" size="1.5em")
-        //- IconButton(src="/assets/caret-down.svg")
-        //- IconButton(src="/assets/put_litter_in_its_place.svg")
+      div.votes-inner
+        div.vote-button.upvote(on:click!="{handleUpvote}")
+          //- IconButton(src="/assets/caret-up.svg")
+          Icon(src!="{CaretUp}" color!="{upvoteColor}" size="1.5em")
+        span {votes + local_vote}
+        div.vote-button.downvote(on:click!="{handleDownvote}")
+          Icon(src!="{CaretDown}" color!="{downvoteColor}" size="1.5em")
+          //- IconButton(src="/assets/caret-down.svg")
+          //- IconButton(src="/assets/put_litter_in_its_place.svg")
 </template>
 
 <style>
@@ -140,16 +152,19 @@
     text-align: center;
   }
   .votes {
+    background-color: var(--surface);
+  }
+  .votes-inner {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: var(--surface);
+    margin: 0 1.7em;
   }
   .vote-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0.7em;
   }
 </style>
