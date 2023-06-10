@@ -47,6 +47,7 @@
 <style>
   .bottom {
     display: contents;
+    --bottom-bar-height: 4rem;
   }
   .bottom :global(.right img) {
     transform: scaleX(-1);
