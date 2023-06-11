@@ -7,9 +7,12 @@
   import BottomBar from '@/client/components/BottomBar.svelte';
   import type { PageData } from './$types';
   import PaginationBar from '@/client/components/PaginationBar.svelte';
+  import PaginationText from '@/client/components/PaginationText.svelte';
+  import { page } from '$app/stores';
   export let data: PageData;
   let form: HTMLFormElement;
   let currentTags = Tag.parse(data.tags.split(' '));
+  $: ({ documents, page: currentPage, pages, schematics, skip } = data);
   async function search(e: Event) {
     e.preventDefault();
     const formData = new FormData(form);
@@ -34,7 +37,8 @@
 <template lang="pug">
   svelte:head
     title Mindustry Schematics
-  h3.info Page {data.page} of {data.pages}, Showing {data.skip}-{data.skip + data.schematics.length} of {data.documents}
+  h3.info
+    PaginationText(page!="{currentPage}" "{pages}" "{documents}" "{skip}" pageSize!="{schematics.length}")
   form.search(bind:this!="{form}" on:submit!="{search}")
     input#schematics_search(
       placeholder="Search for schematics..."
@@ -52,14 +56,14 @@
     TagInput(bind:currentTags)
   main
     ul#schematics_result
-      +each("data.schematics as schematic")
+      +each("schematics as schematic")
         li.schematic
           SchematicCard({schematic})
   
   PaginationBar(
-    page!="{data.page}"
-    pages!="{data.pages}"
-    pageLink!="{pageLink}"
+    page!="{currentPage}"
+    "{pages}"
+    "{pageLink}"
   )
     IconButton(
       slot="bottom_bar_middle"

@@ -6,14 +6,15 @@
   import BackButton from '@/client/components/buttons/BackButton.svelte';
   import PaginationBar from '@/client/components/PaginationBar.svelte';
   import { page } from '$app/stores';
+  import PaginationText from '@/client/components/PaginationText.svelte';
 
   export let data: PageData;
 
+  $: ({ documents, page: currentPage, pages, schematics, skip } = data.profile);
   function pageLink(pageNumber: number) {
     const url = new URL($page.url);
     url.searchParams.set('page', pageNumber.toString());
-    // $page.
-    return url.toString();
+    return `${url.pathname}${url.search}`;
   }
 </script>
 
@@ -34,8 +35,17 @@
         {/if}
       {/await}
     </div>
+    <h3 class="pagination_text">
+      <PaginationText
+        page={currentPage}
+        {skip}
+        {pages}
+        {documents}
+        pageSize={schematics.length}
+      />
+    </h3>
     <ul id="schematics_result">
-      {#each data.profile.schematics as schematic (schematic._id)}
+      {#each schematics as schematic (schematic._id)}
         <li>
           <SchematicCard {schematic} />
         </li>
@@ -44,17 +54,16 @@
       {/each}
     </ul>
   </main>
-  <PaginationBar
-    page={data.profile.page}
-    pages={data.profile.pages}
-    {pageLink}
-    --bottom-bar-height="4rem"
-  >
+  <PaginationBar page={currentPage} {pages} {pageLink} --bottom-bar-height="4rem">
     <BackButton slot="bottom_bar_middle" href="/user" smart />
   </PaginationBar>
 </template>
 
 <style>
+  h3.pagination_text {
+    text-align: center;
+    margin: 1em 0 1em 0;
+  }
   ul#schematics_result {
     display: flex;
     flex-wrap: wrap;
