@@ -43,6 +43,10 @@ export type SchematicChangeInfoJSON = Pick<SchematicChangeDocument, 'id' | '_id'
   name: string;
 };
 
+export interface SchematicChangeInfoQueryJSON extends PaginatedQueryJSON {
+  changes: SchematicChangeInfoJSON[];
+}
+
 export interface SchematicChangeJSON {
   change: LeanDocument<SchematicChangeDocument>;
   mode: ChangeMode;
