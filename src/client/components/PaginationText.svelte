@@ -6,4 +6,4 @@
   export let pageSize: number;
 </script>
 
-Page {page} of {pages}, showing {skip}-{skip + pageSize} of {documents}
+Page {page} of {pages}, showing {skip + 1}-{skip + pageSize} of {documents}
