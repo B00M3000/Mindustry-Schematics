@@ -3,6 +3,8 @@
   import SchematicCard from '@/client/components/SchematicCard.svelte';
   import type { PageData } from './$types';
   import { user } from '@/client/stores/user';
+  import BottomBar from '@/client/components/BottomBar.svelte';
+  import BackButton from '@/client/components/buttons/BackButton.svelte';
 
   export let data: PageData;
 
@@ -45,6 +47,9 @@
       {/if}
     {/await}
   </main>
+  <BottomBar --bottom-bar-height="4rem">
+    <BackButton href="/user" smart />
+  </BottomBar>
 </template>
 
 <style>
@@ -56,7 +61,7 @@
     list-style: none;
   }
   main {
-    padding: 0 5%;
+    padding: 0 5% 2rem 5%;
     display: flex;
     justify-content: center;
     flex-direction: column;
