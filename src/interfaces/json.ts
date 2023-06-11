@@ -9,16 +9,23 @@ export type BasicSchematicJSON = Pick<
   LeanDocument<SchematicDocument>,
   '_id' | 'creator_id' | 'name' | 'text'
 >;
-export interface SchematicQueryJSON {
+
+export interface PaginatedQueryJSON {
   skip: number;
-  query: string;
   page: number;
   pages: number;
   documents: number;
+}
+
+export interface SchematicQueryJSON extends PaginatedQueryJSON {
+  query: string;
   schematics: BasicSchematicJSON[];
   tags: string;
 }
 
+export interface UserSchematicQueryJSON extends PaginatedQueryJSON {
+  schematics: BasicSchematicJSON[];
+}
 export interface SchematicParseJSON {
   name: string;
   description: string;

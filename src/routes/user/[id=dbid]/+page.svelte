@@ -3,14 +3,17 @@
   import SchematicCard from '@/client/components/SchematicCard.svelte';
   import type { PageData } from './$types';
   import { user } from '@/client/stores/user';
-  import BottomBar from '@/client/components/BottomBar.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
+  import PaginationBar from '@/client/components/PaginationBar.svelte';
+  import { page } from '$app/stores';
 
   export let data: PageData;
 
-  async function fetch_schematics(user_id: string) {
-    let res = await fetch(`/user/${user_id}/schematics.json`);
-    return await res.json();
+  function pageLink(pageNumber: number) {
+    const url = new URL($page.url);
+    url.searchParams.set('page', pageNumber.toString());
+    // $page.
+    return url.toString();
   }
 </script>
 
@@ -31,25 +34,24 @@
         {/if}
       {/await}
     </div>
-    {#await fetch_schematics(data.user_id)}
-      <p>Retriving schematics...</p>
-    {:then data}
-      {#if data.schematics}
-        <ul id="schematics_result">
-          {#each data.schematics as schematic}
-            <li>
-              <SchematicCard {schematic} />
-            </li>
-          {/each}
-        </ul>
+    <ul id="schematics_result">
+      {#each data.profile.schematics as schematic (schematic._id)}
+        <li>
+          <SchematicCard {schematic} />
+        </li>
       {:else}
-        <p>No schematics found for this user.</p>
-      {/if}
-    {/await}
+        <p>No schematics found for this user</p>
+      {/each}
+    </ul>
   </main>
-  <BottomBar --bottom-bar-height="4rem">
-    <BackButton href="/user" smart />
-  </BottomBar>
+  <PaginationBar
+    page={data.profile.page}
+    pages={data.profile.pages}
+    {pageLink}
+    --bottom-bar-height="4rem"
+  >
+    <BackButton slot="bottom_bar_middle" href="/user" smart />
+  </PaginationBar>
 </template>
 
 <style>
