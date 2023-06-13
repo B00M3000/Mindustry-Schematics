@@ -8,13 +8,22 @@
     import { toast } from "@zerodevx/svelte-toast";
 
     import type { Votes } from "@/server/mongo";
+    import type { BasicSchematicJSON } from "@/interfaces/json";
 
-    export let votes: Votes;
-    export let vertical: boolean = false;
+    export let schematic: BasicSchematicJSON;
+    export const vertical: boolean = false;
+
+    const votes: Record<string, 1 | -1> = schematic.votes
 
     let local_vote = $user.id && votes ? Object.keys(votes).includes($user.id) ? votes[$user.id] : 0 : 0
     const cvotes = votes ? Object.values(votes).reduce((a: number, b: number) => a + b, 0) - local_vote : 0
     const logged_in = Boolean($user.id)
+
+    const voteStringMap = {
+        [-1]: "down",
+        0: "none",
+        1: "up"        
+    }
 
     function handleUpvote(){
         if(local_vote == 1) vote(0)
@@ -24,10 +33,10 @@
         if(local_vote == -1) vote(0)
         else vote(-1)
     }
-    function vote(v: number){
+    function vote(v: -1 | 0 | 1){
         if(!logged_in) return toast.push("You must be logged in to vote.")
         local_vote = v
-        //TBA: Send Result to Server
+        fetch(`/schematics/${schematic._id}/vote?v=${voteStringMap[v]}`)
     }
 
     let counter: HTMLDivElement;
