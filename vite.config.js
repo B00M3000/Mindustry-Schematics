@@ -1,5 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config() // Load Environment Variables
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -13,7 +16,7 @@ const config = {
   },
 
   server: {
-    port: 3000,
+    port: process.env.PORT || 3000,
   },
 };
 
