@@ -8,6 +8,7 @@ import { Schematic } from 'mindustry-schematic-parser';
 import { Tag } from '@/lib/tags';
 import webhooks from '@/server/webhooks';
 import { parseFormData } from '@/server/body_parsing';
+import { getPaginatedQueryPosition } from '@/server/schematic_pagination';
 
 interface PostBody {
   name: string;
@@ -19,11 +20,9 @@ interface PostBody {
 
 const limitPerPage = 20;
 export const GET: RequestHandler = async ({ url }) => {
-  let page = Number(url.searchParams.get('page')) || 1;
-  if (page < 1) page = 1;
+  const searchPage = Number(url.searchParams.get('page')) || 1;
   const query = url.searchParams.get('query') || '';
   const tags = url.searchParams.get('tags') || '';
-  const skip = limitPerPage * (page - 1);
 
   const dbQuery: FilterQuery<SchematicDocument> = {};
   if (query) {
@@ -34,9 +33,11 @@ export const GET: RequestHandler = async ({ url }) => {
   }
   try {
     const documents = await SchematicSchema.countDocuments(dbQuery);
-
-    const pages = Math.ceil(documents / limitPerPage) || 1;
-    if (page > pages) page = pages;
+    const { page, pages, skip } = getPaginatedQueryPosition({
+      documents,
+      limitPerPage,
+      page: searchPage,
+    });
 
     const schematics = await SchematicSchema.find(dbQuery, '_id name text', {
       skip,

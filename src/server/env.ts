@@ -6,10 +6,7 @@ import fs from 'fs';
 interface Env {
   PORT?: string;
   MONGO_DATABASE_NAME?: string;
-  MONGO_USER?: string;
-  MONGO_PASS?: string;
-  MONGO_PATH?: string;
-  WEBHOOK_URL?: string;
+  MONGO_URI?: string;
   WEBSITE_URL?: string;
   ENABLE_WEBHOOKS: boolean;
   PRIVATE_WEBHOOK_URL?: string;
@@ -18,12 +15,11 @@ interface Env {
   DISCORD_APPLICATION_SECRET?: string;
 }
 
-type RawEnv = {
-  [K in keyof Env]?: string;
-};
+type RawEnv = { [K in keyof Env]?: string; };
 
 /** preferred files to load environment variables, the first files on the array are the first to be used */
 const envs = ['.env.dev', '.env'];
+
 function configEnv(): RawEnv {
   for (const file of envs) {
     const filePath = path.resolve(file);
