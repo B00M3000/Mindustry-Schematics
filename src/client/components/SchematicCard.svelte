@@ -41,7 +41,7 @@
       div.name
         h2 {schematic.name}
       LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
-    SchematicCardVote(votes!="{schematic.votes}")
+    SchematicCardVote(schematic!="{schematic}")
     
 </template>
 
