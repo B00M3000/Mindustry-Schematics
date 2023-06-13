@@ -1,26 +1,13 @@
+<!-- @component
+Exposes a `--bottom-bar-height` and a `--bottom-bar-filler-height` variable to set the height of the spacer 
+  -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-
   let class_name = '';
   export { class_name as class };
-
-  let container: HTMLDivElement;
-
-  let height = '0px';
-
-  onMount(() => {
-    const observer = new ResizeObserver((entries) => {
-      const [entry] = entries;
-
-      height = `${entry.borderBoxSize[0].blockSize}px`;
-    });
-
-    observer.observe(container);
-  });
 </script>
 
-<div class="spaced {class_name}" style:height />
-<div class="floating {class_name}" bind:this={container}>
+<div class="spaced {class_name}" />
+<div class="floating {class_name}">
   <slot />
 </div>
 
@@ -38,10 +25,12 @@
     z-index: 10;
     justify-content: center;
     align-items: center;
+    height: var(--bottom-bar-height);
   }
 
   .spaced {
     padding: 0;
     margin: 0;
+    height: var(--bottom-bar-filler-height, var(--bottom-bar-height));
   }
 </style>
