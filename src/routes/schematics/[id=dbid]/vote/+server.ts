@@ -12,13 +12,13 @@ export const GET: RequestHandler = async ({ request, params, url,  locals }) => 
       return json({ body: { message: 'No vote choice recieved. (Search param v is undefined)' }}, { status: 400 });
       break;
     case 'up':
-      await SchematicSchema.updateOne({ _id: params.id }, { votes: { $set: { [locals.user.id]: 1 }}});
+      await SchematicSchema.updateOne({ _id: params.id }, { $set: { votes: { [locals.user.id]: 1 }}});
       break;
     case 'down':
-      await SchematicSchema.updateOne({ _id: params.id }, { votes: { $set: { [locals.user.id]: -1 }}});
+      await SchematicSchema.updateOne({ _id: params.id }, { $set:  { votes: { [locals.user.id]: -1 }}});
       break;
     case 'none':
-      await SchematicSchema.updateOne({ _id: params.id }, { votes: { $unset: { [locals.user.id]: 0 }}});
+      await SchematicSchema.updateOne({ _id: params.id }, { $unset: { votes: { [locals.user.id]: 0 }}});
       break;
   }
 
