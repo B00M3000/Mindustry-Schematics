@@ -11,7 +11,7 @@
 <template lang="pug">
   nav
     ul(bind:this!="{ul}" style="--items {ul?.chidren?.length || 1}")
-      a(href="/user" class:selected!="{current== 'user' || current== 'admin'}")
+      a(href="/user" class:selected!="{current== 'user' || current== 'admin' || current== 'users'}")
         +if("$user.id")
           li User
           +else
