@@ -77,6 +77,7 @@
     .inner-container {
         display: flex;
         align-items: center;
+        flex-direction: column;
         justify-content: space-between;
         margin: 0 1.7em;
     }

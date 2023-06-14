@@ -14,6 +14,7 @@
   import AuthorCard from '@/client/components/AuthorCard.svelte';
   import { items } from '@/lib/items';
   import type { PageData } from './$types';
+  import SchematicPageVote from '@/client/components/SchematicPageVote.svelte';
 
   export let data: PageData;
 
@@ -45,6 +46,7 @@
     h1.title {title}
     h5.views Views: {schematic.views}
     img#preview(src!="{imgUrl}" alt="schematic preview")
+    SchematicPageVote#vote(schematic!="{schematic}")
     div.author by 
       AuthorCard(creator_id!="{schematic.creator_id}")
     h4.description
