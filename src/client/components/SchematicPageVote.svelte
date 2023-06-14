@@ -55,25 +55,29 @@
   <div class="outer-container">
     <div class="inner-container">
       <div class="vote-button upvote" on:click={handleUpvote}>
-        <Icon src={CaretUp} color={upvoteColor} size="1.5em" />
+        <Icon src={CaretUp} color={upvoteColor} size="2.5em" />
       </div>
       <div class="counter">
-        <span>{dvotes}</span>
+        <span style={dvotes == 0 ? '' : 'color: ' + (dvotes > 0 ? "green" : "red")}>{dvotes}</span>
       </div>
       <div class="vote-button downvote" on:click={handleDownvote}>
-        <Icon src={CaretDown} color={downvoteColor} size="1.5em" />
+        <Icon src={CaretDown} color={downvoteColor} size="2.5em" />
       </div>
     </div>
   </div>
 </template>
 
 <style>
+  .outer-container {
+    width: 100%;
+  }
   .counter {
     position: relative;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    font-size: large;
   }
   .upvote {
     color: green;
@@ -84,9 +88,7 @@
   .inner-container {
     display: flex;
     align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 1.7em;
+    justify-content: space-evenly;
   }
   .vote-button {
     display: flex;

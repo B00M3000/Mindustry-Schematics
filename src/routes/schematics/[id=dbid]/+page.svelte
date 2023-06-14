@@ -98,6 +98,7 @@
         src="/assets/trash.svg"
         alt="delete schematic"
       )
+    br.space
   BottomBar
     BackButton(href="/" smart)
 </template>
@@ -118,6 +119,7 @@
       'preview data'
       'preview tags'
       'preview actions';
+      'space space';
     align-items: center;
     word-wrap: break-word;
     word-break: break-all;

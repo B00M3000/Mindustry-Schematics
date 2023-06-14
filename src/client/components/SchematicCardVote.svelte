@@ -58,7 +58,7 @@
         <Icon src={CaretUp} color={upvoteColor} size="1.5em" />
       </div>
       <div class="counter">
-        <span>{dvotes}</span>
+        <span style={dvotes == 0 ? '' : 'color: ' + (dvotes > 0 ? "green" : "red")}>{dvotes}</span>
       </div>
       <div class="vote-button downvote" on:click={handleDownvote}>
         <Icon src={CaretDown} color={downvoteColor} size="1.5em" />
