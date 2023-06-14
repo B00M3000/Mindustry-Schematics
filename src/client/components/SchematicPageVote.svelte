@@ -6,8 +6,7 @@
   import { user } from '@/client/stores/user';
 
   import { toast } from '@zerodevx/svelte-toast';
-
-  import type { Votes } from '@/server/mongo';
+  
   import type { BasicSchematicJSON } from '@/interfaces/json';
 
   export let schematic: BasicSchematicJSON;
@@ -70,6 +69,10 @@
 <style>
   .outer-container {
     width: 100%;
+    background-color: lightblue;
+    border: 2px solid #808080;
+    border-radius: 1em;
+    background-color: var(--surface);
   }
   .counter {
     position: relative;
