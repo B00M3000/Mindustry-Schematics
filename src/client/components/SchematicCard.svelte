@@ -42,7 +42,7 @@
         h2 {schematic.name}
       LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
     SchematicCardVote(schematic!="{schematic}")
-    
+
 </template>
 
 <style>
