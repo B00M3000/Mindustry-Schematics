@@ -8,10 +8,12 @@
   export let verified = false;
   export let access: string | undefined = undefined;
   export let avatar_url = '/assets/discord_default_avatar.png';
+
+  let image: HTMLImageElement;
 </script>
 
 <div class="avatar-container">
-  <img src={avatar_url} alt="user avatar" />
+  <img bind:this={image} on:error={() => image.src = "/assets/discord_default_avatar.png"} src={avatar_url} alt="user avatar">
   {#if verified}
     <img src="/assets/verified.svg" class="icon verified" alt="verified user icon" />
   {/if}
