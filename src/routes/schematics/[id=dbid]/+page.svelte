@@ -118,7 +118,7 @@
       'preview description'
       'preview data'
       'preview tags'
-      'preview actions';
+      'vote actions'
       'space space';
     align-items: center;
     word-wrap: break-word;
