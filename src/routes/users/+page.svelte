@@ -77,7 +77,7 @@
 				</a>
 				{#if isAdmin && user}
 				<div class="admin-container">
-					<select on:change={(e) => modifyAccess(e, u._id)} disabled={u._id == $user.id}>
+					<select on:change={(e) => modifyAccess(e, u._id)} disabled={u._id == $user.id || _user?.access?.toString() == "admin"}>
 						<option selected={_user?.access?.toString() == "none"}>None</option>
 						<option selected={_user?.access?.toString() == "mod"}>Mod</option>
 						<option selected={_user?.access?.toString() == "admin"} disabled>Admin</option>
