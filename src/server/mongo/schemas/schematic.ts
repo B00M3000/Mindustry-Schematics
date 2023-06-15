@@ -16,7 +16,8 @@ export interface SchematicDocData {
   tags: string[];
   text: string;
   views: number;
-  votes: Votes;
+  vote_records: Votes;
+  vote_count: number;
 }
 
 
@@ -38,7 +39,9 @@ const schema = new mongoose.Schema<SchematicDocData>(
 
     encoding_version: { type: String, required: true },
 
-    votes: { type: Object, required: true, default: {} }
+    vote_records: { type: Object, required: true, default: {} },
+
+    vote_count: { type: Number, required: true, default: 0 }
   },
   { timestamps: true },
 );

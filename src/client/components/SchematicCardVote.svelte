@@ -7,12 +7,11 @@
 
   import { toast } from '@zerodevx/svelte-toast';
 
-  import type { Votes } from '@/server/mongo';
   import type { BasicSchematicJSON } from '@/interfaces/json';
 
   export let schematic: BasicSchematicJSON;
 
-  const votes: Record<string, 1 | -1> = schematic.votes;
+  const votes: Record<string, 1 | -1> = schematic.vote_records;
 
   let local_vote =
     $user.id && votes ? (Object.keys(votes).includes($user.id) ? votes[$user.id] : 0) : 0;

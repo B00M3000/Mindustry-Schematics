@@ -39,7 +39,7 @@ export const GET: RequestHandler = async ({ url }) => {
       page: searchPage,
     });
 
-    const schematics = await SchematicSchema.find(dbQuery, '_id name text votes', {
+    const schematics = await SchematicSchema.find(dbQuery, '_id name text ', {
       skip,
       limit: limitPerPage,
       sort: {

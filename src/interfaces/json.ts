@@ -7,7 +7,7 @@ import type {
 export type SchematicJSON = Omit<LeanDocument<SchematicDocument>, 'image'>;
 export type BasicSchematicJSON = Pick<
   LeanDocument<SchematicDocument>,
-  '_id' | 'creator_id' | 'name' | 'text' | 'votes'
+  '_id' | 'creator_id' | 'name' | 'text' | 'vote_records'
 >;
 
 export interface PaginatedQueryJSON {
