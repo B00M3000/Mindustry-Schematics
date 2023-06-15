@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { copy } from '@/client/copy';
-  import LazyImage from './LazyImage.svelte';
-  import type { BasicSchematicJSON } from '@/interfaces/json';
-  import IconButton from './buttons/IconButton.svelte';
+  import LazyImage from '@/client/components/LazyImage.svelte';
+  import IconButton from '@/client/components/buttons/IconButton.svelte';
+  import SchematicCardVote from '@/client/components/SchematicCardVote.svelte';
+
   import { toast } from '@zerodevx/svelte-toast';
+  import { copy } from '@/client/copy';
+
+  import type { BasicSchematicJSON } from '@/interfaces/json';
+
+  import { user } from '@/client/stores/user';
+
   export let schematic: BasicSchematicJSON;
+
   async function copySchematic() {
     await copy(schematic.text);
     toast.push('Copied to clipboard!');
@@ -12,29 +19,30 @@
 </script>
 
 <template lang="pug">
-
-div.schematic
-  div.tools
-    a(href="/schematics/{schematic._id}.msch" download)
+  div.schematic
+    div.tools
+      a(href="/schematics/{schematic._id}.msch" download)
+        IconButton(
+          src="/assets/download.svg"
+          alt="download schematic"
+        )
+      IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
       IconButton(
-        src="/assets/download.svg"
-        alt="download schematic"
+        href="/schematics/{schematic._id}/edit"
+        src="/assets/pencil.svg"
+        alt="edit"
       )
-    IconButton(on:click!="{copySchematic}" src="/assets/copy.svg" alt="copy")
-    IconButton(
-      href="/schematics/{schematic._id}/edit"
-      src="/assets/pencil.svg"
-      alt="edit"
-    )
-    IconButton(
-      href="/schematics/{schematic._id}/delete"
-      src="/assets/trash.svg"
-      alt="delete"
-    )
-  a.view(href="/schematics/{schematic._id}")
-    div.name
-      h2 {schematic.name}
-    LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
+      IconButton(
+        href="/schematics/{schematic._id}/delete"
+        src="/assets/trash.svg"
+        alt="delete"
+      )
+    a.view(href="/schematics/{schematic._id}")
+      div.name
+        h2 {schematic.name}
+      LazyImage(src="/schematics/{schematic._id}.png" alt="Schematic Preview")
+    SchematicCardVote(schematic!="{schematic}")
+
 </template>
 
 <style>
@@ -47,6 +55,7 @@ div.schematic
     justify-content: space-between;
     border-radius: 0.5em;
     overflow: hidden;
+    background-color: var(--surface);
   }
   .schematic .name {
     position: relative;
@@ -82,7 +91,6 @@ div.schematic
   }
   div.tools {
     display: flex;
-    background-color: var(--surface);
   }
   div.tools > :global(*) {
     flex-grow: 1;
