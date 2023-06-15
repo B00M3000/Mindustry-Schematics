@@ -229,7 +229,8 @@ div.wrapper(class!="{parseState}")
       img(src!="{image}" alt="schematic preview")
     
     div.submits
-      button(disabled!="{submitting}") {submitting ? 'Please wait...' : 'Submit'}
+      +if("!directActions || variant != 'edit'")
+        button(disabled!="{submitting}") {submitting ? 'Please wait...' : 'Submit'}
       +if("directActions && variant == 'edit'")
         button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Edit'}
   

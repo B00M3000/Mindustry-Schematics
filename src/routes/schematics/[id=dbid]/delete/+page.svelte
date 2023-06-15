@@ -70,9 +70,10 @@
         required
       )
     div
-      button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
       +if("directActions")
         button(type="button" on:click!="{direct}") {submitting ? 'Please wait...' : 'Direct Deletion'}
+        +else
+          button(type="submit") {submitting ? 'Please wait...' : 'Submit Deletion Request'}
   footer
     BottomBar
       BackButton(href="/schematics/{schematic._id}" smart)
