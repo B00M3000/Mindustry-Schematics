@@ -27,6 +27,7 @@
   :root {
     --toastContainerTop: 5rem;
     --toastContainerRight: 1rem;
+    --bottom-bar-height: 4rem;
   }
   .loader {
     position: fixed;
