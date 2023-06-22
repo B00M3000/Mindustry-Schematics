@@ -9,7 +9,7 @@ specifiers:
   '@types/showdown': ^2.0.1
   '@typescript-eslint/eslint-plugin': ^5.60.0
   '@typescript-eslint/parser': ^5.60.0
-  '@zerodevx/svelte-toast': ^0.8.2
+  '@zerodevx/svelte-toast': ^0.9.3
   diff: ^5.1.0
   dotenv: ^16.3.1
   eslint: ^8.43.0
@@ -45,7 +45,7 @@ devDependencies:
   '@types/showdown': 2.0.1
   '@typescript-eslint/eslint-plugin': 5.60.0_6yzi2ymi2jevhjfd3hf6w262e4
   '@typescript-eslint/parser': 5.60.0_7yfldhli4vs6yywnkyiujhawka
-  '@zerodevx/svelte-toast': 0.8.2
+  '@zerodevx/svelte-toast': 0.9.3_svelte@4.0.0
   eslint: 8.43.0
   eslint-config-prettier: 8.8.0_eslint@8.43.0
   eslint-plugin-svelte3: 4.0.0_eslint@8.43.0+svelte@4.0.0
@@ -749,8 +749,12 @@ packages:
       eslint-visitor-keys: 3.4.1
     dev: true
 
-  /@zerodevx/svelte-toast/0.8.2:
-    resolution: {integrity: sha512-EDtZ/Hw37T/UWCQ5drhMss0J9vItYUSDivQ3+mET5My6No7YNiNQklj2bkE61UAzut2TjHJfOJNBZsj78ODFtw==}
+  /@zerodevx/svelte-toast/0.9.3_svelte@4.0.0:
+    resolution: {integrity: sha512-VPKWR4A9y01fyXRscu9HiTj7tV2hFrpRKZvGwMmaPXfHIXR1D9+NNsz0HXcQ7qZ0C5UaHS3n9uNtPtIcAXT7RQ==}
+    peerDependencies:
+      svelte: ^3.57.0
+    dependencies:
+      svelte: 4.0.0
     dev: true
 
   /abbrev/1.1.1:
