@@ -6,7 +6,7 @@ specifiers:
   '@sveltejs/kit': 1.1.1
   '@types/diff': ^5.0.3
   '@types/node': ^20.2.5
-  '@types/showdown': ^2.0.0
+  '@types/showdown': ^2.0.1
   '@typescript-eslint/eslint-plugin': ^5.60.0
   '@typescript-eslint/parser': ^5.60.0
   '@zerodevx/svelte-toast': ^0.8.2
@@ -42,7 +42,7 @@ devDependencies:
   '@sveltejs/kit': 1.1.1_svelte@3.55.1+vite@4.3.9
   '@types/diff': 5.0.3
   '@types/node': 20.3.1
-  '@types/showdown': 2.0.0
+  '@types/showdown': 2.0.1
   '@typescript-eslint/eslint-plugin': 5.60.0_6yzi2ymi2jevhjfd3hf6w262e4
   '@typescript-eslint/parser': 5.60.0_7yfldhli4vs6yywnkyiujhawka
   '@zerodevx/svelte-toast': 0.8.2
@@ -568,8 +568,8 @@ packages:
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
     dev: true
 
-  /@types/showdown/2.0.0:
-    resolution: {integrity: sha512-70xBJoLv+oXjB5PhtA8vo7erjLDp9/qqI63SRHm4REKrwuPOLs8HhXwlZJBJaB4kC18cCZ1UUZ6Fb/PLFW4TCA==}
+  /@types/showdown/2.0.1:
+    resolution: {integrity: sha512-xdnAw2nFqomkaL0QdtEk0t7yz26UkaVPl4v1pYJvtE1T0fmfQEH3JaxErEhGByEAl3zUZrkNBlneuJp0WJGqEA==}
     dev: true
 
   /@types/webidl-conversions/7.0.0:
