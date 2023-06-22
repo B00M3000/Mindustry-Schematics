@@ -11,7 +11,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.60.0
   '@zerodevx/svelte-toast': ^0.8.2
   diff: ^5.1.0
-  dotenv: ^16.0.3
+  dotenv: ^16.3.1
   eslint: ^8.43.0
   eslint-config-prettier: ^8.8.0
   eslint-plugin-svelte3: ^4.0.0
@@ -31,7 +31,7 @@ specifiers:
 
 dependencies:
   diff: 5.1.0
-  dotenv: 16.0.3
+  dotenv: 16.3.1
   mindustry-schematic-parser: 4.2.1
   mongoose: 7.3.1
   showdown: 2.1.0
@@ -1040,8 +1040,8 @@ packages:
     resolution: {integrity: sha512-LLBi6pEqS6Do3EKQ3J0NqHWV5hhb78Pi8vvESYwyOy2c31ZEZVdtitdzsQsKb7878PEERhzUk0ftqGhG6Mz+pQ==}
     dev: true
 
-  /dotenv/16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+  /dotenv/16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
     dev: false
 
