@@ -17,8 +17,8 @@ specifiers:
   eslint-plugin-svelte3: ^4.0.0
   mindustry-schematic-parser: ^4.2.1
   mongoose: ^7.2.2
-  prettier: ^2.8.3
-  prettier-plugin-svelte: ^2.9.0
+  prettier: ^2.8.8
+  prettier-plugin-svelte: ^2.10.1
   pug: ^3.0.2
   showdown: ^2.1.0
   svelte: ^3.55.1
@@ -49,8 +49,8 @@ devDependencies:
   eslint: 8.32.0
   eslint-config-prettier: 8.6.0_eslint@8.32.0
   eslint-plugin-svelte3: 4.0.0_tmo5zkisvhu6htudosk5k7m6pu
-  prettier: 2.8.3
-  prettier-plugin-svelte: 2.9.0_kdmmghgdi3ngrsq6otxkjilbry
+  prettier: 2.8.8
+  prettier-plugin-svelte: 2.10.1_aufncwtidwpazwvtgfg5gzupc4
   pug: 3.0.2
   svelte: 3.55.1
   svelte-check: 3.0.2_pug@3.0.2+svelte@3.55.1
@@ -2002,18 +2002,18 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-svelte/2.9.0_kdmmghgdi3ngrsq6otxkjilbry:
-    resolution: {integrity: sha512-3doBi5NO4IVgaNPtwewvrgPpqAcvNv0NwJNflr76PIGgi9nf1oguQV1Hpdm9TI2ALIQVn/9iIwLpBO5UcD2Jiw==}
+  /prettier-plugin-svelte/2.10.1_aufncwtidwpazwvtgfg5gzupc4:
+    resolution: {integrity: sha512-Wlq7Z5v2ueCubWo0TZzKc9XHcm7TDxqcuzRuGd0gcENfzfT4JZ9yDlCbEgxWgiPmLHkBjfOtpAWkcT28MCDpUQ==}
     peerDependencies:
       prettier: ^1.16.4 || ^2.0.0
-      svelte: ^3.2.0
+      svelte: ^3.2.0 || ^4.0.0-next.0
     dependencies:
-      prettier: 2.8.3
+      prettier: 2.8.8
       svelte: 3.55.1
     dev: true
 
-  /prettier/2.8.3:
-    resolution: {integrity: sha512-tJ/oJ4amDihPoufT5sM0Z1SKEuKay8LfVAMlbbhnnkvt6BUserZylqo2PN+p9KeljLr0OHa2rXHU1T8reeoTrw==}
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
