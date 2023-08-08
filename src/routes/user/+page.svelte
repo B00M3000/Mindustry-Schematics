@@ -24,6 +24,11 @@
       +if("allowChanges")
         a.link(href="/admin/schematic_changes")
           button Schematic Changes
+        a.link(href="/users")
+          button Manage Users 
+        +else
+        a.link(href="/users")
+          button View Users
       a.link(href="/user/{$user.id}")
         button Public Profile 
       a.link(on:click="{user.logout}")

@@ -24,7 +24,7 @@
   const title = '[Schematic] ' + schematic.name;
   const imgUrl = `/schematics/${schematic._id}.png`;
   const description = safeDescription(schematic.description ?? '');
-  const tags = Tag.parse(schematic.tags);
+  const tags = schematic.tags ? Tag.parse(schematic.tags) : [];
 
   async function copySchematic() {
     await copy(schematic.text);
@@ -35,7 +35,7 @@
 <template lang="pug">
   svelte:head
     meta( property="og:title" content!="{schematic.name}" )
-    meta( property="og:description" content="{schematic.description}" )
+    meta( property="og:description" content!="{schematic.description}" )
     meta( property="og:image" content!="{imgUrl}" )
     meta( property="og:type" content="website" )
     meta( property="og:url" content="url" )
