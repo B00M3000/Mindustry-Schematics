@@ -70,8 +70,9 @@
               span -{schematic.powerConsumption}
     div.tags
       +each("tags as tag")
-        div.tag(style="--color: {tag.color}")
-          div.layer {tag.name}
+        a(href!="/?tags={tag.name}")
+          div.tag(style="--color: {tag.color}")
+            div.layer {tag.name}
     div.actions
       IconButton(
         src="/assets/copy.svg" 
