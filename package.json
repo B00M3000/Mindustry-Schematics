@@ -24,7 +24,7 @@
     "@zerodevx/svelte-toast": "^0.9.3",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-svelte3": "^4.0.0",
+    "eslint-plugin-svelte": "^2.32.4",
     "prettier": "^2.8.8",
     "prettier-plugin-svelte": "^2.10.1",
     "pug": "^3.0.2",
