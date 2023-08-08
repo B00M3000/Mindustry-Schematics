@@ -8,6 +8,8 @@
 
 	let form: HTMLFormElement;
 
+	let aq: string;
+
 	async function search(e?: Event){
 		e?.preventDefault()
 
@@ -16,6 +18,7 @@
 		const query = formData.get('query');
 		
 		searchParams.set('q', query?.toString() || '')
+		if(aq) searchParams.set('a', aq)
 		await goto(`/users?${searchParams}`)
 	}
 
@@ -56,6 +59,11 @@
 	<main>
 		<form bind:this={form} on:submit={search}>
 			<input id="user_search" placeholder="Search for users..." name="query" value={data.query}>
+			<select bind:value={aq}>
+				<option value="">All</option>
+				<option value="mod">Mod</option>
+				<option value="admin">Admin</option>
+			</select>
 			<button type="submit">Search</button>
 		</form>
 

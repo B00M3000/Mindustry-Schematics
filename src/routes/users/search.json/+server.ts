@@ -8,11 +8,14 @@ const limitPerPage = 10;
 
 export const GET: RequestHandler = async ({ url }) => {
   const query = url.searchParams.get('q') || '';
+  const accessQuery = url.searchParams.get('a')
 
   const dbQuery: FilterQuery<UserDocument> = {};
   if (query) {
     dbQuery.username = new RegExp(query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
   }
+  if(accessQuery) dbQuery.access = accessQuery
+
   try {
     const documents = await UserSchema.countDocuments(dbQuery);
 
