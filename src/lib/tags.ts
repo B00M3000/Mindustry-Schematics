@@ -57,7 +57,7 @@ const Tags = [
   new Tag('T3', '#545453'),
   new Tag('T2', '#545453'),
   new Tag('T1', '#545453'),
-  new Tag('Cyrofluid', '#34d5eb'),
+  new Tag('Cryofluid', '#34d5eb'),
   new Tag('From Sand', '#f7cba4'),
   new Tag('Offence', '#fc6b03'),
   new Tag('Combustion Generator', '#403939'),
@@ -67,5 +67,6 @@ const Tags = [
   new Tag('Water', '#3937a6'),
   new Tag('Mining', '#8a37a6'),
   new Tag('Drills', '#7a6a66'),
+  new Tag('Oil', '#2b2923')
 ];
 export default Tags;
