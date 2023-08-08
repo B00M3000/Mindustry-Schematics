@@ -80,7 +80,7 @@
 						<span>{_user.username}</span>
 						{:else}
 						<img src="/assets/discord_default_avatar.png" alt="user avatar" />
-						<span>Not Found</span>
+						<span>User Not Found</span>
 						{/if}
 				</a>
 				{#if isAdmin && user}
