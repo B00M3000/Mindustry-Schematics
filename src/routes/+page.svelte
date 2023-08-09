@@ -26,10 +26,10 @@
     }
     await goto(`/?${searchParams}`);
   }
-  function pageLink(page: number) {
-    const params = new URLSearchParams({ page: page.toString() });
-    if (data.query) params.set('query', data.query);
-    if (data.tags) params.set('tags', data.tags);
+  function pageLink(pageNumber: number) {
+    const params = new URLSearchParams($page.url.searchParams);
+    params.set('page', pageNumber.toString());
+
     return `/?${params}`;
   }
 </script>
