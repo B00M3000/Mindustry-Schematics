@@ -1,10 +1,23 @@
 <script lang="ts">
   import BottomBar from './BottomBar.svelte';
   import IconButton from './buttons/IconButton.svelte';
+  import { page as pageStore } from '$app/stores';
 
   export let page: number;
   export let pages: number;
   export let pageLink: (page: number) => string;
+
+  // we can use the page store in this way
+  // to invalidate old links
+  // since the links will always be truthy
+  $: firstLink = link(1, $pageStore);
+  $: previousLink = link(page - 1 || 1, $pageStore);
+  $: nextLink = link(page + 1, $pageStore);
+  $: lastLink = link(pages, $pageStore);
+
+  function link(page: number, dependency: unknown) {
+    return pageLink(page);
+  }
 </script>
 
 <slot />
@@ -12,14 +25,14 @@
   <BottomBar>
     <slot name="bottom_bar_before" />
     <IconButton
-      href={pageLink(1)}
+      href={firstLink}
       src="/assets/double_chevron.svg"
       alt="first page"
       class={page < 3 ? 'hidden' : ''}
       border
     />
     <IconButton
-      href={pageLink(page - 1 || 1)}
+      href={previousLink}
       src="/assets/chevron.svg"
       alt="previous page"
       class={page < 2 ? 'hidden' : ''}
@@ -27,14 +40,14 @@
     />
     <slot name="bottom_bar_middle" />
     <IconButton
-      href={pageLink(page + 1)}
+      href={nextLink}
       src="/assets/chevron.svg"
       alt="next page"
       class={'right' + (page > pages - 1 ? ' hidden' : '')}
       border
     />
     <IconButton
-      href={pageLink(pages)}
+      href={lastLink}
       src="/assets/double_chevron.svg"
       alt="last page"
       class={'right' + (page > pages - 2 ? ' hidden' : '')}
