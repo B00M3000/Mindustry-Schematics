@@ -112,6 +112,7 @@ export const POST: RequestHandler = async (req) => {
       triggeredAt: new Date().getTime(),
       schematicId: id,
       schematicName: newSchematic.name,
+      creator: `Created by ${req.locals.user.username}`,
     });
     return json(
       { message: 'Success' },
