@@ -10,7 +10,9 @@ interface SchematicEvent extends Event {
   schematicName: string | null;
 }
 
-type CreateSchematicEvent = SchematicEvent;
+interface CreateSchematicEvent extends SchematicEvent {
+  creator: string;
+}
 
 interface DeleteSchematicEvent extends SchematicEvent {
   reason: string;
@@ -45,11 +47,11 @@ export class EventHandler {
       type: 'rich',
       title: `New Schematic: ${event.schematicName}`,
       url: `${this.websiteURL}/schematics/${event.schematicId}`,
+      description: event.creator,
       image: {
         url: `${this.websiteURL}/schematics/${event.schematicId}.png`,
       },
     });
-    console.log(`${this.websiteURL}/schematics/${event.schematicId}.png`);
   }
 
   editSchematic(event: EditSchematicEvent): void {
@@ -81,7 +83,6 @@ export class EventHandler {
   }
 
   unhandledError(event: UnhandledErrorEvent): void {
-    // TODO: send error logs on a different discord channel
     this.webhookHandler.sendEmbed(
       {
         color: colors.get('red'),
@@ -92,9 +93,10 @@ export class EventHandler {
     );
   }
 }
+
 const discordHandler = new DiscordWebhookHandler(
   env.PRIVATE_WEBHOOK_URL as string,
   env.PUBLIC_WEBHOOK_URL as string,
 );
-const webhooks = new EventHandler(discordHandler, env.WEBSITE_URL as string);
-export default webhooks;
+
+export default new EventHandler(discordHandler, env.WEBSITE_URL as string);
