@@ -14,6 +14,7 @@ declare global {
         access: UserAccess;
         verified: boolean;
         avatar_url: string;
+        description: string;
       };
     }
 
@@ -23,6 +24,7 @@ declare global {
       access: string;
       verified: boolean;
       avatar_url: string;
+      description: string;
     }
 
     interface PageData {
