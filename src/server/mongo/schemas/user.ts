@@ -7,6 +7,7 @@ export interface UserDocData {
   discriminator: string;
   avatar_url: string;
   verified?: boolean;
+  description?: string;
   access?: string;
 }
 
@@ -17,6 +18,7 @@ const schema = new mongoose.Schema<UserDocData>(
     discriminator: { type: String, required: true },
     avatar_url: { type: String, required: true },
     verified: { type: Boolean },
+    description: { type: String },
     access: { type: String },
   },
   { timestamps: true },
