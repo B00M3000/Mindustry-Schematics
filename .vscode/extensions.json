@@ -2,7 +2,6 @@
   "recommendations": [
     "esbenp.prettier-vscode",
     "svelte.svelte-vscode",
-    "dbaeumer.vscode-eslint",
-    "rangav.vscode-thunder-client"
+    "dbaeumer.vscode-eslint"
   ]
 }
