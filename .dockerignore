@@ -1,0 +1,163 @@
+# 🚀 Docker Ignore for Mindustry Schematics SvelteKit App
+# ========================================================
+
+# 📁 Build outputs and generated files
+build/
+.svelte-kit/
+.output/
+dist/
+coverage/
+
+# 📦 Dependencies (will be installed in container)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 🌍 Environment files
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 🔧 Development tools and configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 📊 Testing and CI/CD
+test-results/
+playwright-report/
+tests/
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+coverage/
+.nyc_output/
+junit.xml
+
+# 🗂️ Version control
+.git/
+.gitignore
+.github/
+.gitlab-ci.yml
+
+# 📝 Documentation and project files
+README.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+LICENSE
+*.md
+docs/
+.vitepress/
+
+# 🔨 Build tools and configs (not needed in runtime)
+# Keep essential build configs - they're needed for build!
+# vite.config.js
+# svelte.config.js
+# tsconfig.json
+vite.config.ts.disabled
+playwright.config.ts
+.eslintrc*
+.eslintignore
+.prettierrc*
+.prettierignore
+.npmrc
+
+# 🐳 Docker files
+Dockerfile*
+.dockerignore
+docker-compose*.yml
+Makefile
+
+# 🚀 Deployment files
+Procfile
+.vercel/
+.netlify/
+.surge/
+vercel.json
+netlify.toml
+
+# 💾 OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# 📁 Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# 🔄 Cache directories
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# 🎯 TypeScript
+*.tsbuildinfo
+/typings
+
+# 🔧 Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 🪟 Windows specific
+update_fork.bat
+
+# 📊 Workspace files
+*.code-workspace
+
+# 🧪 Development server files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# 📸 Media and assets that might be large
+# (uncomment if you have large media files to exclude)
+# *.mp4
+# *.avi
+# *.mov
+# *.wav
+# *.mp3
+
+# 🔐 Security and certificates
+*.pem
+*.key
+*.cert
+*.crt
+
+# 📈 Analytics and monitoring
+.sentry/
+
+# 🎨 Design files
+*.psd
+*.ai
+*.sketch
+*.fig
+
+# 📦 Package manager directories
+.pnpm-store/
+.npm/
+.yarn/

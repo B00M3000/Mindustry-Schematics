@@ -8,6 +8,9 @@ const config = {
   preprocess: preprocess(),
 
   kit: {
+    prerender: {
+      handleHttpError: 'fail',
+    },
     adapter: adapter({
       out: 'build',
     }),

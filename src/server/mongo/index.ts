@@ -2,13 +2,15 @@ import env from '@/server/env';
 import mongoose from 'mongoose';
 
 const uri = env.MONGO_URI
-if (!uri) throw new Error('MongoDB uri is not defined in env.');
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default async () => {
-  if (mongoose.connections.length > 0) {
-    await mongoose.disconnect();
+  if (!uri) throw new Error('MongoDB uri is not defined in env.');
+
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
   }
+  
   await mongoose.connect(uri);
 };
 

@@ -34,46 +34,64 @@
   }
 </script>
 
-<template lang="pug">
-  svelte:head
-    title Mindustry Schematics
-  h3.info
-    PaginationText(page!="{currentPage}" "{pages}" "{documents}" "{skip}" pageSize!="{schematics.length}")
-  form.search(bind:this!="{form}" on:submit!="{search}")
-    input#schematics_search(
-      placeholder="Search for schematics..."
-      name="query"
-      value!="{data.query}"
-    )
-    div.controls
-      div
-      div.buttons
-        button(type="submit")
-          img(src="/assets/check-mark.svg" alt="Search")
-        a(href="/")
-          button(type="submit")
-            img(src="/assets/cross-mark.svg" alt="Clear")
-    TagInput(bind:currentTags)
-  main
-    ul#schematics_result
-      +each("schematics as schematic")
-        li.schematic
-          SchematicCard({schematic})
-  
-  PaginationBar(
-    page!="{currentPage}"
-    "{pages}"
-    "{pageLink}"
-  )
-    IconButton(
-      slot="bottom_bar_middle"
-      href="/schematics/create"
-      src="/assets/add.svg"
-      alt="add schematic"
-      border
-    )
-      span.add_schematic Add Schematic
-</template>
+<svelte:head>
+  <title>Mindustry Schematics</title>
+</svelte:head>
+
+<h3 class="info">
+  <PaginationText
+    page={currentPage}
+    {pages}
+    {documents}
+    {skip}
+    pageSize={schematics.length}
+  />
+</h3>
+
+<form class="search" bind:this={form} on:submit={search}>
+  <input
+    id="schematics_search"
+    placeholder="Search for schematics..."
+    name="query"
+    value={data.query}
+  />
+  <div class="controls">
+    <div></div>
+    <div class="buttons">
+      <button type="submit">
+        <img src="/assets/check-mark.svg" alt="Search" />
+      </button>
+      <a href="/">
+        <button type="submit">
+          <img src="/assets/cross-mark.svg" alt="Clear" />
+        </button>
+      </a>
+    </div>
+  </div>
+  <TagInput bind:currentTags />
+</form>
+
+<main>
+  <ul id="schematics_result">
+    {#each schematics as schematic}
+      <li class="schematic">
+        <SchematicCard {schematic} />
+      </li>
+    {/each}
+  </ul>
+</main>
+
+<PaginationBar page={currentPage} {pages} {pageLink}>
+  <IconButton
+    slot="bottom_bar_middle"
+    href="/schematics/create"
+    src="/assets/add.svg"
+    alt="add schematic"
+    border
+  >
+    <span class="add_schematic">Add Schematic</span>
+  </IconButton>
+</PaginationBar>
 
 <style>
   main {

@@ -1,12 +1,13 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import path from 'path';
 import dotenv from 'dotenv';
+import tailwindcss from '@tailwindcss/vite'
 
 dotenv.config() // Load Environment Variables
 
 /** @type {import('vite').UserConfig} */
 const config = {
-  plugins: [sveltekit()],
+  plugins: [sveltekit(), tailwindcss()],
 
   resolve: {
     alias: {
@@ -16,7 +17,7 @@ const config = {
   },
 
   server: {
-    port: process.env.PORT || 3000,
+    port: process.env.PORT ? parseInt(process.env.PORT) : 3000,
   },
 };
 

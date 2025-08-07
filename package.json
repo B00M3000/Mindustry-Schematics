@@ -15,7 +15,7 @@
   "devDependencies": {
     "@playwright/test": "1.54.1",
     "@sveltejs/adapter-node": "5.2.13",
-    "@sveltejs/kit": "2.25.1",
+    "@sveltejs/kit": "2.27.2",
     "@types/node": "^24.1.0",
     "@types/showdown": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
@@ -33,14 +33,18 @@
     "svelte-preprocess": "^6.0.3",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
-    "vite": "^7.0.5"
+    "vite": "^7.1.0"
   },
   "type": "module",
   "dependencies": {
+    "@fontsource/fira-mono": "^5.2.6",
+    "@sveltejs/vite-plugin-svelte": "^6.1.0",
+    "@tailwindcss/vite": "^4.1.11",
     "diff": "^8.0.2",
     "dotenv": "^17.2.0",
     "mindustry-schematic-parser": "^4.3.2",
-    "mongoose": "^8.16.4",
-    "showdown": "^2.1.0"
+    "mongoose": "^8.17.0",
+    "showdown": "^2.1.0",
+    "tailwindcss": "^4.1.11"
   }
 }

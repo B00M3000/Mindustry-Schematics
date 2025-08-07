@@ -6,11 +6,11 @@ import webhooks from './server/webhooks';
 import { dev } from '$app/environment';
 import { UserAccess } from './lib/auth/access';
 
-const dbPromise = mongo();
+// const dbPromise = mongo();
 
 export const handle: Handle = async ({ event, resolve }) => {
   try {
-    await dbPromise;
+    await mongo();
     const session_id = event.cookies.get('session_id');
     if (session_id && mongoose.isObjectIdOrHexString(session_id)) {
       const session = await SessionSchema.findOne({ _id: session_id });

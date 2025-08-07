@@ -1,4 +1,9 @@
 <script lang="ts">
+  // import '../app.css';
+  import '../core.css';
+  import '../tags.css';
+  import '../create_schematic.css';
+
   import Nav from '@/client/components/Nav.svelte';
   import { SvelteToast } from '@zerodevx/svelte-toast';
   import { browser } from '$app/environment';

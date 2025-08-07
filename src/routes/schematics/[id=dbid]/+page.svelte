@@ -40,14 +40,13 @@
     meta( property="og:type" content="website" )
     meta( property="og:url" content="url" )
     meta( name="twitter:card" content="summary_large_image" )
-    link( rel="stylesheet" href="/css/tags.css" )
     title {title}
   main
     h1.title {title}
     h5.views Views: {schematic.views}
     img#preview(src!="{imgUrl}" alt="schematic preview")
     SchematicPageVote#vote(schematic!="{schematic}")
-    div.author by 
+    div.author by
       AuthorCard(creator_id!="{schematic.creator_id}")
     h4.description
       +html("description")
@@ -75,8 +74,8 @@
             div.layer {tag.name}
     div.actions
       IconButton(
-        src="/assets/copy.svg" 
-        alt="copy schematic" 
+        src="/assets/copy.svg"
+        alt="copy schematic"
         on:click!="{copySchematic}"
       )
       a(href="/schematics/{schematic._id}.msch" download)

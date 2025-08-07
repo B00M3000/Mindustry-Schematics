@@ -2,7 +2,7 @@
   import type { SchematicChangeJSON } from '@/interfaces/json';
   import { safeDescription } from '@/lib/safe_description';
   import { diffArrays, diffSentences } from 'diff';
-  import type { ArrayChange, Change } from 'diff';
+  import type { ChangeObject, Change } from 'diff';
   import Accesss from './_actions.svelte';
   import AuthorCard from '@/client/components/AuthorCard.svelte';
   import BackButton from '@/client/components/buttons/BackButton.svelte';
@@ -20,7 +20,7 @@
     | {
         name: Change[];
         description: Change[];
-        tags: ArrayChange<Tag>[];
+        tags: ChangeObject<Tag[]>[];
       };
   if (original && change.Changed) {
     diffs = {
@@ -29,7 +29,7 @@
       tags: diffArrays(originalTags, changedTags),
     };
   }
-  function classOfDiff<T>(diff: Change | ArrayChange<T>) {
+  function classOfDiff<T>(diff: Change | ChangeObject<T[]>) {
     return diff.added ? 'added' : diff.removed ? 'removed' : 'unmodified';
   }
 </script>
@@ -37,19 +37,19 @@
 <template lang="pug">
   svelte:head
     title Change a Schematic
-  
+
   main
     +if("change.Delete != undefined && original")
       h3.mode.delete Delete Request
       div.requester
-          span Requester: 
+          span Requester:
           AuthorCard(creator_id!="{change.creator_id}")
       h4.reason Reason: {change.Delete}
       div.schematic.delete
         h1.name {original.name}
         img.preview(src="/schematics/{change.id}.png" alt="schematic preview")
         div.creator
-          span.creator by 
+          span.creator by
           AuthorCard(creator_id!="{original.creator_id}")
         h4.description: +html("safeDescription(original.description ?? '')")
         div.tags
@@ -62,10 +62,10 @@
       +elseif("diffs")
         h2.mode Modify Request
         div.requester
-          span Requester: 
+          span Requester:
           AuthorCard(creator_id!="{change.creator_id}")
         h4.reason Changes: {change.Description}
-        
+
         div.schematic.modify
           h1.name
             +each("diffs.name as diff")
@@ -77,7 +77,7 @@
               figure.added
                 img(src="{change._id}.png" alt="new preview")
           div.creator
-            span.creator by 
+            span.creator by
             AuthorCard(creator_id!="{original.creator_id}")
           div.description
             +each("diffs.description as diff")
