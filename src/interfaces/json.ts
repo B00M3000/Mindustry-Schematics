@@ -1,12 +1,12 @@
-import type { LeanDocument } from 'mongoose';
+import type { Document } from 'mongoose';
 import type {
   SchematicChangeDocument,
   SchematicDocument,
   UserDocument,
 } from '../server/mongo';
-export type SchematicJSON = Omit<LeanDocument<SchematicDocument>, 'image'>;
+export type SchematicJSON = Omit<Document<SchematicDocument> & SchematicDocument, 'image'>;
 export type BasicSchematicJSON = Pick<
-  LeanDocument<SchematicDocument>,
+  Document<SchematicDocument> & SchematicDocument,
   '_id' | 'creator_id' | 'name' | 'text' | 'votes'
 >;
 
@@ -48,7 +48,7 @@ export interface SchematicChangeInfoQueryJSON extends PaginatedQueryJSON {
 }
 
 export interface SchematicChangeJSON {
-  change: LeanDocument<SchematicChangeDocument>;
+  change: Document<SchematicChangeDocument> & SchematicChangeDocument;
   mode: ChangeMode;
   creator_id: string;
   original?: SchematicJSON | null;
@@ -56,7 +56,7 @@ export interface SchematicChangeJSON {
 }
 
 export type BasicUserJSON = Pick<
-  LeanDocument<UserDocument>,
+  Document<UserDocument> & UserDocument,
   'access' | 'avatar_url' | 'verified' | 'id' | 'username'
 > & {
   id: string;

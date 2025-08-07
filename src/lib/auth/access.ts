@@ -53,7 +53,7 @@ export class UserAccess {
     }
     for (const r in permissions) {
       const resource = r as Resource;
-      if (!this.permissions[resource]) this.permissions[resource] = 0;
+      if (!this.permissions[resource]) this.permissions[resource] = 0 as Access;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.permissions[resource]! |= permissions[resource]!;
     }
