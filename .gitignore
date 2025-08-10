@@ -12,3 +12,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 *.pem
 package-lock.json
+
+.registry-deploy.yaml
