@@ -56,7 +56,7 @@ COPY --from=builder /app/node_modules node_modules/
 # COPY package.json .
 # COPY /static ./static
 
-# Temporary full copy
+# Temporary full copy consider above...
 COPY . .
 
 # Install curl for health checks
