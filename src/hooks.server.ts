@@ -23,6 +23,7 @@ export const handle: Handle = async ({ event, resolve }) => {
             access: UserAccess.from(user.access),
             verified: user.verified ?? false,
             avatar_url: user.avatar_url,
+            description: user.description || ""
           };
         }
       } else {

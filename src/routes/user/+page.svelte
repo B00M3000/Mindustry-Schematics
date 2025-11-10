@@ -10,39 +10,70 @@
   $: allowChanges = $user.access.can({
     schematics: Access.deleteAll | Access.updateAll,
   });
+
+  const savedDescription = $user.description || ""
+  let descriptionValue = ""
+  $: changed = savedDescription != descriptionValue;
 </script>
 
-<!-- svelte-ignore a11y-missing-attribute -->
-<template lang="pug">
-  svelte:head
-    title User Login
-  +if("$user.id")
-    main
-      div.info
-        h2 Welcome Back {$user.username}
-        img.avatar(src="{$user.avatar_url}" alt="pfp" width="64px" height="64px")
-      +if("allowChanges")
-        a.link(href="/admin/schematic_changes")
-          button Schematic Changes
-        a.link(href="/users")
-          button Manage Users 
-        +else
-        a.link(href="/users")
-          button View Users
-      a.link(href="/user/{$user.id}")
-        button Public Profile 
-      a.link(on:click="{user.logout}")
-        button Logout 
-    +else
-      div.logins        
-        a(href!="{url}")
-          button.discord
-            img(src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo")
-            p Login with Discord
+<svelte:head>
+  <title>User Login</title>
+</svelte:head>
 
+<!-- svelte-ignore a11y-missing-attribute -->
+<template>
+  {#if $user.id}
+  <main>
+    <div class="info">
+      <h2>Welcome Back {$user.username}</h2>
+      <img class="avatar" src="{$user.avatar_url}" alt="pfp" width="64px" height="64px" />
+    </div>
+    <div class="description-editor">
+      <textarea bind:value={descriptionValue}/>
+      {#if changed}
+      <a class="link">
+        <button on:click={() => fetch('/user/description.json', { method: "POST", body: JSON.stringify({ description: descriptionValue })})}>Save</button>
+      </a>
+      {/if}
+    </div>
+    {#if allowChanges}
+    <a class="link" href="/admin/schematic_changes">
+      <button>Schematic Changes</button>
+    </a>
+    <a class="link" href="/users">
+      <button>Manage Users</button>
+    </a>
+    {:else}
+    <a class="link" href="/users">
+      <button>View Users</button>
+    </a>
+    {/if}
+    <a class="link" href="/user/{$user.id}">
+      <button>Public Profile</button>
+    </a>
+    <a class="link" on:click="{user.logout}">
+      <button>Logout</button>
+    </a>
+  </main>
+  {:else}
+  <div class="logins">
+    <a href={url}>
+      <button class="discord">
+        <img src="/assets/discord_logo_white.png" width="40px" height="40px" alt="discord logo" />
+        <p>Login with Discord</p>
+      </button>
+    </a>
+  </div>
+  {/if}
 </template>
 
 <style>
+  .description-editor {
+    display: flex;
+    flex-direction: column;
+    margin: 0 25%;
+    gap: 0.2em;
+  }
   img {
     vertical-align: middle;
     float: left;
