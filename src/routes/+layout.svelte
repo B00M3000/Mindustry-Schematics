@@ -25,10 +25,20 @@
       div.loader
         BarLoader(size=100 unit="vw" duration="30s" color="#ffc933")
   Background(backgrounds!="{data.backgrounds}")
+  div.credits
+    span Thomas Zhou
   slot
 </template>
 
 <style>
+  .credits {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    z-index: 20;
+  }
   :root {
     --toastContainerTop: 5rem;
     --toastContainerRight: 1rem;
