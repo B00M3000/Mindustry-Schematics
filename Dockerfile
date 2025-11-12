@@ -31,6 +31,7 @@ RUN pnpm install --frozen-lockfile
 
 # Copy source code (needed before rebuild for proper context)
 COPY . .
+COPY .env.build .env
 
 # Rebuild canvas with full context after copying source
 RUN pnpm rebuild canvas
@@ -58,6 +59,7 @@ COPY --from=builder /app/node_modules node_modules/
 
 # Temporary full copy consider above...
 COPY . .
+COPY .env.build .env
 
 # Install curl for health checks
 RUN apk add --no-cache curl

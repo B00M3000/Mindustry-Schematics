@@ -156,7 +156,7 @@
 <template lang="pug">
 
 div.wrapper(class!="{parseState}")
-  form({action} class:locked data-variant!="{variant}" on:submit!="{submit}" bind:this!="{form}" enctype="multipart/form-data")
+  form({action} class:locked data-variant!="{variant}" data-mode!="{mode}" on:submit!="{submit}" bind:this!="{form}" enctype="multipart/form-data")
     div.mode
       button(
         type="button"
