@@ -46,7 +46,8 @@
     h5.views Views: {schematic.views}
     img#preview(src!="{imgUrl}" alt="schematic preview")
     SchematicPageVote#vote(schematic!="{schematic}")
-    div.author by
+    div.author
+      span by
       AuthorCard(creator_id!="{schematic.creator_id}")
     h4.description
       +html("description")
@@ -144,6 +145,9 @@
   }
   .author {
     grid-area: author;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   .tags {
     grid-area: tags;
